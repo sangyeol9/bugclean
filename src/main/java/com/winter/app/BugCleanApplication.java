@@ -8,6 +8,7 @@ public class BugCleanApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BugCleanApplication.class, args);
+		System.out.println("노지언 멍청이");
 	}
 
 }
