@@ -45,7 +45,7 @@
 				aria-expanded="false"><i class="icon icon-app-store"></i><span
 					class="nav-text">영업팀</span></a>
 				<ul aria-expanded="false">
-					<li><a href="/focus-bootstrap-main/theme/app-profile.html">거래처관리</a></li>
+					<li><a href="/customer/list">거래처관리</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">현장일정관리</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">매출관리</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">공지사항</a></li>
