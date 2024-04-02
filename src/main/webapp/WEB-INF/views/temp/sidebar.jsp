@@ -6,13 +6,11 @@
 	<div class="quixnav-scroll">
 		<ul class="metismenu" id="menu">
 			<li class="nav-label first">Main Menu</li>
-
-
-			<li><a href="/focus-bootstrap-main/theme/index.html">home</a></li>
-
-
-
-
+			<li><a class=""
+				href="/focus-bootstrap-main/theme/index.html" aria-expanded="false">
+					<i class="icon icon-single-04"></i><span class="nav-text">홈화면</span>
+			</a>
+			<li>
 			<li><a class="has-arrow" href="javascript:void()"
 				aria-expanded="false"><i class="icon icon-app-store"></i><span
 					class="nav-text">게시판</span></a>
@@ -20,6 +18,10 @@
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">공지사항</a></li>
 
 				</ul></li>
+
+
+
+			<li class="nav-label">Team Menu</li>
 			<li><a class="has-arrow" href="javascript:void()"
 				aria-expanded="false"><i class="icon icon-app-store"></i><span
 					class="nav-text">인사팀</span></a>
@@ -84,7 +86,7 @@
 							<li><a href="/focus-bootstrap-main/theme/app-profile.html">진행</a></li>
 							<li><a href="/focus-bootstrap-main/theme/app-profile.html">완료</a></li>
 							<li><a href="/focus-bootstrap-main/theme/app-profile.html">참조문서함</a></li>
-				</ul></li>
+						</ul></li>
 				</ul></li>
 
 		</ul>
