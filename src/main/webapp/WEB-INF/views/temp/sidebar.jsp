@@ -71,7 +71,7 @@
 						aria-expanded="false"><i class="icon icon-app-store"></i><span
 							class="nav-text">문서함</span></a>
 						<ul aria-expanded="false">
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">작성하기</a></li>
+							<li><a href="../draft/draftlist">작성하기</a></li>
 							<li><a href="/focus-bootstrap-main/theme/app-profile.html">내기안문서</a></li>
 							<li><a href="/focus-bootstrap-main/theme/app-profile.html">반려문서</a></li>
 							<li><a href="/focus-bootstrap-main/theme/app-profile.html">완료문서</a></li>
