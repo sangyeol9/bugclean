@@ -99,7 +99,6 @@ table {
 	left: 150px;
 	bottom: 70px;
 	text-align: center;
-	
 }
 
 .basisTd {
@@ -116,6 +115,20 @@ table {
 	height: 50px;
 	width: 300px;
 }
+
+#btn {
+	position: relative;
+	left: 400px;
+	bottom: 50px;
+}
+
+.inp {
+	border: none;
+	background-color: transparent;
+	height: 100%;
+	width: 100%;
+}
+
 </style>
 
 	<div class="content-body" style="min-height: 877px;">
@@ -137,21 +150,21 @@ table {
 					<td></td>
 					<td></td>
 					<td></td>
-				
+
 				</tr>
 				<tr>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
-					
+
 				</tr>
 				<tr>
 					<td class="date"></td>
 					<td class="date"></td>
 					<td class="date"></td>
 					<td class="date"></td>
-					
+
 				</tr>
 			</table>
 		</div>
@@ -159,41 +172,50 @@ table {
 			<table border="1">
 				<tr>
 					<td class="basisTitleTd">기안자</td>
-					<td class="basisTd"></td>
+					<td class="basisTd"><input class="inp" type="text"></td>
 					<td class="basisTitleTd">소속부서</td>
-					<td class="basisTd"></td>
+					<td class="basisTd"><input class="inp" type="text"></td>
 				</tr>
 				<tr>
 					<td class="basisTitleTd">기안일자</td>
-					<td class="basisTd"></td>
+					<td class="basisTd"><input class="inp" type="text"></td>
 					<td class="basisTitleTd" rowspan="4">첨부파일</td>
 					<td class="basisTd" rowspan="4" colspan="2"></td>
 				</tr>
 				<tr>
 					<td class="basisTitleTd">문서번호</td>
-					<td class="basisTd"></td>
+					<td class="basisTd"><input class="inp" type="text"></td>
 				</tr>
 				<tr>
 					<td class="basisTitleTd">제목</td>
-					<td class="basisTd"></td>
+					<td class="basisTd"><input class="inp" type="text"></td>
 				</tr>
 				<tr>
 					<td class="basisTitleTd">참조</td>
-					<td class="basisTd"></td>
+					<td class="basisTd"><input class="inp" type="text"></td>
 				</tr>
 				<tr style="height: 300px;">
-					<td class="basisTitleTd" >내용</td>
-					<td class="basisTitleTd" colspan="4"></td>
+					<td class="basisTitleTd">내용</td>
+					<td class="basisTitleTd" colspan="4"  ><input
+						class="inp" type="text"></td>
 				</tr>
 				<tr style="height: 130px;">
-					<td class="basisTitleTd" >의견</td>
-					<td class="basisTitleTd" colspan="4"></td>
+					<td class="basisTitleTd">의견</td>
+					<td class="basisTitleTd" colspan="4" ><input
+						class="inp" type="text"></td>
 				</tr>
-
-
-
-
 			</table>
+		</div>
+		<div id="btn">
+			<button>승인하기</button>
+			&nbsp;&nbsp;&nbsp;
+			<button>반려하기</button>
+			&nbsp;&nbsp;&nbsp;
+			<button>임시저장</button>
+			&nbsp;&nbsp;&nbsp;
+			<button>삭제하기</button>
+			&nbsp;&nbsp;&nbsp;
+			<button>파일첨부</button>
 		</div>
 	</div>
 	<!--**********************************
