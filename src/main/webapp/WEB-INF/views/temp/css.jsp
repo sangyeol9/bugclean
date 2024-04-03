@@ -12,4 +12,54 @@
  		width: 100%;
  		height: 100%;
  	}
+ 	#messenger_img{
+ 		width:3%;
+ 		left:83%;
+ 		top:830px;
+ 		position: fixed;
+ 	}
+ 	.messenger_circle{
+ 		border : 1px solid black;
+ 		border-radius: 50%;
+ 		margin-top : 19.5%;
+ 		width: 50px;
+ 		height: 50px;
+ 		margin-left:19.8%;
+ 		background-color: white;
+ 		display: flex;
+ 		text-align: center;
+ 		justify-content: center;
+ 		align-items: center;
+ 		color: black;
+ 		
+ 	}
+ 	.left_messenger{
+ 		background-color: #F4EBE7;
+ 		border : 1px solid black;
+		float:left;
+		width:30%;
+ 		height: 100%;
+ 	}
+ 	.right_messenger{
+ 		background-color: white;
+ 		border-bottom :1px solid black;
+ 		border-right : 1px solid black;
+ 		border-top : 1px solid black;
+		float:left;
+		width: 70%;
+ 		height: 100%;
+ 	}
+ 	#messenger_div{
+ 		position:fixed;
+ 		top: 380px;
+ 		left:82%;
+ 		width : 15%;
+ 		float: right;
+ 		height:50%;
+ 		display: inline_block;
+
+ 	}
+ 	.display_none{
+ 		display:none;
+ 	}
  </style>

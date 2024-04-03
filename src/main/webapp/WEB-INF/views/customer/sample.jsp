@@ -15,6 +15,8 @@
 	<c:import url="../temp/sidebar.jsp"></c:import>
 	
 	<div class="content-body " style="min-height:900px;">
+	
+	<c:import url="../temp/messenger.jsp"></c:import>
 	</div>
 	
 	<c:import url="../temp/footer.jsp"></c:import>

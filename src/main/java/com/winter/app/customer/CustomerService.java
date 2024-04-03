@@ -12,8 +12,11 @@ public class CustomerService {
 	CustomerDAO customerDAO;
 	 
 	public List<CustomerVO> getList() throws Exception{
-		
 		return customerDAO.getList();
+	}
+	
+	public CustomerVO getDetail(CustomerVO customerVO) throws Exception{
+		return customerDAO.getDetail(customerVO);
 	}
 	
 }

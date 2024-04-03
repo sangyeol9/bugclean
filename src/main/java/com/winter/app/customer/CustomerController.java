@@ -19,8 +19,8 @@ public class CustomerController {
 	
 	@GetMapping("list")
 	public String getList(Model model) throws Exception{
-		var list = customerService.getList();
 		
+		var list = customerService.getList();
 		model.addAttribute("list", list);
 		
 		return "/customer/list";
@@ -29,6 +29,15 @@ public class CustomerController {
 	@GetMapping("create")
 	public void createCustomer() throws Exception{
 		
+	}
+	
+	@GetMapping("detail")
+	public String getDetail(CustomerVO customerVO,Model model) throws Exception{
+		CustomerVO vo = customerService.getDetail(customerVO);
+		
+		model.addAttribute("vo", vo);
+		
+		return "/customer/detail";
 	}
 	
 }

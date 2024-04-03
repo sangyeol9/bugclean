@@ -12,6 +12,7 @@
 		width: 100px;
 		float: right;
 	}
+	
 </style>
 </head>
 	<c:import url="../temp/css.jsp"></c:import>
@@ -22,9 +23,12 @@
 	
 	<div class="content-body " style="min-height:900px;">
 		<b>거래처 목록</b>
+		
+	<!-- 거래처 추가 버튼 -->
 	<a href="./create">
 		<button class="btn-rounded btn-dark create">등록하기</button>
 	</a>
+	<!-- 리스트 시작 -->
 	<table class="table">
 		<tr>
 			<th>사업자명</th>
@@ -38,21 +42,27 @@
 		<tbody>
 			<c:forEach items="${list}" var="li">
 				<tr>
-					<td>${li.business_Name}</td>
+					<td>
+					<a href="./detail?business_Num=${li.business_Num}">
+					${li.business_Name}</a></td>
+					
 					<td>${li.ceo_Name}</td>
-					<td>${li.ceo_Num}</td>
-					<td>${li.business_Name}</td>
+					<td>${li.ceo_Phone}</td>
 					<td>${li.manager_Name}</td>
-					<td>${li.manager_Num}</td>
+					<td>${li.manager_Phone}</td>
 					<td>${li.address}</td>
-					<td>${li.sales_Name}</td>
+					<td>${li.sales_Manager}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 		
 	</table>
+	<!-- 리스트 끝 -->
 	
+	<!-- 수정 버튼 -->
+	<button id="modi" class="btn-rounded btn-dark create">수정하기</button>
 	
+	<c:import url="../temp/messenger.jsp"></c:import>
 	</div>
 	<c:import url="../temp/footer.jsp"></c:import>
 	

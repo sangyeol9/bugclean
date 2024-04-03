@@ -67,7 +67,11 @@
         <!--**********************************
             Content body start
         ***********************************-->
-        <div class="content-body" style="min-height: 877px;"></div>
+        <div class="content-body" style="min-height: 877px;">
+       	
+       	
+       		<c:import url="./temp/messenger.jsp"></c:import>
+        </div>
         <!--**********************************
             Content body end
         ***********************************-->
@@ -76,11 +80,7 @@
         <!--**********************************
             Footer start
         ***********************************-->
-	     <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-            </div>
-        </div>
+	     <c:import url="./temp/footer.jsp"></c:import>
         <!--**********************************
             Footer end
         ***********************************-->

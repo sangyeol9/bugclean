@@ -9,5 +9,5 @@ public interface CustomerDAO {
 
 	List<CustomerVO> getList() throws Exception;
 	
-	
+	CustomerVO getDetail(CustomerVO customerVO) throws Exception;
 }
