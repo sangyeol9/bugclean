@@ -9,7 +9,7 @@
     <link href="/focus-bootstrap-main/theme/css/style.css" rel="stylesheet">
  <style>
  	#bugclean{
- 		width:230px;
- 		height: 70px;
+ 		width: 100%;
+ 		height: 100%;
  	}
  </style>

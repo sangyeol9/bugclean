@@ -5,28 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-	.left-div{
-		margin-left : 15%;
-		margin-top : 3%;
-		width:150px;
-	}
-	.right-div{
-		margin-left : 5%;
-		width:400px;
-	}
-	.create{
-		margin-left : 40%;
-		margin-top : 5%;
-		width:100px;
-	}
-	.ck{
-		margin-left : 15%;
-	}
-	.none{
-		display: none;
-	}
-</style>
+<c:import url="./create_css.jsp"></c:import>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
