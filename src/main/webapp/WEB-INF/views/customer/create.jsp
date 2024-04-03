@@ -16,6 +16,7 @@
 	<c:import url="../temp/sidebar.jsp"></c:import>
 	
 	<div class="content-body " style="min-height:900px;">
+		<form>
 		<div id="check" >
 			<input type="checkbox" id="ck_company" class="ck" onclick="company()" checked="checked">
 			<label for="ck_company">법인</label>
@@ -46,12 +47,17 @@
 			</div>
 			<div id="manager_name">
 				<button disabled="disabled" class="btn-square btn-outline-dark left-div">매니저 명</button>
-				<input class="right-div" id="manager_name_in" type="text" placeholder="담당자 명을 입력하세요.">
+				<input class="right-div" id="manager_name_in" type="text" placeholder="거래처 담당자 명을 입력하세요.">
 			</div>
 			<div id="manager_phone">
 				<button disabled="disabled" class=" btn-square btn-outline-dark left-div">매니저 전화번호</button>
-				<input class="right-div" id="manager_phone_in" type="text" placeholder="담당자 전화번호를 입력하세요.">
+				<input class="right-div" id="manager_phone_in" type="text" placeholder="거래처 담당자 전화번호를 입력하세요.">
 			</div>
+			<div id="sales_name">
+				<button disabled="disabled" class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
+				<input class="right-div" id="sales_name_in" type="text" placeholder="영업 담당자명을 입력하세요.">
+			</div>
+			
 		</div>
 		<div id="person1" class="none">
 			
@@ -71,6 +77,7 @@
 		</div>
 		
 	<button class="btn-rounded btn-dark create">등록하기</button>
+	</form>
 	</div>
 	
 	
