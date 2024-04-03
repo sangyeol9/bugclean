@@ -19,4 +19,9 @@ public class DraftController {
 		
 	}
 	
+	@GetMapping("draftlinemodal")
+	public void getDraftLineModal()throws Exception {
+		
+	}
+	
 }

@@ -14,7 +14,14 @@
 		</div>
 	</div>
 </div>
-
+<style>
+.header{
+z-index: 110;
+}
+.nav-header{
+z-index: 116;
+}
+</style>
 <div class="header">
 	<div class="header-content">
 		<nav class="navbar navbar-expand">
