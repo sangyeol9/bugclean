@@ -31,5 +31,9 @@
 </div>
     <c:import url="../temp/footer.jsp"></c:import> <!-- //footer -->
 <c:import url="../temp/js.jsp"></c:import> <!-- // bootstrap-template-js -->
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js">
+</script> <!-- fullcalendar api cdn download -->
+
 </body>
 </html>

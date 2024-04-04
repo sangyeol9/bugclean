@@ -5,8 +5,12 @@
   		<div id="messenger_div" class="display_none">
 	        <div class="left_messenger" >
 	        	<div id="messenger_Kind"> 
-	        		<div class="messenger_circle" id="messenger_list_icon" onclick="change_emp_list()">목록</div>
-	        		<div class="messenger_circle" id="messenger_msg_icon" onclick="change_msg_list()">메시지</div>
+	        		<div >
+	        			<i class="fa-regular fa-user fa-3x" onclick="change_emp_list()" id="messenger_list_icon" class="msg_icon"></i>
+	        		</div>
+	        		<div >
+	        			<i class="fa-regular fa-comment fa-3x"  id="messenger_msg_icon" onclick="change_msg_list()"></i>
+	        		</div>
 	        	</div>
 	        </div>
 	        <div class="right_messenger" id="messenger_list">

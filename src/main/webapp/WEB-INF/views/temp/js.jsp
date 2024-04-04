@@ -36,6 +36,9 @@
 
     <script src="/focus-bootstrap-main/theme/js/dashboard/dashboard-1.js"></script>
     
+    <!-- 폰트어썸 상얼이꺼  -->
+    <script src="https://kit.fontawesome.com/3b5b800319.js" crossorigin="anonymous"></script>
+    
     <!-- messenger js -->
     <script>
         let messenger_img = document.getElementById("messenger_img");

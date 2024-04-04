@@ -34,7 +34,7 @@
  		
  	}
  	.left_messenger{
- 		background-color: #F4EBE7;
+ 		background-color: #E2E1EE;
  		border : 1px solid black;
 		float:left;
 		width:30%;
@@ -58,6 +58,30 @@
  		height:50%;
  		display: inline_block;
 
+ 	}
+ 	#messenger_list_icon{
+ 		border-radius: 50%;
+ 		margin-top : 19.5%;
+ 		width: 50px;
+ 		height: 50px;
+ 		margin-left:19.8%;
+ 		display: flex;
+ 		text-align: center;
+ 		justify-content: center;
+ 		align-items: center;
+ 		color: black;
+ 	}
+ 	#messenger_msg_icon{
+ 		border-radius: 50%;
+ 		margin-top : 22.5%;
+ 		width: 100%;
+ 		height: 100%;
+ 		margin-left:1.8%;
+ 		display: flex;
+ 		text-align: center;
+ 		justify-content: center;
+ 		align-items: center;
+ 		color: black;
  	}
  	.display_none{
  		display:none;
