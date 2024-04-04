@@ -9,6 +9,7 @@
 <title>Create</title>
 </head>
 <c:import url="../temp/css.jsp"></c:import>
+
 <body>
 	
 	
@@ -23,35 +24,48 @@
 								<div class="auth-form">
 									<h4 class="text-center mb-4">Sign up your account</h4>
 									<form action="index.html">
-										<div class="form-group">
-											<label><strong>ID</strong></label>
-											<input type="text" class="form-control" placeholder="username">
-										</div>
-										<div class="card-action">
-											<div class="dropdown custom-dropdown" style="width: 70px;">
-												인증 요청
+										<div >
+											<div class="form-group ">
+												<label><strong>ID</strong></label>
+												<div class="input-group mb-3">
+													<input type="text" class="form-control" placeholder="username">
+													<div class="input-group-append">
+														<span class="input-group-text">@gmail.com</span>
+													</div>
+												</div>
+
+												<div class="card-action" style="display: table;">
+													<div class="dropdown custom-dropdown" style="width: 70px; display: table-cell; vertical-align: middle;">
+														인증 요청
+													</div>
+												</div>
 											</div>
+
 										</div>
+
+										<div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Recipient's username">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">@example.com</span>
+                                            </div>
+                                        </div>
+
 										<div class="form-group">
 											<label><strong>인증번호</strong></label>
 											<input type="email" class="form-control" placeholder="hello@example.com">
 										</div>
 
 										<div class="form-group">
-											<label><strong>Email</strong></label>
-											<input type="email" class="form-control" placeholder="hello@example.com">
-										</div>
-										<div class="form-group">
 											<label><strong>Password</strong></label>
 											<input type="password" class="form-control" value="Password">
 										</div>
 										<div class="form-group">
 											<label><strong>이름</strong></label>
-											<input type="text" class="form-control" placeholder="username">
+											<input type="text" class="form-control">
 										</div>
 										<div class="form-group">
 											<label><strong>휴대전화번호</strong></label>
-											<input type="text" class="form-control" placeholder="username">
+											<input type="text" class="form-control">
 										</div>
 
 
@@ -63,6 +77,56 @@
 									<div class="new-account mt-3">
 										<p>Already have an account? <a class="text-primary" href="./login">Sign in</a></p>
 									</div>
+
+
+									<div class="col-md-6 col-xl-3 col-xxl-6 mt-4 mt-lg-0">
+                                        <label>Now time</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="single-input" value="" placeholder="Now">
+                                            <span class="input-group-btn"><button type="button" id="check-minutes"
+                                                    class="btn waves-effect waves-light btn-ft btn-success">Check the
+                                                    minutes</button></span>
+                                        </div>
+                                    </div>
+									
+									<div class="card-body">
+										<div class="basic-form">
+											<form class="form-valide-with-icon" action="#" method="post">
+												<div class="form-group">
+													<label class="text-label">Username</label>
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text"> <i class="fa fa-user"></i> </span>
+														</div>
+														<input type="text" class="form-control" id="val-username1" name="val-username" placeholder="Enter a username..">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="text-label">Password *</label>
+													<div class="input-group transparent-append">
+														<div class="input-group-prepend">
+															<span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+														</div>
+														<input type="password" class="form-control" id="val-password1" name="val-password" placeholder="Choose a safe one..">
+														<div class="input-group-append show-pass">
+															<span class="input-group-text"> <i class="fa fa-eye-slash"></i>
+															</span>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="form-check">
+														<input id="checkbox1" class="form-check-input" type="checkbox">
+														<label for="checkbox1" class="form-check-label">Check me out</label>
+													</div>
+												</div>
+												<button type="submit" class="btn btn-primary">Submit</button>
+												<button type="submit" class="btn btn-light">cencel</button>
+											</form>
+										</div>
+									</div>
+
+
 								</div>
 							</div>
 						</div>
@@ -71,28 +135,6 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="form_list">
-		<div class="form_item user error" id="divId">
-			<input type="text" id="id" name="id" placeholder="아이디" class="input" value="" maxlength="20" autocapitalize="off">
-			<div class="id_naver">@naver.com</div>
-		</div>
-		<div class="form_item lock password error" id="divPasswd">
-			<input type="password" id="pswd1" name="pswd1" placeholder="비밀번호" class="input" value="" maxlength="20" autocomplete="new-password" aria-autocomplete="list">
-			<div class="password_info">
-				<em class="how_secure" id="secureLevel"></em>
-				<button type="button" class="btn_show hide">
-					<span class="blind">비밀번호 보기</span>
-				</button>
-			</div>
-		</div>
-		<div class="form_item email" id="divEmail">
-			<span class="placeholder_prefix">[선택]</span>
-			<input type="email" id="email" name="email" placeholder="[선택] 이메일주소 (비밀번호 찾기 등 본인 확인용)" class="input" value="" maxlength="100">
-		</div>
-	</div>
-	
-
 
 	<c:import url="../temp/js.jsp"></c:import>
 </body>

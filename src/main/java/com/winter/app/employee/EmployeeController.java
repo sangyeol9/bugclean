@@ -27,4 +27,13 @@ public class EmployeeController {
 	public void mypage() throws Exception{
 		
 	}
+	
+	@GetMapping("sample")
+	public void sample() throws Exception{
+		
+	}
+	@GetMapping("sample2")
+	public void sample2() throws Exception{
+		
+	}
 }

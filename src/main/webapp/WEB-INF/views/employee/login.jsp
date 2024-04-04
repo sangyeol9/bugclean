@@ -80,7 +80,7 @@
 										</div>
 										<p>&ensp;ㅣ&ensp;</p>
 										<div class="form-group">
-											<a href="page-forgot-password.html">사원 등록</a>
+											<a href="./create">사원 등록</a>
 										</div>
 									</div>
 
