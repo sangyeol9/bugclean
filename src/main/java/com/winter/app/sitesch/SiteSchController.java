@@ -1,4 +1,4 @@
-package com.winter.app.schedule;
+package com.winter.app.sitesch;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +11,18 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/schedule")
 @Slf4j
-public class ScheduleController {
+public class SiteSchController {
 
 	@GetMapping("list")
 	public void getList() throws Exception {
 		
 		
 	}
+	
+	@GetMapping("create")
+	public void createSchedule() throws Exception{
+		
+	}
+	
 	
 }

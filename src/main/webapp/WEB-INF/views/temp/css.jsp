@@ -17,6 +17,7 @@
  		left:83%;
  		top:830px;
  		position: fixed;
+ 		z-index: 300;
  	}
  	.messenger_circle{
  		border : 1px solid black;
@@ -57,7 +58,7 @@
  		float: right;
  		height:50%;
  		display: inline_block;
-
+		z-index: 300;
  	}
  	#messenger_list_icon{
  		border-radius: 50%;
