@@ -10,7 +10,7 @@ import lombok.Setter;
 public class CustomerVO {
 	
 	private Long customer_Num;
-	private Long business_Num;
+	private String business_Num;
 	private String business_Name;
 	private String ceo_Name;
 	private String ceo_Phone;
@@ -18,8 +18,8 @@ public class CustomerVO {
 	private String manager_Phone;
 	private String address;
 	private String sales_Manager;
-	private Long customer_Type;
+	private String customer_Type;
 	private Date date;
-	
+	private String contract_Type;
 		
 }
