@@ -32,7 +32,7 @@ function initDataTables(){
                         title: "직책",
                         orderable: false,
                         render: function(data, type, row) {
-                            return renderSelect(response[1].pos);
+                            return renderSelect(response[1].rnr);
                         }
                     },
                     {
@@ -40,7 +40,7 @@ function initDataTables(){
                         title: "직급",
                         orderable: false,
                         render: function(data, type, row) {
-                            return renderSelect(response[1].rnr);
+                            return renderSelect(response[1].pos);
                         }
                     }
                 ]

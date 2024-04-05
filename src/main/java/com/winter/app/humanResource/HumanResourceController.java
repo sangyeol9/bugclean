@@ -1,5 +1,6 @@
 package com.winter.app.humanResource;
 
+import com.winter.app.employee.EmployeeVO;
 import com.winter.app.util.commons.CommonsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,14 @@ public class HumanResourceController {
         return "./HR/MemberAgree";
     }
 
-    @GetMapping("member/list")
+    @GetMapping("member")
     public String memberList()throws Exception{
         return "./HR/MemberList";
+    }
+
+    @GetMapping("vacation")
+    public String vacationList()throws Exception{
+        return "./HR/VacationList";
     }
 
     @GetMapping("temp/ask")
@@ -53,8 +59,12 @@ public class HumanResourceController {
 
     @GetMapping("member/list")
     @ResponseBody
-    public void getMemberList()throws Exception{
-        
+    public List<EmployeeVO> getMemberList()throws Exception{
+        List<EmployeeVO> responseData = humanResourceService.getMemberList();
+        log.info("{}",responseData);
+        return responseData;
     }
+
+
 
 }

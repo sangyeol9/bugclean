@@ -35,7 +35,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="tempList" class="table table-hover" style="width: 98%">
+                                <table id="tempList" class="table-hover table" style="width: 98%">
                                     <tr>
                                         <th>가입요청 ID</th>
                                         <th>가입요청 사원</th>

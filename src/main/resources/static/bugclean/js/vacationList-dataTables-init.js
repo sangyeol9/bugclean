@@ -4,7 +4,7 @@ function initDataTables(){
         url:"/hr/member/list",
         type: "GET",
         success: function (response){
-            $('#memberList').DataTable({
+            $('#vacationList').DataTable({
                 "data": response,
                 "columns":[
                     {data: "employee_num", title: "사번"},

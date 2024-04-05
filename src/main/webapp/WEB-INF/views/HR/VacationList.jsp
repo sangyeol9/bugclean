@@ -35,7 +35,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table id="memberList" class="table-hover table" style="width: 98%">
+                <table id="vacationList" class="table-hover table" style="width: 98%">
                   <tr>
                     <th>가입요청 ID</th>
                     <th>가입요청 사원</th>
@@ -56,7 +56,7 @@
 </div>
 <c:import url="../temp/js.jsp"></c:import> // bootstrap-template-js
 <script src="/focus-bootstrap-main/theme/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="/bugclean/js/memberList-dataTables-init.js"></script>
+<script src="/bugclean/js/vacationList-dataTables-init.js"></script>
 
 </body>
 </html>
