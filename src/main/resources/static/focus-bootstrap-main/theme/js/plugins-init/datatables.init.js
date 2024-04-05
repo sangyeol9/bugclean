@@ -46,9 +46,9 @@ let dataSet = [
     var table = $('#example').DataTable({
         createdRow: function ( row, data, index ) {
            $(row).addClass('selected')
-        } 
+        }
     });
-      
+
     table.on('click', 'tbody tr', function() {
     var $row = table.row(this).nodes().to$();
     var hasClass = $row.hasClass('selected');
@@ -58,7 +58,7 @@ let dataSet = [
         $row.addClass('selected')
     }
     })
-    
+
     table.rows().every(function() {
     this.nodes().to$().removeClass('selected')
     });
@@ -85,9 +85,9 @@ let dataSet = [
             $row.addClass('selected')
         }
     })
-        
+
     table2.rows().every(function() {
         this.nodes().to$().removeClass('selected')
     });
-   
+
 })(jQuery);

@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>BugClean</title>
 </head>
 <c:import url="../temp/css.jsp"></c:import> <!-- //bootstrap-template-css -->
 <body>
