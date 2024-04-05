@@ -19,7 +19,28 @@
 </head>
 
 <body>
-
+										<div id="orgTeamDiv">
+											<i id="minusIcon" class="fa-solid fa-minus"></i> <i
+												id="plusIcon" class="fa-solid fa-plus"
+												style="display: inline-block;"></i> <i
+												class="fa-solid fa-users"></i>
+											<h5 style="display: inline-block;">현장팀</h5>
+											<br>
+											<div id="orgPepleDiv">
+												&emsp;&emsp; <span class="orgPepleSpan" style="width:100%"><i
+													class="fa-solid fa-user"></i>
+													<h6 style="display: inline-block;">현장팀 사원 박성제</h6></span>
+												&emsp;&emsp; <Span class="orgPepleSpan " style="width:100%"><i
+													class="fa-solid fa-user"></i>
+													<h6 style="display: inline-block;">현장팀 팀장 윤상얼</h6></Span>
+												&emsp;&emsp; <span class="orgPepleSpan" style="width:100%"><i
+													class="fa-solid fa-user"></i>
+													<h6 style="display: inline-block;">현장팀 부장 허석훈</h6></span>
+												&emsp;&emsp; <span class="orgPepleSpan" style="width:100%"><i
+													class="fa-solid fa-user"></i>
+													<h6 style="display: inline-block;">현장팀 사장 노지언</h6></span>
+											</div>
+										</div>
 	<!--*******************
         Preloader start
     ********************-->
@@ -27,7 +48,6 @@
 	<!--*******************
         Preloader end
     ********************-->
-
 
 	<!--**********************************
         Main wrapper start

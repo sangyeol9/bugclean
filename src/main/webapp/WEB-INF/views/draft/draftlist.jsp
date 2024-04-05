@@ -77,6 +77,9 @@
 					<td><a href="./basisdraft">구매신청서 양식</a></td>
 				</tr>
 			</table>
+			
+			
+			
 		</div>
 		<!--**********************************
             Content body end
@@ -87,6 +90,7 @@
             Footer start
         ***********************************-->
         </div>
+        <c:import url="../temp/messenger.jsp"></c:import>
 		<c:import url="../temp/footer.jsp"></c:import>
 		<!--**********************************
             Footer end
