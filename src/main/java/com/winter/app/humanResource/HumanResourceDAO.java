@@ -4,11 +4,13 @@ import com.winter.app.employee.EmployeeVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Mapper
 public interface HumanResourceDAO {
 
     public List<TempMemberVO> getAskList()throws Exception;
-    public List<EmployeeVO> getMemberList()throws Exception;
+    public List<Map<String, Object>> getMemberList()throws Exception;
     public List<VacationVO> getVacationList()throws Exception;
 }

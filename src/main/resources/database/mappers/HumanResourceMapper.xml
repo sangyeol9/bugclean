@@ -8,8 +8,14 @@
         SELECT * FROM EMP_TEMP
     </select>
 
-    <select id="getMemberList" resultType="EmployeeVO">
-        SELECT EMPLOYEE_NUM,NAME,NICKNAME,PHONE,ADDRESS,DEP_CODE,POS_CODE,JOIN_DATE FROM EMPLOYEE
+    <select id="getMemberList" resultType="Map">
+        SELECT EMPLOYEE_NUM, NAME, NICKNAME, PHONE, ADDRESS,
+        DEPARTMENT.DEP_NAME AS DEP_NAME,
+        POSITION.POS_NAME AS POS_NAME,
+        JOIN_DATE
+        FROM EMPLOYEE
+        LEFT JOIN DEPARTMENT ON EMPLOYEE.DEP_CODE = DEPARTMENT.DEP_CODE
+        LEFT JOIN POSITION ON EMPLOYEE.POS_CODE = POSITION.POS_CODE
     </select>
 
     <select id="getVacationList" resultType="VacationVO">

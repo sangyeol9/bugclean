@@ -59,8 +59,8 @@ public class HumanResourceController {
 
     @GetMapping("member/list")
     @ResponseBody
-    public List<EmployeeVO> getMemberList()throws Exception{
-        List<EmployeeVO> responseData = humanResourceService.getMemberList();
+    public List<Map<String,Object>> getMemberList()throws Exception{
+        List<Map<String,Object>> responseData = humanResourceService.getMemberList();
         log.info("{}",responseData);
         return responseData;
     }
