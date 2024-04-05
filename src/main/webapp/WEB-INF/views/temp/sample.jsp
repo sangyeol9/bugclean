@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>BugClean</title>
 </head>
-<c:import url="../temp/css.jsp"></c:import> //bootstrap-template-css
+<c:import url="../temp/css.jsp"></c:import> <!-- //bootstrap-template-css -->
 <body>
 <div id="preloader">
     <div class="sk-three-bounce">
@@ -19,14 +19,17 @@
 </div>
 <div id="main-wrapper">
 
-    <c:import url="../temp/header.jsp"></c:import> //nav-header
-    <c:import url="../temp/sidebar.jsp"></c:import> //sidebar-menu
+    <c:import url="../temp/header.jsp"></c:import> <!-- //nav-header -->
+    <c:import url="../temp/sidebar.jsp"></c:import> <!-- //sidebar-menu -->
 
     <div class="content-body " style="min-height:900px;">
+    
+    
+    <c:import url="../temp/messenger.jsp"></c:import>
     </div>
 
-    <c:import url="../temp/footer.jsp"></c:import> //footer
 </div>
-<c:import url="../temp/js.jsp"></c:import> // bootstrap-template-js
+    <c:import url="../temp/footer.jsp"></c:import> <!-- //footer -->
+<c:import url="../temp/js.jsp"></c:import> <!-- // bootstrap-template-js -->
 </body>
 </html>
