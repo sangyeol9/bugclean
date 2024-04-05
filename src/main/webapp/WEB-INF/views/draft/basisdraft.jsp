@@ -220,7 +220,7 @@ table {
 	top: 60px;
 }
 
-#draftBtn {
+#draftBtnDiv {
 	position: absolute;
 	left: 305px;
 	top: 160px;
@@ -284,6 +284,12 @@ table {
 	left: 370px;
 	z-index: 200;
 }
+#draftBtnMinus{
+	z-index: 300;
+}
+#draftBtnPlus{
+	z-index: 300;
+}
 </style>
 			<!-- 모달창 css 끝 -->
 
@@ -313,11 +319,11 @@ table {
 					<!-- 결재선 제목 끝 -->
 
 					<!-- 결재선 버튼 시작 -->
-					<div id="draftBtn">
-						<i class="fa-solid fa-square-caret-left fa-2x"
+					<div id="draftBtnDiv">
+						<i id="draftBtnMinus" class="fa-solid fa-square-caret-left fa-2x"
 							style="display: inline-block;"></i>
 						<h3 style="display: inline-block;">결재</h3>
-						<i class="fa-solid fa-square-caret-right fa-2x"
+						<i id="draftBtnPlus" class="fa-solid fa-square-caret-right fa-2x"
 							style="display: inline-block;"></i>
 					</div>
 					<!-- 결재선 버튼 끝 -->
@@ -335,7 +341,7 @@ table {
 					<div id="draftBox">
 						<table border="1">
 							<tr style="height: 140px;">
-								<td style="width: 200px"></td>
+								<td style="width: 200px; vertical-align: top;'" id="draftBoxTd"></td>
 							</tr>
 						</table>
 					</div>
@@ -379,20 +385,20 @@ table {
 						let linebtn = document.getElementById("lineBtn");
 						let modal = document.getElementById("modal");
 						let modalBack = document.getElementById("modalBack");
-						let modalCloseBtn = document
-								.getElementById("modalCloseBtn");
-
+						let modalCloseBtn = document.getElementById("modalCloseBtn");						
+						
 						linebtn.addEventListener("click", function() {
 							console.log("여기는 모달 여기는 모달")
 							modalBack.classList.remove("noshow")
 							modal.classList.remove("noshow")
 						})
-
-						modalCloseBtn.addEventListener("click", function() {
+						
+						modalCloseBtn.addEventListener("click", function(){
 							console.log("여기는 닫기버튼 여기는 닫기버튼")
 							modalBack.classList.add("noshow")
 							modal.classList.add("noshow")
 						})
+						
 					</script>
 					<!-- 모달창 자바 스크립트 끝 -->
 
@@ -510,27 +516,14 @@ table {
 										<h5 style="display: inline-block;">현장팀</h5>
 										<br>
 										<div id="orgPepleDiv">
-											<div style="display: inline-block;">
-												&emsp;&emsp; <i class="fa-solid fa-user"></i>
-												<h6 style="display: inline-block;">
-													현장팀 사원 박성제
-													<h6>
-											</div>
-
-											<div style="display: inline-block;">
-												<br> &emsp;&emsp; <i class="fa-solid fa-user"></i>
-												<h6 style="display: inline-block;">현장팀 팀장 윤상얼</h6>
-											</div>
-
-											<div style="display: inline-block;">
-												<br> &emsp;&emsp; <i class="fa-solid fa-user"></i>
-												<h6 style="display: inline-block;">현장팀 부장 허석훈</h6>
-											</div>
-
-											<div style="display: inline-block;">
-												<Br> &emsp;&emsp; <i class="fa-solid fa-user"></i>
-												<h6 style="display: inline-block;">현장팀 사장 노지언</h6>
-											</div>
+											&emsp;&emsp; <span class="orgPepleSpan"><i class="fa-solid fa-user"></i>
+											<h6 style="display: inline-block;">현장팀 사원 박성제</h6></span>
+											<br> &emsp;&emsp; <Span class="orgPepleSpan"><i class="fa-solid fa-user"></i>
+											<h6 style="display: inline-block;">현장팀 팀장 윤상얼</h6></Span>
+											<br> &emsp;&emsp; <span class="orgPepleSpan"><i class="fa-solid fa-user"></i>
+											<h6 style="display: inline-block;">현장팀 부장 허석훈</h6></span>
+											<Br> &emsp;&emsp; <span class="orgPepleSpan"><i class="fa-solid fa-user"></i>
+											<h6 style="display: inline-block;">현장팀 사장 노지언</h6></span>
 										</div>
 									</div>
 									<div id="orgTeamDiv2">
@@ -575,6 +568,11 @@ table {
 				let minusIcon3 = document.getElementById("minusIcon3");
 				let minusIcon4 = document.getElementById("minusIcon4");
 				let orgPepleDiv = document.getElementById("orgPepleDiv");
+				let orgPepleSpan = document.getElementsByClassName("orgPepleSpan");
+				let draftBtnMinus = document.getElementById("draftBtnMinus");
+				let draftBtnPlus = document.getElementById("draftBtnPlus");
+				let draftBoxTd = document.getElementById("draftBoxTd");
+				
 				plusIcon.addEventListener("click", function() {
 					console.log("여기는 조직도 여기는 조직도")
 					if (plusIcon.style.display != "none") {
@@ -601,6 +599,31 @@ table {
 					}
 
 				})
+
+				for(let i=0; i<orgPepleSpan.length; i++){
+					orgPepleSpan[i].addEventListener("click", function(){
+						if(orgPepleSpan[i].style.backgroundColor != "rgb(196, 232, 230)"){
+							orgPepleSpan[i].style.backgroundColor = "#C4E8E6";
+							}
+						else{
+							orgPepleSpan[i].style.backgroundColor = "white";
+						}
+					})
+					
+					draftBtnPlus.addEventListener("click", function(){
+						console.log("여기는 플러스비티엔")
+						console.log("orgPepleSpan : "+ orgPepleSpan[i].style.backgroundColor)
+						if(orgPepleSpan[i].style.backgroundColor == "rgb(196, 232, 230)"){
+							let moveOps;
+							moveOps = orgPepleSpan[i].innerHTML+"<br>"
+							console.log(moveOps);
+							console.log("box to " + draftBoxTd)
+							draftBoxTd.innerHTML += moveOps;
+						
+						}
+					})
+
+				}
 			</script>
 			<!-- 조직도 스크립트 끝 -->
 
