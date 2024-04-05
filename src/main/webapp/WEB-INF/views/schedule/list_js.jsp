@@ -10,15 +10,15 @@
 			locale : "kr",
 			editable: true,
 			events : [ {
-				id : "2024-04-04",
+				id : "스케줄2024-04-04",
 				title : "스케줄",
 				start : "2024-04-04"
 			}, {
-				id : "2024-04-15",
+				id : "스케줄2024-04-15",
 				title : "스케줄",
 				start : "2024-04-15"
 			}, {
-				id : "2024-04-06",
+				id : "스케줄2024-04-06",
 				title : "스케줄",
 				start : "2024-04-06T12:30:00",
 				
@@ -43,7 +43,6 @@
 				
 				//일정 클릭시 상세정보
 				openModal(info.title,info.dateStr);
-			
 			}
 			,
 			eventClick:function(info){
@@ -74,12 +73,27 @@
 	var start_Time_Date = document.getElementById("start_Time_Date");
 	var end_Time_Date = document.getElementById("end_Time_Date");
 	let create_sch_btn = document.getElementById("create_sch_btn");
+	let inputStart = document.getElementById("inputStart");
 	modal.style.display = "block";
 	modalTitle.innerText="일정 등록";
-	start_Time.innerText=date;
-	inputTitle.value = content;
-	console.log("date" + date);
-	console.log("id " +id);
+	
+	if(content !=undefined){
+		modalTitle.innerText="일정 확인"
+		inputTitle.value=content;
+		let temp_start = id;
+		let length = content.length;
+		let temp_date;
+		temp_start = id.substr(length,10);
+		start_Time.innerText = 	temp_start;
+		temp_date = date.toString().substr(16,8);
+		inputStart.value = temp_date;
+	} 
+	else{
+		inputTitle.value="";
+		start_Time.innerText=date;
+	} 
+	console.log("date"+date);
+	console.log("id"+id);
 	//일정추가
 	
 	create_sch_btn.addEventListener("click",function(){
@@ -87,12 +101,6 @@
 		create_sch(date);
 	})
 
-	
-
-
-
-	
-	
 	//외부 공간 클릭시 닫기 
 	window.onclick = function(event) {
 		  var modal = document.getElementById("myModal");
@@ -100,7 +108,7 @@
 		    modal.style.display = "none";
 		  }
 		}
-
+		calendar.unselect();
 	}
 	// 모달 닫기
 	function closeModal() {
@@ -127,8 +135,8 @@
 		document.getElementById("inputStart").value = "";
 		document.getElementById("inputEnd").value = "";
 		// FullCalendar 날짜 선택 해제
-		
 			calendar.unselect(); // FullCalendar에서 날짜 선택 초기화
+			console.log("calendar unselect");
 		}
 
 	
