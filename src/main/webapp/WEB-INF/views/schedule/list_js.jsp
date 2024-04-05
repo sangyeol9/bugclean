@@ -47,7 +47,9 @@
 			}
 			,
 			eventClick:function(info){
-				openModal(info.title,info.dateStr,calendar.getEventById(info))
+				console.log("event Click");
+				console.log("info = " +info.event.title);
+				openModal(info.event.title,info.event.start,info.event.id)
 			}
 
 		});
@@ -75,6 +77,7 @@
 	modal.style.display = "block";
 	modalTitle.innerText="일정 등록";
 	start_Time.innerText=date;
+	inputTitle.value = content;
 	console.log("date" + date);
 	console.log("id " +id);
 	//일정추가
