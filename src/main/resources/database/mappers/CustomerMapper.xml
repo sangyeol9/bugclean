@@ -2,10 +2,20 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.winter.app.Customver.CustomerDAO">
+
+  
+  
+  <mapper namespace="com.winter.app.customer.CustomerDAO">
+
   	
   	<select id="getList" resultType="CustomerVO">
   		SELECT * FROM CUSTOMER
   	</select>
   	
+
+  	<select id="getDetail" resultType="CustomerVO" parameterType="CustomerVO">
+  		SELECT * FROM CUSTOMER WHERE BUSINESS_NUM = #{business_Num}
+  	</select>
+  	
+
   </mapper>
