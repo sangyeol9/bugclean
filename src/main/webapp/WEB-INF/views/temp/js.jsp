@@ -8,6 +8,7 @@
     <!-- Required vendors -->
     <script src="/focus-bootstrap-main/theme/vendor/global/global.min.js"></script>
     <script src="/focus-bootstrap-main/theme/js/quixnav-init.js"></script>
+
     <script src="/focus-bootstrap-main/theme/js/custom.min.js"></script>
 
 
@@ -35,3 +36,36 @@
 
 
     <script src="/focus-bootstrap-main/theme/js/dashboard/dashboard-1.js"></script>
+    
+    <!-- 폰트어썸 상얼이꺼  -->
+    <script src="https://kit.fontawesome.com/3b5b800319.js" crossorigin="anonymous"></script>
+    
+    <!-- messenger js -->
+    <script>
+        let messenger_img = document.getElementById("messenger_img");
+        let messenger_div = document.getElementById("messenger_div");
+        let msg_list = document.getElementById("messenger_list_icon");
+        let msg_msg = document.getElementById("messenger_msg_icon");
+        let msg_emp_list = document.getElementById("messenger_emp_list");
+        let msg_msg_list = document.getElementById("messenger_msg_list");
+
+
+        function messenger_toggle(){
+            if(messenger_div.classList.contains("display_none")){
+                messenger_div.classList.remove("display_none");
+            }else{
+                messenger_div.classList.add("display_none");
+            }
+          }
+          function change_emp_list(){
+           msg_emp_list.classList.remove("display_none");
+           msg_msg_list.classList.add("display_none"); 
+          }
+          function change_msg_list(){
+           msg_msg_list.classList.remove("display_none");
+           msg_emp_list.classList.add("display_none");   
+          }
+
+    </script>
+    
+

@@ -1,5 +1,7 @@
 package com.winter.app.customer;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,14 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
 
 	@Autowired
-	private CustomerDAO customerDAO;
+	CustomerDAO customerDAO;
 	 
+	public List<CustomerVO> getList() throws Exception{
+		return customerDAO.getList();
+	}
+	
+	public CustomerVO getDetail(CustomerVO customerVO) throws Exception{
+		return customerDAO.getDetail(customerVO);
+	}
+	
 }

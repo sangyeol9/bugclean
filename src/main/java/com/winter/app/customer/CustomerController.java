@@ -2,6 +2,7 @@ package com.winter.app.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,16 +15,29 @@ public class CustomerController {
 
 		
 	@Autowired
-	private CustomerService customerService;
+	CustomerService customerService;
 	
 	@GetMapping("list")
-	public void getList() throws Exception{
+	public String getList(Model model) throws Exception{
 		
+		var list = customerService.getList();
+		model.addAttribute("list", list);
+		
+		return "/customer/list";
 	}
 	
 	@GetMapping("create")
 	public void createCustomer() throws Exception{
 		
+	}
+	
+	@GetMapping("detail")
+	public String getDetail(CustomerVO customerVO,Model model) throws Exception{
+		CustomerVO vo = customerService.getDetail(customerVO);
+		
+		model.addAttribute("vo", vo);
+		
+		return "/customer/detail";
 	}
 	
 }

@@ -31,7 +31,7 @@ z-index: 115;
 				aria-expanded="false"><i class="icon icon-app-store"></i><span
 					class="nav-text">인사팀</span></a>
 				<ul aria-expanded="false">
-					<li><a href="/focus-bootstrap-main/theme/app-profile.html">가입승인</a></li>
+					<li><a href="/hr/temp/list">가입승인</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">전체사원관리</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">연차관리</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">문서관리</a></li>
@@ -53,7 +53,7 @@ z-index: 115;
 					class="nav-text">영업팀</span></a>
 				<ul aria-expanded="false">
 					<li><a href="/customer/list">거래처관리</a></li>
-					<li><a href="/focus-bootstrap-main/theme/app-profile.html">현장일정관리</a></li>
+					<li><a href="/schedule/list">현장일정관리</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">매출관리</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">공지사항</a></li>
 
@@ -63,8 +63,8 @@ z-index: 115;
 				aria-expanded="false"><i class="icon icon-app-store"></i><span
 					class="nav-text">현장팀</span></a>
 				<ul aria-expanded="false">
-					<li><a href="/focus-bootstrap-main/theme/app-profile.html">현장일정관리</a></li>
-					<li><a href="/focus-bootstrap-main/theme/app-profile.html">거래처관리</a></li>
+					<li><a href="/schedule/list">현장일정관리</a></li>
+					<li><a href="/customer/list">거래처관리</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">문서관리</a></li>
 				</ul></li>
 			<li class="nav-label">전자결재</li>

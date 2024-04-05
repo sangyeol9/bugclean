@@ -3,8 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="nav-header">
-	<a href="/" >
-	 <img id="bugclean"	src="/focus-bootstrap-main/theme/images/logo.png" alt="">
+	<a href="/" class="brand-logo">
+		<img class="logo-abbr" src="/focus-bootstrap-main/theme/images/logo.png" alt="">
+		<img class="logo-compact" src="/focus-bootstrap-main/theme/images/logo-text.png">
+		<img class="brand-title" src="/focus-bootstrap-main/theme/images/logo-text.png">
 	</a>
 
 	<div class="nav-control">
