@@ -26,7 +26,7 @@
 				aria-expanded="false"><i class="icon icon-app-store"></i><span
 					class="nav-text">인사팀</span></a>
 				<ul aria-expanded="false">
-					<li><a href="/focus-bootstrap-main/theme/app-profile.html">가입승인</a></li>
+					<li><a href="/hr/temp/list">가입승인</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">전체사원관리</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">연차관리</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">문서관리</a></li>

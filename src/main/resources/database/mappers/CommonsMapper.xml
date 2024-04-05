@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winter.app.util.commons.CommonsDAO">
+
+    <select id="getPositionList" resultType="String">
+        SELECT POS_NAME FROM "POSITION"
+    </select>
+
+    <select id="getRnRList" resultType="String">
+        SELECT RNR_NAME FROM "RNR"
+    </select>
+
+    <select id="getDepList" resultType="String">
+        SELECT DEP_NAME FROM "DEPARTMENT"
+    </select>
+
+</mapper>
