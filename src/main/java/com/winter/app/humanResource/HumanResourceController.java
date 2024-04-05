@@ -26,6 +26,11 @@ public class HumanResourceController {
         return "./HR/MemberAgree";
     }
 
+    @GetMapping("member/list")
+    public String memberList()throws Exception{
+        return "./HR/MemberList";
+    }
+
     @GetMapping("temp/ask")
     @ResponseBody
     public List<Object> getAskList() throws Exception {
@@ -44,6 +49,12 @@ public class HumanResourceController {
         responseData.add(commons);
 
         return responseData;
+    }
+
+    @GetMapping("member/list")
+    @ResponseBody
+    public void getMemberList()throws Exception{
+        
     }
 
 }

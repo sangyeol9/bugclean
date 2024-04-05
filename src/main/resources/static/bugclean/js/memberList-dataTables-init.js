@@ -1,14 +1,4 @@
 
-let renderSelect = function (options) {
-    let select = '<select>';
-    select += '<option value="">선택</option>'; // 기본 선택 옵션
-    options.forEach(option => {
-        select += '<option value="' + option + '">' + option + '</option>';
-    });
-    select += '</select>';
-    return select;
-}
-
 function initDataTables(){
     $.ajax({
         url:"/hr/temp/ask",
@@ -17,7 +7,7 @@ function initDataTables(){
             $('#tempList').DataTable({
                 "data": response[0].tempMember,
                 "columns":[
-                    {data: "userName", title: "가입요청 ID"},
+                    {data: "userName", title: "사번"},
                     {data: "name", title: "가입요청 사원"},
                     {
                         data: null,
