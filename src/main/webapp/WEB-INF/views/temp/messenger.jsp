@@ -19,7 +19,7 @@
 	       			<div>사원 리스트 2</div>
 	       		</div>
 	       		<div id="messenger_msg_list" class="display_none">
-	       			<div><a href="/" target="_blank">메시지 목록 1</a></div>
+	       			<div><a href="/chat/room" onclick="openPopup(); return false;">메시지 목록 1</a></div>
 	       			<div>메시지 목록 2</div>
 	       		</div>
 	       	</div>

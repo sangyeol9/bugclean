@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="/focus-bootstrap-main/theme/vendor/owl-carousel/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/focus-bootstrap-main/theme/vendor/owl-carousel/css/owl.theme.default.min.css">
     <link href="/focus-bootstrap-main/theme/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-    <link href="/focus-bootstrap-main/theme/css/style.css" rel="stylesheet">
+    <link href="/focus-bootstrap-main/theme/css/style.css" rel="stylesheet">	
+    
  <style>
  	#bugclean{
  		width: 100%;

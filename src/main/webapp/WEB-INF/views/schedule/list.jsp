@@ -35,7 +35,10 @@
 			<div id="myModal" class="modal">
 				<div class="modal-content">
 					<span class="close" onclick="closeModal()">&times;</span>
-					<h2 id="modal-title"></h2>
+					<div id="title_div">
+						<h2 id="modal-title"></h2>
+						<input id="input_site_manager" type="text" class="form-control" placeholder="현장 담당자 배정" >
+					</div>
 					<p id="modal-content"></p>
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="customer_Name">거래처명</span>
@@ -58,6 +61,11 @@
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="manage_Code">배차 정보</span>
 						  	<input type="text" class="form-control" value="미정" >
+						  	<select id="carAllocation" class="form-select" onchange="changeSelect()">
+						  		<option value="">배차요청</option>
+						  		<option value="28나 2033">28나 2033</option>
+						  		<option value="03서 3002">03서 3002</option>
+						  	</select>
 						</div>
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="address">주소</span>

@@ -46,6 +46,15 @@
 	width:100px;
 	margin:auto;
 }
-	
+#input_site_manager{
+	width:200px;
+	margin:auto;
+}
+#modal-title{
+	width:30%;
+}
+#title_div{
+	display: flex;
+}
 
 </style>
