@@ -4,17 +4,18 @@ function initDataTables(){
         url:"/hr/member/list",
         type: "GET",
         success: function (response){
+            console.log(response);
             $('#memberList').DataTable({
                 "data": response,
                 "columns":[
-                    {data: "employee_num", title: "사번"},
-                    {data: "name", title: "이름"},
-                    {data: "nickname", title: "닉네임"},
-                    {data: "phone", title: "연락처"},
-                    {data: "address", title: "주소"},
-                    {data: "dep_code", title: "부서"},
-                    {data: "pos_code", title: "직급"},
-                    {data: "join_date", title: "입사일"}
+                    {data: "EMPLOYEE_NUM", title: "사번"},
+                    {data: "NAME", title: "이름"},
+                    {data: "NICKNAME", title: "닉네임"},
+                    {data: "PHONE", title: "연락처"},
+                    {data: "ADDRESS", title: "주소"},
+                    {data: "DEP_NAME", title: "부서"},
+                    {data: "POS_NAME", title: "직급"},
+                    {data: "JOIN_DATE", title: "입사일"}
                 ]
             })
         },
