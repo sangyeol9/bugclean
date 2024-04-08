@@ -24,8 +24,6 @@ function initDataTables(){
                         title: "부서",
                         orderable: false,
                         render: function(data, type, row) {
-                            // 여기에 셀렉트 인풋을 생성하는 로직을 작성합니다.
-                            // 예를 들어, 셀렉트 박스를 생성하고 데이터를 채워넣을 수 있습니다.
                             return renderSelect(response[1].dep);
                         }
                     },
@@ -34,9 +32,7 @@ function initDataTables(){
                         title: "직책",
                         orderable: false,
                         render: function(data, type, row) {
-                            // 여기에 셀렉트 인풋을 생성하는 로직을 작성합니다.
-                            // 예를 들어, 셀렉트 박스를 생성하고 데이터를 채워넣을 수 있습니다.
-                            return renderSelect(response[1].pos);
+                            return renderSelect(response[1].rnr);
                         }
                     },
                     {
@@ -44,9 +40,7 @@ function initDataTables(){
                         title: "직급",
                         orderable: false,
                         render: function(data, type, row) {
-                            // 여기에 셀렉트 인풋을 생성하는 로직을 작성합니다.
-                            // 예를 들어, 셀렉트 박스를 생성하고 데이터를 채워넣을 수 있습니다.
-                            return renderSelect(response[1].rnr);
+                            return renderSelect(response[1].pos);
                         }
                     }
                 ]

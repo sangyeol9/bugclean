@@ -14,7 +14,7 @@
 
     <!-- Vectormap -->
     <script src="/focus-bootstrap-main/theme/vendor/raphael/raphael.min.js"></script>
-    <script src="/focus-bootstrap-main/theme/vendor/morris/morris.min.js"></script>
+<%--    <script src="/focus-bootstrap-main/theme/vendor/morris/morris.min.js"></script>--%>
 
 
     <script src="/focus-bootstrap-main/theme/vendor/circle-progress/circle-progress.min.js"></script>
@@ -35,7 +35,7 @@
     <script src="/focus-bootstrap-main/theme/vendor/jquery.counterup/jquery.counterup.min.js"></script>
 
 
-    <script src="/focus-bootstrap-main/theme/js/dashboard/dashboard-1.js"></script>
+<%--    <script src="/focus-bootstrap-main/theme/js/dashboard/dashboard-1.js"></script>--%>
     
     <!-- 폰트어썸 상얼이꺼  -->
     <script src="https://kit.fontawesome.com/3b5b800319.js" crossorigin="anonymous"></script>

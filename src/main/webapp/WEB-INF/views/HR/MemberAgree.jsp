@@ -6,10 +6,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>Bug Clean</title>
 </head>
 <link href="/focus-bootstrap-main/theme/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 <c:import url="../temp/css.jsp"></c:import> //bootstrap-template-css
+<link href="/bugclean/css/MemberAgree-datatables.css" rel="stylesheet">
 
 <body>
 <div id="preloader">
@@ -34,7 +35,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="tempList" class="table table-hover" style="width: 98%">
+                                <table id="tempList" class="table-hover table" style="width: 98%">
                                     <tr>
                                         <th>가입요청 ID</th>
                                         <th>가입요청 사원</th>
@@ -55,7 +56,7 @@
 </div>
 <c:import url="../temp/js.jsp"></c:import> // bootstrap-template-js
 <script src="/focus-bootstrap-main/theme/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="/bugclean/js/dataTables-init.js"></script>
+<script src="/bugclean/js/memberAgree-dataTables-init.js"></script>
 
 </body>
 </html>
