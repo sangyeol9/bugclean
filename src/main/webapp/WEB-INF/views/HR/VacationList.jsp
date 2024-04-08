@@ -37,11 +37,13 @@
               <div class="table-responsive">
                 <table id="vacationList" class="table-hover table" style="width: 98%">
                   <tr>
-                    <th>가입요청 ID</th>
-                    <th>가입요청 사원</th>
+                    <th>사번</th>
+                    <th>이름</th>
+                    <th>총연차일수(시간)</th>
+                    <th>사용연차일수(시간)</th>
+                    <th>잔여연차일수(시간)</th>
+                    <th>근속연수</th>
                     <th>부서</th>
-                    <th>직책</th>
-                    <th>직급</th>
                   </tr>
                 </table>
               </div>
