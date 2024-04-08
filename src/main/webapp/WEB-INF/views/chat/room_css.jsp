@@ -13,6 +13,7 @@
 	}
 	input{
 		width:100%;
+		
 	}
 	#room_msg{
 		width:100%;
