@@ -3,7 +3,6 @@ package com.winter.app.employee;
 import java.sql.Date;
 
 import lombok.Data;
-
 @Data
 public class EmployeeVO {
 	private String employee_num;
@@ -26,8 +25,5 @@ public class EmployeeVO {
 	private String profile;
 	private String profile_name;
 	private Long manager_num;
-	
-	
-	
-	
+
 }

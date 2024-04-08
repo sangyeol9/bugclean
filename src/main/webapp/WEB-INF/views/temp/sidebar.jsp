@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<style>
+.quixnav{
+z-index: 115;
+}
+</style>
 <div class="quixnav">
 	<div class="quixnav-scroll">
 		<ul class="metismenu" id="menu">
@@ -27,8 +32,8 @@
 					class="nav-text">인사팀</span></a>
 				<ul aria-expanded="false">
 					<li><a href="/hr/temp/list">가입승인</a></li>
-					<li><a href="/focus-bootstrap-main/theme/app-profile.html">전체사원관리</a></li>
-					<li><a href="/focus-bootstrap-main/theme/app-profile.html">연차관리</a></li>
+					<li><a href="/hr/member">전체사원관리</a></li>
+					<li><a href="/hr/vacation">연차관리</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">문서관리</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">근태관리</a></li>
 				</ul></li>
@@ -71,7 +76,7 @@
 						aria-expanded="false"><i class="icon icon-app-store"></i><span
 							class="nav-text">문서함</span></a>
 						<ul aria-expanded="false">
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">작성하기</a></li>
+							<li><a href="../draft/draftlist">작성하기</a></li>
 							<li><a href="/focus-bootstrap-main/theme/app-profile.html">내기안문서</a></li>
 							<li><a href="/focus-bootstrap-main/theme/app-profile.html">반려문서</a></li>
 							<li><a href="/focus-bootstrap-main/theme/app-profile.html">완료문서</a></li>
