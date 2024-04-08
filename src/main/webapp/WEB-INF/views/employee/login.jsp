@@ -22,7 +22,9 @@
 							<div class="col-xl-12">
 								<div class="auth-form">
 									<div class="text-center mb-4">
-										<img id="bugclean"	src="/focus-bootstrap-main/theme/images/logo.png" alt="logo" style="height: 100px; width: 300px;">
+										<!-- <img id="bugclean"	src="/focus-bootstrap-main/theme/images/logo.png" alt="logo" style="height: 100px; width: 300px;"> -->
+										<img id="bugclean"	src="/focus-bootstrap-main/theme/images/logo.png" alt="logo" style="height: 60px; width: 60px;">
+										<img id="bugclean"	src="/focus-bootstrap-main/theme/images/logo-text.png" alt="logo" style="height: 50px; width: 150px;">
 									</div>
 									<form action="index.html">
 										<div class="form-group">

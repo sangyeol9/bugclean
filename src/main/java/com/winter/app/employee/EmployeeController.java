@@ -28,7 +28,21 @@ public class EmployeeController {
 		
 	}
 	
-	@GetMapping("sample")
+	@GetMapping("idSearch")
+	public void idFind() throws Exception{
+		
+	}
+	@GetMapping("pwSearch")
+	public void pwFind() throws Exception{
+		
+	}
+	
+	@GetMapping("inbox")
+	public void getInbox() throws Exception{
+		
+	}
+	
+	@GetMapping("sample1")
 	public void sample() throws Exception{
 		
 	}
