@@ -34,7 +34,7 @@ public class HumanResourceService {
         return memberList;
     }
 
-    public List<VacationVO> getVacationList()throws Exception{
+    public List<Map<String, Object>> getVacationList()throws Exception{
         return humanResourceDAO.getVacationList();
     }
 

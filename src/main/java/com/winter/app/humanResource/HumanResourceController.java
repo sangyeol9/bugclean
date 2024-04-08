@@ -65,9 +65,13 @@ public class HumanResourceController {
         return responseData;
     }
 
-//    @GetMapping("vacation")
-//    @ResponseBody
-//    public List
+    @GetMapping("vacation/list")
+    @ResponseBody
+    public List<Map<String, Object>> getVacationList() throws Exception{
+        List<Map<String,Object>> responseDate = humanResourceService.getVacationList();
+        log.info("{}",responseDate);
+        return responseDate;
+    }
 
 
 }

@@ -19,7 +19,13 @@
     </select>
 
     <select id="getVacationList" resultType="Map">
-        SELECT EMPLOYEE_NUM, NAME, LEVEL_DATE, VAC_FULL, VAC_USED, (VAC_FULL-VAC_USED), DEP_NAME
+        SELECT EMPLOYEE_NUM AS "사번",
+        NAME AS "이름",
+        LEVEL_DATE AS "근속연수",
+        VAC_FULL AS "총연차일수",
+        VAC_USED AS "사용연차일수",
+        (VAC_FULL - VAC_USED) AS "잔여연차일수",
+        DEP_NAME AS "부서"
         FROM EMPLOYEE
         LEFT JOIN DEPARTMENT USING (DEP_CODE)
         LEFT JOIN VACATION USING (EMPLOYEE_NUM)

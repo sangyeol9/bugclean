@@ -12,5 +12,5 @@ public interface HumanResourceDAO {
 
     public List<TempMemberVO> getAskList()throws Exception;
     public List<Map<String, Object>> getMemberList()throws Exception;
-    public List<VacationVO> getVacationList()throws Exception;
+    public List<Map<String, Object>> getVacationList()throws Exception;
 }
