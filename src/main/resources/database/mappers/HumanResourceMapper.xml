@@ -18,8 +18,12 @@
         LEFT JOIN POSITION ON EMPLOYEE.POS_CODE = POSITION.POS_CODE
     </select>
 
-    <select id="getVacationList" resultType="VacationVO">
-        SELECT * FROM VACATION
+    <select id="getVacationList" resultType="Map">
+        SELECT EMPLOYEE_NUM, NAME, LEVEL_DATE, VAC_FULL, VAC_USED, (VAC_FULL-VAC_USED), DEP_NAME
+        FROM EMPLOYEE
+        LEFT JOIN DEPARTMENT USING (DEP_CODE)
+        LEFT JOIN VACATION USING (EMPLOYEE_NUM)
+        WHERE VAC_YEAR = EXTRACT(YEAR FROM SYSDATE)
     </select>
 
 </mapper>
