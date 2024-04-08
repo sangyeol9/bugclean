@@ -67,6 +67,8 @@
 	/* 모달창 */
 	
 	function openModal(content,date,id) {
+	carAllocation.selectedIndex=0; // 배차 셀렉트박스 선택 값 초기화
+
 	var modal = document.getElementById("myModal");
 	var modalTitle = document.getElementById("modal-title"); // 모달 타이틀 엘리먼트
 	var modalContent = document.getElementById("modal-content");
@@ -92,6 +94,9 @@
 		inputTitle.value="";
 		start_Time.innerText=date;
 	} 
+
+	
+
 	console.log("date"+date);
 	console.log("id"+id);
 	//일정추가
@@ -139,8 +144,23 @@
 			console.log("calendar unselect");
 		}
 
-	
-    	
+	// 배차 요청 셀렉트박스
+	let carAllocation = document.getElementById("carAllocation");
+    function changeSelect(){
+		let car_temp = carAllocation.value;
+		
+		if(car_temp.value != ""){
+			let check = confirm(car_temp+" 차량으로 배차요청 하시겠습니까?");
+			if(check == false){
+				carAllocation.selectedIndex=0;
+				
+			}
+			else{
+				carAllocation.value=car_temp;
+			}
+		}
+
+	}
 		
 	
 
