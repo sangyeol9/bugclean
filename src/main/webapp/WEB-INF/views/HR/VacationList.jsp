@@ -34,7 +34,13 @@
               <div class="card-title">사원 목록</div>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
+              <div class="table-responsive dataTables_wrapper">
+                <select>
+                  <option>2021</option>
+                  <option>2022</option>
+                  <option>2023</option>
+                  <option>2024</option>
+                </select>
                 <table id="vacationList" class="table-hover table" style="width: 98%">
                   <tr>
                     <th>사번</th>
