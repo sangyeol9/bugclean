@@ -31,7 +31,7 @@
 						<canvas></canvas>
 					</div>
 					<div class="m-signature-pad--footer">
-						<div class="description">사인해 주세요~</div>
+						<div class="description">사인해 주세요~~~~~</div>
 						<button type="button" class="button clear" data-action="clear">지우기</button>
 						<button type="button" class="button save" data-action="save">저장</button>
 					</div>
