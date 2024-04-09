@@ -51,7 +51,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="tempList" class="table-hover table" style="width: 98%">
+                                <table id="inbox" class="table-hover table" style="width: 98%">
                                     <tr>
                                         <th>문서번호</th>
                                         <th>제목</th>
@@ -79,7 +79,7 @@
 <c:import url="../temp/footer.jsp"></c:import> <!-- //footer -->
 <c:import url="../temp/js.jsp"></c:import> <!-- // bootstrap-template-js -->
 <script src="/focus-bootstrap-main/theme/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="/bugclean/js/memberAgree-dataTables-init.js"></script>
+<script src="/bugclean/js/inbox-dataTables-init.js"></script>
 
 </body>
 </html>
