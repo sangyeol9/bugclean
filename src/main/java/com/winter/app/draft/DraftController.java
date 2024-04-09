@@ -19,8 +19,24 @@ public class DraftController {
 		
 	}
 	
-	@GetMapping("draftlinemodal")
-	public void getDraftLineModal()throws Exception {
+	@GetMapping("mydraftlist")
+	public void getMyDraftList()throws Exception{
+		
+	}
+	@GetMapping("myrejectiondraftlist")
+	public void getMyReJectionList()throws Exception {
+		
+	}
+	@GetMapping("myapprovinglist")
+	public void getMyApprovingList()throws Exception {
+		
+	}
+	@GetMapping("myapprovedlist")
+	public void getMyApprovedList()throws Exception {
+		
+	}
+	@GetMapping("mytemporarylist")
+	public void getMyTemporaryList()throws Exception {
 		
 	}
 	
