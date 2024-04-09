@@ -13,7 +13,14 @@
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 <c:import url="../temp/css.jsp"></c:import>
 <body>
-	
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <div id="main-wrapper">
 
 
 	   
@@ -275,17 +282,8 @@
         <!--**********************************
             Content body end
         ***********************************-->
-        <div id="signature-pad" class="m-signature-pad">
-            <div class="m-signature-pad--body">
-                <canvas id="signature-pad" class="signature-pad" width=400 height=200 style="border: 1px solid black"></canvas>
-            </div>
-            <div class="m-signature-pad--footer">
-                
-                <button type="button" class="button clear" data-action="clear">지우기</button>
-                <button type="button" class="button save" data-action="save">저장</button>
-            </div>
-        </div>
         
+    </div>    
         <script>
             var canvas = $("#signature-pad canvas")[0]; 
             var sign = new SignaturePad(canvas, { 
