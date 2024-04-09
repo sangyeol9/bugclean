@@ -83,15 +83,15 @@ z-index: 115;
 							<li><a href="/draft/myrejectiondraftlist">반려문서</a></li>
 							<li><a href="/draft/mytemporarylist">임시저장문서</a></li>
 						</ul>
-					<li><a class="has-arrow" href="javascript:void()"
+					<li><a class="has-arrow" href="/employee/inbox"
 						aria-expanded="false"><i class="icon icon-app-store"></i><span
 							class="nav-text">수신문서함</span></a>
 						<ul>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">전체</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">대기</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">진행</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">완료</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">참조문서함</a></li>
+							<li><a href="/employee/inbox">전체</a></li>
+							<li><a href="/employee/inbox">대기</a></li>
+							<li><a href="/employee/inbox">진행</a></li>
+							<li><a href="/employee/inbox">완료</a></li>
+							<li><a href="/employee/inbox">참조문서함</a></li>
 						</ul></li>
 				</ul></li>
 

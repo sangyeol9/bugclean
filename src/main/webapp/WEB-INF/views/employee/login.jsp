@@ -21,6 +21,9 @@
 						<div class="row no-gutters">
 							<div class="col-xl-12">
 								<div class="auth-form">
+
+
+
 									<div class="text-center mb-4">
 										<!-- <img id="bugclean"	src="/focus-bootstrap-main/theme/images/logo.png" alt="logo" style="height: 100px; width: 300px;"> -->
 										<img id="bugclean"	src="/focus-bootstrap-main/theme/images/logo.png" alt="logo" style="height: 60px; width: 60px;">
@@ -74,11 +77,11 @@
 									
 									<div class="form-row d-flex justify-content-center mt-5">
 										<div class="form-group">
-											<a href="page-forgot-password.html">아이디 찾기</a>
+											<a href="/employee/idSearch">아이디 찾기</a>
 										</div>
 										<p>&ensp;ㅣ&ensp;</p>
 										<div class="form-group">
-											<a href="page-forgot-password.html">비밀번호 찾기</a>
+											<a href="./pwSearch">비밀번호 찾기</a>
 										</div>
 										<p>&ensp;ㅣ&ensp;</p>
 										<div class="form-group">
@@ -86,6 +89,7 @@
 										</div>
 									</div>
 
+									
 								</div>
 							</div>
 						</div>

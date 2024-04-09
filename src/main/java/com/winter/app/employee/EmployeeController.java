@@ -19,7 +19,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("create")
-	public void create() throws Exception{
+	public void create(@ModelAttribute EmployeeVO employeeVO) throws Exception{
 		
 	}
 	
