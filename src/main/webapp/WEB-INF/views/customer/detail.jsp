@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:import url="./create_css.jsp"></c:import>
+<link rel="stylesheet" href="/bugclean/css/customerCreate.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -127,6 +127,6 @@
 
 	<c:import url="../temp/footer.jsp"></c:import>
 	<c:import url="../temp/js.jsp"></c:import>
-	<c:import url="./create_js.jsp"></c:import>
+	<script src="/bugclean/js/customerCreate.js"></script>
 </body>
 </html>
