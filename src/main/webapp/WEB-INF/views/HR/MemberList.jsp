@@ -5,56 +5,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Bug Clean</title>
+    <meta charset="UTF-8">
+    <title>Bug Clean</title>
 </head>
+<c:import url="../temp/css.jsp"></c:import> <!-- //bootstrap-template-css -->
 <link href="/focus-bootstrap-main/theme/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-<c:import url="../temp/css.jsp"></c:import> //bootstrap-template-css
 <link href="/bugclean/css/MemberAgree-datatables.css" rel="stylesheet">
-
 <body>
 <div id="preloader">
-  <div class="sk-three-bounce">
-    <div class="sk-child sk-bounce1"></div>
-    <div class="sk-child sk-bounce2"></div>
-    <div class="sk-child sk-bounce3"></div>
-  </div>
+    <div class="sk-three-bounce">
+        <div class="sk-child sk-bounce1"></div>
+        <div class="sk-child sk-bounce2"></div>
+        <div class="sk-child sk-bounce3"></div>
+    </div>
 </div>
 <div id="main-wrapper">
 
-  <c:import url="../temp/header.jsp"></c:import> //nav-header
-  <c:import url="../temp/sidebar.jsp"></c:import> //sidebar-menu
+    <c:import url="../temp/header.jsp"></c:import> <!-- //nav-header-->
+    <c:import url="../temp/sidebar.jsp"></c:import> <!-- //sidebar-menu-->
 
-  <div class="content-body " style="min-height:900px;">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">사원 목록</div>
+    <div class="content-body " style="min-height:900px;">
+        <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4 style="font-weight: bolder;">&ensp;사원관리</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active">인사팀</li>
+                        <li class="breadcrumb-item active"><a href="./">사원관리</a></li>
+                    </ol>
+                </div>
             </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table id="memberList" class="table-hover table" style="width: 98%">
-                  <tr>
-                    <th>가입요청 ID</th>
-                    <th>가입요청 사원</th>
-                    <th>부서</th>
-                    <th>직책</th>
-                    <th>직급</th>
-                  </tr>
-                </table>
-              </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="default-tab">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#list-1">전체 사원 조회</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#list-2">퇴사 사원 조회</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="list-1" role="tabpanel">
+                                        <div class="pt-4">
+                                            <div class="table-responsive">
+                                                <table id="memberList" class="table-hover table" style="width: 98%">
+                                                    <tr>
+                                                        <th>가입요청 ID</th>
+                                                        <th>가입요청 사원</th>
+                                                        <th>부서</th>
+                                                        <th>직책</th>
+                                                        <th>직급</th>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="list-2">
+                                        <div class="pt-4">
+                                            <div class="table-responsive">
+                                                <table id="possibleList" class="table-hover table" style="width: 98%">
+                                                    <tr>
+                                                        <th>가입요청 ID</th>
+                                                        <th>가입요청 사원</th>
+                                                        <th>부서</th>
+                                                        <th>직책</th>
+                                                        <th>직급</th>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            
+                                        </div>
+                                        <div class="pt-4 mt-5">
+                                            <div class="table-responsive">
+                                                <table id="impossibleList" class="table-hover table"
+                                                       style="width: 98%">
+                                                    <tr>
+                                                        <th>가입요청 ID</th>
+                                                        <th>가입요청 사원</th>
+                                                        <th>부서</th>
+                                                        <th>직책</th>
+                                                        <th>직급</th>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+        <c:import url="../temp/messenger.jsp"></c:import>
     </div>
-  </div>
 
-  <c:import url="../temp/footer.jsp"></c:import> //footer
 </div>
-<c:import url="../temp/js.jsp"></c:import> // bootstrap-template-js
+<c:import url="../temp/footer.jsp"></c:import> <%--footer--%>
+<c:import url="../temp/js.jsp"></c:import> <%--bootstrap-template-js--%>
 <script src="/focus-bootstrap-main/theme/vendor/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/bugclean/js/memberList-dataTables-init.js"></script>
 
