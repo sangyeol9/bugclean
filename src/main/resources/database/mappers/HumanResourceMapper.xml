@@ -16,9 +16,21 @@
         FROM EMPLOYEE
         LEFT JOIN DEPARTMENT ON EMPLOYEE.DEP_CODE = DEPARTMENT.DEP_CODE
         LEFT JOIN POSITION ON EMPLOYEE.POS_CODE = POSITION.POS_CODE
+        WHERE RETIRED_DATE IS NULL
     </select>
 
-    <select id="getVacationList" resultType="Map">
+    <select id="getResignationList" resultType="Map">
+        SELECT EMPLOYEE_NUM, NAME, NICKNAME, PHONE, ADDRESS,
+        DEPARTMENT.DEP_NAME AS DEP_NAME,
+        POSITION.POS_NAME AS POS_NAME,
+        JOIN_DATE, RETIRED_DATE
+        FROM EMPLOYEE
+        LEFT JOIN DEPARTMENT ON EMPLOYEE.DEP_CODE = DEPARTMENT.DEP_CODE
+        LEFT JOIN POSITION ON EMPLOYEE.POS_CODE = POSITION.POS_CODE
+        WHERE RETIRED_DATE IS NOT NULL
+    </select>
+
+    <select id="getVacationList" parameterType="Integer" resultType="Map">
         SELECT EMPLOYEE_NUM AS "사번",
         NAME AS "이름",
         LEVEL_DATE AS "근속연수",
@@ -29,7 +41,11 @@
         FROM EMPLOYEE
         LEFT JOIN DEPARTMENT USING (DEP_CODE)
         LEFT JOIN VACATION USING (EMPLOYEE_NUM)
-        WHERE VAC_YEAR = EXTRACT(YEAR FROM SYSDATE)
+        WHERE VAC_YEAR = #{year}
+    </select>
+
+    <select id="getVacYear" resultType="String">
+        SELECT DISTINCT (VAC_YEAR)  FROM VACATION
     </select>
 
 </mapper>

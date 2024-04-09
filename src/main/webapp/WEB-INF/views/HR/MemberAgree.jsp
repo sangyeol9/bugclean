@@ -9,7 +9,7 @@
     <title>Bug Clean</title>
 </head>
 <link href="/focus-bootstrap-main/theme/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-<c:import url="../temp/css.jsp"></c:import> //bootstrap-template-css
+<c:import url="../temp/css.jsp"></c:import> <!-- //bootstrap-template-css -->
 <link href="/bugclean/css/MemberAgree-datatables.css" rel="stylesheet">
 
 <body>
@@ -22,11 +22,25 @@
 </div>
 <div id="main-wrapper">
 
-    <c:import url="../temp/header.jsp"></c:import> //nav-header
-    <c:import url="../temp/sidebar.jsp"></c:import> //sidebar-menu
+    <c:import url="../temp/header.jsp"></c:import> <!-- //nav-header-->
+    <c:import url="../temp/sidebar.jsp"></c:import> <!-- //sidebar-menu-->
 
     <div class="content-body " style="min-height:900px;">
         <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4 style="font-weight: bolder;">&ensp;가입승인</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active">인사팀</li>
+                        <li class="breadcrumb-item active"><a href="./">가입승인</a></li>
+                    </ol>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -50,11 +64,11 @@
                 </div>
             </div>
         </div>
+        <c:import url="../temp/messenger.jsp"></c:import>
     </div>
-
-    <c:import url="../temp/footer.jsp"></c:import> //footer
 </div>
-<c:import url="../temp/js.jsp"></c:import> // bootstrap-template-js
+<c:import url="../temp/footer.jsp"></c:import> <%--footer--%>
+<c:import url="../temp/js.jsp"></c:import> <%--bootstrap-template-js--%>
 <script src="/focus-bootstrap-main/theme/vendor/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/bugclean/js/memberAgree-dataTables-init.js"></script>
 

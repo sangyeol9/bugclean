@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
@@ -33,14 +34,16 @@ public class HumanResourceController {
     }
 
     @GetMapping("vacation")
-    public String vacationList()throws Exception{
-        return "./HR/VacationList";
+    public ModelAndView vacationList(ModelAndView mv)throws Exception{
+        mv.addObject("vacYear",humanResourceService.getVacYear());
+        mv.setViewName("./HR/VacationList");
+        return mv;
     }
 
     @GetMapping("temp/ask")
     @ResponseBody
-    public List<Object> getAskList() throws Exception {
-        List<Object> responseData = new ArrayList<>();
+    public Map<String, Object> getAskList() throws Exception {
+        Map<String, Object> responseData = new HashMap<>();
 
         Map<String, List<String>> commons = commonsService.getCommonsList();
         List<TempMemberVO> tempMemberVOS = humanResourceService.getAskList();
@@ -51,8 +54,8 @@ public class HumanResourceController {
         log.info("{}", tempMember);
         log.info("{}", commons);
 
-        responseData.add(tempMember);
-        responseData.add(commons);
+        responseData.put("tempMember", tempMember.get("tempMember"));
+        responseData.put("commons", commons);
 
         return responseData;
     }
@@ -61,17 +64,23 @@ public class HumanResourceController {
     @ResponseBody
     public List<Map<String,Object>> getMemberList()throws Exception{
         List<Map<String,Object>> responseData = humanResourceService.getMemberList();
+        return responseData;
+    }
+
+    @GetMapping("resignation/list")
+    @ResponseBody
+    public Map<String, List<Map<String, Object>>> getResignationList()throws Exception{
+        Map<String, List<Map<String, Object>>> responseData = humanResourceService.getResignationList();
         log.info("{}",responseData);
         return responseData;
     }
 
     @GetMapping("vacation/list")
     @ResponseBody
-    public List<Map<String, Object>> getVacationList() throws Exception{
-        List<Map<String,Object>> responseDate = humanResourceService.getVacationList();
+    public List<Map<String, Object>> getVacationList(Integer year) throws Exception{
+        List<Map<String,Object>> responseDate = humanResourceService.getVacationList(year);
         log.info("{}",responseDate);
         return responseDate;
     }
-
 
 }
