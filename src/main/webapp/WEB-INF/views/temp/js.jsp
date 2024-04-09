@@ -40,6 +40,9 @@
     <!-- 폰트어썸 상얼이꺼  -->
     <script src="https://kit.fontawesome.com/3b5b800319.js" crossorigin="anonymous"></script>
     
+ 
+    
+    
     <!-- messenger js -->
     <script>
         let messenger_img = document.getElementById("messenger_img");
@@ -64,6 +67,13 @@
           function change_msg_list(){
            msg_msg_list.classList.remove("display_none");
            msg_emp_list.classList.add("display_none");   
+          }
+          function openPopup(){
+        		// 새 창을 열기 위한 옵션 설정
+        	    let options = 'width=400,height=600';
+
+        	    // 새 창 열기
+        	    window.open('/chat/room', '_blank', options);
           }
 
     </script>
