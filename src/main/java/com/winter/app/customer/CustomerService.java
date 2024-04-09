@@ -19,4 +19,11 @@ public class CustomerService {
 		return customerDAO.getDetail(customerVO);
 	}
 	
+	public int createCustomer(CustomerVO customerVO) throws Exception{
+		return customerDAO.createCustomer(customerVO);
+	}
+
+	public int updateCustomer( CustomerVO customerVO) throws Exception{
+		return customerDAO.updateCustomer(customerVO);
+	}
 }

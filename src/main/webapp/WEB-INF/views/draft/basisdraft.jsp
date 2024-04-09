@@ -349,8 +349,9 @@ table {
 						<!-- 결재선 박스 시작 -->
 						<div id="draftBox">
 							<table border="1">
-								<tr style="height: 140px;">
-									<td style="width: 200px; vertical-align: top;'" id="draftBoxTd"></td>
+								<tr style="height: 140px;" id="draftBoxTr">
+									<td style="width: 200px; vertical-align: top;" id="draftBoxTd">
+									</td>
 								</tr>
 							</table>
 						</div>
@@ -391,7 +392,7 @@ table {
 
 						<!-- 모달창 자바 스크립트 시작 -->
 						<script type="text/javascript">
-							let linebtn = document.getElementById("lineBtn");
+							linebtn = document.getElementById("lineBtn");
 							let modal = document.getElementById("modal");
 							let modalBack = document
 									.getElementById("modalBack");
@@ -526,18 +527,26 @@ table {
 											<h5 style="display: inline-block;">현장팀</h5>
 											<br>
 											<div id="orgPepleDiv">
-												&emsp;&emsp; <span class="orgPepleSpan"><i
-													class="fa-solid fa-user"></i>
-													<h6 style="display: inline-block;">현장팀 사원 박성제</h6></span> <br>
-												&emsp;&emsp; <Span class="orgPepleSpan"><i
-													class="fa-solid fa-user"></i>
-													<h6 style="display: inline-block;">현장팀 팀장 윤상얼</h6></Span> <br>
-												&emsp;&emsp; <span class="orgPepleSpan"><i
-													class="fa-solid fa-user"></i>
-													<h6 style="display: inline-block;">현장팀 부장 허석훈</h6></span> <Br>
-												&emsp;&emsp; <span class="orgPepleSpan"><i
-													class="fa-solid fa-user"></i>
-													<h6 style="display: inline-block;">현장팀 사장 노지언</h6></span>
+												<div class="orgPepleSpan"
+													style="display: inline-block; padding-left: 20px">
+													<i class="fa-solid fa-user" style="display: inline-block;"></i>
+													<h6 style="display: inline-block;">현장팀 사원 박성제</h6>
+												</div>
+												<div class="orgPepleSpan"
+													style="display: inline-block; padding-left: 20px">
+													<i class="fa-solid fa-user" style="display: inline-block;"></i>
+													<h6 style="display: inline-block;">현장팀 팀장 윤석열</h6>
+												</div>
+												<div class="orgPepleSpan"
+													style="display: inline-block; padding-left: 20px">
+													<i class="fa-solid fa-user" style="display: inline-block;"></i>
+													<h6 style="display: inline-block;">현장팀 대리 허석훈</h6>
+												</div>
+												<div class="orgPepleSpan"
+													style="display: inline-block; padding-left: 20px">
+													<i class="fa-solid fa-user" style="display: inline-block;"></i>
+													<h6 style="display: inline-block;">현장팀 부장 노지언</h6>
+												</div>
 											</div>
 										</div>
 										<div id="orgTeamDiv2">
@@ -582,13 +591,12 @@ table {
 					let minusIcon3 = document.getElementById("minusIcon3");
 					let minusIcon4 = document.getElementById("minusIcon4");
 					let orgPepleDiv = document.getElementById("orgPepleDiv");
-					let orgPepleSpan = document
-							.getElementsByClassName("orgPepleSpan");
-					let draftBtnMinus = document
-							.getElementById("draftBtnMinus");
+					let orgPepleSpan = document.getElementsByClassName("orgPepleSpan");
+					let draftBtnMinus = document.getElementById("draftBtnMinus");
 					let draftBtnPlus = document.getElementById("draftBtnPlus");
-					let draftBoxTd = document.getElementById("draftBoxTd");
-
+					let draftBoxTd = document.getElementById('draftBoxTd')
+					const draftBoxTdDiv = document.getElementById('draftBoxTdDiv')
+					
 					plusIcon.addEventListener("click", function() {
 						console.log("여기는 조직도 여기는 조직도")
 						if (plusIcon.style.display != "none") {
@@ -632,20 +640,27 @@ table {
 								.addEventListener(
 										"click",
 										function() {
+											
 											console.log("여기는 플러스비티엔")
-											console
-													.log("orgPepleSpan : "
-															+ orgPepleSpan[i].style.backgroundColor)
+											if (getComputedStyle(orgPepleSpan[i]).backgroundColor === "rgb(196, 232, 230)") {
+												let orgPepleSpanCl = 
+												draftBoxTd.innerHTML += orgPepleSpanHm;
+												orgPepleSpan[i].style.display = "none";
+												orgPepleSpan[i].style.backgroundColor = "white";
+											}
+										})
+
+						draftBtnMinus
+								.addEventListener(
+										"click",
+										function() {
 											if (orgPepleSpan[i].style.backgroundColor == "rgb(196, 232, 230)") {
 												let moveOps;
-												moveOps = orgPepleSpan[i].innerHTML
-														+ "<br>"
-												console.log(moveOps);
-												console.log("box to "
-														+ draftBoxTd)
-												draftBoxTd.innerHTML += moveOps;
-
+												draftBoxTd
+														.appendChild(orgPepleSpan[i])
+												orgPepleSpan[i].style.backgroundColor = "white";
 											}
+
 										})
 
 					}
@@ -716,31 +731,31 @@ table {
 			<!--**********************************
             Footer start
         ***********************************-->
-        </div>
-			<c:import url="../temp/footer.jsp"></c:import>
-			<!--**********************************
+		</div>
+		<c:import url="../temp/footer.jsp"></c:import>
+		<!--**********************************
             Footer end
         ***********************************-->
 
-			<!--**********************************
+		<!--**********************************
            Support ticket button start
         ***********************************-->
 
-			<!--**********************************
+		<!--**********************************
            Support ticket button end
         ***********************************-->
 
 
 
-			<!--**********************************
+		<!--**********************************
         Main wrapper end
     ***********************************-->
 
-			<!--**********************************
+		<!--**********************************
         Scripts
     ***********************************-->
-			<!-- Required vendors -->
-			<script src="https://kit.fontawesome.com/17a98cc585.js"
-				crossorigin="anonymous"></script>
-			<c:import url="../temp/js.jsp"></c:import>
+		<!-- Required vendors -->
+		<script src="https://kit.fontawesome.com/17a98cc585.js"
+			crossorigin="anonymous"></script>
+		<c:import url="../temp/js.jsp"></c:import>
 </body>

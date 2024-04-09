@@ -17,5 +17,16 @@
   		SELECT * FROM CUSTOMER WHERE BUSINESS_NUM = #{business_Num}
   	</select>
   	
-
+	<insert id="createCustomer" parameterType="CustomerVO">
+		INSERT INTO CUSTOMER 
+		VALUES(CUSTOMER_SEQ.NEXTVAL,#{business_Num},#{business_Name},#{ceo_Name},#{ceo_Phone},#{manager_Name},#{manager_Phone},#{sales_Manager},'법인',SYSDATE,#{address},'계약중')
+	</insert>
+	
+	<update id="updateCustomer" parameterType="CustomerVO">
+		UPDATE CUSTOMER SET
+		(BUSINEES_NUM,BUSINEES_NAME,CEO_NAME,CEO_PHONE,MANAGER_NAME,MANAGER_PHONE,ADDRESS,SALES_MANAGER)
+		=(#{business_Num},#{business_Name},#{ceo_Name},#{ceo_Phone},#{manager_Name},#{manager_Phone},#{address},#{sales_Manager})
+		WHERE CUSTOMER_NUM = #{customer_Num}		
+	</update>
+	
   </mapper>

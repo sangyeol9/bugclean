@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<c:import url="./list_css.jsp"></c:import>
+<link rel="stylesheet" href="/bugclean/css/scheduleList.css">
 </head>
 <c:import url="../temp/css.jsp"></c:import>
 <!-- //bootstrap-template-css -->
@@ -60,7 +60,7 @@
 						</div>
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="manage_Code">배차 정보</span>
-						  	<input type="text" class="form-control" value="미정" >
+						  	<input type="text" class="form-control" value="미정" id="input_carAllocation" >
 						  	<select id="carAllocation" class="form-select" onchange="changeSelect()">
 						  		<option value="">배차요청</option>
 						  		<option value="28나 2033">28나 2033</option>
@@ -92,6 +92,6 @@
 	<!-- fullcalendar api cdn download -->
 	<script
 		src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-	<c:import url="./list_js.jsp"></c:import>
+	<script src="/bugclean/js/scheduleList.js"></script>
 </body>
 </html>
