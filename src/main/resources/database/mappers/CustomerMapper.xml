@@ -24,8 +24,7 @@
 	
 	<update id="updateCustomer" parameterType="CustomerVO">
 		UPDATE CUSTOMER SET
-		(BUSINEES_NUM,BUSINEES_NAME,CEO_NAME,CEO_PHONE,MANAGER_NAME,MANAGER_PHONE,ADDRESS,SALES_MANAGER)
-		=(#{business_Num},#{business_Name},#{ceo_Name},#{ceo_Phone},#{manager_Name},#{manager_Phone},#{address},#{sales_Manager})
+		BUSINESS_NUM=#{business_Num},BUSINESS_NAME=#{business_Name},CEO_NAME=#{ceo_Name},CEO_PHONE=#{ceo_Phone},MANAGER_NAME=#{manager_Name},MANAGER_PHONE=#{manager_Phone},address=#{address},SALES_MANAGER=#{sales_Manager}
 		WHERE CUSTOMER_NUM = #{customer_Num}		
 	</update>
 	
