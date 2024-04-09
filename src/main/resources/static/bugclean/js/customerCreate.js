@@ -1,10 +1,7 @@
-<script>
-	let ck_company = document.getElementById("ck_company");
+let ck_company = document.getElementById("ck_company");
     let ck_person = document.getElementById("ck_person");
     let company1 = document.getElementById("company");
     let person1 = document.getElementById("person1");
-
-    
 
     function company(){
         if(ck_person.checked){
@@ -33,4 +30,3 @@
             
         }
     }
-</script>

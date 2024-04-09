@@ -1,4 +1,3 @@
-<style>
 #calendar {
 	height: 750px;
 	width: 750px;
@@ -56,5 +55,3 @@
 #title_div{
 	display: flex;
 }
-
-</style>

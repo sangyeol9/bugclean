@@ -7,15 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-.create {
-	width: 100px;
-	float: right;
-}
-</style>
+
+<link rel="stylesheet" href="/bugclean/css/customerList.css" type="text/css" />
 </head>
 <c:import url="../temp/css.jsp"></c:import>
-<c:import url="./list_css.jsp"></c:import>
 <body>
 	<div id="preloader">
 		<div class="sk-three-bounce">
@@ -40,6 +35,7 @@
 			<!-- 리스트 시작 -->
 			<table class="table customer_list" >
 				<tr>
+					<th class="display_none" id="th_check"> </th>
 					<th>사업자명</th>
 					<th>대표자명</th>
 					<th>대표자 번호</th>
@@ -50,16 +46,20 @@
 				</tr>
 				<tbody>
 					<c:forEach items="${list}" var="li">
-						<tr>
-							<td><a href="./detail?business_Num=${li.business_Num}">
-									${li.business_Name}</a></td>
-
-							<td>${li.ceo_Name}</td>
-							<td>${li.ceo_Phone}</td>
-							<td>${li.manager_Name}</td>
-							<td>${li.manager_Phone}</td>
-							<td>${li.address}</td>
-							<td>${li.sales_Manager}</td>
+						<tr class="list_tr">
+							<td class="display_none td_customer_num" data-customernum="${li.customer_Num}"></td>
+							<td class="display_none modi_checkbox" ><input type="checkbox" class="td_checkbox"></td>
+							<td>
+								<a href="./detail?business_Num=${li.business_Num}" class="td_business_name">
+									${li.business_Name}
+								</a>
+							</td>
+							<td class="td_ceo_name">${li.ceo_Name}</td>
+							<td class="td_ceo_phone">${li.ceo_Phone}</td>
+							<td class="td_mng_name">${li.manager_Name}</td>
+							<td class="td_mng_phone">${li.manager_Phone}</td>
+							<td class="td_address">${li.address}</td>
+							<td class="td_sales_mng">${li.sales_Manager}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -67,14 +67,56 @@
 			</table>
 			<!-- 리스트 끝 -->
 
+			<!-- 수정 모달 -->
+			<form method="post">
+				<div id="modal_myModal" class="modal">
+					  <div class="modal-content" style="width : 30%;">
+					    <span class="close">&times;</span>
+					    <div id="modal_company">
+						  <input type="hidden" value="">
+					      <div id="modal_bn_name">
+					        <button disabled="disabled" class="btn-square btn-outline-dark left-div">사업자 명</button>
+					        <input class="right-div" id="modal_bn_name_in" type="text" placeholder="사업자 명을 입력하세요.">
+					      </div>
+					      <div id="modal_ceo_name">
+					        <button disabled="disabled" class="btn-square btn-outline-dark left-div">대표자 명</button>
+					        <input class="right-div" id="modal_ceo_name_in" type="text" placeholder="대표자 이름을 입력하세요.">
+					      </div>
+					      <div id="modal_ceo_phone">
+					        <button disabled="disabled" class="btn-square btn-outline-dark left-div">대표 전화번호</button>
+					        <input class="right-div" id="modal_ceo_phone_in" type="text" placeholder="대표자 전화번호를 입력하세요.">
+					      </div>
+					      <div id="modal_addr">
+					        <button disabled="disabled" class="btn-square btn-outline-dark left-div">주소</button>
+					        <input class="right-div" id="modal_addr_in" type="text" placeholder="사업자 주소를 입력하세요.">
+					      </div>
+					      <div id="modal_manager_name">
+					        <button disabled="disabled" class="btn-square btn-outline-dark left-div">매니저 명</button>
+					        <input class="right-div" id="modal_manager_name_in" type="text" placeholder="거래처 담당자 명을 입력하세요.">
+					      </div>
+					      <div id="modal_manager_phone">
+					        <button disabled="disabled" class=" btn-square btn-outline-dark left-div">매니저 전화번호</button>
+					        <input class="right-div" id="modal_manager_phone_in" type="text" placeholder="거래처 담당자 전화번호를 입력하세요.">
+					      </div>
+					      <div id="modal_sales_name">
+					        <button disabled="disabled" class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
+					        <input class="right-div" id="modal_sales_name_in" type="text" placeholder="영업 담당자명을 입력하세요.">
+					      </div>
+					    </div>
+					      <button id="modi_com" class="btn-rounded btn-dark create" onclick="modiComplate()">수정 완료</button>
+					  </div>
+					</div>
+				</form>	
+			<!-- 수정 모달 끝 -->
+			
 			<!-- 수정 버튼 -->
-			<button id="modi" class="btn-rounded btn-dark create">수정하기</button>
+			<button id="modi" class="btn-rounded btn-dark create" onclick="checkOn()">수정하기</button>
 
 			<c:import url="../temp/messenger.jsp"></c:import>
 		</div>
 	</div>
 	<c:import url="../temp/footer.jsp"></c:import>
-
 	<c:import url="../temp/js.jsp"></c:import>
+	<script src="/bugclean/js/customerList.js"></script>
 </body>
 </html>
