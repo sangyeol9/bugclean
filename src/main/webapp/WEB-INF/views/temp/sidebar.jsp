@@ -77,10 +77,11 @@ z-index: 115;
 							class="nav-text">문서함</span></a>
 						<ul aria-expanded="false">
 							<li><a href="../draft/draftlist">작성하기</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">내기안문서</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">반려문서</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">완료문서</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">임시저장문서</a></li>
+							<li><a href="../draft/mydraftlist">내기안문서</a></li>
+							<li><a href="../draft/myapprovinglist">결재중문서</a></li>
+							<li><a href="/draft/myapprovedlist">결재완료문서</a></li>
+							<li><a href="/draft/myrejectiondraftlist">반려문서</a></li>
+							<li><a href="/draft/mytemporarylist">임시저장문서</a></li>
 						</ul>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"><i class="icon icon-app-store"></i><span

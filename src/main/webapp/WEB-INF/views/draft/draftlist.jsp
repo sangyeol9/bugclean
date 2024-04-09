@@ -69,28 +69,50 @@
             Content body start
         ***********************************-->
 		<div class="content-body" style="min-height: 877px;">
-			<table border="1">
-				<tr>
-					<td><a href="./basisdraft">기본기안서 양식</a></td>
-					<td><a href="./basisdraft">현장보고서 양식</a></td>
-					<td><a href="./basisdraft">매출보고서 양식</a></td>
-					<td><a href="./basisdraft">구매신청서 양식</a></td>
-				</tr>
-			</table>
-			
-			
-			
-		</div>
-		<!--**********************************
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">문서양식</h4>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table mb-0">
+								<thead>
+									<tr>
+										<th>문서양식</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><a href="./basisdraft">기본양식</a></td>
+									</tr>
+									<tr>
+										<td>현장보고서</td>
+									</tr>
+									<tr>
+										<td>매출보고서</td>
+									</tr>
+									<tr>
+										<td>연차신청서</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<!--**********************************
             Content body end
         ***********************************-->
 
 
-		<!--**********************************
+			<!--**********************************
             Footer start
         ***********************************-->
-        </div>
-        <c:import url="../temp/messenger.jsp"></c:import>
+		</div>
+		<c:import url="../temp/messenger.jsp"></c:import>
 		<c:import url="../temp/footer.jsp"></c:import>
 		<!--**********************************
             Footer end
