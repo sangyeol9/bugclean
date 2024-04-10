@@ -19,7 +19,7 @@ let modal_sales_name_in = document.getElementById("modal_sales_name_in");
 
 
 // 리스트의 값들 클래스명으로 저장
-let td_business_num = document.getElementsByClassName("td_business_num");
+
 let td_business_name = document.getElementsByClassName("td_business_name");
 let td_ceo_name = document.getElementsByClassName("td_ceo_name");
 let td_ceo_phone = document.getElementsByClassName("td_ceo_phone");
@@ -28,6 +28,15 @@ let td_mng_phone = document.getElementsByClassName("td_mng_phone");
 let td_address = document.getElementsByClassName("td_address");
 let td_sales_mng = document.getElementsByClassName("td_sales_mng");
 let td_customer_num = document.getElementsByClassName("td_customer_num");
+let td_customer_type = document.getElementsByClassName("td_customer_type");
+let type = document.getElementById("type");
+
+//modal창 div 아이디 저장
+let modal_bn_name = document.getElementById("modal_bn_name");
+let modal_manager_name = document.getElementById("modal_manager_name");
+let modal_manager_phone = document.getElementById("modal_manager_phone")
+
+
 let customer;
 let business;
 /*모달창 접근*/
@@ -38,7 +47,20 @@ for(let i=0; i<modi_tr.length;i++){
         console.log("event 진입 " + i );
         
             customer = td_customer_num[i].getAttribute("data-customernum");
-            business = td_business_num[i].getAttribute("data-businessnum");
+            customerType = td_customer_type[i].getAttribute("data-customertype");
+            type.value = customerType;
+            console.log("type = " + type.value);
+            if(type.value=="개인"){
+              modal_bn_name.style.display="none";
+              modal_manager_name.style.display="none";
+              modal_manager_phone.style.display="none";
+            }else{
+              modal_bn_name.style.display="";
+              modal_manager_name.style.display="";
+              modal_manager_phone.style.display="";
+            }
+
+
             console.log("customerNum = "+customer);
             console.log("modal 진입 ");
 
@@ -83,7 +105,7 @@ function modiComplate(){
     }).then(response=>response.text)
     .then(response=>{
         alert("변경에 성공하였습니다.");
-            modal.style.display="none";
+        location.href="/customer/list";
     })
 }
 
@@ -109,3 +131,12 @@ function checkOn() {
 
 }
 
+function getList(){
+  fetch("/customer/list",{
+    method:"GET"
+  })
+  .then(response=>response.json)
+  .then(response=>{
+
+  })
+}
