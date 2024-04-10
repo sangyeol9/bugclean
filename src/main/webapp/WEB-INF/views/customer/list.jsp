@@ -47,6 +47,7 @@
 					<c:forEach items="${list}" var="li">
 						<tr class="list_tr modi_tr">
 							<td class="display_none td_customer_num" data-customernum="${li.customer_Num}"></td>
+							<td class="display_none td_customer_type" data-customertype="${li.customer_Type}"></td>
 							<td class="display_none modi_checkbox" ><input type="checkbox" class="td_checkbox"></td>
 							<td>
 								<a href="./detail?business_Num=${li.business_Num}" class="td_business_name">
@@ -72,7 +73,8 @@
 					  <div class="modal-content" style="width : 30%;">
 					    <span class="close">&times;</span>
 					    <div id="modal_company">
-						<input type="hidden" value="">
+						<input type="hidden" id="type" value="">
+						
 						<div class="input-group flex-nowrap mt-2" id="modal_bn_name">
 							<span class="input-group-text left-div" id="customer_Name">사업자 명</span>
 							<input id="modal_bn_name_in" type="text" class="form-control right-div" placeholder="사업자명을 입력하세요." >
@@ -109,8 +111,7 @@
 				</form>	
 			<!-- 수정 모달 끝 -->
 			
-			<!-- 수정 버튼 -->
-			<button id="modi" class="btn-rounded btn-dark create" onclick="checkOn()">수정하기</button>
+			
 
 			<c:import url="../temp/messenger.jsp"></c:import>
 		</div>

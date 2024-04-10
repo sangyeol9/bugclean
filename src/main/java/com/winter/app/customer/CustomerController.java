@@ -36,10 +36,11 @@ public class CustomerController {
 	}
 	@PostMapping("create")
 	public String createCustomer(CustomerVO customerVO) throws Exception{
-		System.out.println("진입 ");
 		System.out.println("customer vo" + customerVO+ "\n종료");
-		System.out.println("customer" + customerVO.getCeo_Name());
-		System.out.println(customerVO.getCeo_Phone());
+		if(customerVO.getCustomer_Type().equals("개인")) { 
+			customerVO.setBusiness_Name("개인");
+			System.out.println("개인 진입");
+		}
 		customerService.createCustomer(customerVO);
 		System.out.println("작업완료");
 		return "redirect:/customer/list";

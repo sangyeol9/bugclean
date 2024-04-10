@@ -19,12 +19,12 @@
   	
 	<insert id="createCustomer" parameterType="CustomerVO">
 		INSERT INTO CUSTOMER 
-		VALUES(CUSTOMER_SEQ.NEXTVAL,#{business_Num},#{business_Name},#{ceo_Name},#{ceo_Phone},#{manager_Name},#{manager_Phone},#{sales_Manager},'법인',SYSDATE,#{address},'계약중')
+		VALUES(CUSTOMER_SEQ.NEXTVAL,#{business_Num},#{business_Name},#{ceo_Name},#{ceo_Phone},#{manager_Name},#{manager_Phone},#{sales_Manager},#{customer_Type},SYSDATE,#{address},'계약중')
 	</insert>
 	
 	<update id="updateCustomer" parameterType="CustomerVO">
 		UPDATE CUSTOMER SET
-		BUSINESS_NUM=#{business_Num},BUSINESS_NAME=#{business_Name},CEO_NAME=#{ceo_Name},CEO_PHONE=#{ceo_Phone},MANAGER_NAME=#{manager_Name},MANAGER_PHONE=#{manager_Phone},address=#{address},SALES_MANAGER=#{sales_Manager}
+		BUSINESS_NAME=#{business_Name},CEO_NAME=#{ceo_Name},CEO_PHONE=#{ceo_Phone},MANAGER_NAME=#{manager_Name},MANAGER_PHONE=#{manager_Phone},address=#{address},SALES_MANAGER=#{sales_Manager}
 		WHERE CUSTOMER_NUM = #{customer_Num}		
 	</update>
 	
