@@ -22,6 +22,12 @@ public class EmployeeController {
 	public void create(@ModelAttribute EmployeeVO employeeVO) throws Exception{
 		
 	}
+	@GetMapping("mailCheck")
+	public String mailCheck(String email) {
+		System.out.println("이메일 인증 요청이 들어옴!");
+		System.out.println("이메일 인증 이메일 : " + email);
+		return null;
+	}
 	
 	@GetMapping("mypage")
 	public void mypage() throws Exception{

@@ -32,25 +32,27 @@
 											<label><strong>아이디</strong></label>
 											<div style="display: flex;">
 												<div class="input-group mb-3">
-													<input type="text" class="form-control" placeholder="username">
+													<form:input path="username"  cssClass="form-control" id="username"></form:input>
+													<form:errors path="username"></form:errors>   
 													<div class="input-group-append">
 														<span class="input-group-text">@gmail.com</span>
 													</div>
 												</div>
 												<div class="card-action mx-1 mt-1" style="height: 35px; display: table;">
-													<div id="numRequest" type="button" class="dropdown custom-dropdown" style="width: 80px; display: table-cell; vertical-align: middle;">
+													<div id="mailCheckBtn" type="button" class="dropdown custom-dropdown" style="width: 80px; display: table-cell; vertical-align: middle;">
 														인증 요청
 													</div>
 												</div>
 											</div>
 										</div>
 
-										<div id="numCheck" class="form-group row">
-											<!-- <label><strong>인증번호</strong></label>
-
-											<input type="text" class="form-control col-6">
-											<button type="button" class="btn btn-light">확인</button> -->
-
+										<div id="numCheck" class="form-group mb-4">
+											<label><strong>인증번호</strong></label>
+											<div style="display: flex;">
+												<input type="text" class="form-control col-6 mailCheckInput" disabled="disabled" maxlength="6" placeholder="인증번호 6자리를 입력해주세요.">
+												<button type="button" class="btn btn-light mx-1" style="height: 35px;">확인</button>
+											</div>
+											<span id="mailCheckWarn"></span>
 										</div>
 
 										<div class="form-group">
@@ -67,7 +69,7 @@
 
 										<div class="form-group">
 											<label><strong>이름</strong></label>
-											<form:input path="name" id="name" cssClass="form-control"></form:input>
+											<form:input path="name" id="name" cssClass="form-control col-6"></form:input>
 											<form:errors path="name"></form:errors>
 										</div>
 										<div class="form-group">
