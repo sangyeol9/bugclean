@@ -3,6 +3,7 @@ package com.winter.app.employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -50,5 +51,18 @@ public class EmployeeService {
 
         return message;
     }
+	//아이디 중복, 비번 일치 여부
+	public boolean checkEmployee(EmployeeVO employeeVO, BindingResult bindingResult) throws Exception{
+		//check true -> 에러
+		boolean check = false;
+		
+		check = bindingResult.hasErrors();
+		
+		//비밀번호 검증
+		if(!) {
+			
+		}
+		return false;
+	}
 	
 }

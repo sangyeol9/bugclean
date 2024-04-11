@@ -32,6 +32,15 @@ public class EmployeeController {
 	public String create(@Validated(EmployeeCreateGroup.class) EmployeeVO employeeVO, BindingResult bindingResult,Model model) throws Exception{
 		
 		System.out.println("Member Add");
+		//System.out.println("error : "+bindingResult);
+		
+		boolean check = employeeService.checkEmployee(employeeVO, bindingResult);
+		if(check) {
+			return "member/add";
+		}
+		
+		
+		
 		
 		return null;
 		
