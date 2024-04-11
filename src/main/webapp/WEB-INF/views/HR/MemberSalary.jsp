@@ -12,7 +12,6 @@
 <link href="/focus-bootstrap-main/theme/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="/bugclean/css/MemberAgree-datatables.css" rel="stylesheet">
 <link href="/focus-bootstrap-main/theme/vendor/select2/css/select2.min.css" rel="stylesheet">
-
 <body>
 <div id="preloader">
     <div class="sk-three-bounce">
@@ -31,14 +30,14 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4 style="font-weight: bolder;">&ensp;연차관리</h4>
+                        <h4 style="font-weight: bolder;">&ensp;급여관리</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item active">인사팀</li>
-                        <li class="breadcrumb-item active"><a href="./">연차관리</a></li>
+                        <li class="breadcrumb-item active"><a href="./">급여관리</a></li>
                     </ol>
                 </div>
             </div>
@@ -46,12 +45,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">사원별 연차 사용현황</div>
+                            <div class="card-title">사원별 연봉 정보</div>
                             <div class="form-inline">
                                 <label class="mr-2" for="yearSelect">조회할 연도 선택</label>
                                 <div>
                                     <select id="yearSelect">
-                                        <c:forEach items="${vacYear}" var="year">
+                                        <c:forEach items="${salYear}" var="year">
                                             <option value="${year}">${year}</option>
                                         </c:forEach>
                                     </select>
@@ -59,14 +58,13 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <table id="vacationList" class="table-hover table" style="width: 98%">
+                            <table id="salaryList" class="table-hover table" style="width: 98%">
                                 <tr>
                                     <th>사번</th>
                                     <th>이름</th>
-                                    <th>총연차일수(시간)</th>
-                                    <th>사용연차일수(시간)</th>
-                                    <th>잔여연차일수(시간)</th>
-                                    <th>근속연수</th>
+                                    <th>급여계좌번호</th>
+                                    <th>급여은행</th>
+                                    <th>연봉금액</th>
                                     <th>부서</th>
                                 </tr>
                             </table>
@@ -83,7 +81,7 @@
 <c:import url="../temp/js.jsp"></c:import> <%--bootstrap-template-js--%>
 <script src="/focus-bootstrap-main/theme/vendor/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/focus-bootstrap-main/theme/vendor/select2/js/select2.full.min.js"></script>
-<script src="/bugclean/js/vacationList-dataTables-init.js"></script>
+<script src="/bugclean/js/salaryList-dataTables-init.js"></script>
 
 </body>
 </html>

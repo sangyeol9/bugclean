@@ -1,14 +1,13 @@
 function initDataTables(data) {
-    $('#vacationList').DataTable({
+    $('#salaryList').DataTable({
         "data": data,
         "columns": [
-            {data: "사번", title: "사번"},
-            {data: "이름", title: "이름"},
-            {data: "총연차일수", title: "총연차일수(시간)"},
-            {data: "사용연차일수", title: "사용연차일수(시간)"},
-            {data: "잔여연차일수", title: "잔여연차일수(시간)"},
-            {data: "근속연수", title: "근속연수"},
-            {data: "부서", title: "부서"}
+            {data: "EMPLOYEE_NUM", title: "사번"},
+            {data: "NAME", title: "이름"},
+            {data: "SALARY_ACCOUNT", title: "급여계좌번호"},
+            {data: "SALARY_BANK", title: "급여은행"},
+            {data: "SALARY_PAY", title: "연봉금액"},
+            {data: "DEP_NAME", title: "부서"},
         ]
     })
 }
@@ -22,18 +21,14 @@ async function getData(year) {
 
     // 새로운 데이터를 가져오는 비동기 함수
     let response = await $.ajax({
-        url: "/hr/vacation/list?year=" + $('#yearSelect').val(),
+        url: "/hr/salary/list?year=" + $('#yearSelect').val(),
         type: "GET"
     });
     for (let item of response) {
-        item.근속연수 += "년";
-        item.총연차일수 = (item.총연차일수 / 8) + `일 (${item.총연차일수})`;
-        item.사용연차일수 = (item.사용연차일수 / 8) + `일 (${item.사용연차일수})`;
-        item.잔여연차일수 = (item.잔여연차일수 / 8) + `일 (${item.잔여연차일수})`;
+        item.SALARY_PAY += "만원";
     }
     saveData[year] = response; //비동기 통신으로 가져온 데이터를 해당연도 데이터로 저장
     console.log(response);
-
     return response;
 }
 
@@ -48,7 +43,7 @@ $(document).ready(async function () {
     let currentYear = new Date().getFullYear();
     $('#yearSelect').val(currentYear).trigger('change');
     $('#yearSelect').on('change', async function () {
-        let table = $('#vacationList').DataTable()
+        let table = $('#salaryList').DataTable()
         year = $('#yearSelect').val();
         let newData = await getData(year); // 새로운 데이터 가져오기
         table.clear().rows.add(newData).draw(); // 데이터 업데이트
