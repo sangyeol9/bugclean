@@ -27,10 +27,11 @@
 			<form method="post">
 				<!-- 법인, 개인 체크 박스 -->
 				<div id="check">
-					<input type="checkbox" id="ck_company" class="ck"
-						onclick="company()" checked="checked"> <label
-						for="ck_company">법인</label> <input type="checkbox" id="ck_person"
-						class="ck" onclick="person()"> <label for="ck_person">개인</label>
+					<input type="checkbox" id="ck_company" class="ck" onclick="company()" checked="checked"> 
+					<label for="ck_company">법인</label> 
+					<input type="checkbox" id="ck_person" class="ck" onclick="person()">
+					<label for="ck_person">개인</label>
+					<input type="hidden" name="customer_Type" id="submit_check" value="법인">
 				</div>
 				<!-- 체크박스 끝 -->
 
@@ -95,19 +96,25 @@
 						<button disabled="disabled"
 							class="btn-square btn-outline-dark left-div">주소</button>
 						<input class="right-div" id="addr_person_in" type="text"
-							placeholder="고객 주소를 입력하세요.">
+							placeholder="고객 주소를 입력하세요." name="address">
 					</div>
 					<div id="person_name">
 						<button disabled="disabled"
 							class="btn-square btn-outline-dark left-div">고객명</button>
 						<input class="right-div" id="person_name_in" type="text"
-							placeholder="고객명을 입력하세요.">
+							placeholder="고객명을 입력하세요." name="ceo_Name">
 					</div>
 					<div id="person_phone">
 						<button disabled="disabled"
 							class=" btn-square btn-outline-dark left-div">고객 전화번호</button>
 						<input class="right-div" id="person_phone_in" type="text"
-							placeholder="고객 전화번호를 입력하세요.">
+							placeholder="고객 전화번호를 입력하세요." name="ceo_Phone">
+					</div>
+					<div id="person_sales_name">
+						<button disabled="disabled"
+							class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
+						<input class="right-div" id="person_sales_name_in" type="text"
+							placeholder="영업 담당자명을 입력하세요." name="sales_Manager">
 					</div>
 
 				</div>

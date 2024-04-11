@@ -51,22 +51,22 @@
                                     <div class="cover-photo"></div>
                                     <div class="profile-photo">
 										<!-- src="/focus-bootstrap-main/theme/images/logo.png" -->
-                                        <img src="/focus-bootstrap-main/theme/images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                                        <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" class="img-fluid rounded-circle" alt="">
                                     </div>
                                 </div>
                                 <div class="profile-info">
                                     <div class="row justify-content-center">
-                                        <div class="col-xl-8">
+                                        <div class="col-xl-8" style="margin-left: 2%;">
                                             <div class="row">
                                                 <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
                                                     <div class="profile-name">
-                                                        <h4 class="text-primary">Mitchell C. Shay</h4>
+                                                        <h4 class="text-primary" >박보영</h4>
                                                         
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
                                                     <div class="profile-email">
-                                                        <h4 class="text-primary">hello@email.com</h4>
+                                                        <h4 class="text-primary">cuteGirl@email.com</h4>
                                                         <p>Email</p>
                                                     </div>
                                                 </div>
