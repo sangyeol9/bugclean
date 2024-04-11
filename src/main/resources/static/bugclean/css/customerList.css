@@ -3,10 +3,12 @@
 	float: right;
 }
 #modi_com{
+    margin-top : 10%;
     margin-left: 40%;
 }
 .customer_list{
     background-color: white;
+    margin-top : 2%;
 }
 td{
     color: black;
@@ -51,7 +53,7 @@ td{
     margin-bottom: 5px;
     text-align: center;
     align-items: center;
-    width : 200px;
+    width : 120px;
   }
   .right-div {
     float: right;

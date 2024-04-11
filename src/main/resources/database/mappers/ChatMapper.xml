@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+  
+  <mapper namespace="com.winter.app.chat.ChatDAO">
+
+ 	<select id="getEmployeeList" resultType="Map">
+ 		SELECT e.EMPLOYEE_NUM ,e.NAME ,d.DEP_NAME,p.POS_NAME  FROM EMPLOYEE e
+		LEFT JOIN DEPARTMENT d
+		ON e.DEP_CODE  = d.DEP_CODE
+		LEFT JOIN "POSITION" p
+		ON e.POS_CODE = p.POS_CODE
+ 	</select> 	
+ 
+	
+  </mapper>

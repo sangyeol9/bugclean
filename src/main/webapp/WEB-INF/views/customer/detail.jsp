@@ -24,13 +24,14 @@
 		<c:import url="../temp/sidebar.jsp"></c:import>
 
 		<div class="content-body " style="min-height: 900px;">
-			<form>
+			<form action="./delete">
 				<!-- 법인인지 개인인지 보여줌 -->
 				<div id="check">
-					<input type="checkbox" id="ck_company" class="ck"
-						onclick="company()" disabled="disabled" checked="checked">
-					<label for="ck_company">${vo.customer_Type}</label>
-
+				<input type="checkbox" class="ck" disabled="disabled" checked="checked">
+				<label for="ck_company">${vo.customer_Type}</label>
+				
+				<input type="hidden" value="${vo.customer_Num}" name="customer_Num">
+				
 					<!-- 법인일시 출력창 -->
 				</div>
 				<c:if test="${vo.customer_Type eq '법인'}">
@@ -85,10 +86,10 @@
 						</div>
 
 					</div>
+				</c:if>
 					<!-- 법인 출력창 끝 -->
 
 					<!-- 개인출력 시작  -->
-				</c:if>
 				<c:if test="${vo.customer_Type eq '개인'}">
 					<div id="person1">
 
@@ -109,6 +110,12 @@
 								class=" btn-square btn-outline-dark left-div">고객 전화번호</button>
 							<input class="right-div" id="person_phone_in" type="text"
 								value="${vo.ceo_Phone}" readonly="readonly">
+						</div>
+						<div id="person_sales_name">
+							<button disabled="disabled"
+								class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
+							<input class="right-div" id="person_sales_name_in" type="text"
+								value="${vo.sales_Manager}" readonly="readonly">
 						</div>
 
 					</div>

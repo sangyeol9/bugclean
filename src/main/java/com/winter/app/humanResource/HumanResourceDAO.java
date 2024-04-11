@@ -12,5 +12,9 @@ public interface HumanResourceDAO {
 
     public List<TempMemberVO> getAskList()throws Exception;
     public List<Map<String, Object>> getMemberList()throws Exception;
-    public List<Map<String, Object>> getVacationList()throws Exception;
+    public List<Map<String, Object>> getVacationList(Integer year)throws Exception;
+    public List<String> getDistinctValues(String param)throws Exception;
+    public List<Map<String, Object>> getResignationList()throws Exception;
+    public List<Map<String, Object>> getSalaryList(Integer year)throws Exception;
+
 }
