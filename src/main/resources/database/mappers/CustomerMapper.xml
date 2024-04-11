@@ -9,12 +9,12 @@
 
   	
   	<select id="getList" resultType="CustomerVO">
-  		SELECT * FROM CUSTOMER
+  		SELECT * FROM CUSTOMER ORDER BY CUSTOMER_NUM ASC
   	</select>
   	
 
   	<select id="getDetail" resultType="CustomerVO" parameterType="CustomerVO">
-  		SELECT * FROM CUSTOMER WHERE BUSINESS_NUM = #{business_Num}
+  		SELECT * FROM CUSTOMER WHERE CUSTOMER_NUM = #{customer_Num} 
   	</select>
   	
 	<insert id="createCustomer" parameterType="CustomerVO">
@@ -27,5 +27,9 @@
 		BUSINESS_NAME=#{business_Name},CEO_NAME=#{ceo_Name},CEO_PHONE=#{ceo_Phone},MANAGER_NAME=#{manager_Name},MANAGER_PHONE=#{manager_Phone},address=#{address},SALES_MANAGER=#{sales_Manager}
 		WHERE CUSTOMER_NUM = #{customer_Num}		
 	</update>
+	
+	<delete id="deleteCustomer" parameterType="CustomerVO">
+		DELETE CUSTOMER WHERE CUSTOMER_NUM = #{customer_Num}
+	</delete>
 	
   </mapper>

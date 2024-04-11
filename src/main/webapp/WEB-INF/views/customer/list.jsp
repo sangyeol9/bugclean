@@ -50,7 +50,7 @@
 							<td class="display_none td_customer_type" data-customertype="${li.customer_Type}"></td>
 							<td class="display_none modi_checkbox" ><input type="checkbox" class="td_checkbox"></td>
 							<td>
-								<a href="./detail?business_Num=${li.business_Num}" class="td_business_name">
+								<a href="./detail?customer_Num=${li.customer_Num}" class="td_business_name">
 									${li.business_Name}
 								</a>
 							</td>

@@ -15,4 +15,6 @@ public interface CustomerDAO {
 	
 	int updateCustomer(CustomerVO customerVO) throws Exception;
 	
+	int deleteCustomer(CustomerVO customerVO) throws Exception;
+	
 }
