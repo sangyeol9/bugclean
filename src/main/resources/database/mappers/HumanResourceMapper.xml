@@ -44,8 +44,32 @@
         WHERE VAC_YEAR = #{year}
     </select>
 
-    <select id="getVacYear" resultType="String">
-        SELECT DISTINCT (VAC_YEAR)  FROM VACATION
+    <select id="getSalaryList" parameterType="Integer" resultType="Map">
+        SELECT EMPLOYEE_NUM,
+        NAME,
+        SALARY_ACCOUNT,
+        SALARY_BANK,
+        (SALARY_PAY*12) AS "SALARY_PAY",
+        DEP_NAME
+        FROM EMPLOYEE
+        LEFT JOIN DEPARTMENT USING (DEP_CODE)
+        LEFT JOIN SALARY USING (EMPLOYEE_NUM)
+        WHERE SALARY_YEAR = #{year}
+    </select>
+
+    <select id="getDistinctValues" parameterType="map" resultType="String">
+        <choose>
+            <when test="tableName == 'SALARY'">
+                SELECT DISTINCT SALARY_YEAR
+                FROM SALARY
+                ORDER BY SALARY_YEAR DESC
+            </when>
+            <when test="tableName == 'VACATION'">
+                SELECT DISTINCT VAC_YEAR
+                FROM VACATION
+                ORDER BY VAC_YEAR DESC
+            </when>
+        </choose>
     </select>
 
 </mapper>

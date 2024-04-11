@@ -47,7 +47,7 @@
                             <div class="default-tab">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#list-1">전체 사원 조회</a>
+                                        <a class="nav-link active" data-toggle="tab" href="#list-1" }>전체 사원 조회</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#list-2">퇴사 사원 조회</a>
@@ -56,6 +56,9 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade show active" id="list-1" role="tabpanel">
                                         <div class="pt-4">
+                                            <div class="card-title">
+                                                재직중 사원
+                                            </div>
                                             <div class="table-responsive">
                                                 <table id="memberList" class="table-hover table" style="width: 98%">
                                                     <tr>
@@ -71,6 +74,9 @@
                                     </div>
                                     <div class="tab-pane fade" id="list-2">
                                         <div class="pt-4">
+                                            <div class="card-title">
+                                                복구 가능 사원
+                                            </div>
                                             <div class="table-responsive">
                                                 <table id="possibleList" class="table-hover table" style="width: 98%">
                                                     <tr>
@@ -84,9 +90,12 @@
                                             </div>
                                         </div>
                                         <div>
-                                            
+                                            <hr class="my-4">
                                         </div>
-                                        <div class="pt-4 mt-5">
+                                        <div class="pt-4">
+                                            <div class="card-title">
+                                                복구 기한 만료 사원
+                                            </div>
                                             <div class="table-responsive">
                                                 <table id="impossibleList" class="table-hover table"
                                                        style="width: 98%">

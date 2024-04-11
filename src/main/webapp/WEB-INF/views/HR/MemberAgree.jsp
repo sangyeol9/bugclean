@@ -8,8 +8,8 @@
     <meta charset="UTF-8">
     <title>Bug Clean</title>
 </head>
-<link href="/focus-bootstrap-main/theme/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 <c:import url="../temp/css.jsp"></c:import> <!-- //bootstrap-template-css -->
+<link href="/focus-bootstrap-main/theme/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="/bugclean/css/MemberAgree-datatables.css" rel="stylesheet">
 
 <body>

@@ -1,10 +1,9 @@
 
-function initDataTables(){
+function memberList(){
     $.ajax({
         url:"/hr/member/list",
         type: "GET",
         success: function (response){
-            console.log(response);
             $('#memberList').DataTable({
                 "data": response,
                 "columns":[
@@ -23,7 +22,9 @@ function initDataTables(){
             $('#tempList').html('<div style="color:red;">데이터를 가져오는 중 오류가 발생했습니다.</div>');
         }
     })
+}
 
+function resignationList(){
     $.ajax({
         url:"/hr/resignation/list",
         type: "GET",
@@ -65,6 +66,8 @@ function initDataTables(){
     })
 }
 
+
 $(document).ready(async function (){
-    await initDataTables();
+    await memberList();
+    await resignationList();
 })

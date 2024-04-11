@@ -39,14 +39,13 @@ public class HumanResourceService {
         List<Map<String, Object>> possible = new ArrayList<>();
         List<Map<String, Object>> impossible = new ArrayList<>();
 
-        log.info("{}",resignationList);
-        for (int i = 0; i < resignationList.size(); i++) {
-            LocalDate resignedDate = LocalDate.parse((String)resignationList.get(i).get("RETIRED_DATE"), DateTimeFormatter.ISO_DATE);
+        for (Map<String, Object> stringObjectMap : resignationList) {
+            LocalDate resignedDate = LocalDate.parse((String) stringObjectMap.get("RETIRED_DATE"), DateTimeFormatter.ISO_DATE);
             long daysDifference = ChronoUnit.DAYS.between(resignedDate, currentDate);
-            if(daysDifference >= 30){
-                impossible.add(resignationList.get(i));
-            }else {
-                possible.add(resignationList.get(i));
+            if (daysDifference >= 30) {
+                impossible.add(stringObjectMap);
+            } else {
+                possible.add(stringObjectMap);
             }
         }
         responseData.put("possible", possible);
@@ -55,13 +54,13 @@ public class HumanResourceService {
     }
 
     private List<Map<String, Object>> setDate(List<Map<String, Object>> list, String col) {
-        for (int i = 0; i < list.size(); i++) {
-            String date = list.get(i).get(col).toString();
+        for (Map<String, Object> stringObjectMap : list) {
+            String date = stringObjectMap.get(col).toString();
             int index = date.indexOf(" ");
             if (index != -1) {
                 date = date.substring(0, index);
             }
-            list.get(i).put(col, date);
+            stringObjectMap.put(col, date);
         }
         return list;
     }
@@ -70,8 +69,14 @@ public class HumanResourceService {
         return humanResourceDAO.getVacationList(year);
     }
 
-    public List<String> getVacYear() throws Exception {
-        return humanResourceDAO.getVacYear();
+    public List<String> getDistinctValues(String tableName) throws Exception {
+        return humanResourceDAO.getDistinctValues(tableName);
+    }
+
+    public List<Map<String, Object>> getSalaryList(Integer year)throws Exception{
+        List<Map<String, Object>> ar = humanResourceDAO.getSalaryList(year);
+        log.info("{}",ar);
+        return humanResourceDAO.getSalaryList(year);
     }
 
 }

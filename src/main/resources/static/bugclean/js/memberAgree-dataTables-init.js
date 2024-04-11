@@ -1,19 +1,21 @@
 
-let renderSelect = function (options) {
-    let select = '<select>';
-    select += '<option value="">선택</option>'; // 기본 선택 옵션
-    options.forEach(option => {
-        select += '<option value="' + option + '">' + option + '</option>';
-    });
-    select += '</select>';
-    return select;
-}
+
 
 function initDataTables(){
     $.ajax({
         url:"/hr/temp/ask",
         type: "GET",
         success: function (response){
+            let renderSelect = function (options) {
+                let select = '<select>';
+                select += '<option value="">선택</option>'; // 기본 선택 옵션
+                options.forEach(option => {
+                    select += '<option value="' + option + '">' + option + '</option>';
+                });
+                select += '</select>';
+                return select;
+            }
+
             $('#tempList').DataTable({
                 "data": response.tempMember,
                 "columns":[

@@ -24,18 +24,25 @@ public class HumanResourceController {
     private CommonsService commonsService;
 
     @GetMapping("temp/list")
-    public String tempList() throws Exception{
+    public String tempList() throws Exception {
         return "./HR/MemberAgree";
     }
 
     @GetMapping("member")
-    public String memberList()throws Exception{
+    public String memberList() throws Exception {
         return "./HR/MemberList";
     }
 
+    @GetMapping("salary")
+    public ModelAndView salaryList(ModelAndView mv) throws Exception {
+        mv.addObject("salYear", humanResourceService.getDistinctValues("SALARY"));
+        mv.setViewName("./HR/MemberSalary");
+        return mv;
+    }
+
     @GetMapping("vacation")
-    public ModelAndView vacationList(ModelAndView mv)throws Exception{
-        mv.addObject("vacYear",humanResourceService.getVacYear());
+    public ModelAndView vacationList(ModelAndView mv) throws Exception {
+        mv.addObject("vacYear", humanResourceService.getDistinctValues("VACATION"));
         mv.setViewName("./HR/VacationList");
         return mv;
     }
@@ -51,9 +58,6 @@ public class HumanResourceController {
         Map<String, List<TempMemberVO>> tempMember = new HashMap<>();
         tempMember.put("tempMember", tempMemberVOS);
 
-        log.info("{}", tempMember);
-        log.info("{}", commons);
-
         responseData.put("tempMember", tempMember.get("tempMember"));
         responseData.put("commons", commons);
 
@@ -62,25 +66,26 @@ public class HumanResourceController {
 
     @GetMapping("member/list")
     @ResponseBody
-    public List<Map<String,Object>> getMemberList()throws Exception{
-        List<Map<String,Object>> responseData = humanResourceService.getMemberList();
-        return responseData;
+    public List<Map<String, Object>> getMemberList() throws Exception {
+        return humanResourceService.getMemberList();
     }
 
     @GetMapping("resignation/list")
     @ResponseBody
-    public Map<String, List<Map<String, Object>>> getResignationList()throws Exception{
-        Map<String, List<Map<String, Object>>> responseData = humanResourceService.getResignationList();
-        log.info("{}",responseData);
-        return responseData;
+    public Map<String, List<Map<String, Object>>> getResignationList() throws Exception {
+        return humanResourceService.getResignationList();
     }
 
     @GetMapping("vacation/list")
     @ResponseBody
-    public List<Map<String, Object>> getVacationList(Integer year) throws Exception{
-        List<Map<String,Object>> responseDate = humanResourceService.getVacationList(year);
-        log.info("{}",responseDate);
-        return responseDate;
+    public List<Map<String, Object>> getVacationList(Integer year) throws Exception {
+        return humanResourceService.getVacationList(year);
+    }
+
+    @GetMapping("salary/list")
+    @ResponseBody
+    public List<Map<String, Object>> getSalaryList(Integer year) throws Exception {
+        return humanResourceService.getSalaryList(year);
     }
 
 }
