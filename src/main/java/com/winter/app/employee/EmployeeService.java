@@ -58,9 +58,14 @@ public class EmployeeService {
 		
 		check = bindingResult.hasErrors();
 		
+		//아이디 검증
+		//EmployeeVO result = employeeVO.get
+		
+		
 		//비밀번호 검증
-		if(!) {
-			
+		if(!employeeVO.getPassword().equals(employeeVO.getPasswordCheck())) {
+			check=true;
+			bindingResult.rejectValue("passwordCheck", "employeeVO.password.equals");
 		}
 		return false;
 	}
