@@ -76,8 +76,9 @@
 
 										<div class="form-group">
 											<label><strong>비밀번호</strong></label>
+											<p class="my-0">10~16자 영문자, 숫자, 특수문자</p>
 											<form:password path="password" cssClass="form-control" id="password"></form:password>
-											<form:errors path="password"></form:errors>
+											<form:errors path="password">비밀번호는 10~16자 영문자, 숫자, 특수문자를 사용하세요</form:errors>
 										</div>
 
 										<div class="form-group">

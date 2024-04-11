@@ -24,69 +24,58 @@ mailCheckBtn.addEventListener("click",function(){
 		//console.log(email);
 		
 		//이메일 전송
-		//sendNumber()
-		
-		
-
-		//const email = document.getElementById("username").value + "@gmail.com";
-		//const checkInput = document.getElementsByClassName("mailCheckInput");
-		
-		//console.log(email);
-
-		// fetch("/employee/mailCheck?email="+email,{
-		// 	method: "get",
-		// })
-		// .then(res=>res.text())
-		// .then(res=>{
-		//     //console.log(res)
-		//     checkInput.setAtttribute("disabled","false");
-		//     code =data;
-		// 	alert('인증번호가 전송되었습니다.')
-		// });
-
-		// $.ajax({
-		// 	type : 'get',
-		// 	url : '<c:url value ="/user/mailCheck?email="/>'+"gmail.com",
-		// 	success : function (data) {
-		// 		console.log("data : " +  data);
-		// 		checkInput.attr('disabled',false);
-		// 		code =data;
-		// 		alert('인증번호가 전송되었습니다.')
-		// 	}			
-		// }); // end ajax
+		sendNumber()
 		
 
 })
 		//이메일 전송
+
+		// function sendNumber(){
+		// 	document.getElementById("mail_number").setAttribute("style","display: block;")
+		// 	fetch("/employee/mailSend",{
+		// 		method: "post",
+		// 		headers:{
+		// 			'Access-Control-Allow-Origin': 'http://The web site allowed to access'
+		// 		},
+		// 		body: "email="+email
+		// 	})
+		// 	.then(res=>res.text())
+        // 	.then(r=>{
+		// 		alert("인증번호 발송");
+		// 		console.log(r);
+				
+        // })
+		// }
+
 		function sendNumber(){
 			console.log(email);
 			$("#mail_number").css("display","block");
 			$.ajax({
-				url:"/employee/mailCheck",
+				url:"/employee/mailSend",
 				type:"post",
 				dataType:"json",
-				data:{"mail" : $("#username").val()+"gmail.com"},
+				data:{"email" : email},
 				success: function(data){
 					alert("인증번호 발송");
 					$("#Confirm").attr("value",data);
 				},error:function(request, status, error){
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
 				}
 			);
 		}
 		
-		//인증번호 확인
-		function confirmNumber(){
-			var number1 = $("#number").val();
-			var number2 = $("#Confirm").val();
+		// //인증번호 확인
+		// function confirmNumber(){
+		// 	var number1 = $("#number").val();
+		// 	var number2 = $("#Confirm").val();
 	
-			if(number1 == number2){
-				alert("인증되었습니다.");
-			}else{
-				alert("번호가 다릅니다.");
-			}
-		}
+		// 	if(number1 == number2){
+		// 		alert("인증되었습니다.");
+		// 	}else{
+		// 		alert("번호가 다릅니다.");
+		// 	}
+		// }
 
 
 //
