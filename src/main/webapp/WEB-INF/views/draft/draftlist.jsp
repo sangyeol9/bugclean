@@ -77,11 +77,6 @@
 					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table mb-0">
-								<thead>
-									<tr>
-										<th>문서양식</th>
-									</tr>
-								</thead>
 								<tbody>
 									<tr>
 										<td><a href="./basisdraft">기본양식</a></td>
