@@ -29,11 +29,13 @@ public class ChatController {
 	
 	@PostMapping("/list")
 	@ResponseBody
-	public void getEmployeeList() throws Exception {
+	public List<Map<String, Object>> getEmployeeList() throws Exception {
 		
 		List<Map<String, Object>> list = chatService.getEmployeeList();
+		
 		System.out.println(list);
 		
+		return list;
 	}
 	
 }

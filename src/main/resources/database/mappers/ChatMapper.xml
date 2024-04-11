@@ -15,5 +15,8 @@
 		ON e.POS_CODE = p.POS_CODE
  	</select> 	
  
+ 	<select id="">
+		SELECT DEP_NAME  FROM DEPARTMENT
+ 	</select>
 	
   </mapper>

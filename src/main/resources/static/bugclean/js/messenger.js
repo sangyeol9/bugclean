@@ -17,7 +17,7 @@ window.addEventListener("load",function(){
     console.log("onload");
     fetch("/chat/list",{
         method:"POST"
-    }).then(res=>res.json)
+    }).then(res=>res.json())
     .then(res=>{
         console.log(res);
     })
