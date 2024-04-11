@@ -10,7 +10,7 @@
 <title>bugclean-create</title>
 </head>
 <c:import url="../temp/css.jsp"></c:import>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <body>
 	
 	
@@ -32,26 +32,47 @@
 											<label><strong>아이디</strong></label>
 											<div style="display: flex;">
 												<div class="input-group mb-3">
-													<input type="text" class="form-control" placeholder="username">
+													<form:input path="username"  cssClass="form-control" id="username"></form:input>
 													<div class="input-group-append">
 														<span class="input-group-text">@gmail.com</span>
 													</div>
 												</div>
 												<div class="card-action mx-1 mt-1" style="height: 35px; display: table;">
-													<div id="numRequest" type="button" class="dropdown custom-dropdown" style="width: 80px; display: table-cell; vertical-align: middle;">
+													<div id="mailCheckBtn" type="button" class="dropdown custom-dropdown" style="width: 80px; display: table-cell; vertical-align: middle;">
 														인증 요청
 													</div>
 												</div>
 											</div>
+											<form:errors path="username"></form:errors>   
 										</div>
 
-										<div id="numCheck" class="form-group row">
-											<!-- <label><strong>인증번호</strong></label>
-
-											<input type="text" class="form-control col-6">
-											<button type="button" class="btn btn-light">확인</button> -->
-
+										<div id="mail_number" class="form-group mb-4" style="display: none;">
+											<label><strong>인증번호</strong></label>
+											<div style="display: flex;">
+												<input type="text" name="number" id="number" class="form-control col-6 mailCheckInput" disabled="disabled" maxlength="6" placeholder="인증번호 6자리를 입력해주세요.">
+												<input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+												<button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()" class="btn btn-light mx-1" style="height: 35px;">확인</button>
+											</div>
+											<span id="mailCheckWarn"></span>
 										</div>
+
+										<!-- dsfasdfsdf -->
+										<!-- <div layout:fragment="content">
+											<form role="form" method="post" th:object="${memberFormDto}">
+											<div class="form-group">
+												
+												<button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호</button>
+											</div>
+											<br>
+											<div id="mail_number" name="mail_number" style="display: none">
+												<input type="text" name="number" id="number" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
+												<button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
+											</div>
+										</form> -->
+
+
+
+
 
 										<div class="form-group">
 											<label><strong>비밀번호</strong></label>
@@ -67,7 +88,7 @@
 
 										<div class="form-group">
 											<label><strong>이름</strong></label>
-											<form:input path="name" id="name" cssClass="form-control"></form:input>
+											<form:input path="name" id="name" cssClass="form-control col-6"></form:input>
 											<form:errors path="name"></form:errors>
 										</div>
 										<div class="form-group">
@@ -78,7 +99,7 @@
 
 												<div class="form-row ml-3">
 													<div class="form-group row">
-														<select id="phone" name="phone"
+														<select id="phoneStart" name="phoneStart"
 															class="form-control col-3">
 															<option selected="" value="">
 																-선택-</option>
@@ -91,26 +112,27 @@
 														</select>&emsp;-&emsp;
 														<input type="text"
 															class="form-control col-3"
-															name="moblmiddleNo"
-															maxlength="4">
+															name="phoneMiddle" id="phoneMiddle"
+															maxlength="4" minlength="4">
 														&emsp;-&emsp;
 														<input type="text"
 															class="form-control col-3"
-															name="moblendNo" maxlength="4">
+															name="phoneEnd" id="phoneEnd" maxlength="4" minlength="4">
 													</div>
+													<!-- <input type="text" id="phone" name="phone" style="display: none" value=""> -->
+													<form:input path="phone" id="phone" cssClass="form-control" style="display: none" value=""></form:input>
 												</div>
+												<form:errors path="phone"></form:errors>
 
 											
 
 
-											<form:input path="phone" id="phone" cssClass="form-control"></form:input>
-											<form:errors path="phone"></form:errors>
 										</div>
 
 
 
 										<div class="text-center mt-5">
-											<button type="submit" class="btn btn-primary btn-block">가입 신청</button>
+											<button type="submit" id="submit" class="btn btn-primary btn-block">가입 신청</button>
 										</div>
 									</form:form>
 									
@@ -126,5 +148,6 @@
 
 	<c:import url="../temp/js.jsp"></c:import>
 	<script src="/bugclean/js/employee/create.js"></script>
+	
 </body>
 </html>
