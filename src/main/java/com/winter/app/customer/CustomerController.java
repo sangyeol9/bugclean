@@ -36,21 +36,17 @@ public class CustomerController {
 	}
 	@PostMapping("create")
 	public String createCustomer(CustomerVO customerVO) throws Exception{
-		System.out.println("customer vo" + customerVO+ "\n종료");
-		if(customerVO.getCustomer_Type().equals("개인")) { 
-			customerVO.setBusiness_Name("개인");
-			System.out.println("개인 진입");
-		}
+		
+		
 		customerService.createCustomer(customerVO);
-		System.out.println("작업완료");
+		
 		return "redirect:/customer/list";
 	}
 	
 	@PostMapping("update")
 	@ResponseBody
 	public String updateCustomer(@RequestBody CustomerVO customerVO,Model model) throws Exception{
-			System.out.println("update 진입" );
-			System.out.println(customerVO);
+		
 			int result = customerService.updateCustomer(customerVO);
 			model.addAttribute("result", result);
 			
@@ -60,11 +56,21 @@ public class CustomerController {
 	@GetMapping("detail")
 	public String getDetail(CustomerVO customerVO,Model model) throws Exception{
 		
+		
 		CustomerVO vo = customerService.getDetail(customerVO);
 		
 		model.addAttribute("vo", vo);
 		
 		return "/customer/detail";
 	}
+	
+	@GetMapping("delete")
+	public String deleteCustomer(CustomerVO customerVO) throws Exception{
+		System.out.println("delete 진입");
+			customerService.deleteCustomer(customerVO);
+		
+		return "redirect:/customer/list";
+	}
+	
 	
 }
