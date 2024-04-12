@@ -35,7 +35,7 @@ public class SecurityConfig {
 				//권한 설정
 		security.authorizeHttpRequests(
 				(authorizeHttpRequests) -> authorizeHttpRequests
-											.requestMatchers("/").authenticated()
+											.requestMatchers("/").permitAll()//.authenticated()
 											.requestMatchers("/employee/login").permitAll()
 											.requestMatchers("/employee/idSearch").permitAll()
 											.requestMatchers("/employee/pwSearch").permitAll()

@@ -43,32 +43,23 @@
 													</div>
 												</div>
 											</div>
-											<form:errors path="username"></form:errors>   
+											<form:errors path="username"></form:errors></br>
+											<form:errors path="userNumCheck"></form:errors>
 										</div>
 
 										<div id="mail_number" class="form-group mb-4" style="display: none;">
 											<label><strong>인증번호</strong></label>
 											<div style="display: flex;">
-												<input type="text" name="number" id="number" class="form-control col-6 mailCheckInput" disabled="disabled" maxlength="6" placeholder="인증번호 6자리를 입력해주세요.">
+												<!-- <input type="text" name="number" id="number" class="form-control col-6 mailCheckInput" maxlength="6" placeholder="인증번호 6자리를 입력해주세요."> -->
+												
+												<form:input path="userNumCheck"  cssClass="form-control col-6 mailCheckInput" id="userNumCheck" maxlength="6" placeholder="인증번호 6자리를 입력해주세요."></form:input>
+												
 												<input type="text" id="Confirm" name="Confirm" style="display: none" value="">
 												<button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()" class="btn btn-light mx-1" style="height: 35px;">확인</button>
 											</div>
 											<span id="mailCheckWarn"></span>
 										</div>
 
-										<!-- dsfasdfsdf -->
-										<!-- <div layout:fragment="content">
-											<form role="form" method="post" th:object="${memberFormDto}">
-											<div class="form-group">
-												
-												<button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호</button>
-											</div>
-											<br>
-											<div id="mail_number" name="mail_number" style="display: none">
-												<input type="text" name="number" id="number" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
-												<button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
-											</div>
-										</form> -->
 
 
 

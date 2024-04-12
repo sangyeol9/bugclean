@@ -9,5 +9,10 @@
 		WHERE USERNAME=#{username}
 	</select>
 	
+	<insert id="create" parameterType="EmployeeVO">
+		INSERT INTO EMP_TEMP
+		VALUES (#{username}, #{password}, #{name}, #{phone})
+	</insert>
+	
 	
 </mapper>

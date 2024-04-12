@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/employee/*")
@@ -39,54 +40,39 @@ public class EmployeeController {
 		System.out.println("Member Add");
 		//System.out.println("error : "+bindingResult);
 		String username= employeeVO.getUsername();
-//		employeeVO.setUsername(username+"@gmail.com");
-//		
-//		boolean check = employeeService.checkEmployee(employeeVO, bindingResult);
-//		if(check) {
-//			return "member/add";
-//		}
-//		
-//		int result = employeeService.create(employeeVO);
+		employeeVO.setUsername(username+"@gmail.com");
 		
+		boolean check = employeeService.checkEmployee(employeeVO, bindingResult);
+		if(check) {
+			return "employee/create";
+		}
+		
+		int result = employeeService.create(employeeVO);
+		model.addAttribute("result", "employee.create.result");
+		model.addAttribute("path","/");
 
-		
-		return null;
-		
+		return "commons/result";
 	}
-	
 	//이메일 인증
 	@PostMapping("mailSend")
+	@ResponseBody
 	public String mailSend(String email) {
 		System.out.println("Mail:"+email);
 		
 		
-		int number = employeeService.sendMail(email);
+		number = employeeService.sendMail(email);
 
         String num = "" + number;
 
         System.out.println("num:"+num);
         return num;
         
-//        HashMap<String, Object> map = new HashMap<>();
-//
-//        try {
-//            number = employeeService.sendMail(email);
-//            String num = String.valueOf(number);
-//
-//            map.put("success", Boolean.TRUE);
-//            map.put("number", num);
-//        } catch (Exception e) {
-//            map.put("success", Boolean.FALSE);
-//            map.put("error", e.getMessage());
-//        }
-//        
-//        return map;
     }
-
 	// 인증번호 일치여부 확인
     @GetMapping("mailCheck")
+    @ResponseBody
     public ResponseEntity<?> mailCheck(@RequestParam String userNumber) {
-
+    	System.out.println(userNumber);
         boolean isMatch = userNumber.equals(String.valueOf(number));
 
         return ResponseEntity.ok(isMatch);

@@ -8,9 +8,9 @@ let phoneMiddle = document.getElementById("phoneMiddle");
 let phoneEnd = document.getElementById("phoneEnd");
 
 let email= null;
+let number;
+
 mailCheckBtn.addEventListener("click",function(){
-	
-		
 		//공백시
 	    if(document.getElementById("username").value === ''){
 	      alert('아이디를 입력해주세요.');
@@ -25,28 +25,11 @@ mailCheckBtn.addEventListener("click",function(){
 		
 		//이메일 전송
 		sendNumber()
-		
+		$("#number").focus();
+		$("#mailCheckBtn").attr("disabled","disabled");
 
 })
 		//이메일 전송
-
-		// function sendNumber(){
-		// 	document.getElementById("mail_number").setAttribute("style","display: block;")
-		// 	fetch("/employee/mailSend",{
-		// 		method: "post",
-		// 		headers:{
-		// 			'Access-Control-Allow-Origin': 'http://The web site allowed to access'
-		// 		},
-		// 		body: "email="+email
-		// 	})
-		// 	.then(res=>res.text())
-        // 	.then(r=>{
-		// 		alert("인증번호 발송");
-		// 		console.log(r);
-				
-        // })
-		// }
-
 		function sendNumber(){
 			console.log(email);
 			$("#mail_number").css("display","block");
@@ -58,13 +41,33 @@ mailCheckBtn.addEventListener("click",function(){
 				success: function(data){
 					alert("인증번호 발송");
 					$("#Confirm").attr("value",data);
-				},error:function(request, status, error){
-					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
+				// ,error:function(request, status, error){
+				// 	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				// }
 				}
 			);
 		}
 		
+		//인증번호 일치여부
+		function confirmNumber(){
+
+			userNumCheck = document.getElementById("userNumCheck").value
+			//console.log("number : "+number);
+			fetch("/employee/mailCheck?userNumber="+userNumCheck,{
+				method:"get"
+			})
+			.then(res=>res.text())
+			.then(r=>{
+				//console.log("r : "+r);
+				if(r){
+					alert("인증되었습니다.");
+				}else{
+					alert("다시 시도해주세요.");
+				}
+			})
+
+		}
 		// //인증번호 확인
 		// function confirmNumber(){
 		// 	var number1 = $("#number").val();
