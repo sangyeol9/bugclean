@@ -7,7 +7,13 @@ let draftBtnMinus = document.getElementById("draftBtnMinus");
 let draftBtnPlus = document.getElementById("draftBtnPlus");
 let draftBoxTd = document.getElementById('draftBoxTd')
 const draftBoxTdDiv = document.getElementById('draftBoxTdDiv')
-
+let orgBoxTd = document.getElementById("orgBoxTd");
+let orgAll = document.getElementsByClassName("orgAll");
+let orgDep = document.getElementsByClassName("orgDep");
+let refBoxTd = document.getElementById("refBoxTd");
+let refMinusBtn = document.getElementById("refMinusBtn")
+let refPlusBtn = document.getElementById("refPlusBtn");
+let modalResetBtn = document.getElementById("modalResetBtn");
 console.log("basis js")
 
 
@@ -41,37 +47,124 @@ minusIcon[i].addEventListener("click", function() {
 })
 }
 for (let i = 0; i < orgPepleSpan.length; i++) {
-    let temp = orgPepleSpan[i];
-    temp
-            .addEventListener(
+    let drTemp = orgPepleSpan[i];
+    drTemp.addEventListener(
                     "click",
                     function() {
 
 
-                       if (temp.style.backgroundColor != "rgb(196, 232, 230)") {
-                        temp.style.backgroundColor = "#C4E8E6";
+                       if (drTemp.style.backgroundColor != "rgb(196, 232, 230)") {
+                        drTemp.style.backgroundColor = "#C4E8E6";
                        } else {
-                        temp.style.backgroundColor = "white";
+                        drTemp.style.backgroundColor = "white";
                         }
                         
                     })
 
-
 }
-
+let b = orgAll[0].textContent.split(" ");
+console.log("b : "+ b[0]);
+console.log(orgAll[0].textContent);
+console.log(orgDep[0].textContent);
 draftBtnPlus
 .addEventListener(
         "click",
         function() {
             for(let j =0; j<orgPepleSpan.length; j++){
-            if (getComputedStyle(orgPepleSpan[j]).backgroundColor == "rgb(196, 232, 230)") {
-                let moveOps=orgPepleSpan[j];
-                console.log(moveOps)
+                let orTemp = orgPepleSpan[j];
+            if (getComputedStyle(orTemp).backgroundColor == "rgb(196, 232, 230)") {
                 draftBoxTd
-                        .appendChild(moveOps)
-                orgPepleSpan[j].style.backgroundColor = "white";
+                        .appendChild(orTemp)
+                        orTemp.style.backgroundColor = "white";
             }
         }
         })
- 
+
+       // let ddn = document.querySelector("div[data-dep-name='영업팀']")
+        draftBtnMinus.addEventListener("click", function(){
+            for(let n=0; n<orgDep.length;n++){
+                let orgAllArr = [...orgAll];
+                let peopleSpanArr = [...orgPepleSpan];
+
+                for(let j =0; j<orgPepleSpan.length; j++){
+
+                let a = orgAllArr[j].getAttribute("data-dep-name");
+                let orTemp = peopleSpanArr[j];
+               
+                if (getComputedStyle(orTemp).backgroundColor == "rgb(196, 232, 230)") {
+                        console.log(a);
+                        console.log(orgDep[n].textContent, a,orgDep[n].textContent == a)
+                        if(orgDep[n].textContent == a){
+                        orgPepleDiv[n].appendChild(orTemp)
+                        orTemp.style.backgroundColor = "white";
+                        }                    
+                }
+            }
+            }
+        })
+
+        ////////////////////////////////참조
+
+        let c = orgAll[0].textContent.split(" ");
+refPlusBtn.addEventListener(
+        "click",
+        function() {
+            console.log("dddddddddd")
+            for(let j =0; j<orgPepleSpan.length; j++){
+                let orTemp = orgPepleSpan[j];
+            if (getComputedStyle(orTemp).backgroundColor == "rgb(196, 232, 230)") {
+                refBoxTd
+                        .appendChild(orTemp)
+                        orTemp.style.backgroundColor = "white";
+            }
+        }
+        })
+
+       // let ddn = document.querySelector("div[data-dep-name='영업팀']")
+        refMinusBtn.addEventListener("click", function(){
+            console.log("bbbbbbbbbbbbb")
+            for(let n=0; n<orgDep.length;n++){
+                let orgAllArr = [...orgAll];
+                let peopleSpanArr = [...orgPepleSpan];
+                for(let j =0; j<orgPepleSpan.length; j++){
+
+                let a = orgAllArr[j].getAttribute("data-dep-name");
+                let orTemp = peopleSpanArr[j];
+               
+                if (getComputedStyle(orTemp).backgroundColor == "rgb(196, 232, 230)") {
+                        console.log(a);
+                        console.log(orgDep[n].textContent, a,orgDep[n].textContent == a)
+                        if(orgDep[n].textContent == a){
+                        orgPepleDiv[n].appendChild(orTemp)
+                        orTemp.style.backgroundColor = "white";
+                        }                    
+                }
+            }
+            }
+        })
+
+//////////////////////////////초기화
+                modalResetBtn.addEventListener("click", function(){
+            console.log("bbbbbbbbbbbbb")
+            for(let n=0; n<orgDep.length;n++){
+                let orgAllArr = [...orgAll];
+                let peopleSpanArr = [...orgPepleSpan];
+                for(let j =0; j<orgPepleSpan.length; j++){
+
+                let a = orgAllArr[j].getAttribute("data-dep-name");
+                let orTemp = peopleSpanArr[j]
+               
+                
+                        console.log(a);
+                        console.log(orgDep[n].textContent, a,orgDep[n].textContent == a)
+                        if(orgDep[n].textContent == a){
+                        orgPepleDiv[n].appendChild(orTemp)
+                        orTemp.style.backgroundColor = "white";
+                        }                    
+                
+            }
+            }
+        })
+
+
 
