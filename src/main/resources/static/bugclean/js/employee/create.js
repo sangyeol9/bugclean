@@ -8,9 +8,9 @@ let phoneMiddle = document.getElementById("phoneMiddle");
 let phoneEnd = document.getElementById("phoneEnd");
 
 let email= null;
+let number;
+
 mailCheckBtn.addEventListener("click",function(){
-	
-		
 		//공백시
 	    if(document.getElementById("username").value === ''){
 	      alert('아이디를 입력해주세요.');
@@ -24,37 +24,9 @@ mailCheckBtn.addEventListener("click",function(){
 		//console.log(email);
 		
 		//이메일 전송
-		//sendNumber()
-		
-		
-
-		//const email = document.getElementById("username").value + "@gmail.com";
-		//const checkInput = document.getElementsByClassName("mailCheckInput");
-		
-		//console.log(email);
-
-		// fetch("/employee/mailCheck?email="+email,{
-		// 	method: "get",
-		// })
-		// .then(res=>res.text())
-		// .then(res=>{
-		//     //console.log(res)
-		//     checkInput.setAtttribute("disabled","false");
-		//     code =data;
-		// 	alert('인증번호가 전송되었습니다.')
-		// });
-
-		// $.ajax({
-		// 	type : 'get',
-		// 	url : '<c:url value ="/user/mailCheck?email="/>'+"gmail.com",
-		// 	success : function (data) {
-		// 		console.log("data : " +  data);
-		// 		checkInput.attr('disabled',false);
-		// 		code =data;
-		// 		alert('인증번호가 전송되었습니다.')
-		// 	}			
-		// }); // end ajax
-		
+		sendNumber()
+		$("#number").focus();
+		$("#mailCheckBtn").attr("disabled","disabled");
 
 })
 		//이메일 전송
@@ -62,31 +34,51 @@ mailCheckBtn.addEventListener("click",function(){
 			console.log(email);
 			$("#mail_number").css("display","block");
 			$.ajax({
-				url:"/employee/mailCheck",
+				url:"/employee/mailSend",
 				type:"post",
 				dataType:"json",
-				data:{"mail" : $("#username").val()+"gmail.com"},
+				data:{"email" : email},
 				success: function(data){
 					alert("인증번호 발송");
 					$("#Confirm").attr("value",data);
-				},error:function(request, status, error){
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
+				// ,error:function(request, status, error){
+				// 	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				// }
 				}
 			);
 		}
 		
-		//인증번호 확인
+		//인증번호 일치여부
 		function confirmNumber(){
-			var number1 = $("#number").val();
-			var number2 = $("#Confirm").val();
-	
-			if(number1 == number2){
-				alert("인증되었습니다.");
-			}else{
-				alert("번호가 다릅니다.");
-			}
+
+			userNumCheck = document.getElementById("userNumCheck").value
+			//console.log("number : "+number);
+			fetch("/employee/mailCheck?userNumber="+userNumCheck,{
+				method:"get"
+			})
+			.then(res=>res.text())
+			.then(r=>{
+				//console.log("r : "+r);
+				if(r){
+					alert("인증되었습니다.");
+				}else{
+					alert("다시 시도해주세요.");
+				}
+			})
+
 		}
+		// //인증번호 확인
+		// function confirmNumber(){
+		// 	var number1 = $("#number").val();
+		// 	var number2 = $("#Confirm").val();
+	
+		// 	if(number1 == number2){
+		// 		alert("인증되었습니다.");
+		// 	}else{
+		// 		alert("번호가 다릅니다.");
+		// 	}
+		// }
 
 
 //

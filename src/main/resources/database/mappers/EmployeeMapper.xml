@@ -3,4 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.winter.app.employee.EmployeeDAO">
+	<select id="getDetail" parameterType="EmployeeVO" resultType="EmployeeVO">
+		SELECT *
+		FROM EMPLOYEE
+		WHERE USERNAME=#{username}
+	</select>
+	
+	<insert id="create" parameterType="EmployeeVO">
+		INSERT INTO EMP_TEMP
+		VALUES (#{username}, #{password}, #{name}, #{phone})
+	</insert>
+	
+	
 </mapper>
