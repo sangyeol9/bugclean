@@ -17,20 +17,7 @@
 	        </div>
 	        <div class="right_messenger" id="messenger_list">
 	       		<div id="messenger_emp_list">
-					<div id="affairs_team">
-						<div id="affairs_team_div"><b><span class="span_icon" id="affairs_team_span">+</span><i class="fa-solid fa-users"></i>총무팀</b></div>
-						<div id="affairs_team_list" class="display_none">
-							<div>&emsp;<i class="fa-solid fa-user"></i>박성제</div>
-							<div>&emsp;<i class="fa-solid fa-user"></i>허석훈</div>
-							<div>&emsp;<i class="fa-solid fa-user"></i>노지언</div>
-							<div>&emsp;<i class="fa-solid fa-user"></i>윤상열</div>
-						
-						</div>
-					</div>
-						
-	       			<div id="sales_team">영업팀</div>
-					<div id="personal_team">인사팀</div>
-					<div id="field_team">현장팀</div>
+					
 	       		</div>
 	       		<div id="messenger_msg_list" class="display_none">
 	       			<div><a href="/chat/room" onclick="openPopup(); return false;">메시지 목록 1</a></div>
