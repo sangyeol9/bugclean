@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.winter.app.customer.CustomerController;
+import com.winter.app.employee.DepartmentVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,11 +30,22 @@ public class ChatController {
 	
 	@PostMapping("/list")
 	@ResponseBody
-	public void getEmployeeList() throws Exception {
+	public List<Map<String, Object>> getEmployeeList() throws Exception {
 		
 		List<Map<String, Object>> list = chatService.getEmployeeList();
+		
 		System.out.println(list);
 		
+		return list;
+	}
+	
+	@PostMapping("/department")
+	@ResponseBody
+	public List<DepartmentVO> getDepartment() throws Exception{
+		
+		List<DepartmentVO> ar = chatService.getDepartment();
+		System.out.println("ar : " + ar);
+		return ar;
 	}
 	
 }
