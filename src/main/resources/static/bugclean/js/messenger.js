@@ -68,7 +68,7 @@ window.addEventListener("load",function(){
     .then(res=>{
         res.forEach((element,index) => {
             console.log("ele = ",element);
-            obj[element.DEP_NAME].innerHTML += `<div id="${element.NAME}_${index}">&emsp;<i class="fa-solid fa-user"></i>${element.NAME}</div>`
+            obj[element.DEP_NAME].innerHTML += `<div id="${element.NAME}_${index}" class="mt-1">&emsp;<i class="fa-solid fa-user"></i>${element.NAME}</div>`
         })
         console.log(res);
     })
