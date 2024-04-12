@@ -13,7 +13,14 @@
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 <c:import url="../temp/css.jsp"></c:import>
 <body>
-	
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <div id="main-wrapper">
 
 
 	   
@@ -44,22 +51,22 @@
                                     <div class="cover-photo"></div>
                                     <div class="profile-photo">
 										<!-- src="/focus-bootstrap-main/theme/images/logo.png" -->
-                                        <img src="/focus-bootstrap-main/theme/images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                                        <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" class="img-fluid rounded-circle" alt="">
                                     </div>
                                 </div>
                                 <div class="profile-info">
                                     <div class="row justify-content-center">
-                                        <div class="col-xl-8">
+                                        <div class="col-xl-8" style="margin-left: 2%;">
                                             <div class="row">
                                                 <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
                                                     <div class="profile-name">
-                                                        <h4 class="text-primary">Mitchell C. Shay</h4>
+                                                        <h4 class="text-primary" >박보영</h4>
                                                         
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
                                                     <div class="profile-email">
-                                                        <h4 class="text-primary">hello@email.com</h4>
+                                                        <h4 class="text-primary">cuteGirl@email.com</h4>
                                                         <p>Email</p>
                                                     </div>
                                                 </div>
@@ -275,17 +282,8 @@
         <!--**********************************
             Content body end
         ***********************************-->
-        <div id="signature-pad" class="m-signature-pad">
-            <div class="m-signature-pad--body">
-                <canvas id="signature-pad" class="signature-pad" width=400 height=200 style="border: 1px solid black"></canvas>
-            </div>
-            <div class="m-signature-pad--footer">
-                
-                <button type="button" class="button clear" data-action="clear">지우기</button>
-                <button type="button" class="button save" data-action="save">저장</button>
-            </div>
-        </div>
         
+    </div>    
         <script>
             var canvas = $("#signature-pad canvas")[0]; 
             var sign = new SignaturePad(canvas, { 

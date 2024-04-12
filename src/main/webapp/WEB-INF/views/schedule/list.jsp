@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<c:import url="./list_css.jsp"></c:import>
+<link rel="stylesheet" href="/bugclean/css/scheduleList.css">
 </head>
 <c:import url="../temp/css.jsp"></c:import>
 <!-- //bootstrap-template-css -->
@@ -35,7 +35,10 @@
 			<div id="myModal" class="modal">
 				<div class="modal-content">
 					<span class="close" onclick="closeModal()">&times;</span>
-					<h2 id="modal-title"></h2>
+					<div id="title_div">
+						<h2 id="modal-title"></h2>
+						<input id="input_site_manager" type="text" class="form-control" placeholder="현장 담당자 배정" >
+					</div>
 					<p id="modal-content"></p>
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="customer_Name">거래처명</span>
@@ -57,7 +60,12 @@
 						</div>
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="manage_Code">배차 정보</span>
-						  	<input type="text" class="form-control" value="미정" >
+						  	<input type="text" class="form-control" value="미정" id="input_carAllocation" >
+						  	<select id="carAllocation" class="form-select" onchange="changeSelect()">
+						  		<option value="">배차요청</option>
+						  		<option value="28나 2033">28나 2033</option>
+						  		<option value="03서 3002">03서 3002</option>
+						  	</select>
 						</div>
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="address">주소</span>
@@ -84,6 +92,6 @@
 	<!-- fullcalendar api cdn download -->
 	<script
 		src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-	<c:import url="./list_js.jsp"></c:import>
+	<script src="/bugclean/js/scheduleList.js"></script>
 </body>
 </html>

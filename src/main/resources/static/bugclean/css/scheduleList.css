@@ -1,4 +1,3 @@
-<style>
 #calendar {
 	height: 750px;
 	width: 750px;
@@ -46,6 +45,13 @@
 	width:100px;
 	margin:auto;
 }
-	
-
-</style>
+#input_site_manager{
+	width:200px;
+	margin:auto;
+}
+#modal-title{
+	width:30%;
+}
+#title_div{
+	display: flex;
+}

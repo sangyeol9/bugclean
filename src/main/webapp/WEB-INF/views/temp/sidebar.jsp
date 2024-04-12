@@ -32,9 +32,9 @@ z-index: 115;
 					class="nav-text">인사팀</span></a>
 				<ul aria-expanded="false">
 					<li><a href="/hr/temp/list">가입승인</a></li>
-					<li><a href="/focus-bootstrap-main/theme/app-profile.html">전체사원관리</a></li>
-					<li><a href="/focus-bootstrap-main/theme/app-profile.html">연차관리</a></li>
-					<li><a href="/focus-bootstrap-main/theme/app-profile.html">문서관리</a></li>
+					<li><a href="/hr/member">사원관리</a></li>
+					<li><a href="/hr/vacation">연차관리</a></li>
+					<li><a href="/hr/salary">급여관리</a></li>
 					<li><a href="/focus-bootstrap-main/theme/app-profile.html">근태관리</a></li>
 				</ul></li>
 
@@ -77,20 +77,21 @@ z-index: 115;
 							class="nav-text">문서함</span></a>
 						<ul aria-expanded="false">
 							<li><a href="../draft/draftlist">작성하기</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">내기안문서</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">반려문서</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">완료문서</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">임시저장문서</a></li>
+							<li><a href="../draft/mydraftlist">내기안문서</a></li>
+							<li><a href="../draft/myapprovinglist">결재중문서</a></li>
+							<li><a href="/draft/myapprovedlist">결재완료문서</a></li>
+							<li><a href="/draft/myrejectiondraftlist">반려문서</a></li>
+							<li><a href="/draft/mytemporarylist">임시저장문서</a></li>
 						</ul>
-					<li><a class="has-arrow" href="javascript:void()"
+					<li><a class="has-arrow" href="/employee/inbox"
 						aria-expanded="false"><i class="icon icon-app-store"></i><span
 							class="nav-text">수신문서함</span></a>
 						<ul>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">전체</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">대기</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">진행</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">완료</a></li>
-							<li><a href="/focus-bootstrap-main/theme/app-profile.html">참조문서함</a></li>
+							<li><a href="/employee/inbox">전체</a></li>
+							<li><a href="/employee/inbox">대기</a></li>
+							<li><a href="/employee/inbox">진행</a></li>
+							<li><a href="/employee/inbox">완료</a></li>
+							<li><a href="/employee/inbox">참조문서함</a></li>
 						</ul></li>
 				</ul></li>
 

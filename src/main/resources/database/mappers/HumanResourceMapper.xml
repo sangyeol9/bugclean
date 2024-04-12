@@ -8,4 +8,68 @@
         SELECT * FROM EMP_TEMP
     </select>
 
+    <select id="getMemberList" resultType="Map">
+        SELECT EMPLOYEE_NUM, NAME, NICKNAME, PHONE, ADDRESS,
+        DEPARTMENT.DEP_NAME AS DEP_NAME,
+        POSITION.POS_NAME AS POS_NAME,
+        JOIN_DATE
+        FROM EMPLOYEE
+        LEFT JOIN DEPARTMENT ON EMPLOYEE.DEP_CODE = DEPARTMENT.DEP_CODE
+        LEFT JOIN POSITION ON EMPLOYEE.POS_CODE = POSITION.POS_CODE
+        WHERE RETIRED_DATE IS NULL
+    </select>
+
+    <select id="getResignationList" resultType="Map">
+        SELECT EMPLOYEE_NUM, NAME, NICKNAME, PHONE, ADDRESS,
+        DEPARTMENT.DEP_NAME AS DEP_NAME,
+        POSITION.POS_NAME AS POS_NAME,
+        JOIN_DATE, RETIRED_DATE
+        FROM EMPLOYEE
+        LEFT JOIN DEPARTMENT ON EMPLOYEE.DEP_CODE = DEPARTMENT.DEP_CODE
+        LEFT JOIN POSITION ON EMPLOYEE.POS_CODE = POSITION.POS_CODE
+        WHERE RETIRED_DATE IS NOT NULL
+    </select>
+
+    <select id="getVacationList" parameterType="Integer" resultType="Map">
+        SELECT EMPLOYEE_NUM AS "사번",
+        NAME AS "이름",
+        LEVEL_DATE AS "근속연수",
+        VAC_FULL AS "총연차일수",
+        VAC_USED AS "사용연차일수",
+        (VAC_FULL - VAC_USED) AS "잔여연차일수",
+        DEP_NAME AS "부서"
+        FROM EMPLOYEE
+        LEFT JOIN DEPARTMENT USING (DEP_CODE)
+        LEFT JOIN VACATION USING (EMPLOYEE_NUM)
+        WHERE VAC_YEAR = #{year}
+    </select>
+
+    <select id="getSalaryList" parameterType="Integer" resultType="Map">
+        SELECT EMPLOYEE_NUM,
+        NAME,
+        SALARY_ACCOUNT,
+        SALARY_BANK,
+        (SALARY_PAY*12) AS "SALARY_PAY",
+        DEP_NAME
+        FROM EMPLOYEE
+        LEFT JOIN DEPARTMENT USING (DEP_CODE)
+        LEFT JOIN SALARY USING (EMPLOYEE_NUM)
+        WHERE SALARY_YEAR = #{year}
+    </select>
+
+    <select id="getDistinctValues" parameterType="map" resultType="String">
+        <choose>
+            <when test="tableName == 'SALARY'">
+                SELECT DISTINCT SALARY_YEAR
+                FROM SALARY
+                ORDER BY SALARY_YEAR DESC
+            </when>
+            <when test="tableName == 'VACATION'">
+                SELECT DISTINCT VAC_YEAR
+                FROM VACATION
+                ORDER BY VAC_YEAR DESC
+            </when>
+        </choose>
+    </select>
+
 </mapper>

@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,15 +32,45 @@ public class CustomerController {
 	@GetMapping("create")
 	public void createCustomer() throws Exception{
 		
+		
+	}
+	@PostMapping("create")
+	public String createCustomer(CustomerVO customerVO) throws Exception{
+		
+		
+		customerService.createCustomer(customerVO);
+		
+		return "redirect:/customer/list";
+	}
+	
+	@PostMapping("update")
+	@ResponseBody
+	public String updateCustomer(@RequestBody CustomerVO customerVO,Model model) throws Exception{
+		
+			int result = customerService.updateCustomer(customerVO);
+			model.addAttribute("result", result);
+			
+		return "/ajax/result";
 	}
 	
 	@GetMapping("detail")
 	public String getDetail(CustomerVO customerVO,Model model) throws Exception{
+		
+		
 		CustomerVO vo = customerService.getDetail(customerVO);
 		
 		model.addAttribute("vo", vo);
 		
 		return "/customer/detail";
 	}
+	
+	@GetMapping("delete")
+	public String deleteCustomer(CustomerVO customerVO) throws Exception{
+		System.out.println("delete 진입");
+			customerService.deleteCustomer(customerVO);
+		
+		return "redirect:/customer/list";
+	}
+	
 	
 }

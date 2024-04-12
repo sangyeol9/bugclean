@@ -1,0 +1,100 @@
+.noshow {
+	display: none;
+}
+
+#selete1 {
+	position: absolute;
+	left: 15px;
+	top: 10px;
+}
+
+#draftLineTitle {
+	position: absolute;
+	left: 290px;
+	top: 30px;
+}
+
+#draftBox {
+	position: absolute;
+	right: 25px;
+	top: 100px;
+}
+
+#draftTitle {
+	position: absolute;
+	right: 95px;
+	top: 60px;
+}
+
+#draftBtnDiv {
+	position: absolute;
+	left: 305px;
+	top: 160px;
+	display: inline-block;
+}
+
+#refBtn {
+	position: absolute;
+	left: 305px;
+	bottom: 110px;
+}
+
+#refTitle {
+	position: absolute;
+	right: 105px;
+	bottom: 200px;
+	display: inline-block;
+}
+
+#refBox {
+	position: absolute;
+	right: 25px;
+	bottom: 55px;
+	display: inline-block;
+}
+
+#modal {
+	position: relative;
+	left: 210px;
+	top: 30px;
+	width: 700px;
+	height: 500px;
+	background-color: white;
+	z-index: 101;
+}
+
+#modalBack {
+	width: 2000px;
+	height: 900px;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 100;
+}
+
+#modalCreateBtn {
+	position: absolute;
+	bottom: 50px;
+	left: 300px;
+	z-index: 200;
+}
+
+#modalCloseBtn {
+	position: absolute;
+	top: 20px;
+	right: 35px;
+	z-index: 200;
+}
+
+#modalResetBtn {
+	position: absolute;
+	bottom: 50px;
+	left: 370px;
+	z-index: 200;
+}
+
+#draftBtnMinus {
+	z-index: 300;
+}
+
+#draftBtnPlus {
+	z-index: 300;
+}

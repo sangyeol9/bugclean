@@ -19,4 +19,22 @@ public class CustomerService {
 		return customerDAO.getDetail(customerVO);
 	}
 	
+	public int createCustomer(CustomerVO customerVO) throws Exception{
+		if(customerVO.getCustomer_Type().equals("개인")) { 
+			customerVO.setBusiness_Name("개인");
+			
+		}
+		
+		
+		return customerDAO.createCustomer(customerVO);
+	}
+
+	public int updateCustomer( CustomerVO customerVO) throws Exception{
+		return customerDAO.updateCustomer(customerVO);
+	}
+	
+	public int deleteCustomer(CustomerVO customerVO) throws Exception{
+		return customerDAO.deleteCustomer(customerVO);
+	}
+	
 }

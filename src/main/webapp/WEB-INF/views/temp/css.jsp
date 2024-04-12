@@ -2,11 +2,12 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
- <link rel="icon" type="image/png" sizes="16x16" href="/focus-bootstrap-main/theme/images/favicon.png">
+ 	<link rel="icon" type="image/png" sizes="16x16" href="/focus-bootstrap-main/theme/images/favicon.png">
     <link rel="stylesheet" href="/focus-bootstrap-main/theme/vendor/owl-carousel/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/focus-bootstrap-main/theme/vendor/owl-carousel/css/owl.theme.default.min.css">
     <link href="/focus-bootstrap-main/theme/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-    <link href="/focus-bootstrap-main/theme/css/style.css" rel="stylesheet">
+    <link href="/focus-bootstrap-main/theme/css/style.css" rel="stylesheet">	
+    
  <style>
  	#bugclean{
  		width: 100%;
@@ -15,7 +16,7 @@
  	#messenger_img{
  		width:3%;
  		left:83%;
- 		top:830px;
+ 		top:90%;
  		position: fixed;
  		z-index: 300;
  	}
@@ -52,7 +53,7 @@
  	}
  	#messenger_div{
  		position:fixed;
- 		top: 380px;
+ 		top: 40%;
  		left:82%;
  		width : 15%;
  		float: right;

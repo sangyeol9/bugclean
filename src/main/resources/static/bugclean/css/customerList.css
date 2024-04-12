@@ -1,0 +1,65 @@
+.create {
+	width: 100px;
+	float: right;
+}
+#modi_com{
+    margin-top : 10%;
+    margin-left: 40%;
+}
+.customer_list{
+    background-color: white;
+    margin-top : 2%;
+}
+td{
+    color: black;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 50%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    
+  }
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: 90%;
+  }
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .left-div {
+    float: left;
+    clear: left;
+    margin-left: 12%;
+    margin-bottom: 5px;
+    text-align: center;
+    align-items: center;
+    width : 120px;
+  }
+  .right-div {
+    float: right;
+    margin-right: 12%;
+    margin-bottom: 5px;
+    text-align: center;
+    align-items: center;
+  }
+  
