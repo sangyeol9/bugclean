@@ -120,20 +120,20 @@
 					<table border="1">
 						<tr>
 							<td class="basisTitleTd">기안자</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							<td class="basisTd"><input class="inp" type="text" disabled></td>
 							<td class="basisTitleTd">소속부서</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							<td class="basisTd"><input class="inp" type="text" disabled></td>
 						</tr>
 
 						<tr>
 							<td class="basisTitleTd">기안일자</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							<td class="basisTd"><input class="inp" type="text" disabled></td>
 							<td class="basisTitleTd" rowspan="4">첨부파일</td>
 							<td class="basisTd" rowspan="4" colspan="2"></td>
 						</tr>
 						<tr>
 							<td class="basisTitleTd">문서번호</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							<td class="basisTd"><input class="inp" type="text" disabled></td>
 						</tr>
 						<tr>
 							<td class="basisTitleTd">제목</td>
@@ -141,7 +141,7 @@
 						</tr>
 						<tr>
 							<td class="basisTitleTd">참조</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							<td class="basisTd"><input class="inp" type="text" disabled></td>
 						</tr>
 						<tr style="height: 300px;">
 							<td class="basisTitleTd">내용</td>

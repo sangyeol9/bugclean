@@ -1,5 +1,6 @@
 package com.winter.app.draft;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ public class DraftService {
 
 	public List<Map<String, Object>> getBasisDraft()throws Exception{
 		//localdate.split(".")+bas+총등록된끝에 시퀀스번호의 리스트를 뽑아서 제일 마지막 번호에+1?????????????
+		 LocalDate localDate = LocalDate.now();
+		 System.out.println("localDate : "+localDate);
 		
 		return draftDAO.getBasisDraft();
 	}
