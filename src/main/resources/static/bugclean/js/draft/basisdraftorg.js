@@ -138,7 +138,7 @@ refPlusBtn.addEventListener(
                         orgPepleDiv[n].appendChild(orTemp)
                         orTemp.style.backgroundColor = "white";
                         }                    
-                }
+                } 
             }
             }
         })
@@ -165,6 +165,3 @@ refPlusBtn.addEventListener(
             }
             }
         })
-
-
-

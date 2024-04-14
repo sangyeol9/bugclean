@@ -14,6 +14,8 @@ public class DraftService {
 	private DraftDAO draftDAO;
 
 	public List<Map<String, Object>> getBasisDraft()throws Exception{
+		//localdate.split(".")+bas+총등록된끝에 시퀀스번호의 리스트를 뽑아서 제일 마지막 번호에+1?????????????
+		
 		return draftDAO.getBasisDraft();
 	}
 	

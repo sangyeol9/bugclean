@@ -247,8 +247,8 @@
 						<!-- 닫기 버튼 끝 -->
 
 						<!-- 등록 버튼 시작 -->
-						<div id="modalCreateBtn">
-							<button>등록</button>
+						<div id="modalCreateBtnDiv">
+							<a href="/bugclean/js/draft/modalcreatebtn.js" id="modalCreateBtn"><button>등록</button></a>
 						</div>
 						<!-- 등록 버튼 끝 -->
 
