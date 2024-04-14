@@ -23,6 +23,7 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 	private int number;
 	
+	//로그인
 	@GetMapping("login")
 	public void login(@ModelAttribute EmployeeVO employeeVO) throws Exception{
 		
