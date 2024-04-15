@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.mail.Session;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/employee/*")
 public class EmployeeController {
@@ -23,10 +27,23 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 	private int number;
 	
+	//로그인
 	@GetMapping("login")
-	public void login(@ModelAttribute EmployeeVO employeeVO) throws Exception{
+	public void login(@ModelAttribute EmployeeVO employeeVO, HttpSession session) throws Exception{
 		
-		return;
+		//로그인 성공 후 뒤로 가기 처리
+//		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+//		System.out.println("======obj :"+obj);
+//		
+//		if(obj == null){
+//			return "employee/login";
+//		}
+//		
+//		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
+		
+		
+		
+		return ;
 	}
 	
 	//가입
@@ -49,7 +66,7 @@ public class EmployeeController {
 		
 		int result = employeeService.create(employeeVO);
 		model.addAttribute("result", "employee.create.result");
-		model.addAttribute("path","/");
+		model.addAttribute("path","/employee/login");
 
 		return "commons/result";
 	}
@@ -84,6 +101,9 @@ public class EmployeeController {
 	public void mypage() throws Exception{
 		
 	}
+	//비밀번호 변경 sec1 마지맘ㄱ
+	
+	
 	
 	@GetMapping("idSearch")
 	public void idFind() throws Exception{

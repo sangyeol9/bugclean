@@ -1,14 +1,14 @@
 package com.winter.app.employee;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
@@ -25,7 +25,7 @@ public class EmployeeVO implements UserDetails{
 	@NotBlank(message = "인증번호를 입력해주세요.", groups = EmployeeCreateGroup.class)
 	private String userNumCheck;
 	@NotBlank(message = "비밀번호는 필수 입력 값입니다.", groups = EmployeeCreateGroup.class)
-	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{10,16}", message = "비밀번호는 10~16자 영문자, 숫자, 특수문자를 사용하세요.", groups = EmployeeCreateGroup.class)
+	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 8~16자 영문자, 숫자, 특수문자를 사용하세요.", groups = EmployeeCreateGroup.class)
 	private String password;
 	@NotBlank(message = "비밀번호를 입력해주세요.", groups = EmployeeCreateGroup.class)
 	private String passwordCheck;
@@ -46,32 +46,39 @@ public class EmployeeVO implements UserDetails{
 	private String profile_name;
 	private Long manager_num;
 	
-	
+	private boolean accountNonExpired;
+	private boolean accountNonLocked;
+	private boolean credentialsNonExpired;
+	private boolean enabled;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
+		//사용자 권한을 Security에서 사용 할 수 있도록 변환
+//		List<GrantedAuthority> authrities = new ArrayList<>();
+//		
+//		for()
+//		
 		return null;
 	}
-	@Override
+	@Override // 계정의 만료 여부 
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
-	@Override
+	@Override	//계정잠김
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
-	@Override
+	@Override // 비밀번호 만료 여부
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
-	@Override
+	@Override // 계정 활성화 여부 
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

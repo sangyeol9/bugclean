@@ -40,6 +40,7 @@ public class EmployeeService implements UserDetailsService{
 		
 		//아이디 검증
 		EmployeeVO result = employeeDAO.getDetail(employeeVO);
+		
 		if(result != null) {
 			
 			check=true;
@@ -51,12 +52,13 @@ public class EmployeeService implements UserDetailsService{
 		if(!employeeVO.getPassword().equals(employeeVO.getPasswordCheck())) {
 			check=true;
 			bindingResult.rejectValue("passwordCheck", "employeeVO.password.equals");
+			
 		}
 		
 		//인증번호 검증
 		if(!employeeVO.getUserNumCheck().equals(""+number)) {
 			check=true;
-			//bindingResult.rejectValue("userNumCheck", "employeeVO.userNumCheck.equals");
+			bindingResult.rejectValue("userNumCheck", "employeeVO.userNumCheck.equals");
 		}
 		
 		
@@ -109,8 +111,20 @@ public class EmployeeService implements UserDetailsService{
     //UserDetailService
     @Override			//유저의 정보를 불러와서 UserDetails로 리턴
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    	// TODO Auto-generated method stub
-    	return null;
+    	EmployeeVO employeeVO = new EmployeeVO();
+    	employeeVO.setUsername(username);
+    	
+    	System.out.println("----------------로그인 진행");
+    	System.out.println("================"+ username);
+    	
+    	try {
+			employeeVO= employeeDAO.getDetail(employeeVO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 
+    	return employeeVO;
     }
 	
 		
