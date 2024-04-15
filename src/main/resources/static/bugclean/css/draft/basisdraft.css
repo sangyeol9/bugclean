@@ -1,9 +1,8 @@
 #draftLine {
 	position: absolute;
-	display: inline-block;
+
 	right: 65px;
 	top: 10px;
-	right: 65px;
 }
 
 td {
@@ -23,8 +22,8 @@ table {
 #lineBtnDiv {
 	position: absolute;
 	display: inline-block;
-	left: 750px;
-	top: 30px;
+	top: 23px;
+	left: -25px;
 }
 
 #title {
@@ -68,6 +67,7 @@ table {
 	background-color: transparent;
 	height: 100%;
 	width: 100%;
+	text-align: center;
 }
 
 #standardDraftDiv {

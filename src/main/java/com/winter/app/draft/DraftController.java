@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -14,6 +15,8 @@ import com.winter.app.employee.DepartmentVO;
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.employee.PositionVO;
 import com.winter.app.employee.RnRVO;
+
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -24,7 +27,14 @@ public class DraftController {
 	
 	
 	@GetMapping("basisdraft")
-	public String getBasisDraft(Map<String, Object> map, Model model)throws Exception {
+	public String getBasisDraft(Map<String, Object> map, Model model, HttpSession session)throws Exception {
+		
+		EmployeeVO employeeVOJoin = new EmployeeVO();
+		employeeVOJoin.setEmployee_num("2023001");
+		employeeVOJoin = draftService.getEmployeeDetail(employeeVOJoin);
+		System.out.println("employeeVOJOin : :"+employeeVOJoin.toString());
+		session.setAttribute("emp", employeeVOJoin);
+		model.addAttribute("emp", employeeVOJoin);
 		EmployeeVO employeeVO = new EmployeeVO();
 		DepartmentVO departmentVO = new DepartmentVO();
 		PositionVO positionVO = new PositionVO();
@@ -38,7 +48,14 @@ public class DraftController {
 		 model.addAttribute("list", ar);
 		 List<DepartmentVO> depar = draftService.getDepartmentList();
 		 model.addAttribute("dep", depar);
+		 DraftVO draftVO= draftService.getDraftDocNum();
+		 model.addAttribute("draftVO", draftVO);
 		return "/draft/basisdraft";
+	}
+	
+	@PostMapping("getapprovalline")
+	public void getApprovalLine() {
+		
 	}
 	
 	
