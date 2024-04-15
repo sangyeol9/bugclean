@@ -1,4 +1,33 @@
 var calenar;
+let start_first;
+
+
+/*
+    function create_sch(date){
+        console.log("일정추가 : " + date);
+        var inputTitle = document.getElementById("inputTitle").value;
+        var inputStart = document.getElementById("inputStart").value;
+        var inputEnd = document.getElementById("inputEnd").value;
+    
+        calendar.addEvent({
+        title: inputTitle,
+        start: date+'T'+inputStart,
+        end: date+'T'+inputEnd,
+        id : inputTitle+date+'T'+inputStart
+        })
+
+        closeModal(); // 추가 후 모달 닫기
+    // 입력 필드 초기화
+    document.getElementById("inputTitle").value = "";
+    document.getElementById("inputStart").value = "";
+    document.getElementById("inputEnd").value = "";
+    // FullCalendar 날짜 선택 해제
+        calendar.unselect(); // FullCalendar에서 날짜 선택 초기화
+        console.log("calendar unselect");
+    }
+*/
+
+
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     calendar = new FullCalendar.Calendar(calendarEl, {
@@ -6,23 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         selectable : true,
         locale : "kr",
         editable: true,
-        events : [ {
-            id : "스케줄2024-04-04",
-            title : "스케줄",
-            start : "2024-04-04"
-        }, {
-            id : "스케줄2024-04-15",
-            title : "스케줄",
-            start : "2024-04-15"
-        }, {
-            id : "스케줄2024-04-06",
-            title : "스케줄",
-            start : "2024-04-06T12:30:00",
-            
-            extendedProps : {
-                comment : "테스트"
-            }
-        } ],eventDrop: function(info) {
+        eventDrop: function(info) {
                 alert("일정을 이동했습니다!"); // 이벤트를 이동할 때 알림창을 띄울 수 있습니다.
         },dateClick : function(info) {
             // 클릭시 삭제
@@ -71,26 +84,14 @@ var modalTitle = document.getElementById("modal-title"); // 모달 타이틀 엘
 var modalContent = document.getElementById("modal-content");
 var start_Time_Date = document.getElementById("start_Time_Date");
 var end_Time_Date = document.getElementById("end_Time_Date");
+let span_start_time = document.getElementById("start_Time");
+
 let create_sch_btn = document.getElementById("create_sch_btn");
 let inputStart = document.getElementById("inputStart");
 modal.style.display = "block";
 modalTitle.innerText="일정 등록";
 
-if(content !=undefined){
-    modalTitle.innerText="일정 확인"
-    inputTitle.value=content;
-    let temp_start = id;
-    let length = content.length;
-    let temp_date;
-    temp_start = id.substr(length,10);
-    start_Time.innerText = 	temp_start;
-    temp_date = date.toString().substr(16,8);
-    inputStart.value = temp_date;
-} 
-else{
-    inputTitle.value="";
-    start_Time.innerText=date;
-} 
+span_start_time.innerHTML = start_first;
 
 
 
@@ -159,4 +160,31 @@ function changeSelect(){
 
 }
     
+window.addEventListener("load",function(){
+    fetch("/schedule/getList",{
+        method : "GET"
+    })
+    .then(res => res.json())
+    .then(res => {
+            calendar.getEvents().forEach(function(event) {
+            event.remove();
+            });
 
+            console.log("h2");
+            console.log("test = ",res);
+            res.forEach(element => {
+               console.log("start = ", element.start_Time);
+               start_first = element.start_Time.substr(0,10);
+               console.log("start_first = ", start_first);
+               let start_last = element.start_Time.substring(11,19);
+              
+                  calendar.addEvent({
+                   title : element.business_Name  + element.ceo_Name,
+                   start : start_first +"T"+ start_last,
+                   end : element.end_Time,
+                   id : element.ceo_Name+start_first
+                  })
+            });
+    })
+
+})
