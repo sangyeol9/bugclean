@@ -16,6 +16,8 @@ import com.winter.app.employee.EmployeeVO;
 import com.winter.app.employee.PositionVO;
 import com.winter.app.employee.RnRVO;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/draft/*")
@@ -25,7 +27,14 @@ public class DraftController {
 	
 	
 	@GetMapping("basisdraft")
-	public String getBasisDraft(Map<String, Object> map, Model model)throws Exception {
+	public String getBasisDraft(Map<String, Object> map, Model model, HttpSession session)throws Exception {
+		
+		EmployeeVO employeeVOJoin = new EmployeeVO();
+		employeeVOJoin.setEmployee_num("2023001");
+		employeeVOJoin = draftService.getEmployeeDetail(employeeVOJoin);
+		System.out.println("employeeVOJOin : :"+employeeVOJoin.toString());
+		session.setAttribute("emp", employeeVOJoin);
+		model.addAttribute("emp", employeeVOJoin);
 		EmployeeVO employeeVO = new EmployeeVO();
 		DepartmentVO departmentVO = new DepartmentVO();
 		PositionVO positionVO = new PositionVO();

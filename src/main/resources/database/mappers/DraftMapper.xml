@@ -19,7 +19,12 @@ select * from department
 </select>
 
 <select id="getDraftMaxDocNum" resultType="DraftVO">
-SELECT MAX(DOC_NUM) AS doc_num FROM DRAFT
+SELECT MAX(DRAFT_NUM) AS draft_num FROM DRAFT
+</select>
+
+<select id="getEmployeeDetail" resultType="EmployeeVO" parameterType="EmployeeVO">
+SELECT * FROM EMPLOYEE
+					WHERE EMPLOYEE_NUM =#{employee_num}
 </select>
 
 </mapper>

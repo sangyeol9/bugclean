@@ -121,7 +121,8 @@
 					<table border="1">
 						<tr>
 							<td class="basisTitleTd">기안자</td>
-							<td class="basisTd"><input class="inp" type="text" disabled></td>
+							
+							<td class="basisTd"><input class="inp" type="text" value="${emp.name}" disabled></td>
 							<td class="basisTitleTd">소속부서</td>
 							<td class="basisTd"><input class="inp" type="text" disabled></td>
 						</tr>
@@ -134,7 +135,7 @@
 						</tr>
 						<tr>
 							<td class="basisTitleTd">문서번호</td>
-							<td class="basisTd"><input class="inp" type="text" value="${draftVO.doc_num}" disabled></td>
+							<td class="basisTd"><input class="inp" type="text" value="${draftVO.draft_num}" disabled></td>
 						</tr>
 						<tr>
 							<td class="basisTitleTd">제목</td>
@@ -249,7 +250,7 @@
 
 						<!-- 등록 버튼 시작 -->
 						<div id="modalCreateBtnDiv">
-							<a href="/bugclean/js/draft/modalcreatebtn.js" id="modalCreateBtn"><button>등록</button></a>
+							<button id="modalCreateBtn">등록</button>
 						</div>
 						<!-- 등록 버튼 끝 -->
 

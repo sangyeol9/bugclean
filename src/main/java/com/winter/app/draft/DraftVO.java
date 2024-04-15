@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class DraftVO {
 
-	private String doc_num;
+	private String draft_num;
 	private String employee_num;
 	private Date  draft_date;
 	private String title;
