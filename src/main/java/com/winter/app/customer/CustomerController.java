@@ -45,12 +45,12 @@ public class CustomerController {
 	
 	@PostMapping("update")
 	@ResponseBody
-	public String updateCustomer(@RequestBody CustomerVO customerVO,Model model) throws Exception{
+	public int updateCustomer(@RequestBody CustomerVO customerVO,Model model) throws Exception{
 		
 			int result = customerService.updateCustomer(customerVO);
 			model.addAttribute("result", result);
 			
-		return "/ajax/result";
+		return result;
 	}
 	
 	@GetMapping("detail")

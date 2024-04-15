@@ -21,7 +21,7 @@ public class HumanResourceController {
     @Autowired
     private CommonsService commonsService;
 
-    @GetMapping("temp/list")
+    @GetMapping("/temp/list")
     public String tempList() throws Exception {
         return "HR/MemberAgree";
     }

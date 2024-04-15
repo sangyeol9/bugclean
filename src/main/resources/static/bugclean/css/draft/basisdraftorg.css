@@ -1,0 +1,48 @@
+#orgDiv {
+	position: absolute;
+	top: 100px;
+	left: 40px;
+}
+
+#orgTitle {
+	position: absolute;
+	left: 110px;
+	top: 60px;
+}
+
+.orgTeamDiv {
+	z-index: 150;
+}
+
+.minusIcon {
+	display: none;
+	z-index: 151;
+}
+
+
+.plusIcon {
+	display: inline-block;
+	z-index: 151;
+}
+
+
+#orgTeamTitle {
+	z-index: 151;
+}
+
+#orgTeamTitle2 {
+	z-index: 151;
+}
+
+#orgTeamTitle3 {
+	z-index: 151;
+}
+
+#orgTeamTitle4 {
+	z-index: 151;
+}
+
+.orgPepleDiv {
+	z-index: 151;
+	display: none;
+}

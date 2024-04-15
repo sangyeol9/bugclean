@@ -1,0 +1,77 @@
+#draftLine {
+	position: absolute;
+
+	right: 65px;
+	top: 10px;
+}
+
+td {
+	width: 50px;
+	height: 35px;
+}
+
+.date {
+	width: 20px;
+	height: 20px;
+}
+
+table {
+	color: black;
+}
+
+#lineBtnDiv {
+	position: absolute;
+	display: inline-block;
+	top: 23px;
+	left: -25px;
+}
+
+#title {
+	position: absolute;
+	display: inline-block;
+	left: 250px;
+	top: 60px;
+}
+
+#basisDraft {
+	position: absolute;
+	display: inline-block;
+	left: 110px;
+	top: 200px;
+	text-align: center;
+}
+
+.basisTd {
+	height: 50px;
+	width: 400px;
+}
+
+.basisTitleTd {
+	height: 50px;
+	width: 100px;
+}
+
+.basisContentsTd {
+	height: 50px;
+	width: 300px;
+}
+
+#btn {
+	position: absolute;
+	left: 380px;
+	bottom: 150px;
+}
+
+.inp {
+	border: none;
+	background-color: transparent;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+}
+
+#standardDraftDiv {
+	position: relative;
+	width: 1100px;
+	height: 1100px;
+}

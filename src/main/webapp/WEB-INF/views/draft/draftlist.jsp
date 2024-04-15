@@ -10,6 +10,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="/focus-bootstrap-main/theme/vendor/nestable2/css/jquery.nestable.min.css" rel="stylesheet">
 <title>Focus - Bootstrap Admin Dashboard</title>
 <!-- Favicon icon -->
 <c:import url="../temp/css.jsp"></c:import>
@@ -77,11 +78,6 @@
 					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table mb-0">
-								<thead>
-									<tr>
-										<th>문서양식</th>
-									</tr>
-								</thead>
 								<tbody>
 									<tr>
 										<td><a href="./basisdraft">기본양식</a></td>
@@ -100,9 +96,8 @@
 						</div>
 					</div>
 				</div>
-
-
 			</div>
+		</div>
 			<!--**********************************
             Content body end
         ***********************************-->
@@ -136,5 +131,7 @@
         Scripts
     ***********************************-->
 		<!-- Required vendors -->
+		<script src="/focus-bootstrap-main/theme/vendor/nestable2/js/jquery.nestable.min.js"></script>
+		<script src="/focus-bootstrap-main/theme./js/plugins-init/nestable-init.js"></script>
 		<c:import url="../temp/js.jsp"></c:import>
 </body>

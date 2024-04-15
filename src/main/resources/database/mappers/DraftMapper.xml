@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winter.app.draft.DraftDAO">
+
+<select id="getBasisDraft" resultType="Map">
+SELECT emp.*, dep.*, rnr.*, pos.*  FROM EMPLOYEE emp
+								  left join DEPARTMENT dep
+									on emp.DEP_CODE  = dep.DEP_CODE 
+								  left	JOIN RNR rnr 
+								 	ON emp.RNR_CODE  = rnr.RNR_CODE 
+								  LEFT JOIN "POSITION" pos 
+									ON emp.POS_CODE = pos.POS_CODE
+</select>
+
+<select id="getDepartmentList" resultType="DepartmentVO">
+select * from department
+</select>
+
+<select id="getDraftMaxDocNum" resultType="DraftVO">
+SELECT MAX(DRAFT_NUM) AS draft_num FROM DRAFT
+</select>
+
+<select id="getEmployeeDetail" resultType="EmployeeVO" parameterType="EmployeeVO">
+SELECT * FROM EMPLOYEE
+					WHERE EMPLOYEE_NUM =#{employee_num}
+</select>
+
+</mapper>
