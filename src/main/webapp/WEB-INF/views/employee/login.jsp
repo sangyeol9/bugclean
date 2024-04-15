@@ -31,7 +31,7 @@
 									</div>
 
 									<div>
-										<h4>${param.message}</h4>
+										<h4 style="color: red;">${param.message}</h4>
 									</div>
 
 									<!-- <form action="index.html"> -->

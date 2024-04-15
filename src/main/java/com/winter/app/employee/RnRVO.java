@@ -7,5 +7,6 @@ public class RnRVO {
 
     private Integer rnr_code;
     private String rnr_name;
-
+    
+    
 }

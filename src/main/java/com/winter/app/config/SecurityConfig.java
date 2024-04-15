@@ -1,5 +1,6 @@
 package com.winter.app.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,11 +9,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 @EnableWebSecurity //내설정
 public class SecurityConfig {
+	
+	@Autowired
+	private LoginFailHandler failHandler;
 	
 	@Bean
 	PasswordEncoder passwordEncoder() {
@@ -42,11 +47,14 @@ public class SecurityConfig {
 											.requestMatchers("/employee/create").permitAll()
 											.requestMatchers("/employee/mailSend").permitAll()
 											.requestMatchers("/employee/mailCheck").permitAll()
+											.requestMatchers("/employee/logout", "/employee/mypage").authenticated()
 											.anyRequest().permitAll()
 											//.anyRequest().authenticated()//나머지
 		)
+		//ajax 통신 권한
 		.csrf(csrf -> csrf
 	            .ignoringRequestMatchers("/employee/mailSend")
+	            .ignoringRequestMatchers("/chat/**")
 	    )
 		
 		
@@ -55,9 +63,17 @@ public class SecurityConfig {
 				(login)->login
 						.loginPage("/employee/login")
 						.defaultSuccessUrl("/")
-						.failureUrl("/employee/login")
+						.failureHandler(failHandler)
 						.permitAll()
-		);
+		)
+		
+		.logout(
+				(logout)->logout
+							.logoutRequestMatcher(new AntPathRequestMatcher("/employee/logout"))
+							.logoutSuccessUrl("/")
+							.invalidateHttpSession(true)//로그아웃시 session만료
+							.permitAll()
+				);
 		
 		return security.build();
 	}
