@@ -91,6 +91,7 @@
 						<tr id="input_grade">
 							<td rowspan="4">결재선</td>
 							<td>기안자</td>
+							<td>사장</td>
 						</tr>
 						<tr id="input_blank">
 							<td></td>
@@ -120,20 +121,21 @@
 					<table border="1">
 						<tr>
 							<td class="basisTitleTd">기안자</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							
+							<td class="basisTd"><input class="inp" type="text" value="${emp.name}" disabled></td>
 							<td class="basisTitleTd">소속부서</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							<td class="basisTd"><input class="inp" type="text" disabled></td>
 						</tr>
 
 						<tr>
 							<td class="basisTitleTd">기안일자</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							<td class="basisTd"><input class="inp" type="text" value="${draftVO.draft_date}" disabled></td>
 							<td class="basisTitleTd" rowspan="4">첨부파일</td>
 							<td class="basisTd" rowspan="4" colspan="2"></td>
 						</tr>
 						<tr>
 							<td class="basisTitleTd">문서번호</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							<td class="basisTd"><input class="inp" type="text" value="${draftVO.draft_num}" disabled></td>
 						</tr>
 						<tr>
 							<td class="basisTitleTd">제목</td>
@@ -141,7 +143,7 @@
 						</tr>
 						<tr>
 							<td class="basisTitleTd">참조</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							<td class="basisTd"><input class="inp" type="text" disabled></td>
 						</tr>
 						<tr style="height: 300px;">
 							<td class="basisTitleTd">내용</td>
@@ -247,8 +249,8 @@
 						<!-- 닫기 버튼 끝 -->
 
 						<!-- 등록 버튼 시작 -->
-						<div id="modalCreateBtn">
-							<button>등록</button>
+						<div id="modalCreateBtnDiv">
+							<button id="modalCreateBtn">등록</button>
 						</div>
 						<!-- 등록 버튼 끝 -->
 

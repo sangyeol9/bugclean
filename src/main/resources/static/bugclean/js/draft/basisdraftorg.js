@@ -138,7 +138,7 @@ refPlusBtn.addEventListener(
                         orgPepleDiv[n].appendChild(orTemp)
                         orTemp.style.backgroundColor = "white";
                         }                    
-                }
+                } 
             }
             }
         })
@@ -165,6 +165,32 @@ refPlusBtn.addEventListener(
             }
             }
         })
+        ////fetch
+        let modalCreateBtn = document.getElementById("modalCreateBtn");
+        
+        modalCreateBtn.addEventListener("click",function(){
+            let draftBoxTdAr = draftBoxTd.children
+            let orgArrDep= [draftBoxTdAr.length];
+            let orgArrName= [draftBoxTdAr.length];
+            for(let i=0; i<draftBoxTdAr.length; i++){
+               let splitValue = draftBoxTdAr[i].textContent.split(" ");
+               orgArrDep[i] = splitValue[1];
+               orgArrName[i] = splitValue[2];
+               console.log("orgArrDep : "+ orgArrDep[i]+ " //////"+"orgArrName : "+orgArrName[i])
+                console.log(draftBoxTdAr[i].textContent.trim())
+            }
 
+          fetch("/getapprovalline",{
+            method : 'POST',
+            headers:{
+            "Content-type":"application/x-www-form-urlencoded"
+        },
+        body:"dep="+orgArrDep+"&name="+orgArrName
+          })
+          .then(Response=>Response.text)
+          .then(res=>{
+            console.log(res)
+          })
 
-
+        })
+        
