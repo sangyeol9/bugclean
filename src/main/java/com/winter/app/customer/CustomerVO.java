@@ -1,6 +1,7 @@
 package com.winter.app.customer;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.Data;
 import lombok.Getter;
@@ -31,7 +32,7 @@ public class CustomerVO {
 	//법인,개인
 	private String customer_Type;
 	//날짜 -- 필요한가 ? sysdate쓰는데
-	private Date date;
+	private Timestamp date;
 	// 계약상태 -- 진행중 or 중단
 	private String contract_Type;
 		

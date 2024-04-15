@@ -77,40 +77,31 @@
 				<!-- 기안서 제목 끝 -->
 
 				<!--  결재선 편집버튼 시작 -->
-				<div id="lineBtnDiv">
-					<button id="lineBtn">
-						편<br>집<br>하<br>기
-					</button>
-				</div>
+
 				<!-- 결재선 편집버튼 끝 -->
 
 				<!-- 결재선 시작 -->
 				<div id="draftLine">
+				<div id="lineBtnDiv">
+					<button id="lineBtn" class="lineBtnDiv">
+						편<br>집<br>하<br>기
+					</button>
+				</div>
 					<table border="1">
-						<tr>
+						<tr id="input_grade">
 							<td rowspan="4">결재선</td>
 							<td>기안자</td>
-							<td>팀장</td>
-							<td>부장</td>
 							<td>사장</td>
 						</tr>
-						<tr>
+						<tr id="input_blank">
 							<td></td>
 							<td></td>
+						</tr>
+						<tr id="input_name">
 							<td></td>
 							<td></td>
-
 						</tr>
 						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-
-						</tr>
-						<tr>
-							<td class="date"></td>
-							<td class="date"></td>
 							<td class="date"></td>
 							<td class="date"></td>
 						</tr>
@@ -130,20 +121,21 @@
 					<table border="1">
 						<tr>
 							<td class="basisTitleTd">기안자</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							
+							<td class="basisTd"><input class="inp" type="text" value="${emp.name}" disabled></td>
 							<td class="basisTitleTd">소속부서</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							<td class="basisTd"><input class="inp" type="text" disabled></td>
 						</tr>
 
 						<tr>
 							<td class="basisTitleTd">기안일자</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							<td class="basisTd"><input class="inp" type="text" value="${draftVO.draft_date}" disabled></td>
 							<td class="basisTitleTd" rowspan="4">첨부파일</td>
 							<td class="basisTd" rowspan="4" colspan="2"></td>
 						</tr>
 						<tr>
 							<td class="basisTitleTd">문서번호</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							<td class="basisTd"><input class="inp" type="text" value="${draftVO.draft_num}" disabled></td>
 						</tr>
 						<tr>
 							<td class="basisTitleTd">제목</td>
@@ -151,7 +143,7 @@
 						</tr>
 						<tr>
 							<td class="basisTitleTd">참조</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
+							<td class="basisTd"><input class="inp" type="text" disabled></td>
 						</tr>
 						<tr style="height: 300px;">
 							<td class="basisTitleTd">내용</td>
@@ -218,12 +210,13 @@
 
 						<!-- 참조 버튼 시작 -->
 						<div id="refBtn">
-							<i class="fa-solid fa-square-caret-left fa-2x"></i>
+							<i  id="refMinusBtn" class="fa-solid fa-square-caret-left fa-2x"></i>
 							<h3 style="display: inline-block;">참조</h3>
-							<i class="fa-solid fa-square-caret-right fa-2x"
+							<i  id="refPlusBtn" class="fa-solid fa-square-caret-right fa-2x"
 								style="display: inline-block;"></i>
 						</div>
 						<!-- 참조 버튼 끝 -->
+						
 						<!-- 결재선 박스 시작 -->
 						<div id="draftBox">
 							<table border="1">
@@ -245,7 +238,7 @@
 						<div id="refBox">
 							<table border="1">
 								<tr style="height: 140px">
-									<td style="width: 200px;"></td>
+									<td style="width: 200px; vertical-align: top;" id="refBoxTd"></td>
 								</tr>
 							</table>
 						</div>
@@ -256,8 +249,8 @@
 						<!-- 닫기 버튼 끝 -->
 
 						<!-- 등록 버튼 시작 -->
-						<div id="modalCreateBtn">
-							<button>등록</button>
+						<div id="modalCreateBtnDiv">
+							<button id="modalCreateBtn">등록</button>
 						</div>
 						<!-- 등록 버튼 끝 -->
 
@@ -279,7 +272,7 @@
 
 							<table border="1">
 								<tr style="height: 350px;">
-									<td style="width: 200px; vertical-align: top;">
+									<td style="width: 200px; vertical-align: top;" id="orgBoxTd">
 										<!-- 조직도 플러스 아이콘 시작 --> 
 										<c:forEach items="${dep}"
 											var="dep">
@@ -289,16 +282,16 @@
 													class="fa-solid fa-plus plusIcon"
 													style="display: inline-block;"></i> <i
 													class="fa-solid fa-users"></i>
-												<h5 style="display: inline-block;">${dep.dep_name}</h5>
+												<h5 style="display: inline-block;" class="orgDep">${dep.dep_name}</h5>
 												</c:if>
 												<br>
-											 <div class="orgPepleDiv">
+											 <div data-dep-name="${dep.dep_name}" class="orgPepleDiv">
 												<c:forEach items="${list}" var="list">
 												<c:if test="${list.DEP_NAME eq dep.dep_name}">
 												<div class="orgPepleSpan"
 													style="display: inline-block; padding-left: 20px">
 													<i class="fa-solid fa-user" style="display: inline-block;"></i>
-													<h6 style="display: inline-block;">${list.DEP_NAME} ${list.POS_NAME} ${list.NAME}</h6>
+													<h6 style="display: inline-block;" class="orgAll" data-dep-name="${list.DEP_NAME}">${list.DEP_NAME} ${list.POS_NAME} ${list.NAME}</h6>
 												</div>
 											</c:if>
 											</c:forEach>
