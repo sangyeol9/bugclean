@@ -35,7 +35,7 @@ z-index: 115;
 					<li><a href="/hr/member">사원관리</a></li>
 					<li><a href="/hr/vacation">연차관리</a></li>
 					<li><a href="/hr/salary">급여관리</a></li>
-					<li><a href="/focus-bootstrap-main/theme/app-profile.html">근태관리</a></li>
+					<li><a href="/hr/attendance">근태관리</a></li>
 				</ul></li>
 
 			<li><a class="has-arrow" href="javascript:void()"

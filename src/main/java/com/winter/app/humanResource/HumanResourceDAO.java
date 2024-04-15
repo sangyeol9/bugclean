@@ -16,5 +16,7 @@ public interface HumanResourceDAO {
     public List<String> getDistinctValues(String param)throws Exception;
     public List<Map<String, Object>> getResignationList()throws Exception;
     public List<Map<String, Object>> getSalaryList(Integer year)throws Exception;
+    public List<Map<String, Object>> getAttendanceList(Map<String, Object> date)throws Exception;
+    public Long getTotalCount(Map<String,Object> data)throws Exception;
 
 }

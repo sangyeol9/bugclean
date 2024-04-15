@@ -12,7 +12,7 @@
 <link href="/focus-bootstrap-main/theme/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="/focus-bootstrap-main/theme/css/style.css" rel="stylesheet">
 <link href="/bugclean/css/MemberAgree-datatables.css" rel="stylesheet">
-
+<link href="/focus-bootstrap-main/theme/vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <body>
 <div id="preloader">
     <div class="sk-three-bounce">
@@ -31,14 +31,14 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4 style="font-weight: bolder;">&ensp;가입승인</h4>
+                        <h4 style="font-weight: bolder;">&ensp;근태관리</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item active">인사팀</li>
-                        <li class="breadcrumb-item active"><a href="./">가입승인</a></li>
+                        <li class="breadcrumb-item active"><a href="./">근태관리</a></li>
                     </ol>
                 </div>
             </div>
@@ -46,20 +46,25 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">사원가입 요청 목록</div>
+                            <div class="card-title">날짜별 근태 조회</div>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="tempList" class="table-hover table" style="width: 98%">
-                                    <tr>
-                                        <th>가입요청 ID</th>
-                                        <th>가입요청 사원</th>
-                                        <th>부서</th>
-                                        <th>직책</th>
-                                        <th>직급</th>
-                                    </tr>
-                                </table>
+                            <div class="form-inline mb-2">
+                                <label class="mr-2" for="datePicker">조회 날짜 선택</label>
+                                <div>
+                                    <input class="form-control datePicker" id="datePicker" type="text" name="dateRange">
+                                </div>
                             </div>
+                            <table id="attendanceList" class="table-hover table" style="width: 98%">
+                                <tr>
+                                    <th>사번</th>
+                                    <th>이름</th>
+                                    <th>급여계좌번호</th>
+                                    <th>급여은행</th>
+                                    <th>연봉금액</th>
+                                    <th>부서</th>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -67,11 +72,17 @@
         </div>
         <c:import url="../temp/messenger.jsp"></c:import>
     </div>
+
 </div>
 <c:import url="../temp/footer.jsp"></c:import> <%--footer--%>
 <c:import url="../temp/js.jsp"></c:import> <%--bootstrap-template-js--%>
 <script src="/focus-bootstrap-main/theme/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="/bugclean/js/memberAgree-dataTables-init.js"></script>
+<!-- Daterangepicker -->
+<!-- momment js is must -->
+<script src="/focus-bootstrap-main/theme/vendor/moment/moment.min.js"></script>
+<script src="/focus-bootstrap-main/theme/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<script src="/bugclean/js/attendance-dataTables-init.js"></script>
 
 </body>
 </html>

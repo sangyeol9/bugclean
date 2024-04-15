@@ -7,6 +7,5 @@
   		<typeAlias type="com.winter.app.customer.CustomerVO" alias="CustomerVO"/>
 		<typeAlias type="com.winter.app.humanResource.TempMemberVO" alias="TempMemberVO"/>
 		<typeAlias type="com.winter.app.employee.EmployeeVO" alias="EmployeeVO"/>
-		<typeAlias type="com.winter.app.humanResource.VacationVO" alias="VacationVO"/>
   	</typeAliases>
   </configuration>

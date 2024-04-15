@@ -15,7 +15,13 @@ function memberList(){
                     {data: "DEP_NAME", title: "부서"},
                     {data: "POS_NAME", title: "직급"},
                     {data: "JOIN_DATE", title: "입사일"}
-                ]
+                ],
+                "language": {
+                    "paginate": {
+                        "previous": '<i class="icon-arrow-left"></i>',
+                        "next": '<i class="icon-arrow-right"></i>'
+                    }
+                }
             })
         },
         error: function(jqXHR, textStatus, errorThrown) {

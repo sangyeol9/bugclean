@@ -34,7 +34,7 @@ function initDataTables(){
                         title: "직책",
                         orderable: false,
                         render: function(data, type, row) {
-                            return renderSelect(response.commons.dep);
+                            return renderSelect(response.commons.rnr);
                         }
                     },
                     {
@@ -42,10 +42,16 @@ function initDataTables(){
                         title: "직급",
                         orderable: false,
                         render: function(data, type, row) {
-                            return renderSelect(response.commons.dep);
+                            return renderSelect(response.commons.pos);
                         }
                     }
-                ]
+                ],
+                "language": {
+                    "paginate": {
+                        "previous": '<i class="icon-arrow-left"></i>',
+                        "next": '<i class="icon-arrow-right"></i>'
+                    }
+                }
             })
         },
         error: function(jqXHR, textStatus, errorThrown) {

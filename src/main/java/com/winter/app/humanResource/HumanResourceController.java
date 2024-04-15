@@ -5,9 +5,7 @@ import com.winter.app.util.commons.CommonsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
@@ -25,25 +23,32 @@ public class HumanResourceController {
 
     @GetMapping("temp/list")
     public String tempList() throws Exception {
-        return "./HR/MemberAgree";
+        return "HR/MemberAgree";
     }
 
     @GetMapping("member")
     public String memberList() throws Exception {
-        return "./HR/MemberList";
+        return "HR/MemberList";
     }
 
     @GetMapping("salary")
     public ModelAndView salaryList(ModelAndView mv) throws Exception {
         mv.addObject("salYear", humanResourceService.getDistinctValues("SALARY"));
-        mv.setViewName("./HR/MemberSalary");
+        mv.setViewName("HR/MemberSalary");
         return mv;
     }
 
     @GetMapping("vacation")
     public ModelAndView vacationList(ModelAndView mv) throws Exception {
         mv.addObject("vacYear", humanResourceService.getDistinctValues("VACATION"));
-        mv.setViewName("./HR/VacationList");
+        mv.setViewName("HR/VacationList");
+        return mv;
+    }
+
+    @GetMapping("attendance")
+    public ModelAndView attendanceManage(ModelAndView mv) throws Exception {
+        mv.addObject("checkDate", humanResourceService.getDistinctValues("VACATION"));
+        mv.setViewName("HR/AttendenceManage");
         return mv;
     }
 
@@ -86,6 +91,14 @@ public class HumanResourceController {
     @ResponseBody
     public List<Map<String, Object>> getSalaryList(Integer year) throws Exception {
         return humanResourceService.getSalaryList(year);
+    }
+
+    @PostMapping("/attendance/list")
+    @ResponseBody
+    public Map<String, Object> getAttendanceList(@RequestParam Map<String, Object> req) throws Exception {
+        log.info("{}", req);
+
+        return humanResourceService.getAttendanceList(req);
     }
 
 }
