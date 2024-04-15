@@ -39,6 +39,8 @@ public class DraftController {
 		 model.addAttribute("list", ar);
 		 List<DepartmentVO> depar = draftService.getDepartmentList();
 		 model.addAttribute("dep", depar);
+		 DraftVO draftVO= draftService.getDraftDocNum();
+		 model.addAttribute("draftVO", draftVO);
 		return "/draft/basisdraft";
 	}
 	

@@ -15,4 +15,5 @@ public interface DraftDAO {
 	
 	List<Map<String, Object>> getBasisDraft() throws Exception;
 	List<DepartmentVO> getDepartmentList()throws Exception;
+	DraftVO getDraftMaxDocNum()throws Exception;
 }

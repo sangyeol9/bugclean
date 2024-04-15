@@ -18,4 +18,8 @@ SELECT emp.*, dep.*, rnr.*, pos.*  FROM EMPLOYEE emp
 select * from department
 </select>
 
+<select id="getDraftMaxDocNum" resultType="DraftVO">
+SELECT MAX(DOC_NUM) AS doc_num FROM DRAFT
+</select>
+
 </mapper>

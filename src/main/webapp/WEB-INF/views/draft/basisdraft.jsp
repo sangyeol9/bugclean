@@ -91,6 +91,7 @@
 						<tr id="input_grade">
 							<td rowspan="4">결재선</td>
 							<td>기안자</td>
+							<td>사장</td>
 						</tr>
 						<tr id="input_blank">
 							<td></td>
@@ -127,13 +128,13 @@
 
 						<tr>
 							<td class="basisTitleTd">기안일자</td>
-							<td class="basisTd"><input class="inp" type="text" disabled></td>
+							<td class="basisTd"><input class="inp" type="text" value="${draftVO.draft_date}" disabled></td>
 							<td class="basisTitleTd" rowspan="4">첨부파일</td>
 							<td class="basisTd" rowspan="4" colspan="2"></td>
 						</tr>
 						<tr>
 							<td class="basisTitleTd">문서번호</td>
-							<td class="basisTd"><input class="inp" type="text" disabled></td>
+							<td class="basisTd"><input class="inp" type="text" value="${draftVO.doc_num}" disabled></td>
 						</tr>
 						<tr>
 							<td class="basisTitleTd">제목</td>
