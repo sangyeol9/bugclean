@@ -173,23 +173,26 @@ refPlusBtn.addEventListener(
             let orgArrDep= [draftBoxTdAr.length];
             let orgArrName= [draftBoxTdAr.length];
             for(let i=0; i<draftBoxTdAr.length; i++){
-               let splitValue = draftBoxTdAr[i].textContent.split(" ");
+               let splitValue = draftBoxTdAr[i].textContent.trim().split(" ");
                orgArrDep[i] = splitValue[1];
                orgArrName[i] = splitValue[2];
                console.log("orgArrDep : "+ orgArrDep[i]+ " //////"+"orgArrName : "+orgArrName[i])
                 console.log(draftBoxTdAr[i].textContent.trim())
             }
+            console.log("dep : "+ orgArrDep)
+            console.log("name : "+ orgArrName)
 
-          fetch("/getapprovalline",{
+          fetch("/draft/getapprovalline",{
             method : 'POST',
             headers:{
             "Content-type":"application/x-www-form-urlencoded"
         },
         body:"dep="+orgArrDep+"&name="+orgArrName
           })
-          .then(Response=>Response.text)
+          .then(Response=>Response.text())
           .then(res=>{
-            console.log(res)
+            let draftLine = document.getElementById("draftLine");
+            draftLine.innerHTML=res;
           })
 
         })
