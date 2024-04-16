@@ -22,7 +22,12 @@ select * from department
 SELECT MAX(DRAFT_NUM) AS draft_num FROM DRAFT
 </select>
 
-<select id="getEmployeeDetail" resultType="EmployeeVO" parameterType="EmployeeVO">
+<select id="getDepartmentHighList" resultType="DepartmentVO">
+SELECT * FROM DEPARTMENT
+				WHERE DEP_CODE LIKE '__'
+</select>
+
+<select id="getEmployeeDetail" resultType="EmployeeVO" parameterType="EmployeeVO" >
 SELECT * FROM EMPLOYEE
 					WHERE EMPLOYEE_NUM =#{employee_num}
 </select>
