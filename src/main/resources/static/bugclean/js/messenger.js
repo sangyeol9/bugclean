@@ -22,13 +22,13 @@ let obj = {};
 //     }
 
 // })
-console.log(ceo);   
+
 window.addEventListener("load",function(){
     fetch("/chat/department",{
         method : "POST"
     }).then(res => res.json())
     .then(res => {
-        console.log("department" , res);
+        
         res.forEach(element => {
             let div = this.document.createElement("div");
             div.innerHTML+=  
@@ -45,11 +45,11 @@ window.addEventListener("load",function(){
                     `
                     messenger_emp_list.append(div);
             obj[element.dep_name] = div.querySelector(`#${element.dep_name}_list`);
-            console.log(element.dep_name);
+            
 
         });
 
-        console.log(obj);
+        
     })
 })
 //" class=" + "\"" + "display_none" + "\""
@@ -61,25 +61,25 @@ window.addEventListener("load",function(){
 						    </div> */
 
 window.addEventListener("load",function(){
-    console.log("onload");
+    
     fetch("/chat/list",{
         method:"POST"
     }).then(res=>res.json())
     .then(res=>{
         res.forEach((element,index) => {
-            console.log("ele = ",element);
+            
             obj[element.DEP_NAME].innerHTML += `<div id="${element.NAME}_${index}" class="mt-1">&emsp;<i class="fa-solid fa-user"></i>${element.NAME}</div>`
         })
-        console.log(res);
+        
     })
 
 }) 
 
 function displayOnOff(name){
-    console.log("name = ",name);
+    
     let list = document.getElementById(name+"_list")
     let span = document.getElementById(name+"_span");
-    console.log("list = " + list)
+    
     if(list.classList.contains("display_none")){
         list.classList.remove("display_none");
         span.innerHTML="-";

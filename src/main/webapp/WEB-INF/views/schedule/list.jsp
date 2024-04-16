@@ -37,16 +37,27 @@
 					<span class="close" onclick="closeModal()">&times;</span>
 					<div id="title_div">
 						<h2 id="modal-title"></h2>
-						<input id="input_site_manager" type="text" class="form-control" placeholder="현장 담당자 배정" >
 					</div>
 					<p id="modal-content"></p>
+						<div class="input-group flex-nowrap mt-2">
+							<input id="radioBase" type="radio" name="type" value="일반">
+							<label for="radioBase">일반</label>
+							<input id="radioEmer" type="radio" name="type" value="긴급">
+							<label for="radioEmer">긴급</label>
+						</div>
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="customer_Name">거래처명</span>
 							<input id="inputTitle" type="text" class="form-control" placeholder="거래처명을 입력하세요." >
 					  	</div>
 					  	<div class="input-group flex-nowrap mt-2">
-							<span class="input-group-text" id="manager_Name">담당자명</span>
-							<input type="text" class="form-control" placeholder="담당자명을 입력하세요." >
+							<span class="input-group-text" id="manager_Name">영업 담당자명</span>
+							<input id="inputSales" type="text" class="form-control" placeholder="담당자를 선택하세요." >
+							<select id="inputSelect">
+									<option value="">담당자 선택</option>
+								<c:forEach items="${list}" var="li">
+									<option value="${li.employee_num}">${li.employee_num} ${li.name}</option>
+								</c:forEach>	
+							</select>
 					  	</div>
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="start_Time"></span>
@@ -56,7 +67,13 @@
 						
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="employee_Num">현장 관리자</span>
-						  	<input type="text" class="form-control" value="미정" >
+						  	<input id="inputSiteManager" type="text" class="form-control"  >
+							<select id="inputSelect_emp">
+								<option value="">담당자 선택</option>
+							<c:forEach items="${list_emp}" var="li">
+								<option value="${li.employee_num}">${li.employee_num} ${li.name}</option>
+							</c:forEach>	
+						</select>
 						</div>
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="manage_Code">배차 정보</span>
@@ -69,12 +86,13 @@
 						</div>
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="address">주소</span>
-							<input type="text" class="form-control" placeholder="주소를 입력하세요." >
+							<input id="inputAddress"  type="text" class="form-control" placeholder="주소를 입력하세요." >
 					  	</div>
 						  <div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="price">단가</span>
-							<input type="text" class="form-control" placeholder="단가를 입력하세요." >
+							<input id="inputPrice" type="text" class="form-control" placeholder="단가를 입력하세요." >
 					  	</div>
+					  	
 						  <button class="btn-rounded btn-dark create mt-3" id="create_sch_btn">등록하기</button>
 					</div>	
 			</div>

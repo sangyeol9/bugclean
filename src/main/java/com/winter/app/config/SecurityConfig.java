@@ -56,6 +56,8 @@ public class SecurityConfig {
 	            .ignoringRequestMatchers("/employee/mailSend")
 	            .ignoringRequestMatchers("/chat/**")
 
+	            .ignoringRequestMatchers("/schedule/**")
+
 	            .ignoringRequestMatchers("/draft/getapprovalline")
 
 	    )
