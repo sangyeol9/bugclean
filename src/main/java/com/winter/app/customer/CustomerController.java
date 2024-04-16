@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/customer")
+@RequestMapping("/customer/*")
 @Slf4j
 public class CustomerController {
 
@@ -26,7 +26,7 @@ public class CustomerController {
 		var list = customerService.getList();
 		model.addAttribute("list", list);
 		
-		return "/customer/list";
+		return "customer/list";
 	}
 	
 	@GetMapping("create")
@@ -34,7 +34,7 @@ public class CustomerController {
 		
 		
 	}
-	@PostMapping("create")
+	@PostMapping("/create")
 	public String createCustomer(CustomerVO customerVO) throws Exception{
 		
 		
@@ -61,7 +61,7 @@ public class CustomerController {
 		
 		model.addAttribute("vo", vo);
 		
-		return "/customer/detail";
+		return "customer/detail";
 	}
 	
 	@GetMapping("delete")

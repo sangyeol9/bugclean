@@ -11,16 +11,24 @@ import lombok.Setter;
 public class SiteSchVO {
 	
 	private Long site_Num;
+	
+	//회사명으로 회사번호 가져오기
 	private Long customer_Num;
+	
 	private Long price;
-	private Timestamp start_Time;
-	private Timestamp end_Time;
+	private String start_Time;
+	private String end_Time;
 	private String employee_Num;
 	private Long manage_Code;
 	private Long draft_Num;
 	private String site_Type;
+	private String sales_Manager;
+	private String address;
+	
 	// 캘린더 제목 // 회사명 + 사장명 
-	private String ceo_Name;
 	private String business_Name;
+	
+	//회사명으로 사장 이름 가져오기
+	private String ceo_Name;
 	
 }
