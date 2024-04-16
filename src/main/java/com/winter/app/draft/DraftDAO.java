@@ -18,4 +18,5 @@ public interface DraftDAO {
 	List<DepartmentVO> getDepartmentList()throws Exception;
 	DraftVO getDraftMaxDocNum()throws Exception;
 	EmployeeVO getEmployeeDetail(EmployeeVO employeeVO) throws Exception;
+	List<DepartmentVO> getDepartmentHighList() throws Exception;
 }

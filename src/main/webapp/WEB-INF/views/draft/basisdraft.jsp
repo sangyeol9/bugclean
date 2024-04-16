@@ -336,21 +336,7 @@
 		<!--**********************************
         Main wrapper end
     ***********************************-->
-								<!-- 	<div id="orgTeamDiv">
-											<i id="minusIcon" class="fa-solid fa-minus"></i> <i
-												id="plusIcon" class="fa-solid fa-plus"
-												style="display: inline-block;"></i> <i
-												class="fa-solid fa-users"></i>
-											<h5 style="display: inline-block;">현장팀</h5>
-											<br>
-											<div id="orgPepleDiv">
-												<div class="orgPepleSpan"
-													style="display: inline-block; padding-left: 20px">
-													<i class="fa-solid fa-user" style="display: inline-block;"></i>
-													<h6 style="display: inline-block;">현장팀 사원 박성제</h6>
-												</div>
-											</div>
-										</div> -->
+
 
 		<!--**********************************
         Scripts
