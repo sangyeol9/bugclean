@@ -6,20 +6,22 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
-
-@Data							//사용자의 정보를 담는 Interface
+@Slf4j
+@Data					//사용자의 정보를 담는 Interface
 public class EmployeeVO implements UserDetails{
 	private String employee_num;
-	private Integer dep_code;
-	private Integer pos_code;
-	private Integer rnr_code;
-	private Integer type_code;
+	private DepartmentVO departmentVO;
+	private PositionVO positionVO;
+	private RnRVO rnRVO;
+	private WorkTypeVO workTypeVO;
 	@NotBlank(message = "아이디는 필수 입력 값입니다.", groups = EmployeeCreateGroup.class)
 	private String username;
 	@NotBlank(message = "인증번호를 입력해주세요.", groups = EmployeeCreateGroup.class)
@@ -54,11 +56,21 @@ public class EmployeeVO implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		//사용자 권한을 Security에서 사용 할 수 있도록 변환
-//		List<GrantedAuthority> authrities = new ArrayList<>();
-//		
-//		for()
-//		
-		return null;
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		
+		//log.info("=== depart :  {}", departmentVO);
+		
+//		GrantedAuthority ga1 = new SimpleGrantedAuthority(state);
+//		GrantedAuthority ga2 = new SimpleGrantedAuthority(departmentVO.getDep_name());
+//		GrantedAuthority ga3 = new SimpleGrantedAuthority(positionVO.getPos_name());
+//		GrantedAuthority ga4 = new SimpleGrantedAuthority(rnRVO.getRnr_name());
+		
+		authorities.add(new SimpleGrantedAuthority(state));
+		authorities.add(new SimpleGrantedAuthority(departmentVO.getDep_name()));
+		authorities.add(new SimpleGrantedAuthority(positionVO.getPos_name()));
+		authorities.add(new SimpleGrantedAuthority(rnRVO.getRnr_name()));
+		log.info("=== ROLE :  {}", authorities); //[1, 총무팀, 과장, 팀장]
+		return authorities;
 	}
 	@Override // 계정의 만료 여부 
 	public boolean isAccountNonExpired() {
