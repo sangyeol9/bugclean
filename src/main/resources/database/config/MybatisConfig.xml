@@ -5,11 +5,11 @@
   <configuration>
   	<typeAliases>
   		<typeAlias type="com.winter.app.customer.CustomerVO" alias="CustomerVO"/>
-		<typeAlias type="com.winter.app.humanResource.TempMemberVO" alias="TempMemberVO"/>
+		<typeAlias type="com.winter.app.humanResource.TempEmployeeVO" alias="TempEmployeeVO"/>
 		<typeAlias type="com.winter.app.employee.EmployeeVO" alias="EmployeeVO"/>
-		<typeAlias type="com.winter.app.humanResource.VacationVO" alias="VacationVO"/>
 		<typeAlias type="com.winter.app.employee.DepartmentVO" alias="DepartmentVO"/>
-
+		<typeAlias type="com.winter.app.employee.RnRVO" alias="RnRVO"/>
+		<typeAlias type="com.winter.app.employee.PositionVO" alias="PositionVO"/>
 		<typeAlias type="com.winter.app.sitesch.SiteSchVO" alias="SiteSchVO"/>
 
 		<typeAlias type="com.winter.app.draft.DraftVO" alias="DraftVO"/>

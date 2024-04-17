@@ -1,13 +1,11 @@
 package com.winter.app.humanResource;
 
-import com.winter.app.employee.EmployeeVO;
+import com.winter.app.employee.*;
 import com.winter.app.util.commons.CommonsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
@@ -23,28 +21,34 @@ public class HumanResourceController {
     @Autowired
     private CommonsService commonsService;
 
-    @GetMapping("/temp/list")
+    @GetMapping("temp/list")
     public String tempList() throws Exception {
-    	log.info("===================");
         return "HR/MemberAgree";
     }
 
     @GetMapping("member")
     public String memberList() throws Exception {
-        return "./HR/MemberList";
+        return "HR/MemberList";
     }
 
     @GetMapping("salary")
     public ModelAndView salaryList(ModelAndView mv) throws Exception {
         mv.addObject("salYear", humanResourceService.getDistinctValues("SALARY"));
-        mv.setViewName("./HR/MemberSalary");
+        mv.setViewName("HR/MemberSalary");
         return mv;
     }
 
     @GetMapping("vacation")
     public ModelAndView vacationList(ModelAndView mv) throws Exception {
         mv.addObject("vacYear", humanResourceService.getDistinctValues("VACATION"));
-        mv.setViewName("./HR/VacationList");
+        mv.setViewName("HR/VacationList");
+        return mv;
+    }
+
+    @GetMapping("attendance")
+    public ModelAndView attendanceManage(ModelAndView mv) throws Exception {
+        mv.addObject("checkDate", humanResourceService.getDistinctValues("VACATION"));
+        mv.setViewName("HR/AttendenceManage");
         return mv;
     }
 
@@ -53,16 +57,29 @@ public class HumanResourceController {
     public Map<String, Object> getAskList() throws Exception {
         Map<String, Object> responseData = new HashMap<>();
 
-        Map<String, List<String>> commons = commonsService.getCommonsList();
-        List<TempMemberVO> tempMemberVOS = humanResourceService.getAskList();
+        Map<String, List<Object>> commons = commonsService.getCommonsList();
+        List<TempEmployeeVO> tempEmployeeVOS = humanResourceService.getAskList();
 
-        Map<String, List<TempMemberVO>> tempMember = new HashMap<>();
-        tempMember.put("tempMember", tempMemberVOS);
+        Map<String, List<TempEmployeeVO>> tempMember = new HashMap<>();
+        tempMember.put("tempMember", tempEmployeeVOS);
 
         responseData.put("tempMember", tempMember.get("tempMember"));
         responseData.put("commons", commons);
 
+        log.info("temp:{}", responseData);
+
         return responseData;
+    }
+
+    @PostMapping("temp/ask")
+    public int setEmployee(EmployeeVO employeeVO, PositionVO positionVO, DepartmentVO departmentVO, RnRVO rnRVO, WorkTypeVO workTypeVO) throws Exception {
+
+        employeeVO.setPositionVO(positionVO);
+        employeeVO.setDepartmentVO(departmentVO);
+        employeeVO.setRnrVO(rnRVO);
+        employeeVO.setWorkTypeVO(workTypeVO);
+
+        return humanResourceService.setEmployee(employeeVO);
     }
 
     @GetMapping("member/list")
@@ -87,6 +104,14 @@ public class HumanResourceController {
     @ResponseBody
     public List<Map<String, Object>> getSalaryList(Integer year) throws Exception {
         return humanResourceService.getSalaryList(year);
+    }
+
+    @PostMapping("/attendance/list")
+    @ResponseBody
+    public Map<String, Object> getAttendanceList(@RequestParam Map<String, Object> req) throws Exception {
+        log.info("{}", req);
+
+        return humanResourceService.getAttendanceList(req);
     }
 
 }

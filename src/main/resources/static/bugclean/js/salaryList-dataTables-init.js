@@ -8,7 +8,13 @@ function initDataTables(data) {
             {data: "SALARY_BANK", title: "급여은행"},
             {data: "SALARY_PAY", title: "연봉금액"},
             {data: "DEP_NAME", title: "부서"},
-        ]
+        ],
+        "language": {
+            "paginate": {
+                "previous": '<i class="icon-arrow-left"></i>',
+                "next": '<i class="icon-arrow-right"></i>'
+            }
+        }
     })
 }
 

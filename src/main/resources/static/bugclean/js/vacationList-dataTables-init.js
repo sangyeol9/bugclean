@@ -9,13 +9,18 @@ function initDataTables(data) {
             {data: "잔여연차일수", title: "잔여연차일수(시간)"},
             {data: "근속연수", title: "근속연수"},
             {data: "부서", title: "부서"}
-        ]
+        ],
+        "language": {
+            "paginate": {
+                "previous": '<i class="icon-arrow-left"></i>',
+                "next": '<i class="icon-arrow-right"></i>'
+            }
+        }
     })
 }
 
 const saveData = {}; //비동기 통신으로 가져온 데이터를 저장하는 객체
 async function getData(year) {
-
     if(saveData[year]){
         return saveData[year]; //해당하는 연도를 통신으로 데이터를 가져온적 있으면 해당 데이터를 리턴
     }
@@ -31,14 +36,21 @@ async function getData(year) {
         item.사용연차일수 = (item.사용연차일수 / 8) + `일 (${item.사용연차일수})`;
         item.잔여연차일수 = (item.잔여연차일수 / 8) + `일 (${item.잔여연차일수})`;
     }
+
+    const saveDataKeys = Object.keys(saveData);
+    if (saveDataKeys.length >= 3) {
+        const oldestYear = saveDataKeys[2]; // 가장 오래된 연도 가져오기
+        delete saveData[oldestYear]; // 가장 오래된 데이터 삭제
+    }
+
     saveData[year] = response; //비동기 통신으로 가져온 데이터를 해당연도 데이터로 저장
-    console.log(response);
+    console.log(saveData);
 
     return response;
 }
 
 $(document).ready(async function () {
-    let year = $('#yearSelect').val();
+    let year = $('#yearSelect').val()+"";
     let data = await getData(year);
     $('#yearSelect').select2({
         placeholder: 'Select Year', // 플레이스홀더 설정
@@ -49,7 +61,7 @@ $(document).ready(async function () {
     $('#yearSelect').val(currentYear).trigger('change');
     $('#yearSelect').on('change', async function () {
         let table = $('#vacationList').DataTable()
-        year = $('#yearSelect').val();
+        year = $('#yearSelect').val()+"";
         let newData = await getData(year); // 새로운 데이터 가져오기
         table.clear().rows.add(newData).draw(); // 데이터 업데이트
     });

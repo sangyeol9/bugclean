@@ -4,16 +4,16 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.winter.app.util.commons.CommonsDAO">
 
-    <select id="getPositionList" resultType="String">
-        SELECT POS_NAME FROM "POSITION"
+    <select id="getPositionList" resultType="PositionVO">
+        SELECT * FROM "POSITION"
     </select>
 
-    <select id="getRnRList" resultType="String">
-        SELECT RNR_NAME FROM "RNR"
+    <select id="getRnRList" resultType="RnRVO">
+        SELECT * FROM "RNR"
     </select>
 
-    <select id="getDepList" resultType="String">
-        SELECT DEP_NAME FROM "DEPARTMENT"
+    <select id="getDepList" resultType="DepartmentVO">
+        SELECT * FROM "DEPARTMENT"
     </select>
 
 </mapper>

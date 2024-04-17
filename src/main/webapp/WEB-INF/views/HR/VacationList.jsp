@@ -10,6 +10,7 @@
 </head>
 <c:import url="../temp/css.jsp"></c:import> <!-- //bootstrap-template-css -->
 <link href="/focus-bootstrap-main/theme/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="/focus-bootstrap-main/theme/css/style.css" rel="stylesheet">
 <link href="/bugclean/css/MemberAgree-datatables.css" rel="stylesheet">
 <link href="/focus-bootstrap-main/theme/vendor/select2/css/select2.min.css" rel="stylesheet">
 
