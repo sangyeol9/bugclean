@@ -42,7 +42,7 @@ public class CustomerController {
 	}
 	@PostMapping("/create")
 	public String createCustomer(CustomerVO customerVO) throws Exception{
-		
+		System.out.println("customer VO == == == = == "+customerVO);
 		
 		customerService.createCustomer(customerVO);
 		

@@ -14,7 +14,14 @@ let inputRadio = document.getElementsByName("type");
 let radioValue;
 let inputSelect = document.getElementById("inputSelect");
 let inputSelectEMP = document.getElementById("inputSelect_emp");
+let inputSelectCustomerName = document.getElementById("inputSelectCustomerName");
 // 
+
+inputSelectCustomerName.addEventListener("change",function(){
+    console.log("input title = ",inputSelectCustomerName.value);    
+    inputTitle.value = inputSelectCustomerName.value;
+    console.log(inputTitle.value);
+})
 
 inputSelect.addEventListener("change",function(){
     console.log("input select = ", inputSelect.value )
@@ -39,7 +46,7 @@ function create_sch(date){
             "Content-Type": "application/json",
           },
         body : JSON.stringify({
-            business_Name : inputTitle.value,
+            customer_Num : inputTitle.value,
             sales_Manager : inputSales.value,
             employee_Num : 2024001,
             start_Time : date + " "+inputStart.value,

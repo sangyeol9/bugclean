@@ -25,7 +25,10 @@ let emp_choice = document.getElementsByClassName("emp_choice");
     person_select.addEventListener("change",function(){
         person_sales_name_in.value = person_select.value;
     })
-
+        addr_person_in.disabled=true;
+        person_name_in.disabled=true;
+        person_phone_in.disabled=true;
+        person_sales_name_in.disabled=true;
 
     function company(){
         if(ck_person.checked){

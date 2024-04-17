@@ -47,7 +47,13 @@
 						</div>
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="customer_Name">거래처명</span>
-							<input id="inputTitle" type="text" class="form-control" placeholder="거래처명을 입력하세요." >
+							<input id="inputTitle" type="hidden" class="form-control" placeholder="거래처명을 입력하세요." >
+							<select id="inputSelectCustomerName" class="emp_choice">
+								<option value="" >거래처 선택</option>
+							<c:forEach items="${customerList}" var="li">
+								<option value="${li.customer_Num}">${li.business_Name} ${li.ceo_Name}</option>
+							</c:forEach>	
+						</select>
 					  	</div>
 					  	<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="manager_Name">영업 담당자명</span>

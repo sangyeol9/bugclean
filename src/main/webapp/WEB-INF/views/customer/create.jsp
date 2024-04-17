@@ -83,7 +83,7 @@
 						<button disabled="disabled"
 							class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
 						<input class="right-div" id="sales_name_in" type="hidden"
-							placeholder="영업 담당자명을 입력하세요." name="sales_Manager">
+							placeholder="영업 담당자명을 입력하세요." name="employee_Num">
 						<select id="inputSelect" class="emp_choice right-div" >
 								<option value="" >담당자 선택</option>
 							<c:forEach items="${list}" var="li">
@@ -120,7 +120,7 @@
 						<button disabled="disabled"
 							class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
 						<input class="right-div" id="person_sales_name_in" type="hidden"
-							placeholder="영업 담당자명을 입력하세요." name="sales_Manager">
+							placeholder="영업 담당자명을 입력하세요." name="employee_Num">
 						<select id="inputSelectPerson" class="emp_choice right-div">
 								<option value="" >담당자 선택</option>
 							<c:forEach items="${list}" var="li">

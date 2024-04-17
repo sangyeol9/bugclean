@@ -22,11 +22,24 @@ public class CustomerService {
 	}
 	
 	public List<CustomerVO> getList() throws Exception{
-		return customerDAO.getList();
+		List<CustomerVO> ar = customerDAO.getList();
+		for(int i=0;i<ar.size();i++) {
+			
+			EmployeeVO employeeVO = new EmployeeVO();
+			employeeVO = customerDAO.getEmployeeName(ar.get(i));
+			ar.get(i).setEmployee_Name(employeeVO.getName());
+			
+		}
+		
+		return ar;
 	}
 	
 	public CustomerVO getDetail(CustomerVO customerVO) throws Exception{
-		return customerDAO.getDetail(customerVO);
+		customerVO = customerDAO.getDetail(customerVO);
+		EmployeeVO employeeVO = customerDAO.getEmployeeName(customerVO);
+		customerVO.setEmployee_Name(employeeVO.getName());
+		
+		return customerVO;
 	}
 	
 	public int createCustomer(CustomerVO customerVO) throws Exception{

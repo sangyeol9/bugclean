@@ -59,7 +59,7 @@
 							<td class="td_mng_name">${li.manager_Name}</td>
 							<td class="td_mng_phone">${li.manager_Phone}</td>
 							<td class="td_address">${li.address}</td>
-							<td class="td_sales_mng">${li.sales_Manager}</td>
+							<td class="td_sales_mng">${li.employee_Name}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
