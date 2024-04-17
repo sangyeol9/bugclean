@@ -72,6 +72,7 @@ public class HumanResourceController {
     }
 
     @PostMapping("temp/ask")
+    @ResponseBody
     public int setEmployee(EmployeeVO employeeVO, PositionVO positionVO, DepartmentVO departmentVO, RnRVO rnRVO, WorkTypeVO workTypeVO) throws Exception {
 
         employeeVO.setPositionVO(positionVO);
@@ -80,6 +81,12 @@ public class HumanResourceController {
         employeeVO.setWorkTypeVO(workTypeVO);
 
         return humanResourceService.setEmployee(employeeVO);
+    }
+
+    @PostMapping("temp/del")
+    @ResponseBody
+    public int delTempEmployee(EmployeeVO employeeVO) throws Exception {
+        return humanResourceService.delTempEmployee(employeeVO);
     }
 
     @GetMapping("member/list")

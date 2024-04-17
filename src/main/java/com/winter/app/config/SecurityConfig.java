@@ -55,11 +55,9 @@ public class SecurityConfig {
 		.csrf(csrf -> csrf
 	            .ignoringRequestMatchers("/employee/mailSend")
 	            .ignoringRequestMatchers("/chat/**")
-
 	            .ignoringRequestMatchers("/schedule/**")
-
 	            .ignoringRequestMatchers("/draft/getapprovalline")
-
+				.ignoringRequestMatchers("/hr/**")
 	    )
 		
 		
