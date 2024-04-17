@@ -51,19 +51,16 @@ public class DraftController {
 		 model.addAttribute("dep", depar);
 		 DraftVO draftVO= draftService.getDraftDocNum();
 		 model.addAttribute("draftVO", draftVO);
-		 List<DepartmentVO> depAr = draftService.getDepartmentHighList();
-		 model.addAttribute("depar", depAr);
-		 System.out.println("depAr : " + depAr );
+		 List<DepartmentVO> depHighAr = draftService.getDepartmentHighList();
+		 model.addAttribute("depHighAr", depHighAr);
+		 System.out.println("depHighAr: " + depHighAr );
 		return "draft/basisdraft";
 	}
 	
 	@PostMapping("getapprovalline")
 	public String getApprovalLine(String [] dep, String [] name,Map<String, Object> map, Model model, HttpSession session)throws Exception {
 		
-		for(int i=0;i<dep.length;i++) {
-		System.out.println("dpe : "+ dep[i]);
-		System.out.println("name : "+name[i]);
-		}
+		draftService.setApprovalLine(dep, name);
 		model.addAttribute("aplvdep", dep);
 		model.addAttribute("aplvname", name);
 		EmployeeVO employeeVOJoin = new EmployeeVO();
@@ -87,6 +84,9 @@ public class DraftController {
 		 model.addAttribute("dep", depar);
 		 DraftVO draftVO= draftService.getDraftDocNum();
 		 model.addAttribute("draftVO", draftVO);
+		 List<DepartmentVO> depHighAr = draftService.getDepartmentHighList();
+		 model.addAttribute("depHighAr", depHighAr);
+		 System.out.println("depHighAr: " + depHighAr );
 		return "ajax/approvalline";
 	}
 	
