@@ -1,9 +1,6 @@
 package com.winter.app.humanResource;
 
-import com.winter.app.employee.DepartmentVO;
-import com.winter.app.employee.EmployeeVO;
-import com.winter.app.employee.PositionVO;
-import com.winter.app.employee.RnRVO;
+import com.winter.app.employee.*;
 import com.winter.app.util.commons.CommonsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,12 +72,12 @@ public class HumanResourceController {
     }
 
     @PostMapping("temp/ask")
-    public int setEmployee(EmployeeVO employeeVO, PositionVO positionVO, DepartmentVO departmentVO, RnRVO rnRVO, Long state_code) throws Exception {
+    public int setEmployee(EmployeeVO employeeVO, PositionVO positionVO, DepartmentVO departmentVO, RnRVO rnRVO, WorkTypeVO workTypeVO) throws Exception {
 
         employeeVO.setPositionVO(positionVO);
         employeeVO.setDepartmentVO(departmentVO);
         employeeVO.setRnrVO(rnRVO);
-        employeeVO.setType_code(state_code);
+        employeeVO.setWorkTypeVO(workTypeVO);
 
         return humanResourceService.setEmployee(employeeVO);
     }

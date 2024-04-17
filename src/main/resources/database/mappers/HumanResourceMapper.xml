@@ -162,10 +162,8 @@
         INSERT INTO EMPLOYEE
         (EMPLOYEE_NUM, DEP_CODE, POS_CODE, TYPE_CODE, USERNAME, PASSWORD, NAME, PHONE, JOIN_DATE, LEVEL_DATE, STATE, MANAGER_NUM)
         VALUES
-        (#{employee_num}, #{departmentVO.dep_code}, #{positionVO.pos_code}, #{type_code}, #{username}, #{password}, #{name}, #{phone}, SYSDATE, #{level_date}, #{state}, #{manager_num})
+        (#{employee_num}, #{departmentVO.dep_code}, #{positionVO.pos_code}, #{workTypeVO.type_code}, #{username}, #{password}, #{name}, #{phone}, SYSDATE, #{level_date}, #{state}, #{manager_num})
     </insert>
-
-
 
     <delete id="delTempEmployee" parameterType="EmployeeVO">
         DELETE FROM EMP_TEMP WHERE USERNAME = #{username}

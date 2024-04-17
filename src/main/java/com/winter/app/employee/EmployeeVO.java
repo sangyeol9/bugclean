@@ -20,7 +20,7 @@ public class EmployeeVO implements UserDetails{
 	private String employee_num;
 	private DepartmentVO departmentVO;
 	private PositionVO positionVO;
-	private RnRVO rnRVO;
+	private RnRVO rnrVO;
 	private WorkTypeVO workTypeVO;
 	@NotBlank(message = "아이디는 필수 입력 값입니다.", groups = EmployeeCreateGroup.class)
 	private String username;
@@ -68,7 +68,7 @@ public class EmployeeVO implements UserDetails{
 		authorities.add(new SimpleGrantedAuthority(state));
 		authorities.add(new SimpleGrantedAuthority(departmentVO.getDep_name()));
 		authorities.add(new SimpleGrantedAuthority(positionVO.getPos_name()));
-		authorities.add(new SimpleGrantedAuthority(rnRVO.getRnr_name()));
+		authorities.add(new SimpleGrantedAuthority(rnrVO.getRnr_name()));
 		log.info("=== ROLE :  {}", authorities); //[1, 총무팀, 과장, 팀장]
 		return authorities;
 	}
