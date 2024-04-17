@@ -101,6 +101,12 @@ public class HumanResourceController {
         return humanResourceService.getResignationList();
     }
 
+    @PostMapping("resignation/update")
+    @ResponseBody
+    public int updateResignationList(EmployeeVO employeeVO) throws Exception{
+        return humanResourceService.updateResignationList(employeeVO);
+    }
+
     @GetMapping("vacation/list")
     @ResponseBody
     public List<Map<String, Object>> getVacationList(Integer year) throws Exception {

@@ -8,7 +8,7 @@ function initDataTables(data) {
             {data: "총연차일수", title: "총연차일수(시간)"},
             {data: "사용연차일수", title: "사용연차일수(시간)"},
             {data: "잔여연차일수", title: "잔여연차일수(시간)"},
-            {data: "근속연수", title: "근속연수"},
+            // {data: "근속연수", title: "근속연수"},
             {data: "부서", title: "부서"}
         ],
         "language": {
