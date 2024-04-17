@@ -38,7 +38,12 @@
         <div class="content-body">
             <div class="container-fluid mb-5">
 
-                <spring:message code="welcome" arguments="${}" text="안녕하세요!"></spring:message>
+                <!-- <spring:message code="welcome" arguments="${employee.username}" text="안녕하세요!"></spring:message>
+
+                <sec:authorize access="isAuthenticated()">
+                    <sec:authentication property="principal" var="employeeVO"/>
+                    <spring:message code="welcome" arguments="${employeeVO.username}"  argumentSeparator="," text="환영"></spring:message>
+                </sec:authorize> -->
 
 
 
