@@ -160,13 +160,13 @@
 
     <insert id="setEmployee" parameterType="EmployeeVO">
         INSERT INTO EMPLOYEE
-        (EMPLOYEE_NUM, DEP_CODE, POS_CODE, TYPE_CODE, USERNAME, PASSWORD, NAME, PHONE, LEVEL_DATE, STATE, MANAGER_NUM)
+        (EMPLOYEE_NUM, DEP_CODE, POS_CODE, TYPE_CODE, USERNAME, NICKNAME, PASSWORD, NAME, PHONE, LEVEL_DATE, STATE, MANAGER_NUM)
         VALUES
-        (#{employee_num}, #{departmentVO.dep_code}, #{positionVO.pos_code}, #{workTypeVO.type_code}, #{username}, #{password}, #{name}, #{phone}, #{level_date}, #{state}, #{manager_num})
+        (#{employee_num}, #{departmentVO.dep_code}, #{positionVO.pos_code}, #{workTypeVO.type_code}, #{username}, '미설정', #{password}, #{name}, #{phone}, #{level_date}, #{state}, #{manager_num})
     </insert>
 
-    <delete id="delTempEmployee" parameterType="EmployeeVO">
-        DELETE FROM EMP_TEMP WHERE USERNAME = #{username}
+    <delete id="delTempEmployee" parameterType="String">
+        DELETE FROM EMP_TEMP WHERE USERNAME = #{userName}
     </delete>
 
 </mapper>

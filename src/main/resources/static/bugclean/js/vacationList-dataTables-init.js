@@ -4,6 +4,7 @@ function initDataTables(data) {
         "columns": [
             {data: "사번", title: "사번"},
             {data: "이름", title: "이름"},
+            {data: "입사일", title: "입사일"},
             {data: "총연차일수", title: "총연차일수(시간)"},
             {data: "사용연차일수", title: "사용연차일수(시간)"},
             {data: "잔여연차일수", title: "잔여연차일수(시간)"},

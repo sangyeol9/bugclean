@@ -83,6 +83,12 @@ public class HumanResourceController {
         return humanResourceService.setEmployee(employeeVO);
     }
 
+    @PostMapping("temp/del")
+    @ResponseBody
+    public int delTempEmployee(EmployeeVO employeeVO) throws Exception {
+        return humanResourceService.delTempEmployee(employeeVO);
+    }
+
     @GetMapping("member/list")
     @ResponseBody
     public List<Map<String, Object>> getMemberList() throws Exception {

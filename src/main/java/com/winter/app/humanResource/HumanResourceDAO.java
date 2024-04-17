@@ -33,6 +33,6 @@ public interface HumanResourceDAO {
     public String getManagerNum(DepartmentVO departmentVO) throws Exception;
 
     public int setEmployee(EmployeeVO employeeVO) throws Exception;
-    public int delTempEmployee(EmployeeVO employeeVO) throws Exception;
+    public int delTempEmployee(String userName) throws Exception;
 
 }
