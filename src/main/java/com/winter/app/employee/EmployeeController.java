@@ -1,5 +1,6 @@
 package com.winter.app.employee;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.mail.Session;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/employee/*")
+@Slf4j
 public class EmployeeController {
 
 	@Autowired
@@ -98,10 +101,16 @@ public class EmployeeController {
 
 	//sec 추가
 	@GetMapping("mypage")
-	public void mypage() throws Exception{
-		
+	public void mypage(HttpSession session) throws Exception{
+		//유저 정보조회
+		//lo
+		//Enumeration<String> e = 
 	}
 	//비밀번호 변경 sec1 마지맘ㄱ
+	
+	
+	
+	
 	
 	
 	
