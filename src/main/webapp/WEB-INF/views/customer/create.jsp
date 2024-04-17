@@ -82,8 +82,14 @@
 					<div id="sales_name">
 						<button disabled="disabled"
 							class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
-						<input class="right-div" id="sales_name_in" type="text"
-							placeholder="영업 담당자명을 입력하세요." name="sales_Manager">
+						<input class="right-div" id="sales_name_in" type="hidden"
+							placeholder="영업 담당자명을 입력하세요." name="employee_Num">
+						<select id="inputSelect" class="emp_choice right-div" >
+								<option value="" >담당자 선택</option>
+							<c:forEach items="${list}" var="li">
+								<option value="${li.employee_num}">${li.employee_num} ${li.name}</option>
+							</c:forEach>	
+						</select>
 					</div>
 
 				</div>
@@ -113,8 +119,14 @@
 					<div id="person_sales_name">
 						<button disabled="disabled"
 							class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
-						<input class="right-div" id="person_sales_name_in" type="text"
-							placeholder="영업 담당자명을 입력하세요." name="sales_Manager">
+						<input class="right-div" id="person_sales_name_in" type="hidden"
+							placeholder="영업 담당자명을 입력하세요." name="employee_Num">
+						<select id="inputSelectPerson" class="emp_choice right-div">
+								<option value="" >담당자 선택</option>
+							<c:forEach items="${list}" var="li">
+								<option value="${li.employee_num}">${li.employee_num} ${li.name}</option>
+							</c:forEach>	
+						</select>	
 					</div>
 
 				</div>

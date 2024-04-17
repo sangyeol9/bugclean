@@ -25,7 +25,7 @@ public interface SiteSchDAO {
 	
 	List<EmployeeVO> getSiter() throws Exception;
 	
-	
+	List<CustomerVO> getCustomerList() throws Exception;
 	
 	SiteSchVO getSchedule(SiteSchVO schVO) throws Exception;
 	

@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.winter.app.employee.EmployeeVO;
+
 @Mapper
 public interface CustomerDAO {
 
 	List<CustomerVO> getList() throws Exception;
+	EmployeeVO getEmployeeName(CustomerVO customerVO) throws Exception;
+	
 	
 	CustomerVO getDetail(CustomerVO customerVO) throws Exception;
 	

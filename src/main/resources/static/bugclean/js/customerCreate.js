@@ -7,15 +7,28 @@ let ceo_name_in = document.getElementById("ceo_name_in");
 let ceo_phone_in = document.getElementById("ceo_phone_in")
 let addr_in = document.getElementById("addr_in");
 let sales_name_in = document.getElementById("sales_name_in");
-
+let selectCompany = document.getElementById("inputSelect");
 
 let addr_person_in = document.getElementById("addr_person_in");
 let person_name_in = document.getElementById("person_name_in");
 let person_phone_in = document.getElementById("person_phone_in");
 let person_sales_name_in = document.getElementById("person_sales_name_in");
+let person_select = document.getElementById("inputSelectPerson");
 
 let submit_check = document.getElementById("submit_check");
 
+let emp_choice = document.getElementsByClassName("emp_choice");
+
+    selectCompany.addEventListener("change",function(){
+        sales_name_in.value = selectCompany.value;
+    })
+    person_select.addEventListener("change",function(){
+        person_sales_name_in.value = person_select.value;
+    })
+        addr_person_in.disabled=true;
+        person_name_in.disabled=true;
+        person_phone_in.disabled=true;
+        person_sales_name_in.disabled=true;
 
     function company(){
         if(ck_person.checked){

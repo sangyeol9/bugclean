@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.winter.app.customer.CustomerController;
+import com.winter.app.customer.CustomerVO;
 import com.winter.app.employee.EmployeeVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,7 @@ public class SiteSchController {
 	@ResponseBody
 	public List<SiteSchVO> getList(Model model) throws Exception {
 		List<SiteSchVO> ar = schService.getList();
+		
 		System.out.println("list = " + ar);
 		model.addAttribute("list",ar);
 		
@@ -40,8 +42,8 @@ public class SiteSchController {
 	public void list(Model model ) throws Exception{
 		List<EmployeeVO> ar = schService.getSales();
 		List<EmployeeVO> ar_emp = schService.getSiter();
-		
-		
+		List<CustomerVO> list = schService.getCustomerList();
+		model.addAttribute("customerList", list);
 		model.addAttribute("list", ar);
 		model.addAttribute("list_emp", ar_emp);
 		

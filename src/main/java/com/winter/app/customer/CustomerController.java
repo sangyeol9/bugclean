@@ -1,5 +1,7 @@
 package com.winter.app.customer;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.winter.app.employee.EmployeeVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,13 +34,15 @@ public class CustomerController {
 	}
 	
 	@GetMapping("create")
-	public void createCustomer() throws Exception{
+	public void createCustomer(Model model) throws Exception{
+		List<EmployeeVO> ar = customerService.getSales();
 		
+		model.addAttribute("list", ar);
 		
 	}
 	@PostMapping("/create")
 	public String createCustomer(CustomerVO customerVO) throws Exception{
-		
+		System.out.println("customer VO == == == = == "+customerVO);
 		
 		customerService.createCustomer(customerVO);
 		

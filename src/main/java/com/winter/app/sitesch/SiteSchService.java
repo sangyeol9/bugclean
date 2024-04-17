@@ -18,9 +18,9 @@ public class SiteSchService {
 	}
 	public int createSch(SiteSchVO schVO) throws Exception{
 		CustomerVO customerVO = new CustomerVO();
-		customerVO  =schDAO.getCustomerInfo(schVO);
+		customerVO  =schDAO.getCustomerInfo2(schVO);
 		schVO.setCeo_Name(customerVO.getCeo_Name());
-		schVO.setCustomer_Num(customerVO.getCustomer_Num());
+		schVO.setBusiness_Name(customerVO.getBusiness_Name());
 		
 		System.out.println("sch service ===== " + schVO);
 		
@@ -36,6 +36,11 @@ public class SiteSchService {
 		
 		return schDAO.getSiter();
 	}
+	public List<CustomerVO> getCustomerList() throws Exception{
+		
+		return schDAO.getCustomerList();
+	}
+	
 	
 	public SiteSchVO getSchedule(SiteSchVO schVO) throws Exception{
 		SiteSchVO siteSchVO = schDAO.getSchedule(schVO);	

@@ -7,6 +7,9 @@
 		<setting name="logImpl" value="org.apache.ibatis.logging.stdout.StdOutImpl"/>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
+	<!-- 쿼리문 콘솔창에 띄워줌 VO가 null일때 부적합 한 열유형 에러 나옴. null을 null로 인식하게 해줘서 에러 방지함  -->
+	
+	
   	<typeAliases>
   		<typeAlias type="com.winter.app.customer.CustomerVO" alias="CustomerVO"/>
 		<typeAlias type="com.winter.app.humanResource.TempEmployeeVO" alias="TempEmployeeVO"/>
@@ -15,9 +18,7 @@
 		<typeAlias type="com.winter.app.employee.RnRVO" alias="RnRVO"/>
 		<typeAlias type="com.winter.app.employee.PositionVO" alias="PositionVO"/>
 		<typeAlias type="com.winter.app.sitesch.SiteSchVO" alias="SiteSchVO"/>
-
 		<typeAlias type="com.winter.app.draft.DraftVO" alias="DraftVO"/>
-
 		<typeAlias type="com.winter.app.employee.DepartmentVO" alias="DepartmentVO"/>
 		<typeAlias type="com.winter.app.employee.RnRVO" alias="RnRVO"/>
 		<typeAlias type="com.winter.app.employee.PositionVO" alias="PositionVO"/>
