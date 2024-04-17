@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +44,6 @@ public class EmployeeController {
 //		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
 		
 		
-		
 		return ;
 	}
 	
@@ -66,7 +67,7 @@ public class EmployeeController {
 		
 		int result = employeeService.create(employeeVO);
 		model.addAttribute("result", "employee.create.result");
-		model.addAttribute("path","/employee/login");
+		model.addAttribute("path","employee/login");
 
 		return "commons/result";
 	}
@@ -98,7 +99,21 @@ public class EmployeeController {
 
 	//sec 추가
 	@GetMapping("mypage")
-	public void mypage() throws Exception{
+	public void mypage(HttpSession session) throws Exception{
+		//유저 정보조회
+			//속성명
+			//Enumeration<String> e = session.getAttributeNames();
+			//e.nextElement() => SPRING_SECURITY_CONTEXT
+//		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+//		
+//		SecurityContextImpl sci = (SecurityContextImpl) obj;
+//		EmployeeVO employeeVO = (EmployeeVO) sci.getAuthentication().getPrincipal();
+//		
+//		//System.out.println("====== employeeVO :"+employeeVO);
+//		SecurityContext context = SecurityContextHolder.getContext();
+		
+		
+		
 		
 	}
 	//비밀번호 변경 sec1 마지맘ㄱ
