@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +12,26 @@
 <!-- https://github.com/szimek/signature_pad -->
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 <c:import url="../temp/css.jsp"></c:import>
+<style>
+    .image-container {
+        position: relative;
+        display: inline-block;
+      }
+      
+      .overlay-button {
+        position: absolute;
+        bottom: 5px; /* 오른쪽 하단에서의 여백 조정 */
+        right: 5px; /* 오른쪽 하단에서의 여백 조정 */
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.5); /* 배경색 및 투명도 조정 */
+        border: none;
+        color: white; /* 텍스트 색상 */
+        font-size: 16px; /* 텍스트 크기 */
+      }
+</style>
+
 <body>
     <div id="preloader">
         <div class="sk-three-bounce">
@@ -32,17 +52,30 @@
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>Hi, welcome back!</h4>
+                            <h4>Profile</h4>
+                            <!-- 임시 -->
+                            <div class="image-container">
+                                <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" alt="Your Image" class="rounded-image">
+                                <!-- <div class="profile-photo">
+                                    
+                                    <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" class="img-fluid rounded-circle" alt="">
+                                </div> -->
+                                <button class="overlay-button"></button>
+                              </div>
+
+
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
-                            <!-- <li class="breadcrumb-item"><a href="javascript:void(0)">App</a></li> -->
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Profile</a></li>
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active">Profile</li>
                         </ol>
                     </div>
                 </div>
                 <!-- row -->
+                <sec:authentication property="principal" var="employeeVO"/>
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="profile">
@@ -58,16 +91,14 @@
                                     <div class="row justify-content-center">
                                         <div class="col-xl-8" style="margin-left: 2%;">
                                             <div class="row">
-                                                <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
+                                                <div class="col-1">
                                                     <div class="profile-name">
-                                                        <h4 class="text-primary" >박보영</h4>
-                                                        
+                                                        <h4 class="text-primary"></h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
                                                     <div class="profile-email">
-                                                        <h4 class="text-primary">cuteGirl@email.com</h4>
-                                                        <p>Email</p>
+                                                        <h4 class="text-primary">${employeeVO.username}</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -98,7 +129,7 @@
                                         </div>
                                         
                                         <div class="col-10" style="display: table;">
-                                            <h4 class="text-primary" style="font-weight: 500; display: table-cell; vertical-align: middle;">비밀번호</h4>
+                                            <h4 class="text-primary" style="font-weight: 700; display: table-cell; vertical-align: middle;">비밀번호</h4>
                                         </div>
 										
                                         <!-- 비번변경 모달창 -->
@@ -106,7 +137,7 @@
                                             <button type="submit" class="btn btn-light btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg">변경</button>
                                         </div>
                                         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
+                                            <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header" style="display: table;">
                                                         <h4 class="text-primary" style="font-weight: 600; display: table-cell; vertical-align: middle;">비밀번호 변경</h4>
@@ -144,29 +175,31 @@
                             <div class="card-body">
                                 <div class="profile-tab mx-4 my-4">
                                     <div class="profile-personal-info">
-										<div class="row mb-4">
-											<div class="col-3">
-												<h5 class="f-w-500">이름 <span class="pull-right">:</span>
-												</h5>
-											</div>
-											<div class="col-9"><span>김메롱</span>
-											</div>
-										</div>
-										<div class="row mb-4">
-											<div class="col-3">
-												<h5 class="f-w-500">부서 <span class="pull-right">:</span>
-												</h5>
-											</div>
-											<div class="col-9"><span>영업팀</span>
-											</div>
-										</div>
-										<div class="row mb-4">
-											<div class="col-3">
-												<h5 class="f-w-500">직급 <span class="pull-right">:</span></h5>
-											</div>
-											<div class="col-9"><span>사원</span>
-											</div>
-										</div>
+                                        
+                                        
+                                        <div class="row mb-4">
+                                            <div class="col-3">
+                                                <h5 class="f-w-500">이름 <span class="pull-right">:</span>
+                                                </h5>
+                                            </div>
+                                            <div class="col-9"><span>${employeeVO.name}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-3">
+                                                <h5 class="f-w-500">부서 <span class="pull-right">:</span>
+                                                </h5>
+                                            </div>
+                                        <div class="col-9"><span>${employeeVO.departmentVO.dep_name}</span></div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-3">
+                                                <h5 class="f-w-500">직급 <span class="pull-right">:</span></h5>
+                                            </div>
+                                            <div class="col-9"><span>${employeeVO.positionVO.pos_name}</span>
+                                            </div>
+                                        </div>
+                                        
 										
 									</div>
                                 </div>
@@ -188,7 +221,7 @@
 												<h5 class="f-w-500">닉네임 <span class="pull-right">:</span>
 												</h5>
 											</div>
-											<div class="col-9"><span>김냥냥</span>
+											<div class="col-9"><span>${employeeVO.nickname}</span>
 											</div>
 										</div>
 										<div class="row mb-4">
@@ -196,14 +229,14 @@
 												<h5 class="f-w-500">휴대전화번호 <span class="pull-right">:</span>
 												</h5>
 											</div>
-											<div class="col-9"><span>010-1234-5678</span>
+											<div class="col-9"><span>${employeeVO.phone}</span>
 											</div>
 										</div>
 										<div class="row mb-4">
 											<div class="col-3">
 												<h5 class="f-w-500">주소 <span class="pull-right">:</span></h5>
 											</div>
-											<div class="col-9"><span>부산광역시 금정구 서1동</span>
+											<div class="col-9"><span>${employeeVO.address}</span>
 											</div>
 										</div>
 										<div class="row mb-4">

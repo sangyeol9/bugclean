@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,12 +39,14 @@
         <div class="content-body">
             <div class="container-fluid mb-5">
 
-                <spring:message code="welcome" arguments="${}" text="안녕하세요!"></spring:message>
+                <sec:authorize access="isAuthenticated()">
+                    <sec:authentication property="principal" var="employeeVO"/>
+                    <h3 style="font-weight: bold;" class="mb-2">
+                        <spring:message code="welcome" arguments="${employeeVO.name}" text="안녕하세요!"></spring:message>  
+                    </h3>
+                </sec:authorize>
 
 
-
-                <h3 style="font-weight: bold;">안녕하세요 김사원님!</h3>
-                
 
                
                 <div class="row">
