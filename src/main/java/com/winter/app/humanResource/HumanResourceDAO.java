@@ -34,5 +34,6 @@ public interface HumanResourceDAO {
 
     public int setEmployee(EmployeeVO employeeVO) throws Exception;
     public int delTempEmployee(String userName) throws Exception;
+    public int updateResignationList(EmployeeVO employeeVO) throws Exception;
 
 }

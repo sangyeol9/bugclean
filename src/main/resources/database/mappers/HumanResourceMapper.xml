@@ -33,11 +33,12 @@
     <select id="getVacationList" parameterType="Integer" resultType="Map">
         SELECT EMPLOYEE_NUM AS "사번",
         NAME AS "이름",
-        LEVEL_DATE AS "근속연수",
+        ROUND((MONTHS_BETWEEN(SYSDATE, JOIN_DATE) / 12),2) AS "근속연수",
         VAC_FULL AS "총연차일수",
         VAC_USED AS "사용연차일수",
         (VAC_FULL - VAC_USED) AS "잔여연차일수",
-        DEP_NAME AS "부서"
+        DEP_NAME AS "부서",
+        TO_CHAR(JOIN_DATE,'YYYY-MM-DD') AS "입사일"
         FROM EMPLOYEE
         LEFT JOIN DEPARTMENT USING (DEP_CODE)
         LEFT JOIN VACATION USING (EMPLOYEE_NUM)
@@ -89,7 +90,7 @@
         LEFT JOIN ATTENDANCE USING (EMPLOYEE_NUM)
         WHERE ATTEND_DATE BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
         AND (EMPLOYEE_NUM LIKE '%'||#{pagination.search}||'%'
-        OR ATTEND_DATE LIKE '%'||#{pagination.search}||'%'
+        OR TO_CHAR(ATTEND_DATE, 'YYYY-MM-DD') LIKE '%'||#{pagination.search}||'%'
         OR TO_CHAR(ATTEND_START_TIME, 'HH24:MI:SS') LIKE '%'||#{pagination.search}||'%'
         OR TO_CHAR(ATTEND_DONE, 'HH24:MI:SS') LIKE '%'||#{pagination.search}||'%'
         OR ATTEND_VAC LIKE '%'||#{pagination.search}||'%'
@@ -168,5 +169,9 @@
     <delete id="delTempEmployee" parameterType="String">
         DELETE FROM EMP_TEMP WHERE USERNAME = #{userName}
     </delete>
+
+    <update id="updateResignationList" parameterType="EmployeeVO">
+        UPDATE EMPLOYEE SET STATE = #{state}, RETIRED_DATE = NULL WHERE EMPLOYEE_NUM = #{employee_num}
+    </update>
 
 </mapper>

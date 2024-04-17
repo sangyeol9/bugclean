@@ -175,4 +175,9 @@ public class HumanResourceService {
         return humanResourceDAO.delTempEmployee(employeeVO.getUsername());
     }
 
+    public int updateResignationList(EmployeeVO employeeVO) throws Exception{
+        employeeVO.setState("1");
+        return humanResourceDAO.updateResignationList(employeeVO);
+    }
+
 }
