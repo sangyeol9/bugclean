@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class RnRVO {
 
-    private Integer rnr_code;
+    private Long rnr_code;
     private String rnr_name;
     
     

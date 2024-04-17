@@ -44,7 +44,13 @@ $(document).ready(async function () {
                 {data: "START_TIME", title: "출근시간"},
                 {data: "DONE_TIME", title: "퇴근시간"},
                 {data: "DEP_NAME", title: "부서"},
-            ]
+            ],
+            "language": {
+                "paginate": {
+                    "previous": '<i class="icon-arrow-left"></i>',
+                    "next": '<i class="icon-arrow-right"></i>'
+                }
+            }
         });
     }
 

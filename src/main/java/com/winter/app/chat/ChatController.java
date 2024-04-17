@@ -58,7 +58,6 @@ public class ChatController {
 	public List<DepartmentVO> getDepartment() throws Exception{
 		
 		List<DepartmentVO> ar = chatService.getDepartment();
-		System.out.println("ar : " + ar);
 		return ar;
 	}
 	

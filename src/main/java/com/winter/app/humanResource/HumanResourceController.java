@@ -1,6 +1,9 @@
 package com.winter.app.humanResource;
 
+import com.winter.app.employee.DepartmentVO;
 import com.winter.app.employee.EmployeeVO;
+import com.winter.app.employee.PositionVO;
+import com.winter.app.employee.RnRVO;
 import com.winter.app.util.commons.CommonsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +24,7 @@ public class HumanResourceController {
     @Autowired
     private CommonsService commonsService;
 
-    @GetMapping("/temp/list")
+    @GetMapping("temp/list")
     public String tempList() throws Exception {
         return "HR/MemberAgree";
     }
@@ -57,16 +60,29 @@ public class HumanResourceController {
     public Map<String, Object> getAskList() throws Exception {
         Map<String, Object> responseData = new HashMap<>();
 
-        Map<String, List<String>> commons = commonsService.getCommonsList();
-        List<TempMemberVO> tempMemberVOS = humanResourceService.getAskList();
+        Map<String, List<Object>> commons = commonsService.getCommonsList();
+        List<TempEmployeeVO> tempEmployeeVOS = humanResourceService.getAskList();
 
-        Map<String, List<TempMemberVO>> tempMember = new HashMap<>();
-        tempMember.put("tempMember", tempMemberVOS);
+        Map<String, List<TempEmployeeVO>> tempMember = new HashMap<>();
+        tempMember.put("tempMember", tempEmployeeVOS);
 
         responseData.put("tempMember", tempMember.get("tempMember"));
         responseData.put("commons", commons);
 
+        log.info("temp:{}", responseData);
+
         return responseData;
+    }
+
+    @PostMapping("temp/ask")
+    public int setEmployee(EmployeeVO employeeVO, PositionVO positionVO, DepartmentVO departmentVO, RnRVO rnRVO, Long state_code) throws Exception {
+
+        employeeVO.setPositionVO(positionVO);
+        employeeVO.setDepartmentVO(departmentVO);
+        employeeVO.setRnrVO(rnRVO);
+        employeeVO.setType_code(state_code);
+
+        return humanResourceService.setEmployee(employeeVO);
     }
 
     @GetMapping("member/list")
