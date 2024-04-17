@@ -273,7 +273,7 @@
 							<table border="1">
 								<tr style="height: 350px;">
 									<td style="width: 200px; vertical-align: top;" id="orgBoxTd">
-										<!-- 조직도 플러스 아이콘 시작 --> 
+																<!-- 부서 리스트 시작-->
 										<c:forEach items="${dep}"
 											var="dep">
 											<div class="orgTeamDiv">
@@ -285,19 +285,22 @@
 												<h5 style="display: inline-block;" class="orgDep">${dep.dep_name}</h5>
 												</c:if>
 												<br>
-											 <div data-dep-name="${dep.dep_name}" class="orgPepleDiv">
+												<!-- 사원리스트 시작 -->
+											 <div data-dep-name="${dep.dep_name}"  class="orgPepleDiv">
 												<c:forEach items="${list}" var="list">
 												<c:if test="${list.DEP_NAME eq dep.dep_name}">
 												<div class="orgPepleSpan"
 													style="display: inline-block; padding-left: 20px">
 													<i class="fa-solid fa-user" style="display: inline-block;"></i>
-													<h6 style="display: inline-block;" class="orgAll" data-dep-name="${list.DEP_NAME}">${list.DEP_NAME} ${list.POS_NAME} ${list.NAME}</h6>
+													<h6 style="display: inline-block;" class="orgAll"  data-emp-num="${list.EMPLOYEE_NUM}" data-dep-name="${list.DEP_NAME}">${list.DEP_NAME} ${list.POS_NAME} ${list.NAME}</h6>
 												</div>
 											</c:if>
 											</c:forEach>
 											</div>
+											<!-- 사원 리스트 끝 -->
 										</div>
 										</c:forEach>
+										<!-- 부서리스트 끝 --> 
 									</td>
 								</tr>
 							</table>
@@ -332,6 +335,81 @@
         ***********************************-->
 
 
+							<%-- 			<!-- 부서 리스트 시작-->
+										<c:forEach items="${dep}"
+											var="dep">
+											<div class="orgTeamDiv">
+													<c:if test="${dep.dep_name ne '사장'}">
+												<i class="fa-solid fa-minus minusIcon" style="display: none;"></i> <i
+													class="fa-solid fa-plus plusIcon"
+													style="display: inline-block;"></i> <i
+													class="fa-solid fa-users"></i>
+												<h5 style="display: inline-block;" class="orgDep">${dep.dep_name}</h5>
+												</c:if>
+												<br>
+												<!-- 사원리스트 시작 -->
+											 <div data-dep-name="${dep.dep_name}" class="orgPepleDiv">
+												<c:forEach items="${list}" var="list">
+												<c:if test="${list.DEP_NAME eq dep.dep_name}">
+												<div class="orgPepleSpan"
+													style="display: inline-block; padding-left: 20px">
+													<i class="fa-solid fa-user" style="display: inline-block;"></i>
+													<h6 style="display: inline-block;" class="orgAll" data-dep-name="${list.DEP_NAME}">${list.DEP_NAME} ${list.POS_NAME} ${list.NAME}</h6>
+												</div>
+											</c:if>
+											</c:forEach>
+											</div>
+											<!-- 사원 리스트 끝 -->
+										</div>
+										</c:forEach>
+										<!-- 부서리스트 끝 -->  --%>
+									
+										
+									<!-- ////////////////////////////////////////////// -->
+									
+									
+										
+										<%-- 									<c:forEach items="${depHighAr}" var="dephighar">
+									<div class="orgHighTeamDiv">
+										<i class="fa-solid fa-minus highMinusIcon" style="display: none;"></i> <i
+												class="fa-solid fa-plus highPlusIcon"
+												style="display: inline-block;"></i> <i
+												class="fa-solid fa-users"></i>
+											<h5 style="display: inline-block;" class="orgDep">${dephighar.dep_name}</h5>											
+											<br>
+									<!-- 부서 리스트 시작-->	
+										<div class="orgTeamBigDiv">
+										<c:forEach items="${dep}"
+											var="dep">
+											<c:if test="${dep.upper_dep_code eq dephighar.dep_code }">
+											<div class="orgTeamDiv">
+												<i class="fa-solid fa-minus minusIcon" style="display: none;"></i> <i
+													class="fa-solid fa-plus plusIcon"
+													style="display: inline-block;"></i> <i
+													class="fa-solid fa-users"></i>
+												<h5 style="display: inline-block;" class="orgDep">${dep.dep_name}</h5>											
+												<br>
+												</c:if>
+												<!-- 사원리스트 시작 -->
+											 <div data-dep-name="${dep.dep_name}" class="orgPepleDiv">
+												<c:forEach items="${list}" var="list">
+												<c:if test="${list.DEP_NAME eq dep.dep_name}">
+												<div class="orgPepleSpan"
+													style="display: inline-block; padding-left: 20px">
+													<i class="fa-solid fa-user" style="display: inline-block;"></i>
+													<h6 style="display: inline-block;" class="orgAll" data-dep-name="${list.DEP_NAME}">${list.DEP_NAME} ${list.POS_NAME} ${list.NAME}</h6>
+												</div>
+											</c:if>
+											</c:forEach>
+											</div>
+											<!-- 사원 리스트 끝 -->
+										</div>
+										</c:forEach>
+										</div>
+										<!-- 부서리스트 끝 -->
+										
+										</div>
+										</c:forEach> --%>
 
 		<!--**********************************
         Main wrapper end

@@ -14,6 +14,17 @@
 	z-index: 150;
 }
 
+.highMinusIcon {
+	display: none;
+	z-index: 151;
+}
+
+
+.highPlusIcon {
+	display: inline-block;
+	z-index: 151;
+}
+
 .minusIcon {
 	display: none;
 	z-index: 151;
@@ -24,7 +35,9 @@
 	display: inline-block;
 	z-index: 151;
 }
-
+.orgTeamBigDiv{
+	display: none;
+}
 
 #orgTeamTitle {
 	z-index: 151;
