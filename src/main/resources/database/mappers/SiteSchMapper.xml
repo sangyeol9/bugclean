@@ -34,6 +34,9 @@
  	<select id="getSiter" resultType="EmployeeVO">
  		SELECT EMPLOYEE_NUM, NAME FROM EMPLOYEE WHERE DEP_CODE = 102
  	</select>
+ 	<select id="getCustomerList" resultType="CustomerVO">
+ 		SELECT * FROM CUSTOMER
+ 	</select>
  	
  	<select id="getSchedule" resultType="SiteSchVO" parameterType="SiteSchVO">
  		SELECT * FROM SITE_SCH WHERE SITE_NUM = #{site_Num}

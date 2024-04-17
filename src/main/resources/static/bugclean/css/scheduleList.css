@@ -59,3 +59,12 @@
 	position : relative;
 	
   }
+  .inputRadio{
+	margin-left: 2%;
+  }
+  .input-group-text{
+	width:35%;
+  }
+  .emp_choice{
+	width:65%;
+  }

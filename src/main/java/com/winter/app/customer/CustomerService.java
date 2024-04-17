@@ -5,18 +5,41 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.winter.app.employee.EmployeeVO;
+import com.winter.app.sitesch.SiteSchDAO;
+
 @Service
 public class CustomerService {
 
 	@Autowired
 	CustomerDAO customerDAO;
-	 
+	@Autowired
+	SiteSchDAO schDAO;
+	
+	public List<EmployeeVO> getSales() throws Exception{
+		
+		return schDAO.getSales();
+	}
+	
 	public List<CustomerVO> getList() throws Exception{
-		return customerDAO.getList();
+		List<CustomerVO> ar = customerDAO.getList();
+		for(int i=0;i<ar.size();i++) {
+			
+			EmployeeVO employeeVO = new EmployeeVO();
+			employeeVO = customerDAO.getEmployeeName(ar.get(i));
+			ar.get(i).setEmployee_Name(employeeVO.getName());
+			
+		}
+		
+		return ar;
 	}
 	
 	public CustomerVO getDetail(CustomerVO customerVO) throws Exception{
-		return customerDAO.getDetail(customerVO);
+		customerVO = customerDAO.getDetail(customerVO);
+		EmployeeVO employeeVO = customerDAO.getEmployeeName(customerVO);
+		customerVO.setEmployee_Name(employeeVO.getName());
+		
+		return customerVO;
 	}
 	
 	public int createCustomer(CustomerVO customerVO) throws Exception{

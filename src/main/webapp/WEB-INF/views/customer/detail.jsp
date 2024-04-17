@@ -82,7 +82,7 @@
 							<button disabled="disabled"
 								class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
 							<input class="right-div" id="sales_name_in" type="text"
-								value="${vo.sales_Manager}" readonly="readonly">
+								value="${vo.employee_Name}" readonly="readonly">
 						</div>
 
 					</div>
@@ -134,6 +134,5 @@
 
 	<c:import url="../temp/footer.jsp"></c:import>
 	<c:import url="../temp/js.jsp"></c:import>
-	<script src="/bugclean/js/customerCreate.js"></script>
 </body>
 </html>
