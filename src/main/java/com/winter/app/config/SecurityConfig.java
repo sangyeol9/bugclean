@@ -55,7 +55,11 @@ public class SecurityConfig {
 		.csrf(csrf -> csrf
 	            .ignoringRequestMatchers("/employee/mailSend")
 	            .ignoringRequestMatchers("/chat/**")
-				.ignoringRequestMatchers("/hr/**")
+
+	            .ignoringRequestMatchers("/schedule/**")
+
+	            .ignoringRequestMatchers("/draft/getapprovalline")
+
 	    )
 		
 		
@@ -71,7 +75,7 @@ public class SecurityConfig {
 		.logout(
 				(logout)->logout
 							.logoutRequestMatcher(new AntPathRequestMatcher("/employee/logout"))
-							.logoutSuccessUrl("/")
+							.logoutSuccessUrl("/employee/login")
 							.invalidateHttpSession(true)//로그아웃시 session만료
 							.permitAll()
 				);

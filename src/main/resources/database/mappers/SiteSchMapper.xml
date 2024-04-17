@@ -12,4 +12,31 @@
 		ON ss.CUSTOMER_NUM = c.CUSTOMER_NUM
 	</select>
  	
-  </mapper>
+ 	<insert id="createSch" parameterType="SiteSchVO">
+ 		INSERT INTO SITE_SCH
+ 		(SITE_NUM,CUSTOMER_NUM,PRICE,START_TIME,END_TIME,EMPLOYEE_NUM,SITE_TYPE,SALES_MANAGER,ADDRESS)
+		VALUES (SITE_SCH_SEQ.NEXTVAL,#{customer_Num},#{price},TO_DATE(#{start_Time},'YYYY-MM-DD HH24:MI:SS'),TO_DATE(#{end_Time},'YYYY-MM-DD HH24:MI:SS'),#{employee_Num},#{site_Type},#{sales_Manager},#{address})
+		 		
+ 	</insert>
+ 	
+ 	<select id="getCustomerInfo" parameterType="SiteSchVO" resultType="CustomerVO">
+		SELECT * FROM CUSTOMER WHERE BUSINESS_NAME =#{business_Name} 	
+ 	</select>
+ 	
+ 	<select id="getCustomerInfo2" parameterType="SiteSchVO" resultType="CustomerVO">
+ 		SELECT * FROM CUSTOMER WHERE CUSTOMER_NUM = #{customer_Num}
+ 	</select>
+ 	
+ 	<select id="getSales" resultType="EmployeeVO">
+ 		SELECT EMPLOYEE_NUM,NAME FROM EMPLOYEE WHERE dep_code = 101
+ 	</select>
+ 	
+ 	<select id="getSiter" resultType="EmployeeVO">
+ 		SELECT EMPLOYEE_NUM, NAME FROM EMPLOYEE WHERE DEP_CODE = 102
+ 	</select>
+ 	
+ 	<select id="getSchedule" resultType="SiteSchVO" parameterType="SiteSchVO">
+ 		SELECT * FROM SITE_SCH WHERE SITE_NUM = #{site_Num}
+ 	</select>
+ 	
+  </mapper>	

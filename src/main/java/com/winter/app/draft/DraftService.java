@@ -19,6 +19,9 @@ public class DraftService {
 	public List<Map<String, Object>> getBasisDraft()throws Exception{
 		return draftDAO.getBasisDraft();
 	}
+	public List<DepartmentVO> getDepartmentHighList()throws Exception{
+		return draftDAO.getDepartmentHighList();
+	}
 	
 	public DraftVO getDraftDocNum() throws Exception{
 		//localdate.now().split("-")+문서종류+기안서의 리스트의 DOC_NUM의 max값을 가져와 subString해서 시퀀스 번호에 해당하는부분 번호에+1?????????????

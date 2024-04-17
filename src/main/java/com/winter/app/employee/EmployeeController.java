@@ -96,7 +96,7 @@ public class EmployeeController {
     }
 	
 
-	
+	//sec 추가
 	@GetMapping("mypage")
 	public void mypage() throws Exception{
 		
