@@ -126,7 +126,7 @@ $(document).ready(async function () {
             name: rowData.name,
             dep_code: department,
             pos_code: position,
-            state_code: state
+            type_code: state
         };
 
         if (department == "" || position == "" || state == "") {
