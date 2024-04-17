@@ -14,10 +14,10 @@
 		ON emp.POS_CODE = pos.POS_CODE
 	</select>
 
-	<select id="getDepartmentList" resultType="DepartmentVO">
-		SELECT * FROM DEPARTMENT
-		WHERE DEP_CODE LIKE '___'
-	</select>
+<select id="getDepartmentList" resultType="DepartmentVO">
+SELECT * FROM DEPARTMENT
+				WHERE DEP_CODE LIKE '___'
+</select>
 
 	<select id="getDraftMaxDocNum" resultType="DraftVO">
 		SELECT MAX(DRAFT_NUM) AS draft_num FROM DRAFT

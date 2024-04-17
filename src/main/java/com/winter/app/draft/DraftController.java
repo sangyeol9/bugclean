@@ -44,16 +44,13 @@ public class DraftController {
 		 List<DepartmentVO> depHighAr = draftService.getDepartmentHighList();
 		 model.addAttribute("depHighAr", depHighAr);
 		 System.out.println("depHighAr: " + depHighAr );
-		 employeeVO = draftService.getCEO();
-		 model.addAttribute("CEO", employeeVO);
-		 
-		 
 		return "draft/basisdraft";
 	}
 	
 	@PostMapping("getapprovalline")
 	public String getApprovalLine(String [] dep, String [] name, String [] code, Map<String, Object> map, Model model, HttpSession session)throws Exception {
 		
+		draftService.setApprovalLine(dep, name);
 		model.addAttribute("aplvdep", dep);
 		model.addAttribute("aplvname", name);
 		EmployeeVO employeeVO = new EmployeeVO();
@@ -71,12 +68,6 @@ public class DraftController {
 		 List<DepartmentVO> depHighAr = draftService.getDepartmentHighList();
 		 model.addAttribute("depHighAr", depHighAr);
 		 System.out.println("depHighAr: " + depHighAr );
-		 employeeVO = draftService.getCEO();
-		 model.addAttribute("CEO", employeeVO);		 
-		 draftService.setApprovalLine(code, empMap);
-		List<ApprovalLineVO> ALar = draftService.setApprovalLine(code, empMap);
-		
-		 
 		return "ajax/approvalline";
 	}
 	
