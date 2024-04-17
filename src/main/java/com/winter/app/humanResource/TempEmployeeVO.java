@@ -13,4 +13,6 @@ public class TempEmployeeVO {
 
     private String phone;
 
+    private String address;
+
 }

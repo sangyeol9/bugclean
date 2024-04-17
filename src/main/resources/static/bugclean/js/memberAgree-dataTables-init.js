@@ -126,22 +126,43 @@ $(document).ready(async function () {
             name: rowData.name,
             dep_code: department,
             pos_code: position,
-            state_code: state
+            type_code: state
         };
 
-        if (department == "" || position == "" || state == "") {
-            return alert("부서, 직급, 계약형태는 필수 선택 입니다.")
+        if($(this).attr('id')==="approve-btn") {
+            if (department == "" || position == "" || state == "") {
+                return alert("부서, 직급, 계약형태는 필수 선택 입니다.")
+            }
+            if (confirm("정말 가입을 승인하시겠습니까?")) {
+                $.ajax({
+                    url: `/hr/temp/ask`,
+                    type: "POST",
+                    data: data,
+                    success: function (){
+                        if ($('#tempList').DataTable()) {
+                            $('#tempList').DataTable().destroy();
+                        }
+                        // 데이터 테이블 다시 초기화
+                        initDataTables();
+                    }
+                });
+            }
         }
-
-        if (confirm("정말 가입을 승인하시겠습니까?")) {
-            console.log(data);
-
-            $.ajax({
-                url: `/hr/temp/ask`,
-                type: "POST",
-                data: data
-            });
+        if ($(this).attr('id')==="reject-btn"){
+            if(confirm("정말 가입을 거절하시겠습니까?")){
+                $.ajax({
+                    url: `/hr/temp/del`,
+                    type: "POST",
+                    data: data,
+                    success: function (){
+                        if ($('#tempList').DataTable()) {
+                            $('#tempList').DataTable().destroy();
+                        }
+                        // 데이터 테이블 다시 초기화
+                        initDataTables();
+                    }
+                });
+            }
         }
-
     });
 })

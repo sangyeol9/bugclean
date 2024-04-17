@@ -3,6 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd"> 
   <configuration>
+	<settings>
+		<setting name="logImpl" value="org.apache.ibatis.logging.stdout.StdOutImpl"/>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
   	<typeAliases>
   		<typeAlias type="com.winter.app.customer.CustomerVO" alias="CustomerVO"/>
 		<typeAlias type="com.winter.app.humanResource.TempEmployeeVO" alias="TempEmployeeVO"/>
@@ -13,11 +17,11 @@
 		<typeAlias type="com.winter.app.sitesch.SiteSchVO" alias="SiteSchVO"/>
 
 		<typeAlias type="com.winter.app.draft.DraftVO" alias="DraftVO"/>
-	
+
 		<typeAlias type="com.winter.app.employee.DepartmentVO" alias="DepartmentVO"/>
 		<typeAlias type="com.winter.app.employee.RnRVO" alias="RnRVO"/>
 		<typeAlias type="com.winter.app.employee.PositionVO" alias="PositionVO"/>
-		
-		
+
+
   	</typeAliases>
   </configuration>

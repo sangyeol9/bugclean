@@ -165,9 +165,14 @@ public class HumanResourceService {
 
         int result = humanResourceDAO.setEmployee(employeeVO);
         if (result == 1) {
-            result = humanResourceDAO.delTempEmployee(employeeVO);
+            result = humanResourceDAO.delTempEmployee(employeeVO.getUsername());
         }
         return result;
+    }
+
+    public int delTempEmployee(EmployeeVO employeeVO) throws Exception {
+        log.info("{}",employeeVO);
+        return humanResourceDAO.delTempEmployee(employeeVO.getUsername());
     }
 
 }
