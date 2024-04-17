@@ -102,7 +102,8 @@
 						<div class="input-group flex-nowrap mt-2" id="modal_sales_name">
 							<span class="input-group-text left-div" >영업 담당자 명</span>
 							<input id="modal_sales_name_in" type="text" class="form-control right-div" placeholder="영업 담당자명을 입력하세요." >
-					  	</div>	 
+							
+						</div>	 
 					     
 					    </div>
 					      <button id="modi_com" type="button" class="btn-rounded btn-dark create" onclick="modiComplate()">수정 완료</button>

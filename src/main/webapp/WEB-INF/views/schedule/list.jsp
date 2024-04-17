@@ -40,9 +40,9 @@
 					</div>
 					<p id="modal-content"></p>
 						<div class="input-group flex-nowrap mt-2">
-							<input id="radioBase" type="radio" name="type" value="일반">
+							<input id="radioBase" type="radio" name="type" value="일반" class="inputRadio">
 							<label for="radioBase">일반</label>
-							<input id="radioEmer" type="radio" name="type" value="긴급">
+							<input id="radioEmer" type="radio" name="type" value="긴급" class="inputRadio">
 							<label for="radioEmer">긴급</label>
 						</div>
 						<div class="input-group flex-nowrap mt-2">
@@ -51,9 +51,9 @@
 					  	</div>
 					  	<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="manager_Name">영업 담당자명</span>
-							<input id="inputSales" type="text" class="form-control" placeholder="담당자를 선택하세요." >
-							<select id="inputSelect">
-									<option value="">담당자 선택</option>
+							<input id="inputSales" type="hidden" class="form-control" placeholder="담당자를 선택하세요." >
+							<select id="inputSelect" class="emp_choice">
+									<option value="" >담당자 선택</option>
 								<c:forEach items="${list}" var="li">
 									<option value="${li.employee_num}">${li.employee_num} ${li.name}</option>
 								</c:forEach>	
@@ -67,8 +67,8 @@
 						
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="employee_Num">현장 관리자</span>
-						  	<input id="inputSiteManager" type="text" class="form-control"  >
-							<select id="inputSelect_emp">
+						  	<input id="inputSiteManager" type="hidden" class="form-control"  >
+							<select id="inputSelect_emp" class="emp_choice">
 								<option value="">담당자 선택</option>
 							<c:forEach items="${list_emp}" var="li">
 								<option value="${li.employee_num}">${li.employee_num} ${li.name}</option>

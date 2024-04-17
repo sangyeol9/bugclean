@@ -28,7 +28,7 @@ public class CustomerVO {
 	// 사업자 주소
 	private String address;
 	//우리 회사 영업 담당자 이름
-	private String sales_Manager;
+	private String employee_Num;
 	//법인,개인
 	private String customer_Type;
 	//날짜 -- 필요한가 ? sysdate쓰는데

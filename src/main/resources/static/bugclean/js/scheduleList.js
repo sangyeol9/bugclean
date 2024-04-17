@@ -1,7 +1,7 @@
 var calenar;
 let start_first;
 let span_start_time = document.getElementById("start_Time");
-
+let color;
 //input 값들
 let inputTitle = document.getElementById("inputTitle");
 let inputSales = document.getElementById("inputSales");
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
         editable: true,
         eventContent: function(arg) {
             return {
-              html: '<b>' + arg.event.title + '</b>'
+              html:  `<div style="color: ${arg.textColor};">` + '<b>' + arg.event.title + '</b></div>'
             };
           },
         eventDrop: function(info) {
@@ -310,10 +310,14 @@ window.addEventListener("load",function(){
                console.log("start_first = ", start_first);
                console.log("site_Num === ", element.site_Num)
                let start_last = element.start_Time.substring(11,19);
-              
+                
+                if(element.site_Type == '긴급') color = "red";
+                else if(element.site_Type =='일반') color = "black";
+                console.log("color == ", color);
                   calendar.addEvent({
                    title : element.business_Name  + element.ceo_Name,
                    start : start_first +"T"+ start_last,
+                   textColor : color, 
                    end : element.end_Time,
                    id : element.ceo_Name+start_first+"-"+element.site_Num
                   })

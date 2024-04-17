@@ -5,12 +5,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.winter.app.employee.EmployeeVO;
+import com.winter.app.sitesch.SiteSchDAO;
+
 @Service
 public class CustomerService {
 
 	@Autowired
 	CustomerDAO customerDAO;
-	 
+	@Autowired
+	SiteSchDAO schDAO;
+	
+	public List<EmployeeVO> getSales() throws Exception{
+		
+		return schDAO.getSales();
+	}
+	
 	public List<CustomerVO> getList() throws Exception{
 		return customerDAO.getList();
 	}
