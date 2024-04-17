@@ -43,7 +43,7 @@
 			<result column="POS_NAME" property="pos_name"/>
 		</association>
 		
-		<association property="rnRVO" javaType="RnRVO">
+		<association property="rnrVO" javaType="RnRVO">
 			<id column="RNR_CODE" property="rnr_code"/>
 			<result column="RNR_NAME" property="rnr_name"/>
 		</association>
