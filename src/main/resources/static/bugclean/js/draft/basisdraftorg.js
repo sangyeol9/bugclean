@@ -14,10 +14,47 @@ let refBoxTd = document.getElementById("refBoxTd");
 let refMinusBtn = document.getElementById("refMinusBtn")
 let refPlusBtn = document.getElementById("refPlusBtn");
 let modalResetBtn = document.getElementById("modalResetBtn");
+let highPlusIcon = document.getElementsByClassName("highPlusIcon");
+let highMinusIcon = document.getElementsByClassName("highMinusIcon");
+let orgTeamBigDiv = document.getElementsByClassName("orgTeamBigDiv");
 console.log("basis js")
 
 
 console.log("조직도오오오오오오오오오오")
+
+
+for(let i =0; i<highPlusIcon.length; i++){
+    highPlusIcon[i].addEventListener("click", function() {
+        console.log("여기는 조직도 여기는 조직도")
+        if ( highPlusIcon[i].style.display != "none") {
+            highPlusIcon[i].style.setProperty("display", "none");
+            highMinusIcon[i].style.display = "inline-block";
+            orgTeamBigDiv[i].style.display = "inline-block";
+        } else {
+            highPlusIcon[i].style.display = "inline-block";
+            highMinusIcon[i].style.display = "none";
+            orgTeamBigDiv[i].style.display = "inline-block";
+        }
+    
+    })
+    highMinusIcon[i].addEventListener("click", function() {
+        console.log("여기는 조직도 여기는 조직도")
+        if ( highPlusIcon[i].style.display != "none") {
+            highPlusIcon[i].style.setProperty("display", "none");
+            highMinusIcon[i].style.display = "inline-block";
+            orgTeamBigDiv[i].style.display = "none";
+        } else {
+            highPlusIcon[i].style.display = "inline-block";
+            highMinusIcon[i].style.display = "none";
+            orgTeamBigDiv[i].style.display = "none";
+        }
+    
+    })
+    }
+
+///////////////////////////////
+
+
 for(let i =0; i<plusIcon.length; i++){
 plusIcon[i].addEventListener("click", function() {
     console.log("여기는 조직도 여기는 조직도")
@@ -172,12 +209,17 @@ refPlusBtn.addEventListener(
             let draftBoxTdAr = draftBoxTd.children
             let orgArrDep= [draftBoxTdAr.length];
             let orgArrName= [draftBoxTdAr.length];
+            let empNum= [draftBoxTdAr.length];
             for(let i=0; i<draftBoxTdAr.length; i++){
                let splitValue = draftBoxTdAr[i].textContent.trim().split(" ");
+               console.log("draftBoxTdAr : " + draftBoxTdAr[i].innerHTML)
+               empNum[i] = draftBoxTdAr[i].getAttribute("data-emp-num");
+               console.log("dddddddddddddddd"+draftBoxTdAr[i].getAttribute("data-emp-num"))
                orgArrDep[i] = splitValue[1];
                orgArrName[i] = splitValue[2];
-               console.log("orgArrDep : "+ orgArrDep[i]+ " //////"+"orgArrName : "+orgArrName[i])
-                console.log(draftBoxTdAr[i].textContent.trim())
+               console.log("orgArrDep : "+ orgArrDep[i]+ " //////"+"orgArrName : "+orgArrName[i]);
+               console.log("empNum : " + empNum[i]);
+                console.log(draftBoxTdAr[i].textContent.trim());
             }
             console.log("dep : "+ orgArrDep)
             console.log("name : "+ orgArrName)

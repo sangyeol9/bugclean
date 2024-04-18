@@ -15,7 +15,8 @@ SELECT emp.*, dep.*, rnr.*, pos.*  FROM EMPLOYEE emp
 </select>
 
 <select id="getDepartmentList" resultType="DepartmentVO">
-select * from department
+SELECT * FROM DEPARTMENT
+				WHERE DEP_CODE LIKE '___'
 </select>
 
 <select id="getDraftMaxDocNum" resultType="DraftVO">

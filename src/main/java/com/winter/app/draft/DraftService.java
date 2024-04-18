@@ -23,6 +23,13 @@ public class DraftService {
 		return draftDAO.getDepartmentHighList();
 	}
 	
+	public void setApprovalLine(String [] dep, String [] name)throws Exception{
+		for(int i=0; i<dep.length;i++) {
+			System.out.println("dep : " + dep[i]);
+			System.out.println("name : "+ name[i]);
+		}
+	}
+	
 	public DraftVO getDraftDocNum() throws Exception{
 		//localdate.now().split("-")+문서종류+기안서의 리스트의 DOC_NUM의 max값을 가져와 subString해서 시퀀스 번호에 해당하는부분 번호에+1?????????????
 		 LocalDate localDate = LocalDate.now();
