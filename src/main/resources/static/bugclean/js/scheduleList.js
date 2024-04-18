@@ -3,6 +3,10 @@ let start_first;
 let span_start_time = document.getElementById("start_Time");
 let color;
 let textDeco;
+
+//event listner 한번만 걸기를 위한
+let create_fucn;
+
 //수정 등록 삭제 버튼
 let update_sch_btn = document.getElementById("update_sch_btn");
 let delete_sch_btn = document.getElementById("delete_sch_btn");
@@ -85,56 +89,6 @@ function create_sch(date){
     }
 
 
-// //스케쥴 추가 펑션
-//     function create_sch(date){
-//         console.log("일정추가 : " + date);
-//         var inputTitle = document.getElementById("inputTitle").value;
-//         var inputStart = document.getElementById("inputStart").value;
-//         var inputEnd = document.getElementById("inputEnd").value;
-    
-//         calendar.addEvent({
-//         title: inputTitle,
-//         start: date+'T'+inputStart,
-//         end: date+'T'+inputEnd,
-//         id : inputTitle+date+'T'+inputStart
-//         })
-
-//         closeModal(); // 추가 후 모달 닫기
-//     // 입력 필드 초기화
-//     document.getElementById("inputTitle").value = "";
-//     document.getElementById("inputStart").value = "";
-//     document.getElementById("inputEnd").value = "";
-//     // FullCalendar 날짜 선택 해제
-//         calendar.unselect(); // FullCalendar에서 날짜 선택 초기화
-//         console.log("calendar unselect");
-//     }
-
-
-/*
-    function create_sch(date){
-        console.log("일정추가 : " + date);
-        var inputTitle = document.getElementById("inputTitle").value;
-        var inputStart = document.getElementById("inputStart").value;
-        var inputEnd = document.getElementById("inputEnd").value;
-    
-        calendar.addEvent({
-        title: inputTitle,
-        start: date+'T'+inputStart,
-        end: date+'T'+inputEnd,
-        id : inputTitle+date+'T'+inputStart
-        })
-
-        closeModal(); // 추가 후 모달 닫기
-    // 입력 필드 초기화
-    document.getElementById("inputTitle").value = "";
-    document.getElementById("inputStart").value = "";
-    document.getElementById("inputEnd").value = "";
-    // FullCalendar 날짜 선택 해제
-        calendar.unselect(); // FullCalendar에서 날짜 선택 초기화
-        console.log("calendar unselect");
-    }
-*/
-
 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
@@ -208,6 +162,7 @@ function newModal(info){
 var modal = document.getElementById("myModal");
 var modalTitle = document.getElementById("modal-title"); // 모달 타이틀 엘리먼트
 
+
 modal.style.display = "block";
 modalTitle.innerText="일정 등록";
 
@@ -225,16 +180,22 @@ modalTitle.innerText="일정 등록";
                 inputRadio[i].checked = false;
             }
 
+            
+for(let i=0;i<inputRadio.length;i++){
+    console.log("checked radio console")
+    if( inputRadio[i].value =='일반' ){
+        console.log("success radio 일반 " , inputRadio[i].value)
+        inputRadio[i].checked = true;
+    } 
+}
 
 console.log(" date = == " +info.dateStr)
 span_start_time.innerHTML = info.dateStr;
 //일정추가
 
 create_sch_btn.classList.remove("display_none");
-create_sch_btn.addEventListener("click",function(){
+create_fucn = info.dateStr;
 
-    create_sch(info.dateStr);
-})
 
 //외부 공간 클릭시 닫기 
 window.onclick = function(event) {
@@ -245,6 +206,10 @@ window.onclick = function(event) {
     }
     calendar.unselect();
 }
+
+create_sch_btn.addEventListener("click",function(){
+    create_sch(create_fucn);
+})
 
 
 // 이벤트 클릭시 
