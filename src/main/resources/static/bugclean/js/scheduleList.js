@@ -216,6 +216,10 @@ create_sch_btn.addEventListener("click",function(){
     create_sch(create_fucn);
 })
 
+/*
+    내가 클릭을해서 모달이 열렸어
+
+*/
 
 // 이벤트 클릭시 
 function openModal(content,date,id) {
