@@ -23,11 +23,46 @@ public class DraftService {
 		return draftDAO.getDepartmentHighList();
 	}
 	
-	public void setApprovalLine(String [] dep, String [] name)throws Exception{
-		for(int i=0; i<dep.length;i++) {
-			System.out.println("dep : " + dep[i]);
-			System.out.println("name : "+ name[i]);
+	public List<ApprovalLineVO> setApprovalLine(String [] code, Map<String, Object> empMap )throws Exception{
+		ApprovalLineVO approvalLineVO = new ApprovalLineVO();
+		approvalLineVO = draftDAO.getApprovalMaxNum();
+			//결재선의 리스트를 가져와서 approval_code의 값이 max인걸 가져옴
+		
+		if(approvalLineVO == null) {
+			ApprovalLineVO approvalLineVO2 = new ApprovalLineVO();
+			approvalLineVO2.setApproval_line_code(1L);
+			approvalLineVO2.setEmployee_num((String)empMap.get("EMPLOYEE_NUM"));
+			approvalLineVO2.setLine_rank(0L);
+		}else {
+			approvalLineVO.setApproval_line_code(approvalLineVO.getApproval_line_code()+1);
+			approvalLineVO.setEmployee_num((String)empMap.get("EMPLOYEE_NUM"));
+			approvalLineVO.setLine_rank(0L);
 		}
+		int result= 0;
+		if(approvalLineVO == null) {
+			ApprovalLineVO approvalLineVO2 = new ApprovalLineVO();
+			for(int i=0; i<code.length;i++) {
+				approvalLineVO2.setApproval_line_code(1L);
+				System.out.println("code : "+ code[i]);
+				approvalLineVO2.setEmployee_num(code[i]);
+				approvalLineVO2.setLine_rank(Long.valueOf(i+1));
+				result = draftDAO.setApprovalLine(approvalLineVO2);
+			}
+		}else {
+			for(int i=0; i<code.length;i++) {
+				approvalLineVO.setApproval_line_code(approvalLineVO.getApproval_line_code()+1);
+				System.out.println("code : "+ code[i]);
+				approvalLineVO.setEmployee_num(code[i]+1);
+				approvalLineVO.setLine_rank(Long.valueOf(i));
+				result = draftDAO.setApprovalLine(approvalLineVO);
+			}
+		}
+			ApprovalLineVO newApprovalLineVO = new ApprovalLineVO();
+			 newApprovalLineVO.setEmployee_num((String)empMap.get("EMPLOYEE_NUM"));
+			List<ApprovalLineVO> ar = draftDAO.getApprovalList(newApprovalLineVO);
+			return ar;
+		
+		
 	}
 	
 	public DraftVO getDraftDocNum() throws Exception{
@@ -57,8 +92,12 @@ public class DraftService {
 		return draftDAO.getDepartmentList();
 	}
 	
-	public EmployeeVO getEmployeeDetail(EmployeeVO employeeVO)throws Exception{
+	public Map<String, Object> getEmployeeDetail(EmployeeVO employeeVO)throws Exception{
 		return draftDAO.getEmployeeDetail(employeeVO);
+	}
+	
+	public EmployeeVO getCEO()throws Exception{
+		return draftDAO.getCEO();
 	}
 	
 }
