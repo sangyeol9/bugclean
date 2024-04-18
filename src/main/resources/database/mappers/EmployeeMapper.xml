@@ -56,5 +56,10 @@
 		VALUES (#{username}, #{password}, #{name}, #{phone})
 	</insert>
 	
+	<update id="pwUpdate" parameterType="EmployeeVO">
+	    UPDATE EMPLOYEE SET PASSWORD=#{password}
+	    WHERE USERNAME=#{username}
+	</update>
+	
 	
 </mapper>

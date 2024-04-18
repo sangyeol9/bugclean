@@ -26,11 +26,17 @@ public class EmployeeVO implements UserDetails{
 	private String username;
 	@NotBlank(message = "인증번호를 입력해주세요.", groups = EmployeeCreateGroup.class)
 	private String userNumCheck;
-	@NotBlank(message = "비밀번호는 필수 입력 값입니다.", groups = EmployeeCreateGroup.class)
+	
+	@NotBlank(message = "비밀번호는 필수 입력 값입니다.", groups = {EmployeeCreateGroup.class, EmployeePwupdateGroup.class})
 	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 8~16자 영문자, 숫자, 특수문자를 사용하세요.", groups = EmployeeCreateGroup.class)
 	private String password;
-	@NotBlank(message = "비밀번호를 입력해주세요.", groups = EmployeeCreateGroup.class)
+	@NotBlank(message = "비밀번호를 입력해주세요.", groups = {EmployeeCreateGroup.class, EmployeePwupdateGroup.class})
 	private String passwordCheck;
+	@NotBlank(message = "새 비밀번호는 필수 입력 값입니다.", groups = EmployeePwupdateGroup.class)
+	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 8~16자 영문자, 숫자, 특수문자를 사용하세요.", groups = EmployeePwupdateGroup.class)
+	private String newPassword;
+	
+	
 	@NotBlank(message = "이름을 입력해주세요.", groups = EmployeeCreateGroup.class)
 	private String name;
 	@NotBlank(groups = EmployeeCreateGroup.class)
