@@ -124,7 +124,6 @@
                                         <div class="col-10" style="display: table;">
                                             <h4 class="text-primary" style="font-weight: 700; display: table-cell; vertical-align: middle;">비밀번호</h4>
                                         </div>
-										
                                         <!-- 비번변경 모달창 -->
                                         <div class="col-0">
                                             <button type="submit" class="btn btn-light btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg">변경</button>
@@ -142,7 +141,7 @@
 
                                                             <div class="modal-body">
 
-                                                                <!-- username 넣어줘!!!!집갈거임ㅎㅎ -->
+                                                                <form:input path="username" value="${employeeVO.username}" hidden="true"></form:input>
 
                                                                 <label class="my-2"><strong>현재 비밀번호</strong></label>
                                                                 <form:password path="password" cssClass="form-control input-rounded" id="password"></form:password>
