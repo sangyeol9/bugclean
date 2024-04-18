@@ -2,6 +2,14 @@ var calenar;
 let start_first;
 let span_start_time = document.getElementById("start_Time");
 let color;
+let textDeco;
+//수정 등록 삭제 버튼
+let update_sch_btn = document.getElementById("update_sch_btn");
+let delete_sch_btn = document.getElementById("delete_sch_btn");
+let create_sch_btn = document.getElementById("create_sch_btn");
+let updel = document.getElementsByClassName("updel");
+//
+
 //input 값들
 let inputTitle = document.getElementById("inputTitle");
 let inputSales = document.getElementById("inputSales");
@@ -15,6 +23,16 @@ let radioValue;
 let inputSelect = document.getElementById("inputSelect");
 let inputSelectEMP = document.getElementById("inputSelect_emp");
 let inputSelectCustomerName = document.getElementById("inputSelectCustomerName");
+//여기서부터 select box 관련
+// id = 각 박스의 기본값 , class = 이벤트 클릭시 해당 이벤트 담당자들 값이 셀렉트되어서 노출되게 하기위함
+let emp_choice_value = document.getElementsByClassName("emp_choice_value");
+let emp_choice_base = document.getElementById("emp_choice_base");
+let sales_choice_value = document.getElementsByClassName("sales_choice_value");
+let salse_choice_base = document.getElementById("salse_choice_base");
+let site_choice_value = document.getElementsByClassName("site_choice_value");
+let site_choice_base = document.getElementById("site_choice_base")
+
+let base_selected = document.getElementsByClassName("base_selected");
 // 
 
 inputSelectCustomerName.addEventListener("change",function(){
@@ -32,6 +50,7 @@ inputSelectEMP.addEventListener("change",function(){
     inputSiteManager.value = inputSelectEMP.value;
 })
 
+// 이벤트 추가 함수 
 function create_sch(date){
     console.log("date =  ",date);
     for(let i=0; i<inputRadio.length;i++){
@@ -48,7 +67,7 @@ function create_sch(date){
         body : JSON.stringify({
             customer_Num : inputTitle.value,
             sales_Manager : inputSales.value,
-            employee_Num : 2024001,
+            employee_Num : inputSiteManager.value,
             start_Time : date + " "+inputStart.value,
             end_Time : date + " "+inputEnd.value,
             site_Type : radioValue,
@@ -119,18 +138,40 @@ function create_sch(date){
 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
+    
     calendar = new FullCalendar.Calendar(calendarEl, {
         initialView : 'dayGridMonth',
         selectable : true,
         locale : "kr",
         editable: true,
         eventContent: function(arg) {
+            console.log(arg);
             return {
-              html:  `<div style="color: ${arg.textColor};">` + '<b>' + arg.event.title + '</b></div>'
+              html:  `<div style="text-decoration: ${arg.event.classNames[0]}; color: ${arg.textColor};">` + '<b>' + arg.event.title+arg.event.startStr.substring(11,16) + '</b></div>'
             };
           },
         eventDrop: function(info) {
-                alert("일정을 이동했습니다!"); // 이벤트를 이동할 때 알림창을 띄울 수 있습니다.
+            console.log(info);
+                alert("일정을 이동했습니다!"+info.event.startStr.substring(0,10) +info.event.startStr.substring(11,19) ); // 이벤트를 이동할 때 알림창을 띄울 수 있습니다.
+                console.log(info.event.startStr.substring(0,10) +" " +info.event.startStr.substring(11,19))
+                console.log(info.event.id.substring(info.event.id.lastIndexOf('-')+1,info.event.length))
+                console.log(info.event.endStr.substring(0,10) +" "+info.event.endStr.substring(11,19))
+                fetch("/schedule/updateSchDrag",{
+                    method :"POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                      },
+                    body : JSON.stringify({
+                        site_Num : info.event.id.substring(info.event.id.lastIndexOf('-')+1,info.event.length),
+                        start_Time : info.event.startStr.substring(0,10) +info.event.startStr.substring(11,19), 
+                        end_Time :info.event.endStr.substring(0,10) +info.event.endStr.substring(11,19)
+                        
+                    })
+                }).then(res=>res.json())
+                .then(res=>{
+                    location.reload();
+                })
+
         },dateClick : function(info) {
             newModal(info);
 
@@ -160,9 +201,13 @@ function removeEventFromCalender(id) {
 function newModal(info){
     carAllocation.selectedIndex=0; // 배차 셀렉트박스 선택 값 초기화
 
+    create_sch_btn.classList.remove("display_none");
+    update_sch_btn.classList.add("display_none");
+    delete_sch_btn.classList.add("display_none");
+
 var modal = document.getElementById("myModal");
 var modalTitle = document.getElementById("modal-title"); // 모달 타이틀 엘리먼트
-let create_sch_btn = document.getElementById("create_sch_btn");
+
 modal.style.display = "block";
 modalTitle.innerText="일정 등록";
 
@@ -173,6 +218,9 @@ modalTitle.innerText="일정 등록";
             inputSales.value= "";
             inputSiteManager.value = "";
             inputTitle.value = "";
+            for(let i=0;i<base_selected.length;i++){
+                base_selected[i].selected = true;
+            }
             for(let i=0;i<inputRadio.length;i++){
                 inputRadio[i].checked = false;
             }
@@ -203,21 +251,25 @@ window.onclick = function(event) {
 function openModal(content,date,id) {
 carAllocation.selectedIndex=0; // 배차 셀렉트박스 선택 값 초기화
 
-    
+    create_sch_btn.classList.add("display_none");
+    update_sch_btn.classList.remove("display_none");
+    delete_sch_btn.classList.remove("display_none");
 
 
-var modal = document.getElementById("myModal");
-var modalTitle = document.getElementById("modal-title"); // 모달 타이틀 엘리먼트
-var modalContent = document.getElementById("modal-content");
-var start_Time_Date = document.getElementById("start_Time_Date");
-var end_Time_Date = document.getElementById("end_Time_Date");
+let modal = document.getElementById("myModal");
+let modalTitle = document.getElementById("modal-title"); // 모달 타이틀 엘리먼트
+let modalContent = document.getElementById("modal-content");
+let start_Time_Date = document.getElementById("start_Time_Date");
+let end_Time_Date = document.getElementById("end_Time_Date");
 
 
-let create_sch_btn = document.getElementById("create_sch_btn");
+
 let inputStart = document.getElementById("inputStart");
 modal.style.display = "block";
 modalTitle.innerText="일정 확인";
+    //event id로 site pk 가져오는방법
     let sch_ID = id.substring(id.lastIndexOf('-')+1,id.length);
+
         fetch("/schedule/getSchedule",{
             method : "POST",
             headers: {
@@ -236,12 +288,82 @@ modalTitle.innerText="일정 확인";
             inputSales.value= res.sales_Manager;
             inputSiteManager.value = res.employee_Num;
             inputTitle.value = res.business_Name;
+            for(let i=0;i<emp_choice_value.length;i++){
+                if(emp_choice_value[i].value == res.customer_Num ){
+                    console.log("hiie")
+                    emp_choice_value[i].selected = true;
+                }
+            }
+            for(let i =0; i<sales_choice_value.length;i++){
+                if(sales_choice_value[i].value == res.sales_Manager){
+                    sales_choice_value[i].selected = true;  
+                }
+            }
+            for(let i=0; i<site_choice_value.length;i++){
+                if(site_choice_value[i].value == res.employee_Num){
+                    site_choice_value[i].selected = true;
+                }
+
+            }
+
+
             for(let i=0;i<inputRadio.length;i++){
                 console.log("radio",inputRadio[i].value + " //// site_type == ", res.site_Type)
                 if(inputRadio[i].value == res.site_Type){
                     inputRadio[i].checked= true;
                 }
             }
+        })
+
+        //수정 버튼 클릭시 수정
+        update_sch_btn.addEventListener("click",function(){
+                console.log("test === " , date + " "+inputStart.value)
+
+            fetch("/schedule/updateSch",{
+
+                method:"POST",
+                headers: {
+                    "Content-Type": "application/json",
+                  },
+                body : JSON.stringify({
+                    site_Num : sch_ID,
+                    customer_Num : inputSelectCustomerName.value,
+                    sales_Manager : inputSelect.value,
+                    employee_Num : inputSelectEMP.value,
+                    start_Time : id.substring(id.lastIndexOf('-')-10,id.lastIndexOf('-')) + inputStart.value,
+                    end_Time : id.substring(id.lastIndexOf('-')-10,id.lastIndexOf('-'))+inputEnd.value,
+                    site_Type : radioValue,
+                    address : inputAddress.value,
+                    price : inputPrice.value
+                })
+            })
+                .then(res=>res.json())
+                .then(res=>{
+                    console.log("res update fetch === ", res);
+                    location.reload();
+            })
+        })
+
+        //삭제 버튼 클릭시 삭제 상태로 수정
+        delete_sch_btn.addEventListener("click",function(){
+            fetch("/schedule/updateSchType",{
+                method:"POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body : JSON.stringify({
+                    site_Num : sch_ID,
+                    site_Type : '취소'
+                })
+            }).then(res=>res.json())
+            .then(res=>{
+                if(res>0){
+                    alert("일정이 취소되었습니다." +  res);
+                    location.reload();
+                }else{
+                    alert("일정 취소에 실패했습니다.");
+                }
+            })
         })
 
     console.log("last index of ===== ",id.lastIndexOf('-'));
@@ -273,6 +395,7 @@ window.onclick = function(event) {
 function closeModal() {
 var modal = document.getElementById("myModal");
 modal.style.display = "none";
+calendar.unselect();
 }
 
 
@@ -318,13 +441,24 @@ window.addEventListener("load",function(){
                console.log("site_Num === ", element.site_Num)
                let start_last = element.start_Time.substring(11,19);
                 
-                if(element.site_Type == '긴급') color = "red";
-                else if(element.site_Type =='일반') color = "black";
+                if(element.site_Type == '긴급'){
+                    color = "red";
+                    textDeco = "none";
+                } 
+                else if(element.site_Type =='일반'){
+                    color = "black";
+                    textDeco = "none"
+                } 
+                else if(element.site_Type == '취소'){
+                    color = 'gray';
+                    textDeco = "line-through";
+                } 
                 console.log("color == ", color);
                   calendar.addEvent({
                    title : element.business_Name  + element.ceo_Name,
                    start : start_first +"T"+ start_last,
-                   textColor : color, 
+                   textColor : color,
+                   classNames : textDeco,
                    end : element.end_Time,
                    id : element.ceo_Name+start_first+"-"+element.site_Num
                   })

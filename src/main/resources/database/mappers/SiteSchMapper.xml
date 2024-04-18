@@ -19,6 +19,19 @@
 		 		
  	</insert>
  	
+ 	<update id="updateSch" parameterType="SiteSchVO">
+ 		UPDATE SITE_SCH
+ 		SET PRICE = #{price}, START_TIME =TO_DATE(#{start_Time},'YYYY-MM-DD HH24:MI:SS'), END_TIME = TO_DATE(#{end_Time},'YYYY-MM-DD HH24:MI:SS'),
+ 		EMPLOYEE_NUM = #{employee_Num}, SALES_MANAGER=#{sales_Manager},ADDRESS=#{address},SITE_TYPE=#{site_Type}
+ 		WHERE SITE_NUM = #{site_Num}
+ 	</update>
+ 	
+ 	<update id="updateSchType" parameterType="SiteSchVO">
+ 		UPDATE SITE_SCH
+ 		SET SITE_TYPE = #{site_Type} 
+ 		WHERE SITE_NUM = #{site_Num} 
+ 	</update>
+ 	
  	<select id="getCustomerInfo" parameterType="SiteSchVO" resultType="CustomerVO">
 		SELECT * FROM CUSTOMER WHERE BUSINESS_NAME =#{business_Name} 	
  	</select>
@@ -41,5 +54,11 @@
  	<select id="getSchedule" resultType="SiteSchVO" parameterType="SiteSchVO">
  		SELECT * FROM SITE_SCH WHERE SITE_NUM = #{site_Num}
  	</select>
+ 	
+ 	<update id="updateSchDrag" parameterType="SiteSchVO">
+ 		UPDATE SITE_SCH SET START_TIME = TO_DATE(#{start_Time},'YYYY-MM-DD HH24:MI:SS'), END_TIME= TO_DATE(#{end_Time},'YYYY-MM-DD HH24:MI:SS') WHERE SITE_NUM = #{site_Num}
+ 	</update>
+ 	
+ 	
  	
   </mapper>	
