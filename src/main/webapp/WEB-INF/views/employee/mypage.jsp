@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +14,6 @@
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 <c:import url="../temp/css.jsp"></c:import>
 <style>
-    .image-container {
-        position: relative;
-        display: inline-block;
-      }
-      
       .overlay-button {
         position: absolute;
         bottom: 5px; /* 오른쪽 하단에서의 여백 조정 */
@@ -25,11 +21,15 @@
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background-color: rgba(0, 0, 0, 0.5); /* 배경색 및 투명도 조정 */
+        background-color: rgba(241, 241, 241, 0.822); /* 배경색 및 투명도 조정 */
         border: none;
         color: white; /* 텍스트 색상 */
         font-size: 16px; /* 텍스트 크기 */
       }
+
+
+
+      
 </style>
 
 <body>
@@ -53,16 +53,6 @@
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
                             <h4>Profile</h4>
-                            <!-- 임시 -->
-                            <div class="image-container">
-                                <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" alt="Your Image" class="rounded-image">
-                                <!-- <div class="profile-photo">
-                                    
-                                    <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" class="img-fluid rounded-circle" alt="">
-                                </div> -->
-                                <button class="overlay-button"></button>
-                              </div>
-
 
                         </div>
                     </div>
@@ -83,15 +73,18 @@
                                 <div class="photo-content">
                                     <div class="cover-photo"></div>
                                     <div class="profile-photo">
-										<!-- src="/focus-bootstrap-main/theme/images/logo.png" -->
                                         <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" class="img-fluid rounded-circle" alt="">
+                                        <button class="overlay-button">
+                                            
+                                            <i class="fa-solid fa-pen-to-square" style="color: black;"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="profile-info">
                                     <div class="row justify-content-center">
                                         <div class="col-xl-8" style="margin-left: 2%;">
                                             <div class="row">
-                                                <div class="col-1">
+                                                <div class="col-1 mb-5">
                                                     <div class="profile-name">
                                                         <h4 class="text-primary"></h4>
                                                     </div>
@@ -136,29 +129,47 @@
                                         <div class="col-0">
                                             <button type="submit" class="btn btn-light btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg">변경</button>
                                         </div>
+
                                         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header" style="display: table;">
-                                                        <h4 class="text-primary" style="font-weight: 600; display: table-cell; vertical-align: middle;">비밀번호 변경</h4>
-                                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                                        </button>
+                                            <div class="modal-dialog ">
+                                                <form:form modelAttribute="employeeVO" action="./pwUpdate">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="display: table;">
+                                                            <h4 class="text-primary" style="font-weight: 600; display: table-cell; vertical-align: middle;">비밀번호 변경</h4>
+                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                            </button>
+                                                        </div>
+
+                                                            <div class="modal-body">
+
+                                                                <!-- username 넣어줘!!!!집갈거임ㅎㅎ -->
+
+                                                                <label class="my-2"><strong>현재 비밀번호</strong></label>
+                                                                <form:password path="password" cssClass="form-control input-rounded" id="password"></form:password>
+                                                                <form:errors path="password"></form:errors>
+                                                                
+                                                                <label class="my-2"><strong>새 비밀번호</strong></label>
+                                                                <form:password path="newPassword" cssClass="form-control input-rounded" id="newPassword"></form:password>
+                                                                <form:errors path="newPassword"></form:errors>
+                                                                    
+                                                                <label class="my-2"><strong>새 비밀번호 확인</strong></label>
+                                                                <form:password path="passwordCheck" cssClass="form-control input-rounded" id="passwordCheck"></form:password>
+                                                                <form:errors path="passwordCheck"></form:errors>
+                                                            </div>
+                                                                
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                            </div>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <label class="my-2"><strong>현재 비밀번호</strong></label>
-                                                        <input type="password" class="form-control input-rounded">
-                                                        <label class="my-2"><strong>새 비밀번호</strong></label>
-                                                        <input type="password" class="form-control input-rounded">
-                                                        <label class="my-2"><strong>새 비밀번호 확인</strong></label>
-                                                        <input type="password" class="form-control input-rounded">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                                    </div>
-                                                </div>
+                                                </form:form>
                                             </div>
                                         </div>
+
+                                        
+
+
+
                                     </div>
 
 
@@ -248,13 +259,13 @@
 											</div>
                                             <!-- 서명 수정 모달 -->
                                             <div class="col-0">
-                                                <button type="submit" class="btn btn-light btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg">등록</button>
+                                                <button type="submit" class="btn btn-light btn-lg" data-toggle="modal" data-target=".bd-example1-modal-lg">등록</button>
                                             </div>
-                                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal fade bd-example1-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
                                                         <div class="modal-header" style="display: table;">
-                                                            <h4 class="text-primary" style="font-weight: 600; display: table-cell; vertical-align: middle;">비밀번호 변경</h4>
+                                                            <h4 class="text-primary" style="font-weight: 600; display: table-cell; vertical-align: middle;">결재 서명 등록</h4>
                                                             <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                                                             </button>
                                                         </div>
