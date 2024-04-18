@@ -18,10 +18,12 @@ public class SiteSchVO {
 	private Long price;
 	private String start_Time;
 	private String end_Time;
+	//현장담당자
 	private String employee_Num;
 	private Long manage_Code;
 	private Long draft_Num;
 	private String site_Type;
+	//해당현장 영업담당자
 	private String sales_Manager;
 	private String address;
 	
