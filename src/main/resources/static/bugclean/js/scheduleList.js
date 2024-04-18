@@ -3,10 +3,6 @@ let start_first;
 let span_start_time = document.getElementById("start_Time");
 let color;
 let textDeco;
-
-//event listner 한번만 걸기를 위한
-let create_fucn;
-
 //수정 등록 삭제 버튼
 let update_sch_btn = document.getElementById("update_sch_btn");
 let delete_sch_btn = document.getElementById("delete_sch_btn");
@@ -166,7 +162,6 @@ function newModal(info){
 
 var modal = document.getElementById("myModal");
 var modalTitle = document.getElementById("modal-title"); // 모달 타이틀 엘리먼트
-
 
 modal.style.display = "block";
 modalTitle.innerText="일정 등록";
