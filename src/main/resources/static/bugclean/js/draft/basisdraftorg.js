@@ -212,14 +212,10 @@ refPlusBtn.addEventListener(
             let empNum= [draftBoxTdAr.length];
             for(let i=0; i<draftBoxTdAr.length; i++){
                let splitValue = draftBoxTdAr[i].textContent.trim().split(" ");
-               console.log("draftBoxTdAr : " + draftBoxTdAr[i].innerHTML)
-               empNum[i] = draftBoxTdAr[i].getAttribute("data-emp-num");
-               console.log("dddddddddddddddd"+draftBoxTdAr[i].getAttribute("data-emp-num"))
+               empNum[i] = draftBoxTdAr[i].lastElementChild.getAttribute("data-emp-num")
                orgArrDep[i] = splitValue[1];
                orgArrName[i] = splitValue[2];
-               console.log("orgArrDep : "+ orgArrDep[i]+ " //////"+"orgArrName : "+orgArrName[i]);
-               console.log("empNum : " + empNum[i]);
-                console.log(draftBoxTdAr[i].textContent.trim());
+               console.log("empNum[i]" + empNum[i]);
             }
             console.log("dep : "+ orgArrDep)
             console.log("name : "+ orgArrName)
