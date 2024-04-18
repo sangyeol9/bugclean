@@ -68,3 +68,13 @@
   .emp_choice{
 	width:65%;
   }
+  .none_through{
+	text-decoration: none;
+  }
+  .text_through{
+	text-decoration: line-through;
+  }
+  .updel{
+	width:100px;
+	margin-left:20%;
+  }

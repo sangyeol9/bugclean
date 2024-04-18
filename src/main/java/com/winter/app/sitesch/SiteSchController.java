@@ -57,11 +57,39 @@ public class SiteSchController {
 		return result;
 	}
 	
+	@PostMapping("updateSch")
+	@ResponseBody
+	public int updateSch(@RequestBody SiteSchVO schVO) throws Exception{
+		System.out.println("update Sch vo ===== \n " + schVO);
+		
+		int result = schService.updateSch(schVO);
+		
+		return result;
+	}
+	@PostMapping("updateSchType")
+	@ResponseBody
+	public int updateSchType(@RequestBody SiteSchVO schVO) throws Exception{
+		System.out.println("update Sch 취소====\n " + schVO);
+		int result = schService.updateSchType(schVO);
+		
+		return result;
+	}
+	
 	@PostMapping("getSchedule")
 	@ResponseBody
 	public SiteSchVO getSchedule(@RequestBody SiteSchVO schVO) throws Exception{
 		SiteSchVO result = schService.getSchedule(schVO);
 		
+		
+		return result;
+	}
+	
+	@PostMapping("updateSchDrag")
+	@ResponseBody
+	public int updateSchDrag(@RequestBody SiteSchVO schVO) throws Exception{
+		int result =0;
+		System.out.println("schVO Drag Event == " + schVO);
+		schService.updateSchDrag(schVO);
 		
 		return result;
 	}
