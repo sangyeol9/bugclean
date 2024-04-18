@@ -83,7 +83,7 @@
 				<!-- 결재선 시작 -->
 				<div id="draftLine">
 				<div id="lineBtnDiv">
-					<button id="lineBtn" class="lineBtnDiv">
+					<button id="lineBtn" class="lineBtnDiv" data-toggle="modal" data-target="#modal">
 						편<br>집<br>하<br>기
 					</button>
 				</div>
@@ -91,14 +91,18 @@
 						<tr id="input_grade">
 							<td rowspan="4">결재선</td>
 							<td>기안자</td>
+							<td>사장</td>
 						</tr>
 						<tr id="input_blank">
+							<td></td>
 							<td></td>
 						</tr>
 						<tr id="input_name">
 							<td>${empMap.NAME}</td>
+							<td>${CEO.name }</td>
 						</tr>
 						<tr>
+							<td class="date"></td>
 							<td class="date"></td>
 						</tr>
 					</table>

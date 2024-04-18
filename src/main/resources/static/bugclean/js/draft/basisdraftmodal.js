@@ -1,4 +1,4 @@
-linebtn = document.getElementById("lineBtn");
+let linebtn = document.getElementById("lineBtn");
 let modal = document.getElementById("modal");
 let modalBack = document
         .getElementById("modalBack");
