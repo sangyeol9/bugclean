@@ -120,7 +120,7 @@ public class EmployeeService implements UserDetailsService{
     	//새비번 일치
     	if(!employeeVO.getPasswordCheck().equals(employeeVO.getNewPassword())) {
     		check=true;
-    		bindingResult.rejectValue("password", "employeeVO.newPassword.update");
+    		bindingResult.rejectValue("newPassword", "employeeVO.newPassword.update");
     	}
     	
     	return check;

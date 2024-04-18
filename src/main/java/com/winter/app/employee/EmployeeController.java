@@ -117,17 +117,19 @@ public class EmployeeController {
 	@PostMapping("pwUpdate")
 	public String pwUpdate(@Validated(EmployeePwupdateGroup.class)EmployeeVO employeeVO, BindingResult bindingResult, Model model) throws Exception{
 		
+		System.out.println("================:"+employeeVO.getUsername());
+		
 		boolean check = employeeService.checkPw(employeeVO, bindingResult);
 		
 		if(check) {
 			model.addAttribute("result","employee.update.fail");
-			model.addAttribute("path","./");
+			model.addAttribute("path","mypage");
 			return "commons/result";
 		}
 		
 		int result = employeeService.pwUpdate(employeeVO);
 		model.addAttribute("result","employee.update.success");
-		model.addAttribute("path","./");
+		model.addAttribute("path","mypage");
 		
 		return "commons/result";
 	}
