@@ -27,7 +27,11 @@
 		<!-- //sidebar-menu -->
 
 		<div class="content-body " style="min-height: 900px;">
-
+			<div id="sch_Color">
+				<span style="color:black">&#x25CF; :  일반</span>  
+				<span style="color : red; padding-left: 2ch;">&#x25CF; : 긴급</span>
+				<span style="color: grey; padding-left: 2ch;">&#x25CF; :</span> <span style="text-decoration: line-through; "> 취소</span>
+			</div>
 			<div id='calendar'></div>
 
 

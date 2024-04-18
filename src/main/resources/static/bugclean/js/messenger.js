@@ -28,23 +28,40 @@ window.addEventListener("load",function(){
         method : "POST"
     }).then(res => res.json())
     .then(res => {
-        
         res.forEach(element => {
+            console.log(element.dep_code);
             let div = this.document.createElement("div");
-            div.innerHTML+=  
-                    `<div id="${element.dep_name}">
-                        <div id="${element.dep_name}_div"  class="mt-1" onclick="displayOnOff('${element.dep_name}')">
-                        <b>
-                            <span id="${element.dep_name}_span">+</span><i class="fa-solid fa-users"></i>
-                        ${element.dep_name}</b>
-                        </div>
-                        <div id="${element.dep_name}_list" class="display_none mt-1">
-                        </div>
-                        </div>
-
-                    `
-                    messenger_emp_list.append(div);
-            obj[element.dep_name] = div.querySelector(`#${element.dep_name}_list`);
+            if(element.upper_dep_code == null || element.upper_dep_code== 1){
+                div.innerHTML+=  
+                `<div id="div${element.dep_code}">
+                <div id="div${element.dep_code}_div"  class="mt-1" onclick="displayOnOff('${element.dep_code}')">
+                <b>
+                <span id="div${element.dep_code}_span">+</span><i class="fa-solid fa-users"></i>
+                ${element.dep_name}</b>
+                </div>
+                <div id="div${element.dep_code}_list" class="display_none mt-1">
+                </div>
+                </div>
+                
+                `
+                messenger_emp_list.append(div);
+                obj[element.dep_code] = div.querySelector(`#div${element.dep_code}_list`);
+            }else{
+                div.innerHTML+=  
+                `<div id="div${element.dep_code}">
+                <div id="div${element.dep_code}_div"  class="mt-1" onclick="displayOnOff('${element.dep_code}')">
+                <b>
+                <span id="div${element.dep_code}_span">&emsp;+</span><i class="fa-solid fa-users"></i>
+                ${element.dep_name}</b>
+                </div>
+                <div id="div${element.dep_code}_list" class="display_none mt-1">
+                </div>
+                </div>
+                
+                `
+                document.getElementById(`div${element.upper_dep_code}_list`).append(div);
+                obj[element.dep_code] = div.querySelector(`#div${element.dep_code}_list`);
+            }
             
 
         });
@@ -67,8 +84,9 @@ window.addEventListener("load",function(){
     }).then(res=>res.json())
     .then(res=>{
         res.forEach((element,index) => {
-            
-            obj[element.DEP_NAME].innerHTML += `<div id="${element.NAME}_${index}" class="mt-1">&emsp;<i class="fa-solid fa-user"></i>${element.NAME}</div>`
+            console.log("res forEach == ",res)
+            obj[element.DEP_CODE].innerHTML = `<div id="${element.NAME}_${index}" style="color:black;" class="mt-1">&emsp;&emsp;<i class="fa-solid fa-user"></i>${element.NAME}</div>`
+            +`${obj[element.DEP_CODE].innerHTML}`
         })
         
     })
@@ -77,14 +95,25 @@ window.addEventListener("load",function(){
 
 function displayOnOff(name){
     
-    let list = document.getElementById(name+"_list")
-    let span = document.getElementById(name+"_span");
+    let list = document.getElementById("div"+name+"_list")
+    let span = document.getElementById("div"+name+"_span");
     
-    if(list.classList.contains("display_none")){
-        list.classList.remove("display_none");
-        span.innerHTML="-";
+    if(name.length<3){
+
+        if(list.classList.contains("display_none")){
+            list.classList.remove("display_none");
+            span.innerHTML="-";
+        }else{
+            list.classList.add("display_none");
+            span.innerHTML="+";
+        }
     }else{
-        list.classList.add("display_none");
-        span.innerHTML="+";
+        if(list.classList.contains("display_none")){
+            list.classList.remove("display_none");
+            span.innerHTML="&emsp;-";
+        }else{
+            list.classList.add("display_none");
+            span.innerHTML="&emsp;+";
+        }
     }
 }
