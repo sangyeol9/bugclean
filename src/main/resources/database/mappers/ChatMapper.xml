@@ -8,7 +8,7 @@
   <mapper namespace="com.winter.app.chat.ChatDAO">
 
  	<select id="getEmployeeList" resultType="Map">
- 		SELECT e.EMPLOYEE_NUM ,e.NAME ,d.DEP_NAME,p.POS_NAME  FROM EMPLOYEE e
+ 		SELECT e.EMPLOYEE_NUM ,e.NAME ,d.DEP_NAME,p.POS_NAME,d.DEP_CODE  FROM EMPLOYEE e
 		LEFT JOIN DEPARTMENT d
 		ON e.DEP_CODE  = d.DEP_CODE
 		LEFT JOIN "POSITION" p
@@ -16,7 +16,7 @@
  	</select> 	
  
  	<select id="getDepartment" resultType="DepartmentVO">
-		SELECT * FROM DEPARTMENT ORDER BY DEP_CODE DESC
+		SELECT * FROM DEPARTMENT ORDER BY DEP_CODE ASC
  	</select>
 	
 	

@@ -42,7 +42,7 @@ public class ChatController {
 		return chatService.findAllRoom();
 	}
 	
-	@PostMapping("/list")
+	@PostMapping("list")
 	@ResponseBody
 	public List<Map<String, Object>> getEmployeeList() throws Exception {
 		
@@ -53,7 +53,7 @@ public class ChatController {
 		return list;
 	}
 	
-	@PostMapping("/department")
+	@PostMapping("department")
 	@ResponseBody
 	public List<DepartmentVO> getDepartment() throws Exception{
 		
