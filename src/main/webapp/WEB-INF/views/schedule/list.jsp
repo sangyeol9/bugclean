@@ -28,7 +28,8 @@
 
 		<div class="content-body " style="min-height: 900px;">
 			<div id="sch_Color">
-				<span style="color:black">&#x25CF; :  일반</span>  
+				<span style="color:black">&#x25CF; :  일반</span>
+				<span style="color : blue; padding-left: 2ch;">&#x25CF; : 완료</span>
 				<span style="color : red; padding-left: 2ch;">&#x25CF; : 긴급</span>
 				<span style="color: grey; padding-left: 2ch;">&#x25CF; :</span> <span style="text-decoration: line-through; "> 취소</span>
 			</div>
@@ -90,8 +91,9 @@
 						  	<input type="text" class="form-control" value="미정" id="input_carAllocation" >
 						  	<select id="carAllocation" class="form-select" onchange="changeSelect()">
 						  		<option value="">배차요청</option>
-						  		<option value="28나 2033">28나 2033</option>
-						  		<option value="03서 3002">03서 3002</option>
+						  		<c:forEach items="${list_car}" var="li">
+									<option class="car_choice" value="${li.pro_num} ${li.car_code}">${li.pro_num}</option>
+								</c:forEach>
 						  	</select>
 						</div>
 						<div class="input-group flex-nowrap mt-2">
