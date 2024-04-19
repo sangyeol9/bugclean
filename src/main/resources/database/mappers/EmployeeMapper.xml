@@ -53,8 +53,13 @@
 	
 	<insert id="create" parameterType="EmployeeVO">
 		INSERT INTO EMP_TEMP
-		VALUES (#{username}, #{password}, #{name}, #{phone})
+		VALUES (#{username}, #{password}, #{name}, #{phone}, #{address})
 	</insert>
+	
+	<update id="pwUpdate" parameterType="EmployeeVO">
+	    UPDATE EMPLOYEE SET PASSWORD=#{password}
+	    WHERE USERNAME=#{username}
+	</update>
 	
 	
 </mapper>

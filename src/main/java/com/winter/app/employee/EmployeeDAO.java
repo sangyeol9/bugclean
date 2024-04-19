@@ -8,5 +8,7 @@ public interface EmployeeDAO {
 	public EmployeeVO getDetail(EmployeeVO employeeVO) throws Exception;
 	//가입
 	public int create(EmployeeVO employeeVO) throws Exception;
+	//비번 변경
+	public int pwUpdate(EmployeeVO employeeVO);
 	
 }

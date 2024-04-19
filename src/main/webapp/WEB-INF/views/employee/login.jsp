@@ -50,7 +50,7 @@
 										<div class="form-group">
 											<label><strong>Password</strong></label>
 											<!-- <input type="password" class="form-control"> -->
-											<form:password path="password" id="password" cssClass="form-control"></form:password>
+											<form:password path="password" id="password" cssClass="form-control" value="qwer1234!"></form:password>
 						                    <form:errors path="password"></form:errors>
 										</div>
 										<div class="form-row d-flex justify-content-between mt-4 mb-2">
