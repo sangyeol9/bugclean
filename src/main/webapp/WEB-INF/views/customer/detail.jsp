@@ -115,7 +115,7 @@
 							<button disabled="disabled"
 								class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
 							<input class="right-div" id="person_sales_name_in" type="text"
-								value="${vo.sales_Manager}" readonly="readonly">
+								value="${vo.employee_Name}" readonly="readonly">
 						</div>
 
 					</div>

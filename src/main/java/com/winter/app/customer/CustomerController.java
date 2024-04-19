@@ -26,10 +26,11 @@ public class CustomerController {
 	
 	@GetMapping("list")
 	public String getList(Model model) throws Exception{
+		List<EmployeeVO> ar = customerService.getSales();
+		List<CustomerVO> list = customerService.getList();
 		
-		var list = customerService.getList();
 		model.addAttribute("list", list);
-		
+		model.addAttribute("sales_List", ar);
 		return "customer/list";
 	}
 	
@@ -60,14 +61,13 @@ public class CustomerController {
 	}
 	
 	@GetMapping("detail")
-	public String getDetail(CustomerVO customerVO,Model model) throws Exception{
+	public void getDetail(CustomerVO customerVO,Model model) throws Exception{
 		
 		
 		CustomerVO vo = customerService.getDetail(customerVO);
 		
 		model.addAttribute("vo", vo);
 		
-		return "customer/detail";
 	}
 	
 	@GetMapping("delete")

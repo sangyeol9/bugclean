@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.winter.app.carManage.CarDetailVO;
+import com.winter.app.carManage.CarManageDAO;
 import com.winter.app.customer.CustomerVO;
 import com.winter.app.employee.EmployeeVO;
 
@@ -12,6 +14,8 @@ import com.winter.app.employee.EmployeeVO;
 public class SiteSchService {
 	@Autowired
 	private SiteSchDAO schDAO;
+	@Autowired
+	private CarManageDAO carManageDAO;
 	
 	public List<SiteSchVO> getList() throws Exception{
 		return schDAO.getList();
@@ -48,7 +52,10 @@ public class SiteSchService {
 		
 		return schDAO.getCustomerList();
 	}
-	
+	public List<CarDetailVO> getUsableList() throws Exception{
+		return carManageDAO.getUsableList();
+		
+	}
 	
 	public SiteSchVO getSchedule(SiteSchVO schVO) throws Exception{
 		SiteSchVO siteSchVO = schDAO.getSchedule(schVO);	

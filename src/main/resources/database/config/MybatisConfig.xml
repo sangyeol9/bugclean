@@ -23,7 +23,8 @@
 		<typeAlias type="com.winter.app.employee.RnRVO" alias="RnRVO"/>
 		<typeAlias type="com.winter.app.employee.PositionVO" alias="PositionVO"/>
 		<typeAlias type="com.winter.app.draft.ApprovalLineVO" alias="ApprovalLineVO"/>
-
+		<typeAlias type="com.winter.app.carManage.CarDetailVO" alias="CarDetailVO"/>
+		<typeAlias type="com.winter.app.carManage.CarManageVO" alias="CarManageVO"/>
 
   	</typeAliases>
   </configuration>

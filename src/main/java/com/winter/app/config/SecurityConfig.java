@@ -59,7 +59,7 @@ public class SecurityConfig {
 	            .ignoringRequestMatchers("/draft/getapprovalline")
 				.ignoringRequestMatchers("/hr/**")
 				.ignoringRequestMatchers("/customer/**")
-				
+				.ignoringRequestMatchers("/carManage/**")
 	    )
 		
 		
