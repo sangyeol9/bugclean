@@ -15,9 +15,8 @@ public class CarManageService {
 	}
 	
 	public int carAllocation(CarManageVO carManageVO) throws Exception{
-		//int result = carManageDAO.carAllocation(carManageVO);
-		int result =0;
-		System.out.println("==========\n" + carManageVO);
+		int result = carManageDAO.carAllocation(carManageVO);
+	System.out.println("==========\n" + carManageVO);
 		return  result;
 	}
 	
