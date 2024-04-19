@@ -186,7 +186,7 @@ modalTitle.innerText="일정 등록";
             for(let i=0;i<inputRadio.length;i++){
                 inputRadio[i].checked = false;
             }
-
+            inputSelect_emp.value="";
             
 for(let i=0;i<inputRadio.length;i++){
     console.log("checked radio console")
@@ -264,6 +264,7 @@ modalTitle.innerText="일정 확인";
             inputSales.value= res.sales_Manager;
             inputSiteManager.value = res.employee_Num;
             inputTitle.value = res.business_Name;
+            radioValue = res.site_Type;
             for(let i=0;i<emp_choice_value.length;i++){
                 if(emp_choice_value[i].value == res.customer_Num ){
                     console.log("hiie")
@@ -294,6 +295,13 @@ modalTitle.innerText="일정 확인";
         //수정 버튼 클릭시 수정
         update_sch_btn.addEventListener("click",function(){
                 console.log("test === " , date + " "+inputStart.value)
+
+                for(let i=0; i<inputRadio.length;i++){
+                    if(inputRadio[i].checked == true){
+                        radioValue = inputRadio[i].value;
+                    }    
+                
+                }
 
             fetch("/schedule/updateSch",{
 

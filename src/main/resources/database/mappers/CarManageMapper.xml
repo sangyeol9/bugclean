@@ -11,7 +11,7 @@
 	</select>
  	
  	<insert id="carAllocation" parameterType="CarManageVO">
- 		INSERT INTO CAR_MANAGE VALUES(CAR_MANAGE_SEQ.NEXTVAL,#{car_code},#{employee_num},#{booking_start},#{booking_done},0)
+ 		INSERT INTO CAR_MANAGE VALUES(CAR_MANAGE_SEQ.NEXTVAL,#{car_code},#{employee_num},TO_DATE(#{booking_start},'YYYY-MM-DD HH24:MI:SS'),TO_DATE(#{booking_done},'YYYY-MM-DD HH24:MI:SS'),0)
  	</insert>
  		
   </mapper>

@@ -21,7 +21,7 @@ public class CarManageController {
 	@PostMapping("carAllocation")
 	@ResponseBody
 	public int carAllocation (@RequestBody CarManageVO carManageVO) throws Exception{
-		//int result = carManageService.carAllocation(carManageVO);
+		int result = carManageService.carAllocation(carManageVO);
 		System.out.println("========= carVO \n" + carManageVO);
 		
 		
