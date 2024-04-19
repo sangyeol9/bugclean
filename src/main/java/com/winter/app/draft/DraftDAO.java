@@ -25,8 +25,6 @@ public interface DraftDAO {
 
 	List<Map<String, Object>> getApprovalList(ApprovalLineVO approvalLineVO) throws Exception;
 
-	List<ApprovalLineVO> getApprovalList(ApprovalLineVO approvalLineVO) throws Exception;
-
 	
 	
 }

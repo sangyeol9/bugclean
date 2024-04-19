@@ -74,35 +74,8 @@ public class DraftService {
 			 newApprovalLineVO.setEmployee_num((String)empMap.get("EMPLOYEE_NUM"));
 			List<Map<String, Object>> ar = draftDAO.getApprovalList(newApprovalLineVO);
 			System.out.println("arList : "+ar.toString());
-
-		}
-		int result= 0;
-		if(approvalLineVO == null) {
-			ApprovalLineVO approvalLineVO2 = new ApprovalLineVO();
-			for(int i=0; i<code.length;i++) {
-				approvalLineVO2.setApproval_line_code(1L);
-				System.out.println("code : "+ code[i]);
-				approvalLineVO2.setEmployee_num(code[i]);
-				approvalLineVO2.setLine_rank(Long.valueOf(i+1));
-				result = draftDAO.setApprovalLine(approvalLineVO2);
-			}
-		}else {
-			for(int i=0; i<code.length;i++) {
-				approvalLineVO.setApproval_line_code(approvalLineVO.getApproval_line_code()+1);
-				System.out.println("code : "+ code[i]);
-				approvalLineVO.setEmployee_num(code[i]+1);
-				approvalLineVO.setLine_rank(Long.valueOf(i));
-				result = draftDAO.setApprovalLine(approvalLineVO);
-			}
-		}
-			ApprovalLineVO newApprovalLineVO = new ApprovalLineVO();
-			 newApprovalLineVO.setEmployee_num((String)empMap.get("EMPLOYEE_NUM"));
-			List<ApprovalLineVO> ar = draftDAO.getApprovalList(newApprovalLineVO);
-
 			return ar;
-		
-		
-	}
+		}
 	
 	public DraftVO getDraftDocNum() throws Exception{
 		//localdate.now().split("-")+문서종류+기안서의 리스트의 DOC_NUM의 max값을 가져와 subString해서 시퀀스 번호에 해당하는부분 번호에+1?????????????
