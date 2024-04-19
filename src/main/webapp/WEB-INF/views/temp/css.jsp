@@ -13,6 +13,10 @@
  		width: 100%;
  		height: 100%;
  	}
+	 #messenger_list{
+    overflow: auto;
+
+}
  	#messenger_img{
  		width:3%;
  		left:83%;
@@ -39,7 +43,7 @@
  		background-color: #E2E1EE;
  		border : 1px solid black;
 		float:left;
-		width:30%;
+		width:20%;
  		height: 100%;
  	}
  	.right_messenger{
@@ -48,14 +52,14 @@
  		border-right : 1px solid black;
  		border-top : 1px solid black;
 		float:left;
-		width: 70%;
+		width: 75%;
  		height: 100%;
  	}
  	#messenger_div{
  		position:fixed;
  		top: 40%;
- 		left:82%;
- 		width : 15%;
+ 		left:80%;
+ 		width : 20%;
  		float: right;
  		height:50%;
  		display: inline_block;

@@ -60,6 +60,7 @@
 							<td class="td_mng_phone">${li.manager_Phone}</td>
 							<td class="td_address">${li.address}</td>
 							<td class="td_sales_mng">${li.employee_Name}</td>
+							<td class="real_sales_mng display_none">${li.employee_Num}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -70,8 +71,12 @@
 			<!-- 수정 모달 -->
 			<form method="post">
 				<div id="modal_myModal" class="modal">
+						
 					  <div class="modal-content" style="width : 30%;">
-					    <span class="close">&times;</span>
+						<span class="close">&times;</span>
+						<div class="modal-head-tool">
+							<h4><b>거래처 정보 수정</b></h4>
+						</div>
 					    <div id="modal_company">
 						<input type="hidden" id="type" value="">
 						
@@ -101,8 +106,13 @@
 					  	</div>	 
 						<div class="input-group flex-nowrap mt-2" id="modal_sales_name">
 							<span class="input-group-text left-div" >영업 담당자 명</span>
-							<input id="modal_sales_name_in" type="text" class="form-control right-div" placeholder="영업 담당자명을 입력하세요." >
-							
+							<input id="modal_sales_name_in" type="hidden" class="form-control right-div" placeholder="영업 담당자명을 입력하세요." >
+							<select id="inputSelect" class="emp_choice right-div">
+								<option class="base_selected" id="salse_choice_base" value="" >담당자 선택</option>
+							<c:forEach items="${sales_List}" var="li">
+								<option class="sales_choice_value" value="${li.employee_num}">${li.employee_num} ${li.name}</option>
+							</c:forEach>	
+						</select>
 						</div>	 
 					     
 					    </div>

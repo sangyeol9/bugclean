@@ -31,8 +31,11 @@ public class CustomerService {
 			
 		}
 		
+		
+		
 		return ar;
 	}
+	
 	
 	public CustomerVO getDetail(CustomerVO customerVO) throws Exception{
 		customerVO = customerDAO.getDetail(customerVO);
