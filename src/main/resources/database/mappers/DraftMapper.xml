@@ -52,12 +52,17 @@
 	
 	<insert id="setApprovalLine" parameterType="ApprovalLineVO" >
 	INSERT INTO APPROVAL_LINE
-		VALUES (#{apploval_Line_code}, #{employee_num}, #{line_rank})
+		VALUES (#{approval_line_code}, #{employee_num}, #{line_rank})
 	</insert>
 	
-	<select id="getApprovalList" parameterType="ApprovalLineVO">
-	SELECT * FROM APPROVAL_LINE
-		WHERE EMPLOYEE_NUM =#{employee_num}
+	<select id="getApprovalList" resultType="Map" parameterType="ApprovalLineVO">
+		SELECT al.*, e.NAME ,p.POS_NAME  FROM APPROVAL_LINE al
+		LEFT OUTER JOIN EMPLOYEE e
+		ON al.EMPLOYEE_NUM  = e.EMPLOYEE_NUM
+		LEFT OUTER JOIN "POSITION" p
+		ON e.POS_CODE  = p.POS_CODE  
+		WHERE approval_line_code = #{approval_line_code}
+		order by approval_line_code asc, line_rank ASC
 	</select>
 
 </mapper>
