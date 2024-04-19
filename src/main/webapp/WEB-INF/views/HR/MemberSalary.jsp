@@ -37,8 +37,8 @@
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item active">인사팀</li>
-                        <li class="breadcrumb-item active"><a href="./">급여관리</a></li>
+                        <li class="breadcrumb-item">인사팀</li>
+                        <li class="breadcrumb-item active">급여관리</li>
                     </ol>
                 </div>
             </div>
