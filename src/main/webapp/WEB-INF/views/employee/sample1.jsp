@@ -9,7 +9,6 @@
 			<title>Insert title here</title>
 			<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
-			<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/css.css">
 
 		</head>
 		<c:import url="../temp/css.jsp"></c:import>

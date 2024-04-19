@@ -42,6 +42,7 @@ public class EmployeeVO implements UserDetails{
 	@NotBlank(groups = EmployeeCreateGroup.class)
 	@Pattern(regexp = "^01([0|1|6|7|8|9])-([0-9]{3,4})-([0-9]{4})+$", message = "전화번호를 올바르게 입력해주세요.", groups = EmployeeCreateGroup.class)
 	private String phone;
+	@NotBlank(message = "주소를 입력해주세요.", groups = EmployeeCreateGroup.class)
 	private String address;
 	@Pattern(regexp = "^[ㄱ-ㅎ가-힣a-z0-9-_]{2,10}$", message = "닉네임은 특수문자를 제외한 2~10자리여야 합니다.")
 	private String nickname;
