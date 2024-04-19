@@ -30,8 +30,7 @@ public class DraftService {
 		approvalLineVO = draftDAO.getApprovalMaxNum();
 			//결재선의 리스트를 가져와서 approval_code의 값이 max인걸 가져옴
 		
-		//결재선테이블에 기안자 순서 먼저 넣기
-
+		//결재선테이블에 기안자를 먼저 0번으로 넣어주고 나서 시작
 		if(approvalLineVO == null) {
 			ApprovalLineVO approvalLineVO2 = new ApprovalLineVO();
 			approvalLineVO2.setApproval_line_code(1L);
@@ -63,10 +62,6 @@ public class DraftService {
 				draftDAO.setApprovalLine(approvalLineVO);
 			}
 		}
-		
-		
-
-		
 		//결재선 목록에 저장한값을 불러오지 않았다면 결재선 CODE를 MAX값 + 로그인한 사람의 EMP_NUM을 조회해서 리스트로 뽑아옴..?
 			ApprovalLineVO newApprovalLineVO = new ApprovalLineVO();
 			newApprovalLineVO = draftDAO.getApprovalMaxNum();
