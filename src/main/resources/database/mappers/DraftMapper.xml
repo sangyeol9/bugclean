@@ -52,6 +52,7 @@
 	
 	<insert id="setApprovalLine" parameterType="ApprovalLineVO" >
 	INSERT INTO APPROVAL_LINE
+
 		VALUES (#{approval_line_code}, #{employee_num}, #{line_rank})
 	</insert>
 	
@@ -63,6 +64,7 @@
 		ON e.POS_CODE  = p.POS_CODE  
 		WHERE approval_line_code = #{approval_line_code}
 		order by approval_line_code asc, line_rank ASC
+
 	</select>
 
 </mapper>

@@ -28,7 +28,7 @@ function initDataTables() {
                 "data": response.tempMember,
                 "columns": [
                     {data: "userName", title: "가입요청 ID"},
-                    {data: "name", title: "가입요청 사원"},
+                    {data: "name", title: "이름"},
                     {
                         data: "upper_department",
                         title: "부서",
@@ -129,40 +129,64 @@ $(document).ready(async function () {
             type_code: state
         };
 
-        if($(this).attr('id')==="approve-btn") {
+        if ($(this).attr('id') === "approve-btn") {
             if (department == "" || position == "" || state == "") {
-                return alert("부서, 직급, 계약형태는 필수 선택 입니다.")
-            }
-            if (confirm("정말 가입을 승인하시겠습니까?")) {
-                $.ajax({
-                    url: `/hr/temp/ask`,
-                    type: "POST",
-                    data: data,
-                    success: function (){
-                        if ($('#tempList').DataTable()) {
-                            $('#tempList').DataTable().destroy();
-                        }
-                        // 데이터 테이블 다시 초기화
-                        initDataTables();
-                    }
+                return Swal.fire({
+                    title: '필수 사항을 선택하세요',
+                    text: '부서, 직급, 계약형태는 필수 선택 입니다.',
+                    icon: 'warning',
+                    confirmButtonText: '확인'
                 });
             }
-        }
-        if ($(this).attr('id')==="reject-btn"){
-            if(confirm("정말 가입을 거절하시겠습니까?")){
-                $.ajax({
-                    url: `/hr/temp/del`,
-                    type: "POST",
-                    data: data,
-                    success: function (){
-                        if ($('#tempList').DataTable()) {
-                            $('#tempList').DataTable().destroy();
+            Swal.fire({
+                title: '정말 가입을 승인하시겠습니까?',
+                text: '',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: '확인',
+                cancelButtonText: '취소',
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: `/hr/temp/ask`,
+                        type: "POST",
+                        data: data,
+                        success: function () {
+                            if ($('#tempList').DataTable()) {
+                                $('#tempList').DataTable().destroy();
+                            }
+                            // 데이터 테이블 다시 초기화
+                            initDataTables();
                         }
-                        // 데이터 테이블 다시 초기화
-                        initDataTables();
-                    }
-                });
-            }
+                    });
+                }
+            });
         }
+        if ($(this).attr('id') === "reject-btn") {
+            Swal.fire({
+                title: '정말 가입을 거절하시겠습니까?',
+                text: '요청이 삭제되며, 재가입 신청해야합니다.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '확인',
+                cancelButtonText: '취소',
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: `/hr/temp/del`,
+                        type: "POST",
+                        data: data,
+                        success: function () {
+                            if ($('#tempList').DataTable()) {
+                                $('#tempList').DataTable().destroy();
+                            }
+                            // 데이터 테이블 다시 초기화
+                            initDataTables();
+                        }
+                    });
+                }
+            });
+        }
+
     });
 })

@@ -35,5 +35,7 @@ public interface HumanResourceDAO {
     public int setEmployee(EmployeeVO employeeVO) throws Exception;
     public int delTempEmployee(String userName) throws Exception;
     public int updateResignationList(EmployeeVO employeeVO) throws Exception;
-
+    public Map<String, Object> getMemberDetail(EmployeeVO employeeVO) throws Exception;
+    public int updateMember(Map<String, Object> map) throws Exception;
+    public int updateFired(Map<String, Object> map) throws Exception;
 }
