@@ -15,6 +15,8 @@ public interface SiteSchDAO {
 	
 	int createSch(SiteSchVO schVO) throws Exception;
 	
+	int updateSch(SiteSchVO schVO) throws Exception;
+	int updateSchType(SiteSchVO schVO) throws Exception;
 	//회사명으로 회사 pk와 사장 이름 가져오기
 	CustomerVO getCustomerInfo(SiteSchVO schVO) throws Exception;
 	
@@ -29,5 +31,5 @@ public interface SiteSchDAO {
 	
 	SiteSchVO getSchedule(SiteSchVO schVO) throws Exception;
 	
-	
+	int updateSchDrag(SiteSchVO schVO) throws Exception;
 }

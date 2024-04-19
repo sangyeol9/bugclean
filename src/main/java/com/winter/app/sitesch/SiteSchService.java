@@ -27,6 +27,14 @@ public class SiteSchService {
 		return schDAO.createSch(schVO);
 	}
 	
+	public int updateSch(SiteSchVO schVO) throws Exception{
+		
+		return schDAO.updateSch(schVO);
+	}
+	public int updateSchType(SiteSchVO schVO) throws Exception{
+		return schDAO.updateSchType(schVO);
+	}
+	
 	public List<EmployeeVO> getSales() throws Exception{
 		
 		return schDAO.getSales();
@@ -54,6 +62,11 @@ public class SiteSchService {
 		
 		
 		return siteSchVO;
+	}
+	
+	public int updateSchDrag(SiteSchVO schVO) throws Exception{
+		return schDAO.updateSchDrag(schVO);
+		
 	}
 	
 }

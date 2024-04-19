@@ -27,7 +27,11 @@
 		<!-- //sidebar-menu -->
 
 		<div class="content-body " style="min-height: 900px;">
-
+			<div id="sch_Color">
+				<span style="color:black">&#x25CF; :  일반</span>  
+				<span style="color : red; padding-left: 2ch;">&#x25CF; : 긴급</span>
+				<span style="color: grey; padding-left: 2ch;">&#x25CF; :</span> <span style="text-decoration: line-through; "> 취소</span>
+			</div>
 			<div id='calendar'></div>
 
 
@@ -49,9 +53,9 @@
 							<span class="input-group-text" id="customer_Name">거래처명</span>
 							<input id="inputTitle" type="hidden" class="form-control" placeholder="거래처명을 입력하세요." >
 							<select id="inputSelectCustomerName" class="emp_choice">
-								<option value="" >거래처 선택</option>
+								<option class="base_selected" id="emp_choice_base" value="" >거래처 선택</option>
 							<c:forEach items="${customerList}" var="li">
-								<option value="${li.customer_Num}">${li.business_Name} ${li.ceo_Name}</option>
+								<option class="emp_choice_value" value="${li.customer_Num}">${li.business_Name} ${li.ceo_Name}</option>
 							</c:forEach>	
 						</select>
 					  	</div>
@@ -59,9 +63,9 @@
 							<span class="input-group-text" id="manager_Name">영업 담당자명</span>
 							<input id="inputSales" type="hidden" class="form-control" placeholder="담당자를 선택하세요." >
 							<select id="inputSelect" class="emp_choice">
-									<option value="" >담당자 선택</option>
+									<option class="base_selected" id="salse_choice_base" value="" >담당자 선택</option>
 								<c:forEach items="${list}" var="li">
-									<option value="${li.employee_num}">${li.employee_num} ${li.name}</option>
+									<option class="sales_choice_value" value="${li.employee_num}">${li.employee_num} ${li.name}</option>
 								</c:forEach>	
 							</select>
 					  	</div>
@@ -75,9 +79,9 @@
 							<span class="input-group-text" id="employee_Num">현장 관리자</span>
 						  	<input id="inputSiteManager" type="hidden" class="form-control"  >
 							<select id="inputSelect_emp" class="emp_choice">
-								<option value="">담당자 선택</option>
+								<option class="base_selected" id="site_choice_base" value="">담당자 선택</option>
 							<c:forEach items="${list_emp}" var="li">
-								<option value="${li.employee_num}">${li.employee_num} ${li.name}</option>
+								<option class="site_choice_value" value="${li.employee_num}">${li.employee_num} ${li.name}</option>
 							</c:forEach>	
 						</select>
 						</div>
@@ -99,7 +103,11 @@
 							<input id="inputPrice" type="text" class="form-control" placeholder="단가를 입력하세요." >
 					  	</div>
 					  	
-						  <button class="btn-rounded btn-dark create mt-3" id="create_sch_btn">등록하기</button>
+							<button class="btn-rounded btn-dark create mt-3" id="create_sch_btn">등록하기</button>
+						 <div> 
+						  	<button type="button" class="btn-rounded btn-dark updel mt-3" id="update_sch_btn">수정하기</button>
+							<button type="button" class="btn-rounded btn-dark updel mt-3" id="delete_sch_btn">삭제하기</button>
+						</div>	
 					</div>	
 			</div>
 
