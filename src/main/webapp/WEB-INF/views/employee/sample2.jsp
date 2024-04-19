@@ -33,6 +33,19 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- https://github.com/szimek/signature_pad -->
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
+<body>
+  <img src="" id="img01" src="" width="400" height="200" style="border: 1px solid black" hidden/>
+  <div class="wrapper">
+    <canvas id="signature-pad" class="signature-pad" width=400 height=200 style="border: 1px solid black"></canvas>
+  </div>
+
+  <button id="save-png">Save</button>
+  <!-- <button id="draw">Draw</button> -->
+  <!-- <button id="erase">Erase</button> -->
+  <button id="clear">Clear</button>
+</body>
+
 <script>
 $( function() {
   var canvas = document.getElementById('signature-pad');
@@ -60,11 +73,11 @@ $( function() {
 
   document.getElementById('save-png').addEventListener('click', function () {
     if (signaturePad.isEmpty()) {
-      return alert("Please provide a signature first.");
+      return alert("먼저 서명을 해주세요.");
     }
 
     var data = signaturePad.toDataURL('image/png');
-    // console.log(data);
+     //console.log(data);
     // window.open(data);
     $("#img01").attr('src', data);
   });
@@ -73,27 +86,17 @@ $( function() {
     signaturePad.clear();
   });
 
-  document.getElementById('draw').addEventListener('click', function () {
-    var ctx = canvas.getContext('2d');
-    console.log(ctx.globalCompositeOperation);
-    ctx.globalCompositeOperation = 'source-over'; // default value
-  });
+  // document.getElementById('draw').addEventListener('click', function () {
+  //   var ctx = canvas.getContext('2d');
+  //   console.log(ctx.globalCompositeOperation);
+  //   ctx.globalCompositeOperation = 'source-over'; // default value
+  // });
 
-  document.getElementById('erase').addEventListener('click', function () {
-    var ctx = canvas.getContext('2d');
-    ctx.globalCompositeOperation = 'destination-out';
-  });
+  // document.getElementById('erase').addEventListener('click', function () {
+  //   var ctx = canvas.getContext('2d');
+  //   ctx.globalCompositeOperation = 'destination-out';
+  // });
 });
 </script>
-<body>
-  <img src="" id="img01" src="" width=222 height="222" style="border: 1px solid black" />
-  <div class="wrapper">
-    <canvas id="signature-pad" class="signature-pad" width=400 height=200 style="border: 1px solid black"></canvas>
-  </div>
 
-  <button id="save-png">Save as PNG</button>
-  <button id="draw">Draw</button>
-  <button id="erase">Erase</button>
-  <button id="clear">Clear</button>
-</body>
 </html>
