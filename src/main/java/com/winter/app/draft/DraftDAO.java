@@ -23,6 +23,7 @@ public interface DraftDAO {
 	EmployeeVO getCEO()throws Exception;
 	ApprovalLineVO getApprovalMaxNum() throws Exception;
 	List<Map<String, Object>> getApprovalList(ApprovalLineVO approvalLineVO) throws Exception;
+
 	
 	
 }

@@ -88,9 +88,7 @@ public class DraftService {
 			List<Map<String, Object>> ar = draftDAO.getApprovalList(newApprovalLineVO);
 			System.out.println("arList : "+ar.toString());
 			return ar;
-		
-		
-	}
+		}
 	
 	public DraftVO getDraftDocNum() throws Exception{
 		//localdate.now().split("-")+문서종류+기안서의 리스트의 DOC_NUM의 max값을 가져와 subString해서 시퀀스 번호에 해당하는부분 번호에+1?????????????
