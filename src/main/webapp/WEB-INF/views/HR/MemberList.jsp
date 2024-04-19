@@ -7,10 +7,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Bug Clean</title>
+    <style>
+        .detail-table th {
+            text-align: center;
+        }
+
+        .detail-table * {
+            padding: 6px;
+        }
+
+        .modal-header * {
+            margin-right: 5px;
+        }
+
+        .user_name{
+            background: #e9ecef !important;
+        }
+    </style>
 </head>
 <c:import url="../temp/css.jsp"></c:import> <!-- //bootstrap-template-css -->
 <link href="/focus-bootstrap-main/theme/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="/focus-bootstrap-main/theme/css/style.css" rel="stylesheet">
+<link href="/focus-bootstrap-main/theme/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 <link href="/bugclean/css/MemberAgree-datatables.css" rel="stylesheet">
 <body>
 <div id="preloader">
@@ -123,16 +141,88 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title"><i class="fa-solid fa-user"></i></h5>
+                        <h5 id="modal-title-num" class="modal-title">2024001</h5>
+                        <h5 id="modal-title-name" class="modal-title">허쿠니</h5>
                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                    <div class="modal-body d-flex justify-content-center">
+                        <div class="row table-responsive">
+                            <table class="table table-hover text-muted detail-table">
+                                <tbody>
+                                <tr>
+                                    <th class="font-weight-bolder">아 이 디</th>
+                                    <td id="user_id" class="col-7">sughoon1@gmail.com</td>
+                                </tr>
+                                <tr>
+                                    <th class="font-weight-bolder">닉 네 임</th>
+                                    <td class="col-7" style="padding: 0">
+                                        <div style="display: inline-flex; width: 90%">
+                                            <input id="user_name" type="text" class="form-control input-default user_name" style="width: 50%" disabled/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="font-weight-bolder">연 락 처</th>
+                                    <td id="user_phone" class="col-7">010-7777-8888</td>
+                                </tr>
+                                <tr>
+                                    <th class="font-weight-bolder">주 &nbsp;&nbsp;&nbsp;&nbsp; 소</th>
+                                    <td id="user_address" class="col-7">서울시 관악구 청림동 1-917</td>
+                                </tr>
+                                <tr>
+                                    <th class="font-weight-bolder">부 &nbsp;&nbsp;&nbsp;&nbsp; 서</th>
+                                    <td class="col-7" style="padding: 0">
+                                        <div style="display: inline-flex; width: 90%">
+                                            <select id="user_dep" class="custom-select" style="width: 50%; margin-right: 5px" disabled>
+
+                                            </select>
+                                            <select id="user_team" class="custom-select" style="width: 50%" disabled>
+
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="font-weight-bolder">직 &nbsp;&nbsp;&nbsp;&nbsp; 책</th>
+                                    <td class="col-7" style="padding: 0">
+                                        <div style="display: inline-flex; width: 90%">
+                                            <select id="user_rnr" class="custom-select" style="width: 50%" disabled>
+
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="font-weight-bolder">직 &nbsp;&nbsp;&nbsp;&nbsp; 급</th>
+                                    <td class="col-7" style="padding: 0">
+                                        <div style="display: inline-flex; width: 90%">
+                                            <select id="user_pos" class="custom-select" style="width: 50%" disabled>
+
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="font-weight-bolder">입 사 일</th>
+                                    <td id="user_join" class="col-7">2021-04-01</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                    <div class="modal-footer justify-content-between">
+                        <div>
+                            <button id="fire-btn" type="button" class="btn btn-warning">퇴사</button>
+                        </div>
+                        <div>
+                            <button id="close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                            <button id="modi-btn" type="button" class="btn btn-primary">수정</button>
+                            <button id="save-btn" type="button" class="btn btn-primary" hidden="until-found">저장</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -145,6 +235,7 @@
 <c:import url="../temp/js.jsp"></c:import> <%--bootstrap-template-js--%>
 <script src="/focus-bootstrap-main/theme/vendor/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/bugclean/js/memberList-dataTables-init.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 </html>

@@ -11,6 +11,7 @@
 <c:import url="../temp/css.jsp"></c:import> <!-- //bootstrap-template-css -->
 <link href="/focus-bootstrap-main/theme/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="/focus-bootstrap-main/theme/css/style.css" rel="stylesheet">
+<link href="/focus-bootstrap-main/theme/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 <link href="/bugclean/css/MemberAgree-datatables.css" rel="stylesheet">
 
 <body>
@@ -72,6 +73,7 @@
 <c:import url="../temp/js.jsp"></c:import> <%--bootstrap-template-js--%>
 <script src="/focus-bootstrap-main/theme/vendor/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/bugclean/js/memberAgree-dataTables-init.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 </html>

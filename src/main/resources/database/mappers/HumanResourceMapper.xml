@@ -19,6 +19,11 @@
         WHERE RETIRED_DATE IS NULL
     </select>
 
+    <select id="getMemberDetail" parameterType="EmployeeVO" resultType="Map">
+        SELECT USERNAME, EMPLOYEE_NUM, NAME, NICKNAME, PHONE, TO_CHAR(JOIN_DATE,'YYYY-MM-DD') AS "JOIN_DATE", ADDRESS,
+        DEP_CODE, POS_CODE, RNR_CODE, TYPE_CODE, UPPER_DEP_CODE FROM EMPLOYEE JOIN DEPARTMENT USING (DEP_CODE) WHERE EMPLOYEE_NUM = #{employee_num}
+    </select>
+
     <select id="getResignationList" resultType="Map">
         SELECT EMPLOYEE_NUM, NAME, NICKNAME, PHONE, ADDRESS,
         DEPARTMENT.DEP_NAME AS DEP_NAME,
@@ -161,9 +166,11 @@
 
     <insert id="setEmployee" parameterType="EmployeeVO">
         INSERT INTO EMPLOYEE
-        (EMPLOYEE_NUM, DEP_CODE, POS_CODE, TYPE_CODE, USERNAME, NICKNAME, PASSWORD, NAME, PHONE, LEVEL_DATE, STATE, MANAGER_NUM)
+        (EMPLOYEE_NUM, DEP_CODE, POS_CODE, TYPE_CODE, USERNAME, NICKNAME, PASSWORD, NAME, PHONE, LEVEL_DATE, STATE,
+        MANAGER_NUM)
         VALUES
-        (#{employee_num}, #{departmentVO.dep_code}, #{positionVO.pos_code}, #{workTypeVO.type_code}, #{username}, '미설정', #{password}, #{name}, #{phone}, #{level_date}, #{state}, #{manager_num})
+        (#{employee_num}, #{departmentVO.dep_code}, #{positionVO.pos_code}, #{workTypeVO.type_code}, #{username}, '미설정',
+        #{password}, #{name}, #{phone}, #{level_date}, #{state}, #{manager_num})
     </insert>
 
     <delete id="delTempEmployee" parameterType="String">
@@ -172,6 +179,15 @@
 
     <update id="updateResignationList" parameterType="EmployeeVO">
         UPDATE EMPLOYEE SET STATE = #{state}, RETIRED_DATE = NULL WHERE EMPLOYEE_NUM = #{employee_num}
+    </update>
+
+    <update id="updateMember" parameterType="Map">
+        UPDATE EMPLOYEE SET NICKNAME=#{NICKNAME}, DEP_CODE=#{DEP_CODE}, RNR_CODE=#{RNR_CODE}, POS_CODE=#{POS_CODE}
+        WHERE EMPLOYEE_NUM = #{EMPLOYEE_NUM}
+    </update>
+
+    <update id="updateFired" parameterType="Map">
+        UPDATE EMPLOYEE SET STATE = #{state}, RETIRED_DATE = SYSDATE WHERE EMPLOYEE_NUM = #{EMPLOYEE_NUM}
     </update>
 
 </mapper>
