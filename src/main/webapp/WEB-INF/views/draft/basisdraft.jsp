@@ -82,11 +82,19 @@
 
 				<!-- 결재선 시작 -->
 				<div id="draftLine">
-				<div id="lineBtnDiv">
-					<button id="lineBtn" class="lineBtnDiv">
-						편<br>집<br>하<br>기
-					</button>
-				</div>
+				
+					<div id="lineBtnDiv">
+						<button id="lineBtn" class="lineBtnDiv">
+							편<br>집<br>하<br>기
+						</button>
+					</div>
+					
+					<div id="saveBtnDiv">
+						<button id="saveBtn">
+							결<br>재<br>선<br>저<br>장
+						</button>
+					</div>
+					
 					<table border="1">
 						<tr id="input_grade">
 							<td rowspan="4">결재선</td>
@@ -102,36 +110,41 @@
 							<td class="date"></td>
 						</tr>
 					</table>
+
 				</div>
-				
+
 				<!-- 결재선 끝 -->
 
 				<!-- 모달창 css 시작 -->
 				<!-- 모달창 css 끝 -->
-				
-			
-				
+
+
+
 
 				<!-- 기안서양식 시작 -->
 				<div id="basisDraft">
 					<table border="1">
 						<tr>
 							<td class="basisTitleTd">기안자</td>
-							
-							<td class="basisTd"><input class="inp" type="text" value="${empMap.NAME}" disabled></td>
+
+							<td class="basisTd"><input class="inp" type="text"
+								value="${empMap.NAME}" disabled></td>
 							<td class="basisTitleTd">소속부서</td>
-							<td class="basisTd"><input class="inp" type="text" value="${empMap.DEP_NAME }" disabled></td>
+							<td class="basisTd"><input class="inp" type="text"
+								value="${empMap.DEP_NAME }" disabled></td>
 						</tr>
 
 						<tr>
 							<td class="basisTitleTd">기안일자</td>
-							<td class="basisTd"><input class="inp" type="text" value="${draftVO.draft_date}" disabled></td>
+							<td class="basisTd"><input class="inp" type="text"
+								value="${draftVO.draft_date}" disabled></td>
 							<td class="basisTitleTd" rowspan="4">첨부파일</td>
 							<td class="basisTd" rowspan="4" colspan="2"></td>
 						</tr>
 						<tr>
 							<td class="basisTitleTd">문서번호</td>
-							<td class="basisTd"><input class="inp" type="text" value="${draftVO.draft_num}" disabled></td>
+							<td class="basisTd"><input class="inp" type="text"
+								value="${draftVO.draft_num}" disabled></td>
 						</tr>
 						<tr>
 							<td class="basisTitleTd">제목</td>
@@ -168,7 +181,7 @@
 					<button>파일첨부</button>
 				</div>
 				<!-- 버튼모음 끝 -->
-				
+
 				<!-- 모달창 시작 -->
 				<div id="modalBack" class="noshow">
 					<div id="modal" class="noshow">
@@ -206,13 +219,13 @@
 
 						<!-- 참조 버튼 시작 -->
 						<div id="refBtn">
-							<i  id="refMinusBtn" class="fa-solid fa-square-caret-left fa-2x"></i>
+							<i id="refMinusBtn" class="fa-solid fa-square-caret-left fa-2x"></i>
 							<h3 style="display: inline-block;">참조</h3>
-							<i  id="refPlusBtn" class="fa-solid fa-square-caret-right fa-2x"
+							<i id="refPlusBtn" class="fa-solid fa-square-caret-right fa-2x"
 								style="display: inline-block;"></i>
 						</div>
 						<!-- 참조 버튼 끝 -->
-						
+
 						<!-- 결재선 박스 시작 -->
 						<div id="draftBox">
 							<table border="1">
@@ -269,39 +282,41 @@
 							<table border="1">
 								<tr style="height: 350px;">
 									<td style="width: 200px; vertical-align: top;" id="orgBoxTd">
-																<!-- 부서 리스트 시작-->
-										<c:forEach items="${dep}"
-											var="dep">
+										<!-- 부서 리스트 시작--> <c:forEach items="${dep}" var="dep">
 											<div class="orgTeamDiv">
-													<c:if test="${dep.dep_name ne '사장'}">
-												<i class="fa-solid fa-minus minusIcon" style="display: none;"></i> <i
-													class="fa-solid fa-plus plusIcon"
-													style="display: inline-block;"></i> <i
-													class="fa-solid fa-users"></i>
-												<h5 style="display: inline-block;" class="orgDep">${dep.dep_name}</h5>
+												<c:if test="${dep.dep_name ne '사장'}">
+													<i class="fa-solid fa-minus minusIcon"
+														style="display: none;"></i>
+													<i class="fa-solid fa-plus plusIcon"
+														style="display: inline-block;"></i>
+													<i class="fa-solid fa-users"></i>
+													<h5 style="display: inline-block;" class="orgDep">${dep.dep_name}</h5>
 												</c:if>
 												<br>
 												<!-- 사원리스트 시작 -->
-											 <div data-dep-name="${dep.dep_name}"  class="orgPepleDiv">
-												<c:forEach items="${list}" var="list">
-												<c:if test="${list.DEP_NAME eq dep.dep_name}">
-												<div class="orgPepleSpan"
-													style="display: inline-block; padding-left: 20px">
-													<i class="fa-solid fa-user" style="display: inline-block;"></i>
-													<h6 style="display: inline-block;" class="orgAll"  data-emp-num="${list.EMPLOYEE_NUM}" data-dep-name="${list.DEP_NAME}">${list.DEP_NAME} ${list.POS_NAME} ${list.NAME}</h6>
+												<div data-dep-name="${dep.dep_name}" class="orgPepleDiv">
+													<c:forEach items="${list}" var="list">
+														<c:if test="${list.DEP_NAME eq dep.dep_name}">
+															<div class="orgPepleSpan"
+																style="display: inline-block; padding-left: 20px">
+																<i class="fa-solid fa-user"
+																	style="display: inline-block;"></i>
+																<h6 style="display: inline-block;" class="orgAll"
+																	data-emp-num="${list.EMPLOYEE_NUM}"
+																	data-dep-name="${list.DEP_NAME}">${list.DEP_NAME}
+																	${list.POS_NAME} ${list.NAME}</h6>
+															</div>
+														</c:if>
+													</c:forEach>
 												</div>
-											</c:if>
-											</c:forEach>
+												<!-- 사원 리스트 끝 -->
 											</div>
-											<!-- 사원 리스트 끝 -->
-										</div>
-										</c:forEach>
-										<!-- 부서리스트 끝 --> 
+										</c:forEach> <!-- 부서리스트 끝 -->
 									</td>
 								</tr>
 							</table>
 						</div>
-						
+
 						<!-- 조직도 끝 -->
 
 					</div>
@@ -331,7 +346,7 @@
         ***********************************-->
 
 
-							<%-- 			<!-- 부서 리스트 시작-->
+		<%-- 			<!-- 부서 리스트 시작-->
 										<c:forEach items="${dep}"
 											var="dep">
 											<div class="orgTeamDiv">
@@ -359,13 +374,13 @@
 										</div>
 										</c:forEach>
 										<!-- 부서리스트 끝 -->  --%>
-									
-										
-									<!-- ////////////////////////////////////////////// -->
-									
-									
-										
-										<%-- 									<c:forEach items="${depHighAr}" var="dephighar">
+
+
+		<!-- ////////////////////////////////////////////// -->
+
+
+
+		<%-- 									<c:forEach items="${depHighAr}" var="dephighar">
 									<div class="orgHighTeamDiv">
 										<i class="fa-solid fa-minus highMinusIcon" style="display: none;"></i> <i
 												class="fa-solid fa-plus highPlusIcon"
@@ -417,9 +432,9 @@
     ***********************************-->
 		<!-- Required vendors -->
 		<script src="https://kit.fontawesome.com/17a98cc585.js"
-		crossorigin="anonymous"></script>
+			crossorigin="anonymous"></script>
 		<c:import url="../temp/js.jsp"></c:import>
-		
+
 		<script src="/bugclean/js/draft/basisdraftorg.js"></script>
 		<script src="/bugclean/js/draft/basisdraftmodal.js"></script>
 </body>

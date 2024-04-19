@@ -73,9 +73,11 @@ public class DraftController {
 		 System.out.println("depHighAr: " + depHighAr );
 		 employeeVO = draftService.getCEO();
 		 model.addAttribute("CEO", employeeVO);		 
+
 //		 draftService.setApprovalLine(code, empMap);
 		List<Map<String, Object>> ALar = draftService.setApprovalLine(code, empMap);
 		model.addAttribute("approvalMap", ALar);
+
 		 
 		return "ajax/approvalline";
 	}
