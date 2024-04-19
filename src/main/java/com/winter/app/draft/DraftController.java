@@ -29,21 +29,11 @@ public class DraftController {
 	
 	@GetMapping("basisdraft")
 	public String getBasisDraft(Map<String, Object> map, Model model, HttpSession session)throws Exception {
-		
-		EmployeeVO employeeVOJoin = new EmployeeVO();
-		employeeVOJoin.setEmployee_num("2023001");
-		employeeVOJoin = draftService.getEmployeeDetail(employeeVOJoin);
-		System.out.println("employeeVOJOin : :"+employeeVOJoin.toString());
-		session.setAttribute("emp", employeeVOJoin);
-		model.addAttribute("emp", employeeVOJoin);
 		EmployeeVO employeeVO = new EmployeeVO();
-		DepartmentVO departmentVO = new DepartmentVO();
-		PositionVO positionVO = new PositionVO();
-		RnRVO rnrVO = new RnRVO();
-		map.put("emp", employeeVO);
-		map.put("dep", departmentVO);
-		map.put("pos", positionVO);
-		map.put("rnr", rnrVO);
+		employeeVO.setEmployee_num("2024001");
+		Map<String, Object> empMap = draftService.getEmployeeDetail(employeeVO);
+		System.out.println("empMap@@@@@@@@@@@@@@@ : "+empMap.toString());
+		model.addAttribute("empMap", empMap);
 		 List<Map<String, Object>> ar = draftService.getBasisDraft();
 		 System.out.println(ar.toString());
 		 model.addAttribute("list", ar);
@@ -54,29 +44,23 @@ public class DraftController {
 		 List<DepartmentVO> depHighAr = draftService.getDepartmentHighList();
 		 model.addAttribute("depHighAr", depHighAr);
 		 System.out.println("depHighAr: " + depHighAr );
+		 employeeVO = draftService.getCEO();
+		 model.addAttribute("CEO", employeeVO);
+		 
+		 
 		return "draft/basisdraft";
 	}
 	
 	@PostMapping("getapprovalline")
-	public String getApprovalLine(String [] dep, String [] name,Map<String, Object> map, Model model, HttpSession session)throws Exception {
+	public String getApprovalLine(String [] dep, String [] name, String [] code, Map<String, Object> map, Model model, HttpSession session)throws Exception {
 		
-		draftService.setApprovalLine(dep, name);
 		model.addAttribute("aplvdep", dep);
 		model.addAttribute("aplvname", name);
-		EmployeeVO employeeVOJoin = new EmployeeVO();
-		employeeVOJoin.setEmployee_num("2023001");
-		employeeVOJoin = draftService.getEmployeeDetail(employeeVOJoin);
-		System.out.println("employeeVOJOin : :"+employeeVOJoin.toString());
-		session.setAttribute("emp", employeeVOJoin);
-		model.addAttribute("emp", employeeVOJoin);
 		EmployeeVO employeeVO = new EmployeeVO();
-		DepartmentVO departmentVO = new DepartmentVO();
-		PositionVO positionVO = new PositionVO();
-		RnRVO rnrVO = new RnRVO();
-		map.put("emp", employeeVO);
-		map.put("dep", departmentVO);
-		map.put("pos", positionVO);
-		map.put("rnr", rnrVO);
+		employeeVO.setEmployee_num("2024001");
+		Map<String, Object> empMap = draftService.getEmployeeDetail(employeeVO);
+		System.out.println("empMap@@@@@@@@@@@@@@@ : "+empMap.toString());
+		model.addAttribute("empMap", empMap);
 		 List<Map<String, Object>> ar = draftService.getBasisDraft();
 		 System.out.println(ar.toString());
 		 model.addAttribute("list", ar);
@@ -87,6 +71,12 @@ public class DraftController {
 		 List<DepartmentVO> depHighAr = draftService.getDepartmentHighList();
 		 model.addAttribute("depHighAr", depHighAr);
 		 System.out.println("depHighAr: " + depHighAr );
+		 employeeVO = draftService.getCEO();
+		 model.addAttribute("CEO", employeeVO);		 
+		 draftService.setApprovalLine(code, empMap);
+		List<ApprovalLineVO> ALar = draftService.setApprovalLine(code, empMap);
+		
+		 
 		return "ajax/approvalline";
 	}
 	

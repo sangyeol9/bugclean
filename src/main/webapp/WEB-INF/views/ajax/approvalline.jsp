@@ -4,7 +4,7 @@
 
 
 				<div id="lineBtnDiv">
-					<button id="lineBtn" class="lineBtnDiv">
+					<button id="lineBtn" class="lineBtnDiv" >
 						편<br>집<br>하<br>기
 					</button>
 				</div>
@@ -15,29 +15,25 @@
 							<c:forEach items="${aplvdep}" var="dep">
 							<td>${dep}</td>
 							</c:forEach>
-							<td>사장</td>
 						</tr>
 						<tr id="input_blank">
 							<td></td>
 							<c:forEach items="${aplvdep}" var="dep">
 							<td></td>
 							</c:forEach>
-							<td></td>
 						</tr>
 						<tr id="input_name">
-							<td></td>
+							<td>${empMap.NAME}</td>
 							<c:forEach items="${aplvname}" var="name">
 							<td>${name}</td>
 							</c:forEach>
-							<td></td>
 						</tr>
 						<tr>
 							<td class="date"></td>
 							<c:forEach items="${aplvname}" var="name">
-							<td></td>
-							</c:forEach>
 							<td class="date"></td>
+							</c:forEach>
 						</tr>
 					</table>
-
+<script src="/bugclean/js/draft/basisdraftmodal.js"></script>
 	
