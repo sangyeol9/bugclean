@@ -12,26 +12,38 @@
 						<tr id="input_grade">
 							<td rowspan="4">결재선</td>
 							<td>기안자</td>
-							<c:forEach items="${aplvdep}" var="dep">
-							<td>${dep}</td>
+							<c:forEach items="${approvalMap}" var="apMap">
+								<c:if test="${apMap.LINE_RANK ne 0}">
+									<td>${apMap.POS_NAME}</td>
+								</c:if>
 							</c:forEach>
 						</tr>
 						<tr id="input_blank">
 							<td></td>
-							<c:forEach items="${aplvdep}" var="dep">
-							<td></td>
+							<c:forEach items="${approvalMap}" var="apMap">
+								<c:if test="${apMap.LINE_RANK ne 0}">
+									<td></td>
+								</c:if>
 							</c:forEach>
 						</tr>
-						<tr id="input_name">
-							<td>${empMap.NAME}</td>
-							<c:forEach items="${aplvname}" var="name">
-							<td>${name}</td>
+
+						<tr id="input_name">						
+							<td>${empMap.NAME}</td>									
+							<c:forEach items="${approvalMap}" var="apMap">
+								<c:if test="${apMap.LINE_RANK ne 0}">
+									<td>${apMap.NAME}</td>
+								</c:if>
+
 							</c:forEach>
 						</tr>
 						<tr>
 							<td class="date"></td>
-							<c:forEach items="${aplvname}" var="name">
-							<td class="date"></td>
+
+							<c:forEach items="${approvalMap}" var="apMap">
+								<c:if test="${apMap.LINE_RANK ne 0}">
+									<td class="date"></td>
+								</c:if>
+
 							</c:forEach>
 						</tr>
 					</table>
