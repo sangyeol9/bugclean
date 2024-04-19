@@ -23,7 +23,9 @@ public class DraftService {
 		return draftDAO.getDepartmentHighList();
 	}
 	
+
 	public List<Map<String, Object>> setApprovalLine(String [] code, Map<String, Object> empMap )throws Exception{
+
 		ApprovalLineVO approvalLineVO = new ApprovalLineVO();
 		approvalLineVO = draftDAO.getApprovalMaxNum();
 			//결재선의 리스트를 가져와서 approval_code의 값이 max인걸 가져옴
@@ -34,6 +36,7 @@ public class DraftService {
 			approvalLineVO2.setApproval_line_code(1L);
 			approvalLineVO2.setEmployee_num((String)empMap.get("EMPLOYEE_NUM"));
 			approvalLineVO2.setLine_rank(0L);
+
 			draftDAO.setApprovalLine(approvalLineVO2);
 			for(int i=0; i<code.length;i++) {
 				approvalLineVO2.setApproval_line_code(1L);
@@ -43,10 +46,12 @@ public class DraftService {
 				approvalLineVO2.setLine_rank(Long.valueOf(i+1));
 				draftDAO.setApprovalLine(approvalLineVO2);
 			}
+
 		}else {
 			approvalLineVO.setApproval_line_code(approvalLineVO.getApproval_line_code()+1);
 			approvalLineVO.setEmployee_num((String)empMap.get("EMPLOYEE_NUM"));
 			approvalLineVO.setLine_rank(0L);
+
 			draftDAO.setApprovalLine(approvalLineVO);
 			for(int i=0; i<code.length;i++) {
 				approvalLineVO.setApproval_line_code(approvalLineVO.getApproval_line_code());
@@ -65,9 +70,7 @@ public class DraftService {
 			List<Map<String, Object>> ar = draftDAO.getApprovalList(newApprovalLineVO);
 			System.out.println("arList : "+ar.toString());
 			return ar;
-		
-		
-	}
+		}
 	
 	public DraftVO getDraftDocNum() throws Exception{
 		//localdate.now().split("-")+문서종류+기안서의 리스트의 DOC_NUM의 max값을 가져와 subString해서 시퀀스 번호에 해당하는부분 번호에+1?????????????

@@ -37,6 +37,8 @@ let site_choice_value = document.getElementsByClassName("site_choice_value");
 let site_choice_base = document.getElementById("site_choice_base")
 
 let base_selected = document.getElementsByClassName("base_selected");
+
+let input_carAllocation = document.getElementById("input_carAllocation");
 // 
 
 inputSelectCustomerName.addEventListener("change",function(){
@@ -378,16 +380,34 @@ calendar.unselect();
 // 배차 요청 셀렉트박스
 let carAllocation = document.getElementById("carAllocation");
 function changeSelect(){
-    let car_temp = carAllocation.value;
-    
+    let car_temp = carAllocation.value.substring(0,7);
+    let car_number = carAllocation.value.substr(7);
     if(car_temp.value != ""){
+        console.log(car_number +"==== car number" )
         let check = confirm(car_temp+" 차량으로 배차요청 하시겠습니까?");
         if(check == false){
             carAllocation.selectedIndex=0;
-            
+            //배차 선택시 상태값 변경부터 이어서 
         }
         else{
             carAllocation.value=car_temp;
+            fetch("/carManage/carAllocation",{
+                method:"POST",
+                headers: {
+                    "Content-Type": "application/json",
+                  },
+                body : JSON.stringify({
+                    car_code: car_number,
+                    employee_num: inputSelect_emp.value,
+                    booking_start : start_Time.innerHTML +" "+ inputStart.value,
+                    booking_done :start_Time.innerHTML +" "+ inputEnd.value
+                })
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+            })
+
         }
     }
 
@@ -426,7 +446,10 @@ window.addEventListener("load",function(){
                 else if(element.site_Type == '취소'){
                     color = 'gray';
                     textDeco = "line-through";
-                } 
+                }else if (element.site_Type == '완료'){
+                    color = 'blue';
+                    textDeco = 'none';
+                }
                 console.log("color == ", color);
                   calendar.addEvent({
                    title : element.business_Name  + element.ceo_Name,

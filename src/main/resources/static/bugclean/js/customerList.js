@@ -16,7 +16,7 @@ let modal_addr_in = document.getElementById("modal_addr_in");
 let modal_manager_name_in = document.getElementById("modal_manager_name_in");
 let modal_manager_phone_in = document.getElementById("modal_manager_phone_in");
 let modal_sales_name_in = document.getElementById("modal_sales_name_in");
-
+let real_sales_mng = document.getElementsByClassName("real_sales_mng");
 
 // 리스트의 값들 클래스명으로 저장
 
@@ -36,6 +36,7 @@ let modal_bn_name = document.getElementById("modal_bn_name");
 let modal_manager_name = document.getElementById("modal_manager_name");
 let modal_manager_phone = document.getElementById("modal_manager_phone")
 
+let inputSelect = document.getElementById("inputSelect");
 
 let customer;
 let business;
@@ -74,13 +75,22 @@ for(let i=0; i<modi_tr.length;i++){
             modal_manager_phone_in.value = td_mng_phone[i].innerText;
             modal_sales_name_in.value = td_sales_mng[i].innerText;
 
-      
-       
-        
+            for(let j=0;j<inputSelect.length;j++){
+              if(inputSelect[j].value ==  real_sales_mng[i].innerHTML ){
+                inputSelect[j].selected = true;
+              }
+            }
+           
+            
 
 
     })
 }
+
+inputSelect.addEventListener("change",function(){
+  modal_sales_name_in.value = inputSelect.value
+  console.log(modal_sales_name_in.value);
+})
 
 // 수정 완료 
 function modiComplate(){
@@ -100,12 +110,17 @@ function modiComplate(){
             address : modal_addr_in.value,
             manager_Name : modal_manager_name_in.value,
             manager_Phone : modal_manager_phone_in.value,
-            sales_Manager : modal_sales_name_in.value
+            employee_Num : inputSelect.value
         })
-    }).then(response=>response.text)
+    }).then(response=>response.json())
     .then(response=>{
+      if(response>0){
         alert("변경에 성공하였습니다.");
         location.href="/customer/list";
+      }else{
+        alert("변경에 실패하였습니다.");
+        location.href="/customer/list"; 
+      }
     })
 }
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.winter.app.carManage.CarDetailVO;
 import com.winter.app.customer.CustomerController;
 import com.winter.app.customer.CustomerVO;
 import com.winter.app.employee.EmployeeVO;
@@ -43,9 +44,11 @@ public class SiteSchController {
 		List<EmployeeVO> ar = schService.getSales();
 		List<EmployeeVO> ar_emp = schService.getSiter();
 		List<CustomerVO> list = schService.getCustomerList();
+		List<CarDetailVO> ar_car = schService.getUsableList();
 		model.addAttribute("customerList", list);
 		model.addAttribute("list", ar);
 		model.addAttribute("list_emp", ar_emp);
+		model.addAttribute("list_car", ar_car);
 		
 	}
 	

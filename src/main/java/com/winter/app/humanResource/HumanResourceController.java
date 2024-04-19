@@ -95,6 +95,29 @@ public class HumanResourceController {
         return humanResourceService.getMemberList();
     }
 
+    @GetMapping("member/detail")
+    @ResponseBody
+    public Map<String, Object> getMemberDetail(EmployeeVO employeeVO) throws Exception{
+        Map<String, Object> response = new HashMap<>();
+        response.put("data",humanResourceService.getMemberDetail(employeeVO));
+        response.put("commons",commonsService.getCommonsList());
+        log.info("{}",response);
+        return response;
+    }
+
+    @PostMapping("member/update")
+    @ResponseBody
+    public void updateMember(@RequestBody Map<String, Object> req) throws Exception{
+        log.info("========================={}=================================",req);
+        int check = humanResourceService.updateMember(req);
+    }
+
+    @PostMapping("member/fired")
+    @ResponseBody
+    public void updateFired(@RequestBody Map<String, Object> req) throws Exception{
+        int check = humanResourceService.updateFired(req);
+    }
+
     @GetMapping("resignation/list")
     @ResponseBody
     public Map<String, List<Map<String, Object>>> getResignationList() throws Exception {

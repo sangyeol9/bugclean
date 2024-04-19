@@ -23,13 +23,12 @@ let obj = {};
 
 // })
 
-window.addEventListener("load",function(){
-    fetch("/chat/department",{
+window.addEventListener("load",async function(){
+    const response =  await fetch("/chat/department",{
         method : "POST"
-    }).then(res => res.json())
-    .then(res => {
+    })
+        const res = await response.json();
         res.forEach(element => {
-            console.log(element.dep_code);
             let div = this.document.createElement("div");
             if(element.upper_dep_code == null || element.upper_dep_code== 1){
                 div.innerHTML+=  
@@ -64,11 +63,8 @@ window.addEventListener("load",function(){
             }
             
 
-        });
-
-        
-    })
-})
+          });
+        })
 //" class=" + "\"" + "display_none" + "\""
                             /* <div id="affairs_team_list" class="display_none">
 							<div>&emsp;<i class="fa-solid fa-user"></i>박성제</div>
@@ -77,17 +73,18 @@ window.addEventListener("load",function(){
 							<div>&emsp;<i class="fa-solid fa-user"></i>윤상열</div>
 						    </div> */
 
-window.addEventListener("load",function(){
+window.addEventListener("load",async function(){
     
-    fetch("/chat/list",{
+    const response =  await fetch("/chat/list",{
         method:"POST"
-    }).then(res=>res.json())
-    .then(res=>{
+    })
+        const res = await response.json();
         res.forEach((element,index) => {
-            console.log("res forEach == ",res)
-            obj[element.DEP_CODE].innerHTML = `<div id="${element.NAME}_${index}" style="color:black;" class="mt-1">&emsp;&emsp;<i class="fa-solid fa-user"></i>${element.NAME}</div>`
+            console.log(element);
+
+            obj[element.DEP_CODE].innerHTML = `<div id="${element.NAME}_${index}" style="color:black;" class="mt-1">&emsp;&emsp;<i class="fa-solid fa-user mr-1"></i>${element.POS_NAME} ${element.NAME}</div>`
             +`${obj[element.DEP_CODE].innerHTML}`
-        })
+        
         
     })
 

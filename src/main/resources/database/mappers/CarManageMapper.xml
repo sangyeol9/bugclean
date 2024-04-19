@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+  
+  <mapper namespace="com.winter.app.carManage.CarManageDAO">
+	<select id="getUsableList" resultType="CarDetailVO">
+		SELECT * FROM CAR_DETAIL WHERE PRO_STATUS = 0	
+	</select>
+ 	
+ 	<insert id="carAllocation" parameterType="CarManageVO">
+ 		INSERT INTO CAR_MANAGE VALUES(CAR_MANAGE_SEQ.NEXTVAL,#{car_code},#{employee_num},#{booking_start},#{booking_done},0)
+ 	</insert>
+ 		
+  </mapper>
