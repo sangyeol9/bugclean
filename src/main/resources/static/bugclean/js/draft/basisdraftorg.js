@@ -206,6 +206,9 @@ refPlusBtn.addEventListener(
         let modalCreateBtn = document.getElementById("modalCreateBtn");
         
         modalCreateBtn.addEventListener("click",function(){
+            modalBack.classList.add("noshow")
+            modal.classList.add("noshow")
+            //draftBoxTd
             let draftBoxTdAr = draftBoxTd.children
             let orgArrDep= [draftBoxTdAr.length];
             let orgArrName= [draftBoxTdAr.length];
@@ -219,6 +222,11 @@ refPlusBtn.addEventListener(
             }
             console.log("dep : "+ orgArrDep)
             console.log("name : "+ orgArrName)
+            //refBoxTd
+            let refBoxTdAr = refBoxTd.children;
+            for(let i=0; i<refBoxTdAr.length;i++){
+                console.log(refBoxTdAr[i].lastElementChild.getAttribute("data-emp-num"))
+            }
 
           fetch("/draft/getapprovalline",{
             method : 'POST',
@@ -232,7 +240,7 @@ refPlusBtn.addEventListener(
             let draftLine = document.getElementById("draftLine");
             draftLine.innerHTML=res;
 
-            
+
             let linebtn = document.getElementById("lineBtn");
             let modal = document.getElementById("modal");
             let modalBack = document

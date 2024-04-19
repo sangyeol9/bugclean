@@ -75,3 +75,10 @@ table {
 	width: 1100px;
 	height: 1100px;
 }
+#saveBtnDiv{
+	position: absolute;
+	display: inline-block;
+	top: 15px;
+	left: -50px;
+
+}
