@@ -20,7 +20,7 @@ z-index: 115;
 				aria-expanded="false"><i class="icon icon-app-store"></i><span
 					class="nav-text">게시판</span></a>
 				<ul aria-expanded="false">
-					<li><a href="/focus-bootstrap-main/theme/app-profile.html">공지사항</a></li>
+					<li><a href="/notice/list">공지사항</a></li>
 
 				</ul></li>
 

@@ -50,6 +50,22 @@ public class HumanResourceService {
         return setDate(memberList, "JOIN_DATE");
     }
 
+    public Map<String, Object> getMemberDetail(EmployeeVO employeeVO) throws  Exception{
+        return humanResourceDAO.getMemberDetail(employeeVO);
+    }
+
+    public int updateMember(Map<String, Object> map) throws Exception{
+        map.put("DEP_CODE",Long.parseLong((String)map.get("DEP_CODE")));
+        map.put("RNR_CODE",Long.parseLong((String)map.get("RNR_CODE")));
+        map.put("POS_CODE",Long.parseLong((String)map.get("POS_CODE")));
+        return humanResourceDAO.updateMember(map);
+    }
+
+    public int updateFired(Map<String, Object> map) throws Exception{
+        map.put("state", "0");
+        return humanResourceDAO.updateFired(map);
+    }
+
     public Map<String, List<Map<String, Object>>> getResignationList() throws Exception {
         Map<String, List<Map<String, Object>>> responseData = new HashMap<>();
         List<Map<String, Object>> resignationList = humanResourceDAO.getResignationList();
