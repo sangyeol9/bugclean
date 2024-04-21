@@ -55,10 +55,10 @@ public class EmployeeVO implements UserDetails{
 	private String profile_name;
 	private String manager_num;
 	
-	private boolean accountNonExpired;
-	private boolean accountNonLocked;
-	private boolean credentialsNonExpired;
-	private boolean enabled;
+//	private boolean accountNonExpired;
+//	private boolean accountNonLocked;
+//	private boolean credentialsNonExpired;
+//	private boolean enabled;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -86,7 +86,7 @@ public class EmployeeVO implements UserDetails{
 	}
 	@Override	//계정잠김
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
+		//퇴사자 false 나중
 		return true;
 	}
 	@Override // 비밀번호 만료 여부

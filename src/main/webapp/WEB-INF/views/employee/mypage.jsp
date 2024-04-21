@@ -91,22 +91,68 @@
                                 <div class="photo-content">
                                     <div class="cover-photo"></div>
                                     <div class="profile-photo">
-                                        <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" class="img-fluid rounded-circle" alt="">
-                                        <button class="overlay-button">
+
+                                        <!-- 프로필-->
+                                        <c:if test="${not empty employeeVO.profile}">
+                                            <img src="${employeeVO.profile}" id="img01" src="" width="400" height="200" style="border: 1px solid black"/>
+                                            
+                                        </c:if>
+                                        <c:if test="${empty employeeVO.profile}">
+                                            <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" class="img-fluid rounded-circle" alt="">
+                                            
+                                        </c:if>
+                                        <button class="overlay-button" data-toggle="modal" data-target="#infoUpdateModal">
                                             
                                             <i class="fa-solid fa-pen-to-square" style="color: black;"></i>
                                         </button>
+
+                                        <!-- 변경 모달창 -->
+                                        <div class="modal fade" id="infoUpdateModal" aria-hidden="true" style="display: none;">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">프로필 변경</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                                        </button>
+                                                    </div>
+                                                    <form:form modelAttribute="employeeVO" id="updateForm" action="./profileUpdate" method="post" enctype="multipart/form-data">
+
+                                                        <div class="modal-body">
+                                                            
+                                                            <form:input path="employee_num" value="${employeeVO.employee_num}" hidden="true"></form:input>
+                                                            <div class="mb-3">
+                                                                <c:if test="${empty employeeVO.profile}">
+                                                                    <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" id="preview" style="width: 100px; height: 100px; border-radius: 50px;" alt="..." >
+                                                                </c:if>
+                                                                <c:if test="${not empty dto.moimFileDTO.fileName}">
+                                                                    <img src="/resources/upload/moim/${dto.moimFileDTO.fileName}" id="preview" style="width: 100px; height: 100px; border-radius: 50px;" alt="...">
+                                                                </c:if>
+                                                            </div>
+                                                            <div class="input-group mb-3">
+                                                                <input class="form-control" type="file" id="formFileMultiple" onchange="readImg(this);" data-file-count="0" data-file-max="1" name="file" accept="image/jpg, image/jpeg, image/png, image/gif">
+                                                            </div>
+    
+    
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </form:form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+
+
                                     </div>
                                 </div>
+
                                 <div class="profile-info">
-                                    <div class="row justify-content-center">
+                                    <div class="row justify-content-center mb-3" style="float: right;">
                                         <div class="col-xl-8" style="margin-left: 2%;">
                                             <div class="row">
-                                                <div class="col-1 mb-5">
-                                                    <div class="profile-name">
-                                                        <h4 class="text-primary"></h4>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
                                                     <div class="profile-email">
                                                         <h4 class="text-primary">${employeeVO.username}</h4>
@@ -116,6 +162,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -141,49 +189,14 @@
                                         
                                         <div class="col-10" style="display: table;">
                                             <h4 class="text-primary" style="font-weight: 700; display: table-cell; vertical-align: middle;">비밀번호</h4>
-                                            <form:errors path="password"></form:errors>
-                                            <form:errors path="newPassword"></form:errors>
-                                            <form:errors path="passwordCheck"></form:errors>
+                                            
                                                                 
                                         </div>
-                                        <!-- 비번변경 모달창 -->
+                                        
                                         <div class="col-0">
-                                            <button type="submit" class="btn btn-light btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg">변경</button>
+                                            <a type="button" class="btn btn-light btn-lg" href="./pwUpdate">변경</a>
                                         </div>
 
-                                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                                            <div class="modal-dialog ">
-                                                <form:form modelAttribute="employeeVO" action="./pwUpdate">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header" style="display: table;">
-                                                            <h4 class="text-primary" style="font-weight: 600; display: table-cell; vertical-align: middle;">비밀번호 변경</h4>
-                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                                            </button>
-                                                        </div>
-
-                                                            <div class="modal-body">
-
-                                                                <form:input path="username" value="${employeeVO.username}" hidden="true"></form:input>
-
-                                                                <label class="my-2"><strong>현재 비밀번호</strong></label>
-                                                                <form:password path="password" cssClass="form-control input-rounded" id="password"></form:password>
-                                                                
-                                                                <label class="my-2"><strong>새 비밀번호</strong></label>
-                                                                <form:password path="newPassword" cssClass="form-control input-rounded" id="newPassword"></form:password>
-                                                                
-                                                                    
-                                                                <label class="my-2"><strong>새 비밀번호 확인</strong></label>
-                                                                <form:password path="passwordCheck" cssClass="form-control input-rounded" id="passwordCheck"></form:password>
-                                                            </div>
-                                                                
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                                            </div>
-                                                    </div>
-                                                </form:form>
-                                            </div>
-                                        </div>
 
                                         
 
@@ -207,30 +220,54 @@
                                     <div class="profile-personal-info">
                                         
                                         
-                                        <div class="row mb-4">
-                                            <div class="col-3">
-                                                <h5 class="f-w-500">이름 <span class="pull-right">:</span>
-                                                </h5>
+                                        <div class="row">
+                                            <div class="col-xl-6">
+                                                
+                                                <div class="row mb-4">
+                                                    <div class="col-3">
+                                                        <h5 class="f-w-500">이름 <span class="pull-right">:</span>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-9"><span>${employeeVO.name}</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row mb-4">
+                                                    <div class="col-3">
+                                                        <h5 class="f-w-500">부서 <span class="pull-right">:</span>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-9"><span>${employeeVO.departmentVO.dep_name}</span></div>
+                                                </div>
+
+
                                             </div>
-                                            <div class="col-9"><span>${employeeVO.name}</span>
-                                            </div>
+                                            <div class="col-xl-6">
+
+                                                <div class="row mb-4">
+                                                    <div class="col-3">
+                                                        <h5 class="f-w-500">사번 <span class="pull-right">:</span>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-9"><span>${employeeVO.employee_num}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-4">
+                                                    <div class="col-3">
+                                                        <h5 class="f-w-500">직급 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-9"><span>${employeeVO.positionVO.pos_name}</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>    
                                         </div>
-                                        <div class="row mb-4">
-                                            <div class="col-3">
-                                                <h5 class="f-w-500">부서 <span class="pull-right">:</span>
-                                                </h5>
-                                            </div>
-                                        <div class="col-9"><span>${employeeVO.departmentVO.dep_name}</span></div>
-                                        </div>
-                                        <div class="row mb-4">
-                                            <div class="col-3">
-                                                <h5 class="f-w-500">직급 <span class="pull-right">:</span></h5>
-                                            </div>
-                                            <div class="col-9"><span>${employeeVO.positionVO.pos_name}</span>
-                                            </div>
-                                        </div>
-                                        
-										
+
+
+
+
+
 									</div>
                                 </div>
                             </div>
@@ -246,117 +283,218 @@
                                 <div class="profile-tab mx-4 my-4">
                                     <div class="profile-personal-info">
 										<h4 class="text-primary mb-4">Personal Information</h4>
-										<div class="row mb-4">
-											<div class="col-3">
-												<h5 class="f-w-500">닉네임 <span class="pull-right">:</span>
-												</h5>
-											</div>
-											<div class="col-9"><span>${employeeVO.nickname}</span>
-											</div>
-										</div>
-										<div class="row mb-4">
-											<div class="col-3">
-												<h5 class="f-w-500">휴대전화번호 <span class="pull-right">:</span>
-												</h5>
-											</div>
-											<div class="col-9"><span>${employeeVO.phone}</span>
-											</div>
-										</div>
-										<div class="row mb-4">
-											<div class="col-3">
-												<h5 class="f-w-500">주소 <span class="pull-right">:</span></h5>
-											</div>
-											<div class="col-9"><span>${employeeVO.address}</span>
-											</div>
-										</div>
 
-                                        
-										<div class="row mb-4">
-											<div class="col-3">
-												<h5 class="f-w-500">결재 서명 <span class="pull-right">:</span>
-												</h5>
-											</div>
-											<div class="col-9"><span>~~~~~~~~~~</span>
-											</div>
-                                            <!-- 서명 수정 모달 -->
-                                            <div class="col-0">
-                                                <button type="submit" class="btn btn-light btn-lg" data-toggle="modal" data-target=".bd-example1-modal-lg">등록</button>
+
+                                        <div class="row">
+                                            <div class="col-xl-6">
+    
+    
+                                                <div class="row mb-4">
+                                                    <div class="col-3">
+                                                        <h5 class="f-w-500">닉네임 <span class="pull-right">:</span>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-9"><span>${employeeVO.nickname}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-4">
+                                                    <div class="col-3">
+                                                        <h5 class="f-w-500">휴대번호 <span class="pull-right">:</span>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-9"><span>${employeeVO.phone}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-4">
+                                                    <div class="col-3">
+                                                        <h5 class="f-w-500">주소 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-9"><span>${employeeVO.address}</span>
+                                                    </div>
+                                                </div>
+    
+    
                                             </div>
-                                            <!-- <div class="modal fade bd-example1-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                                                <div class="modal-dialog modal-lg">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header" style="display: table;">
-                                                            <h4 class="text-primary" style="font-weight: 600; display: table-cell; vertical-align: middle;">결재 서명 등록</h4>
-                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            
-                                                            <img src="" id="img01" src="" width="400" height="200" style="border: 1px solid black" hidden/>
-                                                            <div class="wrapper">
-                                                                <canvas id="signature-pad" class="signature-pad" width=400 height=200 style="border: 1px solid black"></canvas>
+    
+                                            <div class="col-xl-6">
+    
+                                                <!-- 결재서명 -->
+                                                <div class="row mb-4">
+                                                    <div class="col-12">
+                                                        <h5 class="f-w-500">결재 서명&emsp;&emsp;&emsp;:<span class="pull-right"></span>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-12"><span></span>
+                                                        
+                                                        <c:if test="${not empty employeeVO.sign_file}">
+                                                            <img src="${employeeVO.sign_file}" id="img01" src="" width="400" height="200" style="border: 1px solid black"/>
+
+                                                        </c:if>
+                                                    </div>
+                                                    <!-- 등록 -->
+                                                    <div class="col-0">
+                                                        <button type="submit" id="exampleModalBtn"class="btn btn-light btn-lg" data-toggle="modal" data-target=".bd-example1-modal-lg">등록</button>
+                                                    </div>
+                                                    <div class="modal fade bd-example1-modal-lg" id="exampleModalCenter" style="display: none;" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">결재 서명 등록</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <form:form action="./signSave" modelAttribute="employeeVO">
+
+                                                                    <div class="modal-body">
+                                                                        
+                                                                        
+                                                                        <!-- <form id="addForm" action="./sign" method="post"> -->
+                                                                            <!-- <form:input path="username" value="${employeeVO.username}" hidden="true"></form:input> -->
+                                                                            <form:input path="employee_num" value="${employeeVO.employee_num}" hidden="true"></form:input>
+                                                                            <form:input path="sign_file" id="sign_file" value="" hidden="true"></form:input>
+                                                                            <img src="" id="img01" src="" width="400" height="200" style="border: 1px solid black" hidden/>
+                                                                            <div class="wrapper">
+                                                                                <canvas id="signature-pad" class="signature-pad" width=400 height=200 style="border: 1px solid black"></canvas>
+                                                                            </div>
+                                                                            
+                                                                            
+                                                                            <!-- </form> -->
+                                                                            
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn" data-dismiss="modal" style="background-color: rgb(143, 96, 188); color: white;">취소</button>
+                                                                        <button type="button" id="clear" class="btn btn-secondary">지우기</button>
+                                                                        <button type="submit" id="save-png" class="btn btn-primary">등록</button>
+                                                                    </div>
+
+                                                                </form:form>
+
+
                                                             </div>
-
-                                                            <button id="save-png">Save</button>
-                                                            <button id="clear">Clear</button>
-
-
-
-                                                            
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">clear</button>
-                                                            <button type="button" class="btn btn-primary">send</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div> -->
-
-                                            <!--  -->
-                                            <div class="modal fade bd-example1-modal-lg" id="exampleModalCenter" style="display: none;" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Modal title</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"><span>×</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            
-                                                            <img src="" id="img01" src="" width="400" height="200" style="border: 1px solid black" hidden/>
-                                                            <div class="wrapper">
-                                                                <canvas id="signature-pad" class="signature-pad" width=400 height=200 style="border: 1px solid black"></canvas>
-                                                            </div>
-
-                                                            <button id="save-png">Save</button>
-                                                            <button id="clear">Clear</button>
-                                                        
-                                                        
-                                                        
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
+    
+    
                                             </div>
 
-                                        
-                                            
+                                        </div>
+										
 
-										</div>
+                                        
+										
 										
 									</div>
                                 </div>
-								<div class="text-center mb-2"><a href="javascript:void()" class="btn btn-primary">사원 정보 수정</a> </div>
+								<!-- <div class="text-center mb-2"><a href="javascript:void()" class="btn btn-primary" data-toggle="modal" data-target="#infoUpdate">사원 정보 수정</a> </div> -->
+
+                                <!-- 정보수정 -->
+                                <div class="text-center mb-2 btn btn-primary" data-toggle="modal" data-target="#infoUpdateModal">사원 정보 수정</div>
+                                
+                                
+                                <div class="modal fade" id="infoUpdateModal" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">개인정보수정</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form:form action="./infoUpdate" modelAttribute="employeeVO">
+
+                                                    <form:input path="employee_num" value="${employeeVO.employee_num}" hidden="true"></form:input>
+                                                    <form:input path="phone" id="phone" value="" hidden="true"></form:input>
+                                                    <form:input path="address" id="address" value="" hidden="true"></form:input>
+
+
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-4 col-form-label" for="val-password">닉네임</label>
+                                                        <div class="col-lg-6">
+                                                            <form:input path="nickname" cssClass="form-control input-rounded" id="nickname"></form:input>
+                                                        </div>
+                                                    </div>
+                                                    
+
+                                                    <div class="form-group">
+                                                        <label><strong>휴대전화번호</strong></label>
+            
+                                                        
+            
+            
+                                                            <div class="form-row ml-3">
+                                                                <div class="form-group row">
+                                                                    <select id="phoneStart" name="phoneStart"
+                                                                        class="form-control col-3">
+                                                                        <option selected="" value="">
+                                                                            -선택-</option>
+                                                                        <option value="010">010</option>
+                                                                        <option value="011">011</option>
+                                                                        <option value="016">016</option>
+                                                                        <option value="017">017</option>
+                                                                        <option value="018">018</option>
+                                                                        <option value="019">019</option>
+                                                                    </select>&emsp;-&emsp;
+                                                                    <input type="number"
+                                                                        class="form-control col-3"
+                                                                        name="phoneMiddle" id="phoneMiddle"
+                                                                        maxlength="4" minlength="4">
+                                                                    &emsp;-&emsp;
+                                                                    <input type="number"
+                                                                        class="form-control col-3"
+                                                                        name="phoneEnd" id="phoneEnd" maxlength="4" minlength="4">
+                                                                </div>
+                                                                <!-- <input type="text" id="phone" name="phone" style="display: none" value=""> -->
+                                                                <form:input path="phone" id="phone" cssClass="form-control" style="display: none" value=""></form:input>
+                                                            </div>
+                                                        
+                                                    </div>
+            
+                                                    <div class="form-group">
+                                                        <label><strong>주소</strong></label>
+                                                        <form:input path="address" id="address" cssClass="form-control col-6" style="display: none" value=""></form:input>
+                                                        
+                                                        
+                                                        <div class="form-row">
+                                                            <div class="col-sm-6">
+                                                                <input type="text" id="sample6_postcode" class="form-control" placeholder="우편번호" readonly>
+                                                            </div>
+                                                            <div class="col-sm-6 mt-2 mt-sm-0">
+                                                                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+                                                            </div>
+                                                        </div>
+                                                        <input type="text" id="sample6_address" class="form-control my-2" placeholder="주소" readonly>
+                                                        <div class="form-row">
+                                                            <div class="col-sm-6">
+                                                                <input type="text" id="sample6_detailAddress" class="form-control" placeholder="상세주소">
+                                                            </div>
+                                                            <div class="col-sm-6 mt-2 mt-sm-0">
+                                                                <input type="text" id="sample6_extraAddress" class="form-control" placeholder="참고항목" readonly>
+                                                            </div>
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary" id="infoUpdateBtn">Save</button>
+                                                    </div>
+                                                </form:form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
-                        </div>
                     
 					
 					
-					</div>
-
+					    </div>
+                    </div>
                 </div>
 
 
@@ -377,48 +515,6 @@
         
     </div>    
 
-    <script>
-        $( function() {
-          var canvas = document.getElementById('signature-pad');
-        
-           // 픽셀 비율을 고려하여 캔버스 좌표 공간을 조정합니다.
-           // 모바일 장치에서 선명하게 보이도록 합니다.
-           // 이것은 또한 캔버스가 지워지게 합니다.
-          function resizeCanvas() {
-              // 아주 이상한 이유로 100% 미만으로 축소하면,
-              // 일부 브라우저는 devicePixelRatio를 1 미만으로 보고합니다.
-              // 그러면 캔버스의 일부만 지워집니다.
-            var ratio =  Math.max(window.devicePixelRatio || 1, 1);
-            canvas.width = canvas.offsetWidth * ratio;
-            canvas.height = canvas.offsetHeight * ratio;
-            canvas.getContext("2d").scale(ratio, ratio);
-          }
-        
-          window.onresize = resizeCanvas;
-          resizeCanvas();
-        
-          var signaturePad = new SignaturePad(canvas, {
-            backgroundColor: 'rgb(255, 255, 255, 0)',
-            penColor: "rgb(1, 2, 3)"
-          });
-        
-          document.getElementById('save-png').addEventListener('click', function () {
-            if (signaturePad.isEmpty()) {
-              return alert("먼저 서명을 해주세요.");
-            }
-        
-            var data = signaturePad.toDataURL('image/png');
-             //console.log(data);
-            // window.open(data);
-            $("#img01").attr('src', data);
-          });
-        
-          document.getElementById('clear').addEventListener('click', function () {
-            signaturePad.clear();
-          });
-        
-        });
-        </script>
 
 
 	<c:import url="../temp/header.jsp"></c:import>
@@ -427,5 +523,9 @@
 	
 	<c:import url="../temp/footer.jsp"></c:import>
 	<c:import url="../temp/js.jsp"></c:import>
+
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="/bugclean/js/employee/mypage.js"></script>
 </body>
 </html>

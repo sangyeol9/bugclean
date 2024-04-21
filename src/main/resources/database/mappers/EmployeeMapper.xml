@@ -29,9 +29,9 @@
 		<result column="RETIRED_DATE" property="retired_date"/>
 		<result column="LEVEL_DATE" property="level_date"/>
 		<result column="STATE" property="state"/>
-		<result column="SIGN_FILE" property="sign_file"/>
 		<result column="PROFILE" property="profile"/>
 		<result column="PROFILE_NAME" property="profile_name"/>
+		<result column="SIGN_FILE" property="sign_file"/>
 		
 		<association property="departmentVO" javaType="DepartmentVO">
 			<id column="DEP_CODE" property="dep_code"/>
@@ -59,6 +59,23 @@
 	<update id="pwUpdate" parameterType="EmployeeVO">
 	    UPDATE EMPLOYEE SET PASSWORD=#{password}
 	    WHERE USERNAME=#{username}
+	</update>
+	
+	<update id="signSave" parameterType="EmployeeVO">
+		UPDATE EMPLOYEE SET SIGN_FILE = #{sign_file}
+		WHERE EMPLOYEE_NUM=#{employee_num}
+	</update>
+	
+	<update id="infoUpdate" parameterType="EmployeeVO">
+		UPDATE EMPLOYEE 
+		SET NICKNAME = #{nickname}, ADDRESS= #{address}, PHONE= #{phone}
+		WHERE EMPLOYEE_NUM=#{employee_num}
+	</update>
+	
+	<update id="profileUpdate" parameterType="EmployeeVO">
+		UPDATE EMPLOYEE 
+		SET PROFILE=#{profile}, PROFILE_NAME=#{profile_name}
+		WHERE EMPLOYEE_NUM=#{employee_num}
 	</update>
 	
 	
