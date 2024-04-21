@@ -15,6 +15,7 @@ import com.winter.app.carManage.CarDetailVO;
 import com.winter.app.customer.CustomerController;
 import com.winter.app.customer.CustomerVO;
 import com.winter.app.employee.EmployeeVO;
+import com.winter.app.util.pagination.Pagination;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,8 +30,9 @@ public class SiteSchController {
 	
 	@GetMapping("getList")
 	@ResponseBody
-	public List<SiteSchVO> getList(Model model) throws Exception {
-		List<SiteSchVO> ar = schService.getList();
+	public List<SiteSchVO> getList(Pagination pagination, Model model) throws Exception {
+		System.out.println("search ====== \n " + pagination);
+		List<SiteSchVO> ar = schService.getList(pagination);
 		
 		System.out.println("list = " + ar);
 		model.addAttribute("list",ar);
@@ -40,7 +42,8 @@ public class SiteSchController {
 	}
 	
 	@GetMapping("list")
-	public void list(Model model ) throws Exception{
+	public void list( Model model ) throws Exception{
+	
 		List<EmployeeVO> ar = schService.getSales();
 		List<EmployeeVO> ar_emp = schService.getSiter();
 		List<CustomerVO> list = schService.getCustomerList();
@@ -93,6 +96,15 @@ public class SiteSchController {
 		int result =0;
 		System.out.println("schVO Drag Event == " + schVO);
 		schService.updateSchDrag(schVO);
+		
+		return result;
+	}
+	
+	@PostMapping("carAllocation")
+	@ResponseBody
+	public int carAllocation(@RequestBody SiteSchVO schVO) throws Exception{
+		System.out.println("배차 정보 수정 schVO ===\n " + schVO);
+		int result = schService.updateManageCode(schVO);
 		
 		return result;
 	}

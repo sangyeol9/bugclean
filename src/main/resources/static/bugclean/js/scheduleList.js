@@ -3,10 +3,10 @@ let start_first;
 let span_start_time = document.getElementById("start_Time");
 let color;
 let textDeco;
-
+let allocationDiv = document.getElementById("allocationDiv");
 //event listner 한번만 걸기를 위한
 let create_fucn;
-
+let sch_Filter_Input = document.getElementById("sch_Filter_Input")
 //수정 등록 삭제 버튼
 let update_sch_btn = document.getElementById("update_sch_btn");
 let delete_sch_btn = document.getElementById("delete_sch_btn");
@@ -35,7 +35,7 @@ let sales_choice_value = document.getElementsByClassName("sales_choice_value");
 let salse_choice_base = document.getElementById("salse_choice_base");
 let site_choice_value = document.getElementsByClassName("site_choice_value");
 let site_choice_base = document.getElementById("site_choice_base")
-
+let car_choice = document.getElementsByClassName("car_choice");
 let base_selected = document.getElementsByClassName("base_selected");
 
 let input_carAllocation = document.getElementById("input_carAllocation");
@@ -85,7 +85,7 @@ function create_sch(date){
         .then(res=>{
             if(res>0){
                 alert("추가완료")
-                location.href="/schedule/list";
+                openWindow();
             }
         })
     }
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                 }).then(res=>res.json())
                 .then(res=>{
-                    location.reload();
+                    openWindow(); 
                 })
 
         },dateClick : function(info) {
@@ -165,7 +165,7 @@ function newModal(info){
     create_sch_btn.classList.remove("display_none");
     update_sch_btn.classList.add("display_none");
     delete_sch_btn.classList.add("display_none");
-
+    allocationDiv.classList.add("display_none");
 var modal = document.getElementById("myModal");
 var modalTitle = document.getElementById("modal-title"); // 모달 타이틀 엘리먼트
 
@@ -180,6 +180,9 @@ modalTitle.innerText="일정 등록";
             inputSales.value= "";
             inputSiteManager.value = "";
             inputTitle.value = "";
+            carSelectBase.value = "미정"
+            carSelectBase.innerHTML = '배차 정보';
+            input_carAllocation.value="미정";
             for(let i=0;i<base_selected.length;i++){
                 base_selected[i].selected = true;
             }
@@ -223,10 +226,14 @@ create_sch_btn.addEventListener("click",function(){
 
 */
 
+let sch_ID;
 // 이벤트 클릭시 
 function openModal(content,date,id) {
 carAllocation.selectedIndex=0; // 배차 셀렉트박스 선택 값 초기화
 
+
+
+    allocationDiv.classList.remove("display_none");
     create_sch_btn.classList.add("display_none");
     update_sch_btn.classList.remove("display_none");
     delete_sch_btn.classList.remove("display_none");
@@ -238,13 +245,18 @@ let modalContent = document.getElementById("modal-content");
 let start_Time_Date = document.getElementById("start_Time_Date");
 let end_Time_Date = document.getElementById("end_Time_Date");
 
-
-
+ function getCarNumber(askcar_code){
+   
+    }
+    
 let inputStart = document.getElementById("inputStart");
 modal.style.display = "block";
 modalTitle.innerText="일정 확인";
     //event id로 site pk 가져오는방법
-    let sch_ID = id.substring(id.lastIndexOf('-')+1,id.length);
+    sch_ID = id.substring(id.lastIndexOf('-')+1,id.length);
+
+    
+
 
         fetch("/schedule/getSchedule",{
             method : "POST",
@@ -265,6 +277,43 @@ modalTitle.innerText="일정 확인";
             inputSiteManager.value = res.employee_Num;
             inputTitle.value = res.business_Name;
             radioValue = res.site_Type;
+            schManageCode = res.manage_Code;
+            console.log(schManageCode)
+            if(schManageCode != null) {
+                    fetch("/carManage/getCarNumber",{
+                    method : "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                      },
+                    body : JSON.stringify({
+                        car_code : schManageCode
+                    
+                    })
+                }).then(res=>res.json())
+                .then(res => {
+                    console.log("res === = == = =" , res);
+                    
+                    
+                        let carSelectBase = document.getElementById("carSelectBase")
+                        carSelectBase.value = res.pro_num +" " +res.car_code;
+                        carSelectBase.innerHTML = res.pro_num;
+                        if(res.pro_status == 1){
+                            input_carAllocation.value = '배차 신청중';
+                        }else if(res.pro_status ==2){
+                            input_carAllocation.value = '배차 완료'
+                        }
+
+                })
+                }else{
+                    console.log("미정이")
+                    carSelectBase.value = "미정"
+                    carSelectBase.innerHTML = '배차 정보';
+                    input_carAllocation.value="미정";
+                }
+                
+            
+            
+
             for(let i=0;i<emp_choice_value.length;i++){
                 if(emp_choice_value[i].value == res.customer_Num ){
                     console.log("hiie")
@@ -324,7 +373,7 @@ modalTitle.innerText="일정 확인";
                 .then(res=>res.json())
                 .then(res=>{
                     console.log("res update fetch === ", res);
-                    location.reload();
+                    openWindow(); 
             })
         })
 
@@ -343,7 +392,7 @@ modalTitle.innerText="일정 확인";
             .then(res=>{
                 if(res>0){
                     alert("일정이 취소되었습니다." +  res);
-                    location.reload();
+                    openWindow(); 
                 }else{
                     alert("일정 취소에 실패했습니다.");
                 }
@@ -385,9 +434,16 @@ calendar.unselect();
 
 
 
+
 // 배차 요청 셀렉트박스
 let carAllocation = document.getElementById("carAllocation");
-function changeSelect(){
+    carAllocation.addEventListener("change",function(){
+        console.log("현장 아이디 확인  ==== " , sch_ID);
+        changeSelect(sch_ID);
+    })
+
+let car_manageCode;
+function changeSelect(sch_ID){
     let car_temp = carAllocation.value.substring(0,7);
     let car_number = carAllocation.value.substr(7);
     if(car_temp.value != ""){
@@ -408,23 +464,55 @@ function changeSelect(){
                     car_code: car_number,
                     employee_num: inputSelect_emp.value,
                     booking_start : start_Time.innerHTML +" "+ inputStart.value,
-                    booking_done :start_Time.innerHTML +" "+ inputEnd.value
+                    booking_done :start_Time.innerHTML +" "+ inputEnd.value,
                 })
             })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
+                console.log("car_manage 배차 요청 ===",res);
+                car_manageCode = res.manage_code
+                fetch("/schedule/carAllocation",{
+                    method : "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                      },
+                    body : JSON.stringify({
+                        site_Num : sch_ID,
+                        manage_Code : car_manageCode
+                    })
+                }).then(res=>res.json())
+                .then(res => {
+                    console.log("sch 배차 정보 상태 갱신 === ",res);
+                })
+
+
             })
+
+           
 
         }
     }
 
 }
 
+//필터값 변경
+function filter_name(e) {
+    if(e.keyCode == 13){
+        console.log("enter 입력");
+        openWindow(sch_Filter_Input.value);
+    }
+}
 
 // 페이지 로드 시 db에서 값 받아오기
-window.addEventListener("load",function(){
-    fetch("/schedule/getList",{
+function openWindow(e){
+    let param
+    console.log("e === == " , e);
+    param = e;
+    if(e == null || e =='undefined'){
+        param  = "";
+        console.log("null or undef")
+    } 
+    fetch("/schedule/getList?search="+param,{
         method : "GET"
     })
     .then(res => res.json())
@@ -469,5 +557,9 @@ window.addEventListener("load",function(){
                   })
             });
     })
+}
+
+window.addEventListener("load",function(){
+    openWindow();    
 
 })

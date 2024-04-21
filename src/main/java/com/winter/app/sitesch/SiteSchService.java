@@ -9,6 +9,7 @@ import com.winter.app.carManage.CarDetailVO;
 import com.winter.app.carManage.CarManageDAO;
 import com.winter.app.customer.CustomerVO;
 import com.winter.app.employee.EmployeeVO;
+import com.winter.app.util.pagination.Pagination;
 
 @Service
 public class SiteSchService {
@@ -17,8 +18,8 @@ public class SiteSchService {
 	@Autowired
 	private CarManageDAO carManageDAO;
 	
-	public List<SiteSchVO> getList() throws Exception{
-		return schDAO.getList();
+	public List<SiteSchVO> getList(Pagination pagination) throws Exception{
+		return schDAO.getList(pagination);
 	}
 	public int createSch(SiteSchVO schVO) throws Exception{
 		CustomerVO customerVO = new CustomerVO();
@@ -74,6 +75,11 @@ public class SiteSchService {
 	public int updateSchDrag(SiteSchVO schVO) throws Exception{
 		return schDAO.updateSchDrag(schVO);
 		
+	}
+	
+	
+	public int updateManageCode(SiteSchVO schVO) throws Exception{
+		return schDAO.updateManageCode(schVO);
 	}
 	
 }
