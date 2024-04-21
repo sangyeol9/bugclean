@@ -52,5 +52,6 @@
 							</c:forEach>
 						</tr>
 					</table>
+					
 <script src="/bugclean/js/draft/basisdraftmodal.js"></script>
 	

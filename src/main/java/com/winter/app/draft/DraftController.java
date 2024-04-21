@@ -52,7 +52,7 @@ public class DraftController {
 	}
 	
 	@PostMapping("getapprovalline")
-	public String getApprovalLine(String [] dep, String [] name, String [] code, Map<String, Object> map, Model model, HttpSession session)throws Exception {
+	public String getApprovalLine(String [] dep, String [] name, String [] orgCode, String [] refCode, Map<String, Object> map, Model model, HttpSession session)throws Exception {
 		
 		model.addAttribute("aplvdep", dep);
 		model.addAttribute("aplvname", name);
@@ -75,7 +75,7 @@ public class DraftController {
 		 model.addAttribute("CEO", employeeVO);		 
 
 //		 draftService.setApprovalLine(code, empMap);
-		List<Map<String, Object>> ALar = draftService.setApprovalLine(code, empMap);
+		List<Map<String, Object>> ALar = draftService.setApprovalLine(orgCode, empMap);
 		model.addAttribute("approvalMap", ALar);
 
 		 

@@ -152,7 +152,7 @@
 						</tr>
 						<tr>
 							<td class="basisTitleTd">참조</td>
-							<td class="basisTd"><input class="inp" type="text" disabled></td>
+							<td class="basisTd"><input id="refInp" class="inp" type="text" disabled></td>
 						</tr>
 						<tr style="height: 300px;">
 							<td class="basisTitleTd">내용</td>
@@ -303,7 +303,8 @@
 																	style="display: inline-block;"></i>
 																<h6 style="display: inline-block;" class="orgAll"
 																	data-emp-num="${list.EMPLOYEE_NUM}"
-																	data-dep-name="${list.DEP_NAME}">${list.DEP_NAME}
+																	data-dep-name="${list.DEP_NAME}"
+																	data-pp-name="${list.NAME }">${list.DEP_NAME}
 																	${list.POS_NAME} ${list.NAME}</h6>
 															</div>
 														</c:if>

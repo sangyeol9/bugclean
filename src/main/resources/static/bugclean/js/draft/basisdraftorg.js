@@ -208,6 +208,7 @@ refPlusBtn.addEventListener(
         modalCreateBtn.addEventListener("click",function(){
             modalBack.classList.add("noshow")
             modal.classList.add("noshow")
+
             //draftBoxTd
             let draftBoxTdAr = draftBoxTd.children
             let orgArrDep= [draftBoxTdAr.length];
@@ -222,10 +223,21 @@ refPlusBtn.addEventListener(
             }
             console.log("dep : "+ orgArrDep)
             console.log("name : "+ orgArrName)
+            let refInp = document.getElementById("refInp")
+
             //refBoxTd
             let refBoxTdAr = refBoxTd.children;
+            let refBoxTdArCode = [refBoxTdAr.length]
+            let refBoxTdName = [refBoxTdAr.length];
             for(let i=0; i<refBoxTdAr.length;i++){
-                console.log(refBoxTdAr[i].lastElementChild.getAttribute("data-emp-num"))
+                console.log("=================================")
+                console.log("refBoxTdArName : " + refBoxTdAr[i].lastElementChild.getAttribute("data-pp-name"));
+                console.log("refCode : "+refBoxTdAr[i].lastElementChild.getAttribute("data-emp-num"));
+                refBoxTdArCode[i] = refBoxTdAr[i].lastElementChild.getAttribute("data-emp-num");
+                refBoxTdName[i] = refBoxTdAr[i].lastElementChild.getAttribute("data-pp-name");
+                console.log("refName : "+refBoxTdName[i])
+                refInp.value += refBoxTdName[i]+",";
+
             }
 
           fetch("/draft/getapprovalline",{
@@ -233,7 +245,7 @@ refPlusBtn.addEventListener(
             headers:{
             "Content-type":"application/x-www-form-urlencoded"
         },
-        body:"dep="+orgArrDep+"&name="+orgArrName+"&code="+empNum
+        body:"dep="+orgArrDep+"&name="+orgArrName+"&orgCode="+empNum+"&refCode="+refBoxTdArCode
           })
           .then(Response=>Response.text())
           .then(res=>{

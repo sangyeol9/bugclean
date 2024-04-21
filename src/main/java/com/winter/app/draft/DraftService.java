@@ -24,7 +24,7 @@ public class DraftService {
 	}
 	
 
-	public List<Map<String, Object>> setApprovalLine(String [] code, Map<String, Object> empMap )throws Exception{
+	public List<Map<String, Object>> setApprovalLine(String [] orgCode, Map<String, Object> empMap )throws Exception{
 
 		ApprovalLineVO approvalLineVO = new ApprovalLineVO();
 		approvalLineVO = draftDAO.getApprovalMaxNum();
@@ -38,11 +38,11 @@ public class DraftService {
 			approvalLineVO2.setLine_rank(0L);
 
 			draftDAO.setApprovalLine(approvalLineVO2);
-			for(int i=0; i<code.length;i++) {
+			for(int i=0; i<orgCode.length;i++) {
 				approvalLineVO2.setApproval_line_code(1L);
 				System.out.println("value Null ===========");
-				System.out.println("code : "+ code[i]);
-				approvalLineVO2.setEmployee_num(code[i]);
+				System.out.println("code : "+ orgCode[i]);
+				approvalLineVO2.setEmployee_num(orgCode[i]);
 				approvalLineVO2.setLine_rank(Long.valueOf(i+1));
 				draftDAO.setApprovalLine(approvalLineVO2);
 			}
@@ -53,11 +53,11 @@ public class DraftService {
 			approvalLineVO.setLine_rank(0L);
 
 			draftDAO.setApprovalLine(approvalLineVO);
-			for(int i=0; i<code.length;i++) {
+			for(int i=0; i<orgCode.length;i++) {
 				approvalLineVO.setApproval_line_code(approvalLineVO.getApproval_line_code());
 				System.out.println("value Not Null ===========");
-				System.out.println("code : "+ code[i]);
-				approvalLineVO.setEmployee_num(code[i]);
+				System.out.println("code : "+ orgCode[i]);
+				approvalLineVO.setEmployee_num(orgCode[i]);
 				approvalLineVO.setLine_rank(Long.valueOf(i+1));
 				draftDAO.setApprovalLine(approvalLineVO);
 			}
@@ -94,6 +94,7 @@ public class DraftService {
 		draftVO.setDraft_date(Date.valueOf(localDate.now()));
 		return draftVO;
 	}
+	
 	
 	public List<DepartmentVO> getDepartmentList()throws Exception{
 		return draftDAO.getDepartmentList();
