@@ -82,6 +82,22 @@ public class DraftController {
 		return "ajax/approvalline";
 	}
 	
+	@PostMapping("getaplist")
+	public String getAPList(String [] empCode, Model model)throws Exception{
+		EmployeeVO employeeVO = new EmployeeVO();
+		employeeVO.setEmployee_num("2024001");
+		Map<String, Object> empMap = draftService.getEmployeeDetail(employeeVO);
+		System.out.println("empMap@@@@@@@@@@@@@@@ : "+empMap.toString());
+		model.addAttribute("empMap", empMap);
+
+		 for(int i=0; i<empCode.length;i++) {
+			System.out.println("empCode : "+empCode[i]); 
+		 }
+//		draftService.setApprovalLine(empCode, empMap);
+		 return "ajax/approvalline";
+		
+	}
+	
 	
 	
 	@GetMapping("draftLine")

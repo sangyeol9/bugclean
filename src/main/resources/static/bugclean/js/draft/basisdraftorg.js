@@ -275,4 +275,28 @@ refPlusBtn.addEventListener(
           })
 
         })
+
+        let approvalBtn = document.getElementById("approvalBtn");
+
+        approvalBtn.addEventListener("click", function(){
+            let approvalValue = draftBoxTd.children;
+            let empCode = [draftBoxTd.children];
+
+            for(let i = 0; i<approvalValue.length; i++){
+                 empCode[i] = approvalValue[i].lastElementChild.getAttribute("data-emp-num");
+                 console.log("approvalCode : " +empCode[i])
+            }
+            fetch("/draft/getaplist",{
+                method :'POST',
+                headers:{
+                "Content-type":"application/x-www-form-urlencoded"
+            },
+            body:"empCode="+empCode
+            })
+            .then(res=>res.text())
+            .then(res=>{
+                console.log(res);
+            })
+
+        })
         
