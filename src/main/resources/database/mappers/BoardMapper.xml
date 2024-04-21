@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.winter.app.board.BoardDAO">
+    <select id="getCateList" resultType="BoardCateVO">
+      SELECT * FROM BOARD_CATEGORY
+    </select>
+
+  <select id="getBoardList" resultType="Map" parameterType="Pagination">
+    SELECT TO_CHAR(BOARD_CODE, '999,999,999,999') AS "BOARD_CODE",
+    NAME,
+    BOARD_TITLE,
+    TO_CHAR(BOARD_DATE, 'YY-MM-DD HH24:MI') AS "BOARD_DATE",
+    TO_CHAR(BOARD_HIT, '999,999,999,999') AS "BOARD_HIT"
+    FROM BOARD
+    JOIN EMPLOYEE USING (EMPLOYEE_NUM)
+    WHERE CATE_CODE = #{code}
+    AND BOARD_STATUS = 1
+    <if test="kind == 1">
+      AND BOARD_TITLE LIKE '%' || #{search} || '%'
+    </if>
+    <if test="kind == 2">
+      AND NAME LIKE '%' || #{search} || '%'
+    </if>
+    ORDER BY BOARD_CODE DESC
+  </select>
+
+ 	
+  </mapper>

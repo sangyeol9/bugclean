@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -15,12 +17,20 @@
 
         .table-hover thead th:nth-child(2),
         .table-hover tbody td:nth-child(2) {
-            width: 50%;
+            width: 45%;
         }
 
         .table-hover thead th:nth-child(1),
-        .table-hover tbody td:nth-child(1) {
-            width: 10%;
+        .table-hover thead th:nth-child(5),
+        .table-hover tbody td:nth-child(1),
+        .table-hover tbody td:nth-child(5) {
+            width: 7%;
+        }
+
+
+        .table-hover thead th:nth-child(4),
+        .table-hover tbody td:nth-child(4) {
+            width: 25%;
         }
 
         .d-flex {
@@ -53,15 +63,25 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4 style="font-weight: bolder;">&ensp;공지사항</h4>
+                        <c:forEach var="index" begin="0" end="${fn:length(sessionScope.name) - 1}" varStatus="loop">
+                            <c:if test="${active == sessionScope.code[index]}">
+                                <h4 id="page-title" style="font-weight: bolder;">&ensp;${sessionScope.name[index]}</h4>
+                            </c:if>
+                        </c:forEach>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item">게시판</li>
-                        <li class="breadcrumb-item"><a href="http://localhost/notice/list">공지사항</a></li>
-                        <li class="breadcrumb-item active">글목록</li>
+                        <c:forEach var="index" begin="0" end="${fn:length(sessionScope.name) - 1}" varStatus="loop">
+                            <c:if test="${active == sessionScope.code[index]}">
+                                <li class="breadcrumb-item">
+                                    <a id="title-a"
+                                       href="http://localhost/board?code=${sessionScope.code[index]}">${sessionScope.name[index]}</a>
+                                </li>
+                            </c:if>
+                        </c:forEach>
                     </ol>
                 </div>
             </div>
@@ -71,24 +91,25 @@
                         <div class="card-body">
                             <div class="default-tab">
                                 <ul id="board-tabs" class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#list-1" }>공지사항</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#list-2">자유게시판</a>
-                                    </li>
+                                    <c:forEach var="index" begin="0" end="${fn:length(name) - 1}" varStatus="loop">
+                                        <li class="nav-item">
+                                            <a class="nav-link${active == code[index] ? ' active' : ''}"
+                                               data-toggle="tab" data-source="${code[index]}"
+                                               href="#list-${code[index]}">${name[index]}</a>
+                                        </li>
+                                    </c:forEach>
                                     <div class="col-auto d-flex justify-content-end ml-auto">
                                         <div class="input-group input-group-sm">
                                             <div class="input-group-prepend">
-                                                <select style="font-size: 12px; border-color: #eaeaea">
-                                                    <option>제목</option>
-                                                    <option>작성자</option>
+                                                <select id="kind" style="font-size: 12px; border-color: #eaeaea">
+                                                    <option value="1">제목</option>
+                                                    <option value="2">작성자</option>
                                                 </select>
                                             </div>
-                                            <input type="text" class="form-control"
+                                            <input id="search" type="text" class="form-control"
                                                    style="width: 50%; border-color: #eaeaea"/>
                                             <div class="input-group-append">
-                                                <button class="btn btn-primary">검색</button>
+                                                <button id="search-btn" class="btn btn-primary">검색</button>
                                             </div>
                                         </div>
                                     </div>
@@ -117,6 +138,9 @@
                                                         </th>
                                                     </tr>
                                                     </thead>
+                                                    <tbody class="board-body">
+
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -144,6 +168,9 @@
                                                         </th>
                                                     </tr>
                                                     </thead>
+                                                    <tbody>
+
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -160,7 +187,7 @@
                                                 <i class="icon-arrow-left"></i>
                                             </a>
                                         </li>
-                                        <li class="page-item">
+                                        <li class="page-item active">
                                             <a class="page-link">1</a>
                                         </li>
                                         <li class="page-item">
@@ -192,7 +219,7 @@
             </div>
         </div>
     </div>
-    <c:import url="../temp/messenger.jsp"></c:import>
+    <%--    <c:import url="../temp/messenger.jsp"></c:import>--%>
 </div>
 
 </div>
