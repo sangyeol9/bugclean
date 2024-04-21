@@ -11,5 +11,8 @@ public interface BoardDAO {
 
     public List<BoardCateVO> getCateList() throws Exception;
     public List<Map<String, Object>> getBoardList(Pagination pagination) throws Exception;
-
+    public Long getTotalCount(Pagination pagination) throws Exception;
+    public int addBoard(BoardVO boardVO)throws Exception;
+    public int addFile(BoardFileVO fileVO)throws Exception;
+    public Long getSeq();
 }

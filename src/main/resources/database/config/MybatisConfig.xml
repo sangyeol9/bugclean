@@ -28,6 +28,7 @@
 		<typeAlias type="com.winter.app.board.BoardCateVO" alias="BoardCateVO"/>
 		<typeAlias type="com.winter.app.board.BoardVO" alias="BoardVO"/>
 		<typeAlias type="com.winter.app.util.pagination.Pagination" alias="Pagination"/>
+		<typeAlias type="com.winter.app.board.BoardFileVO" alias="BoardFileVO"/>
 
   	</typeAliases>
   </configuration>
