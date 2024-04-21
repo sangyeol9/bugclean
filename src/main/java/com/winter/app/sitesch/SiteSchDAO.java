@@ -6,12 +6,13 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.winter.app.customer.CustomerVO;
 import com.winter.app.employee.EmployeeVO;
+import com.winter.app.util.pagination.Pagination;
 
 @Mapper
 public interface SiteSchDAO {
 
 	
-	List<SiteSchVO> getList() throws Exception;
+	List<SiteSchVO> getList(Pagination pagination) throws Exception;
 	
 	int createSch(SiteSchVO schVO) throws Exception;
 	
@@ -32,4 +33,6 @@ public interface SiteSchDAO {
 	SiteSchVO getSchedule(SiteSchVO schVO) throws Exception;
 	
 	int updateSchDrag(SiteSchVO schVO) throws Exception;
+	
+	int updateManageCode(SiteSchVO schVO) throws Exception;
 }

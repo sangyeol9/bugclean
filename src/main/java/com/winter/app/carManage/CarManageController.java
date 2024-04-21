@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.winter.app.sitesch.SiteSchVO;
+
 import lombok.extern.slf4j.Slf4j;
 
 @RequestMapping("/carManage")
@@ -20,12 +22,24 @@ public class CarManageController {
 	
 	@PostMapping("carAllocation")
 	@ResponseBody
-	public int carAllocation (@RequestBody CarManageVO carManageVO) throws Exception{
-		int result = carManageService.carAllocation(carManageVO);
+	public CarManageVO carAllocation (@RequestBody CarManageVO carManageVO) throws Exception{
+		carManageVO = carManageService.carAllocation(carManageVO);
 		System.out.println("========= carVO \n" + carManageVO);
 		
 		
-		return 1;
+		return carManageVO;
 	}
+	
+	@PostMapping("getCarNumber")
+	@ResponseBody
+	public CarDetailVO postMethodName(@RequestBody CarDetailVO carDetailVO) throws Exception {
+		System.out.println("carDetailVo ============ \n " + carDetailVO);
+		
+		carDetailVO = carManageService.getCarNumber(carDetailVO);
+		System.out.println("carDetailVo ============ \n " + carDetailVO);
+
+		return carDetailVO;
+	}
+	
 	
 }

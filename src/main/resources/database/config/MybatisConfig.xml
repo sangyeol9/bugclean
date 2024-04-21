@@ -25,6 +25,6 @@
 		<typeAlias type="com.winter.app.draft.ApprovalLineVO" alias="ApprovalLineVO"/>
 		<typeAlias type="com.winter.app.carManage.CarDetailVO" alias="CarDetailVO"/>
 		<typeAlias type="com.winter.app.carManage.CarManageVO" alias="CarManageVO"/>
-
+		<typeAlias type="com.winter.app.util.pagination.Pagination" alias="Pagination" />
   	</typeAliases>
   </configuration>
