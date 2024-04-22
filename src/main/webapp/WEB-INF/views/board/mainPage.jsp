@@ -38,6 +38,7 @@
             align-items: start;
             padding-right: 0 !important;
         }
+
     </style>
 </head>
 <c:import url="../temp/css.jsp"></c:import> <!-- //bootstrap-template-css -->

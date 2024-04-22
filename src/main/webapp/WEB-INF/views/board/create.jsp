@@ -2,6 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <div class="row">
@@ -18,10 +19,14 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- 작성자 표기 -->
                     <div class="col-6 d-flex align-items-center justify-content-center">
-                        <h5 class="col-3 m-0">작성자</h5>
+                        <sec:authorize access="isAuthenticated()">
+                            <sec:authentication property="principal" var="employeeVO"/>
+                            <h5 class="col-3 m-0">${employeeVO.name}</h5>
+                            <input type="hidden" id="employee_num" value=${employeeVO.employee_num}/>
+                        </sec:authorize>
+                        <h5 class="col-3 m-0">비로그인</h5>
                         <input type="hidden" id="employee_num" value="2022001"/>
                     </div>
                 </div>

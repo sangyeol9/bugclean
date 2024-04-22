@@ -48,14 +48,13 @@ const pageLoad = async () => {
             $('#search').val("");
             const code = $(this).attr('data-source');
             console.log(code)
-            $('#page-title').attr('data-target',code);
+            $('#page-title').attr('data-target', code);
             fetchAndDisplayBoard(code, 1);
         }
     });
 
 
-
-    $('#creat-board').on('click',function (){
+    $('#creat-board').on('click', function () {
         createBoard();
     })
 };
@@ -79,7 +78,7 @@ const fetchAndDisplayBoard = (code, page, search = '', kind = '') => {
             }
 
             data.boardList.forEach(item => {
-                const { BOARD_CODE, BOARD_TITLE, NAME, BOARD_DATE, BOARD_HIT } = item;
+                const {BOARD_CODE, BOARD_TITLE, NAME, BOARD_DATE, BOARD_HIT} = item;
                 const newRow = `
                     <tr>
                         <td>${BOARD_CODE}</td>
@@ -104,13 +103,13 @@ const createPager = (pagination, code, search, kind) => {
     const paginationList = $('.pagination');
     paginationList.empty();
 
-    paginationList.append(`<li class="page-item page-indicator ${pagination.startNum<=1 ? 'disabled' : ''}"><a class="page-link" onclick="moveToPage(${pagination.startNum-1}, '${code}', '${search}', '${kind}')"><i class="icon-arrow-left"></i></a></li>`);
+    paginationList.append(`<li class="page-item page-indicator ${pagination.startNum <= 1 ? 'disabled' : ''}"><a class="page-link" onclick="moveToPage(${pagination.startNum - 1}, '${code}', '${search}', '${kind}')"><i class="icon-arrow-left"></i></a></li>`);
 
     for (let i = pagination.startNum; i <= pagination.lastNum; i++) {
         paginationList.append(`<li class="page-item ${i === pagination.page ? 'active' : ''}"><a class="page-link" onclick="moveToPage(${i}, '${code}', '${search}', '${kind}')">${i}</a></li>`);
     }
 
-    paginationList.append(`<li class="page-item page-indicator ${pagination.lastNum>=pagination.totalPage ? 'disabled' : ''}"><a class="page-link" onclick="moveToPage(${pagination.lastNum+1}, '${code}', '${search}', '${kind}')"><i class="icon-arrow-right"></i></a></li>`);
+    paginationList.append(`<li class="page-item page-indicator ${pagination.lastNum >= pagination.totalPage ? 'disabled' : ''}"><a class="page-link" onclick="moveToPage(${pagination.lastNum + 1}, '${code}', '${search}', '${kind}')"><i class="icon-arrow-right"></i></a></li>`);
 };
 
 // 페이지 이동 함수
@@ -134,18 +133,37 @@ const createBoard = async () => {
         }
     });
     // 일반 에디터 설정
+    let browserMaxHeight = window.innerHeight;
+    $(window).on('resize', function () {
+        browserMaxHeight = window.innerHeight;
+        $('#summernote').summernote('option', 'maxHeight', browserMaxHeight);
+    });
     $(".summernote").summernote({
-        height: 600,     // 에디터의 높이
-        minHeight: 600, // 최소 높이 (null로 설정하면 제한 없음)
-        maxHeight: 900, // 최대 높이 (null로 설정하면 제한 없음)
-        focus: true     // 에디터 로드 후 포커스 여부
+        height: browserMaxHeight - 100 > 600 ? 600 : 350,       // 에디터의 높이
+        minHeight: 350, // 최소 높이 (null로 설정하면 제한 없음)
+        maxHeight: browserMaxHeight - 100, // 최대 높이 (null로 설정하면 제한 없음)
+        focus: true,     // 에디터 로드 후 포커스 여부
+        toolbar: [
+            // [groupName, [list of button]]
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+            ['color', ['forecolor', 'color']],
+            ['table', ['table']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['insert', ['picture', 'link', 'table']],
+            ['view', ['fullscreen', 'help']]
+        ],
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체'],
+        fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72']
     });
 
     let attachmentCounter = $('#attachment-group .input-group').length;
     const maxAttachments = 3;
 
 // 플러스 버튼 클릭 이벤트
-    $('#attachment-group').on('click', '.plus-file', function() {
+    $('#attachment-group').on('click', '.plus-file', function () {
         if (attachmentCounter < maxAttachments) {
             attachmentCounter++;
             let newAttachmentId = 'attachment-' + attachmentCounter;
@@ -171,13 +189,13 @@ const createBoard = async () => {
     });
 
 // 파일 선택 시 라벨 변경 이벤트
-    $('#attachment-group').on('change', '.custom-file-input', function() {
+    $('#attachment-group').on('change', '.custom-file-input', function () {
         let fileName = $(this).val().split('\\').pop();
         $(this).next('.custom-file-label').html(fileName);
     });
 
 // 마이너스 버튼 클릭 이벤트
-    $('#attachment-group').on('click', '.minus-file', function() {
+    $('#attachment-group').on('click', '.minus-file', function () {
         $(`#${$(this).data('target')}`).remove();
         attachmentCounter--;
 
@@ -203,14 +221,14 @@ const createBoard = async () => {
 // 페이지 로드시 버튼 초기화
     updateButtonStatus();
 
-    $('#close-btn').on('click',function (){
+    $('#close-btn').on('click', function () {
         pageLoad()
     });
 
     $('#save-btn').on('click', async (e) => {
         e.preventDefault(); // 기본 동작 방지
         let new_cate_code = $('#page-title').attr("data-target");
-        if(new_cate_code===undefined){
+        if (new_cate_code === undefined) {
             new_cate_code = $('.nav-item .active').attr("data-source");
         }
         console.log(new_cate_code)
@@ -261,8 +279,7 @@ const createBoard = async () => {
 }
 
 // 페이지 로드 시 초기 데이터 로드
-$(document).ready(async function() {
+$(document).ready(async function () {
     await pageLoad();
-
 
 });
