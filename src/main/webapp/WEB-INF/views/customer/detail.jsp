@@ -123,7 +123,11 @@
 				<!-- 개인 출력 끝 -->
 
 				<!-- 삭제버튼 -->
-				<button class="btn-rounded btn-dark create">삭제하기</button>
+				<a href="/customer/list">
+					<button type="button" class="btn btn-secondary create">돌아가기</button>
+				</a>
+
+				<button class="btn btn-warning create">삭제하기</button>
 
 			</form>
 
