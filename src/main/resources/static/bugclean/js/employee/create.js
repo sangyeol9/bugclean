@@ -99,7 +99,7 @@ submit.addEventListener("click",function(){
 	//alert(phone.value);
 	//주소 sample6_address+sample6_detailAddress
 	if(sample6_address.value != ""&&sample6_detailAddress.value != ""){
-		address.setAttribute("value",sample6_address.value+" "+sample6_detailAddress);
+		address.setAttribute("value",sample6_address.value+" "+sample6_detailAddress.value);
 	}
 	//alert(address.value);
 

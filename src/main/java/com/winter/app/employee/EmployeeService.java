@@ -1,7 +1,9 @@
 package com.winter.app.employee;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,6 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.winter.app.util.commons.FileManager;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -23,13 +28,16 @@ public class EmployeeService implements UserDetailsService{
 	@Autowired
 	private EmployeeDAO employeeDAO;
 	@Autowired
+	private FileManager fileManager;
+	@Value("${app.upload.profile}")
+	private String uploadPath;
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private JavaMailSender javaMailSender;
 	private static final String senderEmail= "arark057@gmail.com";
     private static int number;
 
-	
     //--------------------가입
 	//아이디 중복, 비번 일치 여부
 	public boolean checkEmployee(EmployeeVO employeeVO, BindingResult bindingResult) throws Exception{
@@ -104,6 +112,7 @@ public class EmployeeService implements UserDetailsService{
     	return result;
     }
     
+    //--------------------개인정보수정
     //비번 일치 여부
     public boolean checkPw(EmployeeVO employeeVO, BindingResult bindingResult) throws Exception{
     	boolean check= false;
@@ -113,7 +122,8 @@ public class EmployeeService implements UserDetailsService{
     	//현재비번 일치
     	EmployeeVO current = employeeDAO.getDetail(employeeVO);
     	
-    	if(!employeeVO.getPassword().equals(current.getPassword())) {
+    	//passwordEncoder.matches(employeeVO.getPassword(),current.getPassword())
+    	if(!passwordEncoder.matches(employeeVO.getPassword(),current.getPassword())) {
     		check=true;
     		bindingResult.rejectValue("password", "employeeVO.password.update");
     	}
@@ -125,6 +135,7 @@ public class EmployeeService implements UserDetailsService{
     	
     	return check;
     }
+    
     //비번변경
     public int pwUpdate(EmployeeVO employeeVO) {
     	
@@ -133,6 +144,56 @@ public class EmployeeService implements UserDetailsService{
     	
     	return result;
     }
+    
+    //서명변경
+    public int signSave(EmployeeVO employeeVO) {
+    	int result = employeeDAO.signSave(employeeVO);
+    	
+		return result;
+	}
+    //개인정보변경
+    public int infoUpdate(EmployeeVO employeeVO) {
+    	int result = employeeDAO.infoUpdate(employeeVO);
+    	
+		return result;
+	}
+    
+    //프로필변경
+    public int profileUpdate(EmployeeVO employeeVO, MultipartFile file) throws Exception {
+    	
+    	
+    	int result=0;
+    	//session 변경
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails= (UserDetails)principal;
+		EmployeeVO emVO = (EmployeeVO)userDetails;
+    	
+		if(file.isEmpty()) {
+			employeeVO.setProfile(null);
+			employeeVO.setProfile_name(null);
+			
+			emVO.setProfile(null);
+			emVO.setProfile_name(null);
+			
+			result = employeeDAO.profileUpdate(employeeVO);
+			
+			return result;
+		}
+		
+		String fileName = fileManager.fileSave(uploadPath, file);
+
+		employeeVO.setProfile(fileName);
+		employeeVO.setProfile_name(file.getOriginalFilename());
+		
+		
+		emVO.setProfile(employeeVO.getProfile());
+		emVO.setProfile_name(employeeVO.getProfile_name());
+		
+		result = employeeDAO.profileUpdate(employeeVO);
+
+		return result;
+	}
+    
     
     
     //UserDetailService
@@ -153,6 +214,10 @@ public class EmployeeService implements UserDetailsService{
  
     	return employeeVO;
     }
+	
+	
+	
+	
     
 	
 		
