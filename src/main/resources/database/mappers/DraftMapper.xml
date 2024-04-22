@@ -5,66 +5,95 @@
 <mapper namespace="com.winter.app.draft.DraftDAO">
 
 	<select id="getBasisDraft" resultType="Map">
-		SELECT emp.*, dep.*, rnr.*, pos.* FROM EMPLOYEE emp
+		SELECT emp.*, dep.*,
+		rnr.*, pos.* FROM EMPLOYEE emp
 		left join DEPARTMENT dep
-		on emp.DEP_CODE = dep.DEP_CODE
+		on emp.DEP_CODE
+		= dep.DEP_CODE
 		left JOIN RNR rnr
 		ON emp.RNR_CODE = rnr.RNR_CODE
-		LEFT JOIN "POSITION" pos
+		LEFT JOIN
+		"POSITION" pos
 		ON emp.POS_CODE = pos.POS_CODE
 	</select>
 
 	<select id="getDepartmentList" resultType="DepartmentVO">
-		SELECT * FROM DEPARTMENT
+		SELECT * FROM
+		DEPARTMENT
 		WHERE DEP_CODE LIKE '___'
 	</select>
 
 	<select id="getDraftMaxDocNum" resultType="DraftVO">
-		SELECT MAX(DRAFT_NUM) AS draft_num FROM DRAFT
+		SELECT MAX(DRAFT_NUM)
+		AS draft_num FROM DRAFT
 	</select>
 
 	<select id="getDepartmentHighList" resultType="DepartmentVO">
-		SELECT * FROM DEPARTMENT
+		SELECT * FROM
+		DEPARTMENT
 		WHERE DEP_CODE LIKE '__'
 	</select>
 
 	<select id="getEmployeeDetail" parameterType="EmployeeVO"
 		resultType="Map">
-			SELECT emp.*, dep.*, rnr.*, pos.* FROM EMPLOYEE emp
-		left join DEPARTMENT dep
+		SELECT emp.*, dep.*, rnr.*, pos.* FROM EMPLOYEE emp
+		left
+		join DEPARTMENT dep
 		on emp.DEP_CODE = dep.DEP_CODE
 		left JOIN RNR rnr
-		ON emp.RNR_CODE = rnr.RNR_CODE
+		ON
+		emp.RNR_CODE =
+		rnr.RNR_CODE
 		LEFT JOIN "POSITION" pos
-		ON emp.POS_CODE = pos.POS_CODE
+		ON emp.POS_CODE =
+		pos.POS_CODE
 		WHERE emp.EMPLOYEE_NUM =${employee_num}
-		
+
 	</select>
-	
+
 	<select id="getCEO" resultType="EmployeeVO">
-	SELECT * FROM EMPLOYEE
-			WHERE DEP_CODE = 1
+		SELECT * FROM EMPLOYEE
+		WHERE
+		DEP_CODE = 1
 	</select>
-	
+
 	<select id="getApprovalMaxNum" resultType="ApprovalLineVO">
-		SELECT MAX(APPROVAL_LINE_CODE) AS APPROVAL_LINE_CODE  FROM APPROVAL_LINE
+		SELECT
+		MAX(APPROVAL_LINE_CODE) AS APPROVAL_LINE_CODE FROM APPROVAL_LINE
 	</select>
-	
-	<insert id="setApprovalLine" parameterType="ApprovalLineVO" >
-	INSERT INTO APPROVAL_LINE
 
-		VALUES (#{approval_line_code}, #{employee_num}, #{line_rank})
+	<insert id="setApprovalLine" parameterType="ApprovalLineVO">
+		INSERT INTO
+		APPROVAL_LINE
+
+		VALUES (#{approval_line_code},
+		#{employee_num},
+		#{line_rank})
 	</insert>
-	
-	<select id="getApprovalList" resultType="Map" parameterType="ApprovalLineVO">
-		SELECT al.*, e.NAME ,p.POS_NAME  FROM APPROVAL_LINE al
-		LEFT OUTER JOIN EMPLOYEE e
-		ON al.EMPLOYEE_NUM  = e.EMPLOYEE_NUM
-		LEFT OUTER JOIN "POSITION" p
-		ON e.POS_CODE  = p.POS_CODE  
-		WHERE approval_line_code = #{approval_line_code}
-		order by approval_line_code asc, line_rank ASC
 
+	<select id="getApprovalList" resultType="Map"
+		parameterType="ApprovalLineVO">
+		SELECT al.*, e.NAME ,p.POS_NAME FROM APPROVAL_LINE al
+		LEFT OUTER JOIN EMPLOYEE e
+		ON al.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+		LEFT
+		OUTER JOIN "POSITION" p
+		ON e.POS_CODE = p.POS_CODE
+		WHERE
+		approval_line_code = #{approval_line_code}
+		order by approval_line_code
+		asc, line_rank ASC
+	</select>
+
+	<insert id="setAPList" parameterType="APListVO">
+		INSERT INTO AL_LIST
+		VALUES(#{employee_num},#{approval_line_code},#{line_name})
+	</insert>
+
+	<select id="getAPList" resultType="APListVO"
+		parameterType="APListVO">
+		SELECT * FROM AL_LIST
+		WHERE employee_num = #{employee_num}
 	</select>
 
 </mapper>
