@@ -24,6 +24,9 @@ public interface DraftDAO {
 	ApprovalLineVO getApprovalMaxNum() throws Exception;
 
 	List<Map<String, Object>> getApprovalList(ApprovalLineVO approvalLineVO) throws Exception;
+	
+	int setAPList(APListVO apListVO)throws Exception;
+	List<APListVO> getAPList(APListVO apListVO)throws Exception;
 
 	
 	

@@ -95,6 +95,15 @@ public class DraftService {
 		return draftVO;
 	}
 	
+	public List<APListVO> setAPList(APListVO apListVO)throws Exception{
+		 
+		draftDAO.setAPList(apListVO);
+		 
+		 List<APListVO> ar = draftDAO.getAPList(apListVO);
+		 System.out.println("serviceAr : "+ar.toString());
+		 return ar;
+		 
+	}
 	
 	public List<DepartmentVO> getDepartmentList()throws Exception{
 		return draftDAO.getDepartmentList();
