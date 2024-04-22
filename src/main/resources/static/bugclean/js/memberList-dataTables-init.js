@@ -55,7 +55,13 @@ function resignationList() {
                                 '</button>';
                         }
                     }
-                ]
+                ],
+                "language": {
+                    "paginate": {
+                        "previous": '<i class="icon-arrow-left"></i>',
+                        "next": '<i class="icon-arrow-right"></i>'
+                    }
+                }
             })
 
             $('#impossibleList').DataTable({
@@ -70,7 +76,13 @@ function resignationList() {
                     {data: "POS_NAME", title: "직급"},
                     {data: "JOIN_DATE", title: "입사일"},
                     {data: "RETIRED_DATE", title: "퇴사일"}
-                ]
+                ],
+                "language": {
+                    "paginate": {
+                        "previous": '<i class="icon-arrow-left"></i>',
+                        "next": '<i class="icon-arrow-right"></i>'
+                    }
+                }
             })
         },
         error: function (jqXHR, textStatus, errorThrown) {

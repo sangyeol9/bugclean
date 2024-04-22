@@ -60,6 +60,7 @@ public class SecurityConfig {
 				.ignoringRequestMatchers("/hr/**")
 				.ignoringRequestMatchers("/customer/**")
 				.ignoringRequestMatchers("/carManage/**")
+				.ignoringRequestMatchers("/board/**")
 	    )
 		
 		
