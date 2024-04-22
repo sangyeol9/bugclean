@@ -3,6 +3,7 @@ package com.winter.app.employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.winter.app.util.pagination.FileManager;
+import com.winter.app.util.commons.FileManager;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -36,13 +37,6 @@ public class EmployeeService implements UserDetailsService{
 	private JavaMailSender javaMailSender;
 	private static final String senderEmail= "arark057@gmail.com";
     private static int number;
-
-//    public EmployeeVO getDetail(EmployeeVO employeeVO) throws Exception {
-//		
-//		employeeVO = employeeDAO.getDetail(employeeVO);
-//		
-//		return employeeVO;
-//	}
 
     //--------------------가입
 	//아이디 중복, 비번 일치 여부
@@ -169,10 +163,18 @@ public class EmployeeService implements UserDetailsService{
     	
     	
     	int result=0;
+    	//session 변경
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails= (UserDetails)principal;
+		EmployeeVO emVO = (EmployeeVO)userDetails;
     	
 		if(file.isEmpty()) {
 			employeeVO.setProfile(null);
 			employeeVO.setProfile_name(null);
+			
+			emVO.setProfile(null);
+			emVO.setProfile_name(null);
+			
 			result = employeeDAO.profileUpdate(employeeVO);
 			
 			return result;
@@ -182,7 +184,11 @@ public class EmployeeService implements UserDetailsService{
 
 		employeeVO.setProfile(fileName);
 		employeeVO.setProfile_name(file.getOriginalFilename());
-
+		
+		
+		emVO.setProfile(employeeVO.getProfile());
+		emVO.setProfile_name(employeeVO.getProfile_name());
+		
 		result = employeeDAO.profileUpdate(employeeVO);
 
 		return result;

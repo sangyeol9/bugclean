@@ -94,20 +94,21 @@
 
                                         <!-- 프로필-->
                                         <c:if test="${not empty employeeVO.profile}">
-                                            <img src="${employeeVO.profile}" id="img01" src="" width="400" height="200" style="border: 1px solid black"/>
+                                            
+                                            <img src="/files/profile/${employeeVO.profile}" style="height: 150px; width: 150px;" class="img-fluid rounded-circle" alt=""/>
                                             
                                         </c:if>
                                         <c:if test="${empty employeeVO.profile}">
-                                            <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" class="img-fluid rounded-circle" alt="">
+                                            <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" style="height: 150px; width: 150px;" class="img-fluid rounded-circle" alt="">
                                             
                                         </c:if>
-                                        <button class="overlay-button" data-toggle="modal" data-target="#infoUpdateModal">
+                                        <button class="overlay-button" data-toggle="modal" data-target="#profileUpdateModal">
                                             
                                             <i class="fa-solid fa-pen-to-square" style="color: black;"></i>
                                         </button>
 
                                         <!-- 변경 모달창 -->
-                                        <div class="modal fade" id="infoUpdateModal" aria-hidden="true" style="display: none;">
+                                        <div class="modal fade" id="profileUpdateModal" aria-hidden="true" style="display: none;">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">

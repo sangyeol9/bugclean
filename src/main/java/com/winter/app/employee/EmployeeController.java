@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,9 +25,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.mail.Session;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/employee/*")
+@Slf4j
 public class EmployeeController {
 
 	@Autowired
@@ -38,7 +41,7 @@ public class EmployeeController {
 	@GetMapping("login")
 	public void login(@ModelAttribute EmployeeVO employeeVO, HttpSession session) throws Exception{
 		
-		//로그인 성공 후 뒤로 가기 처리
+		//로그인 성공 후 뒤로 가기 처리(로그아웃)
 //		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
 //		System.out.println("======obj :"+obj);
 //		
@@ -47,9 +50,9 @@ public class EmployeeController {
 //		}
 //		
 //		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
-		
-		
-		return ;
+//		
+//		
+//		return ;
 	}
 	
 	//----------------------------가입
@@ -154,14 +157,14 @@ public class EmployeeController {
 		int check = employeeService.signSave(employeeVO);
 		
 		
-		//session 변경...뭔데...어떻게하는건데...!!!
-//		Authentication authentication = authenticationManager.authenticate
-//		        (new UsernamePasswordAuthenticationToken(principal.getName(), memberUpdateForm.getPassword()));
-//
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
+		//session 변경
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
+		UserDetails userDetails = (UserDetails)principal;
 		
+		EmployeeVO emVO=(EmployeeVO)userDetails;
 		
+		emVO.setSign_file(employeeVO.getSign_file());
 		
 		model.addAttribute("result", "employee.sign_file.result");
 		model.addAttribute("path", "mypage");
@@ -174,12 +177,25 @@ public class EmployeeController {
 	//개인정보수정
 	@PostMapping("infoUpdate")
 	public String infoUpdate(@ModelAttribute EmployeeVO employeeVO,Model model) throws Exception{
+		 
+		System.out.println(employeeVO.getAddress());
+		System.out.println(employeeVO.getPhone());
+		
+		log.info("{}",employeeVO);
+		
 		
 		//db 변경
 		int check = employeeService.infoUpdate(employeeVO);
 		
-		//session 변경...몰라
-
+		//session 변경
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails= (UserDetails)principal;
+		
+		EmployeeVO emVO = (EmployeeVO)userDetails;
+		
+		emVO.setNickname(employeeVO.getNickname());
+		emVO.setPhone(employeeVO.getPhone());
+		emVO.setAddress(employeeVO.getAddress());
 		
 		model.addAttribute("result", "employee.sign_file.result");
 		model.addAttribute("path", "mypage");
@@ -196,8 +212,7 @@ public class EmployeeController {
 		//db 변경
 		int check = employeeService.profileUpdate(employeeVO, file);
 		
-		//session 변경...몰라
-		
+
 		model.addAttribute("result", "employee.sign_file.result");
 		model.addAttribute("path", "mypage");
 
