@@ -52,7 +52,7 @@ public class DraftController {
 	}
 	
 	@PostMapping("getapprovalline")
-	public String getApprovalLine(String [] dep, String [] name, String [] code, Map<String, Object> map, Model model, HttpSession session)throws Exception {
+	public String getApprovalLine(String [] dep, String [] name, String [] orgCode, String [] refCode, Map<String, Object> map, Model model, HttpSession session)throws Exception {
 		
 		model.addAttribute("aplvdep", dep);
 		model.addAttribute("aplvname", name);
@@ -75,11 +75,27 @@ public class DraftController {
 		 model.addAttribute("CEO", employeeVO);		 
 
 //		 draftService.setApprovalLine(code, empMap);
-		List<Map<String, Object>> ALar = draftService.setApprovalLine(code, empMap);
+		List<Map<String, Object>> ALar = draftService.setApprovalLine(orgCode, empMap);
 		model.addAttribute("approvalMap", ALar);
 
 		 
 		return "ajax/approvalline";
+	}
+	
+	@PostMapping("getaplist")
+	public String getAPList(String [] empCode, Model model)throws Exception{
+		EmployeeVO employeeVO = new EmployeeVO();
+		employeeVO.setEmployee_num("2024001");
+		Map<String, Object> empMap = draftService.getEmployeeDetail(employeeVO);
+		System.out.println("empMap@@@@@@@@@@@@@@@ : "+empMap.toString());
+		model.addAttribute("empMap", empMap);
+
+		 for(int i=0; i<empCode.length;i++) {
+			System.out.println("empCode : "+empCode[i]); 
+		 }
+//		draftService.setApprovalLine(empCode, empMap);
+		 return "ajax/approvalline";
+		
 	}
 	
 	
