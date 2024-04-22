@@ -152,7 +152,7 @@
 						</tr>
 						<tr>
 							<td class="basisTitleTd">참조</td>
-							<td class="basisTd"><input class="inp" type="text" disabled></td>
+							<td class="basisTd"><input id="refInp" class="inp" type="text" disabled></td>
 						</tr>
 						<tr style="height: 300px;">
 							<td class="basisTitleTd">내용</td>
@@ -268,8 +268,14 @@
 							<button>초기화</button>
 						</div>
 						<!-- 초기화 버튼 끝 -->
-
-
+						
+						<!-- 결재선 저장 타이틀 -->
+						<div id="approvalDiv">
+						<input type="text" placeholder="결재선 이름 입력" style="width: 120px;" name="line_name">
+						<button id="approvalBtn" type="button" style="display: inline-block;">저장</button>
+						</div>
+						<!-- 결재선 저장 타이틀 -->
+							
 						<!-- 조직도 제목 시작 -->
 						<div id="orgTitle">
 							<h4>조직도</h4>
@@ -280,7 +286,7 @@
 						<div id="orgDiv">
 
 							<table border="1">
-								<tr style="height: 350px;">
+								<tr style="height: 380px;">
 									<td style="width: 200px; vertical-align: top;" id="orgBoxTd">
 										<!-- 부서 리스트 시작--> <c:forEach items="${dep}" var="dep">
 											<div class="orgTeamDiv">
@@ -303,7 +309,8 @@
 																	style="display: inline-block;"></i>
 																<h6 style="display: inline-block;" class="orgAll"
 																	data-emp-num="${list.EMPLOYEE_NUM}"
-																	data-dep-name="${list.DEP_NAME}">${list.DEP_NAME}
+																	data-dep-name="${list.DEP_NAME}"
+																	data-pp-name="${list.NAME }">${list.DEP_NAME}
 																	${list.POS_NAME} ${list.NAME}</h6>
 															</div>
 														</c:if>
