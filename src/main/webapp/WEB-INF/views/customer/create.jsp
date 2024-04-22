@@ -136,7 +136,10 @@
 				
 				
 				<!-- 작성완료 후 등록하기 버튼  -->
-				<button class="btn-rounded btn-dark create">등록하기</button>
+				<a href="/customer/list">
+					<button  type = "button" class="btn-rounded btn-dark create">돌아가기</button>
+				</a>
+					<button class="btn-rounded btn-dark create">등록하기</button>
 			</form>
 			<c:import url="../temp/messenger.jsp"></c:import>
 		</div>

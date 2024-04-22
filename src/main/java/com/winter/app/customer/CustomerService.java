@@ -21,8 +21,20 @@ public class CustomerService {
 		return schDAO.getSales();
 	}
 	
-	public List<CustomerVO> getList() throws Exception{
-		List<CustomerVO> ar = customerDAO.getList();
+	public List<CustomerVO> getCompanyList() throws Exception{
+		List<CustomerVO> ar = customerDAO.getCompanyList();
+		for(int i=0;i<ar.size();i++) {
+			
+			EmployeeVO employeeVO = new EmployeeVO();
+			employeeVO = customerDAO.getEmployeeName(ar.get(i));
+			ar.get(i).setEmployee_Name(employeeVO.getName());
+			
+		}
+		return ar;
+	}
+	public List<CustomerVO> getPersonList() throws Exception{
+		List<CustomerVO> ar = customerDAO.getPersonList();
+		
 		for(int i=0;i<ar.size();i++) {
 			
 			EmployeeVO employeeVO = new EmployeeVO();
@@ -31,11 +43,8 @@ public class CustomerService {
 			
 		}
 		
-		
-		
 		return ar;
 	}
-	
 	
 	public CustomerVO getDetail(CustomerVO customerVO) throws Exception{
 		customerVO = customerDAO.getDetail(customerVO);

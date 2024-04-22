@@ -27,9 +27,10 @@ public class CustomerController {
 	@GetMapping("list")
 	public String getList(Model model) throws Exception{
 		List<EmployeeVO> ar = customerService.getSales();
-		List<CustomerVO> list = customerService.getList();
-		
-		model.addAttribute("list", list);
+		List<CustomerVO> companyList = customerService.getCompanyList();
+		List<CustomerVO> personList = customerService.getPersonList();
+		model.addAttribute("companyList", companyList);
+		model.addAttribute("personList", personList);
 		model.addAttribute("sales_List", ar);
 		return "customer/list";
 	}

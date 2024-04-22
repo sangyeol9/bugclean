@@ -82,7 +82,7 @@ window.addEventListener("load",async function(){
         res.forEach((element,index) => {
             console.log(element);
 
-            obj[element.DEP_CODE].innerHTML = `<div id="${element.NAME}_${index}" style="color:black;" class="mt-1">&emsp;&emsp;<i class="fa-solid fa-user mr-1"></i>${element.POS_NAME} ${element.NAME}</div>`
+            obj[element.DEP_CODE].innerHTML = `<div id="${element.NAME}_${index}" style="color:black;" class="mt-1">&emsp;&emsp;<i class="fa-solid fa-user mr-1"></i>${element.POS_NAME} ${element.NAME} ( ${element.NICKNAME} )</div>`
             +`${obj[element.DEP_CODE].innerHTML}`
         
         

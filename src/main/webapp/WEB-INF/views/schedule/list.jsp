@@ -110,10 +110,10 @@
 							<input id="inputPrice" type="text" class="form-control" placeholder="단가를 입력하세요." >
 					  	</div>
 					  	
-							<button class="btn-rounded btn-dark create mt-3" id="create_sch_btn">등록하기</button>
+							<button class="btn btn-light create mt-3" id="create_sch_btn">등록하기</button>
 						 <div> 
-						  	<button type="button" class="btn-rounded btn-dark updel mt-3" id="update_sch_btn">수정하기</button>
-							<button type="button" class="btn-rounded btn-dark updel mt-3" id="delete_sch_btn">삭제하기</button>
+						  	<button type="button" class="btn btn-primary updel mt-3" id="update_sch_btn">수정하기</button>
+							<button type="button" class="btn btn-warning updel mt-3" id="delete_sch_btn">삭제하기</button>
 						</div>	
 					</div>	
 			</div>
