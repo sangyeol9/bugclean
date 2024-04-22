@@ -39,20 +39,24 @@ public class EmployeeController {
 	//-----------------------------로그인
 	//그 아이디저장도!
 	@GetMapping("login")
-	public void login(@ModelAttribute EmployeeVO employeeVO, HttpSession session) throws Exception{
+	public String login(@ModelAttribute EmployeeVO employeeVO, HttpSession session) throws Exception{
 		
-		//로그인 성공 후 뒤로 가기 처리(로그아웃)
-//		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
-//		System.out.println("======obj :"+obj);
-//		
-//		if(obj == null){
-//			return "employee/login";
-//		}
-//		
-//		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
-//		
-//		
-//		return ;
+		//로그인 성공 후 뒤로 가기 시 메인홈 처리
+		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+		//System.out.println("======obj :"+obj);
+		
+		if(obj == null){
+			return "employee/login";
+		}
+		
+		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
+		String user = contextImpl.getAuthentication().getPrincipal().toString();
+		
+		if(user.equals("anonymousUser")) {
+			return "member/login";
+		}
+				
+		return "redirect:/";
 	}
 	
 	//----------------------------가입

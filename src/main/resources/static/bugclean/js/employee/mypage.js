@@ -1,5 +1,11 @@
 //console.log('연결');
 
+
+//닉 영어
+function onlyEnglish(e)  {
+  var englishOnly = e.value.replace(/[^a-zA-Z]/g, "");
+  e.value = englishOnly;
+}
 //서명
 $(document).ready(function() {  
         $( '#exampleModalBtn').on('click', function() {

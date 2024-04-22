@@ -231,7 +231,7 @@
         
         <c:import url="./temp/footer.jsp"></c:import>
         <c:import url="./temp/js.jsp"></c:import>
-        <c:import url="./index_js.jsp"></c:import>
+        <script src="/bugclean/js/index.js"></script>
 </body>
     
     

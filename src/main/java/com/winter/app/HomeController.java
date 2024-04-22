@@ -20,7 +20,8 @@ public class HomeController {
 
     @GetMapping("")
     public String SidebarInit(HttpSession session) throws Exception{
-        List<BoardCateVO> ar = boardService.getCateList();
+        //사이드바 게시판 항목
+    	List<BoardCateVO> ar = boardService.getCateList();
 
         List<String> codes = new ArrayList<>();
         List<String> names = new ArrayList<>();
