@@ -10,5 +10,11 @@ public interface EmployeeDAO {
 	public int create(EmployeeVO employeeVO) throws Exception;
 	//비번 변경
 	public int pwUpdate(EmployeeVO employeeVO);
+	//서명 변경
+	public int signSave(EmployeeVO employeeVO);
+	//정보 변경
+	public int infoUpdate(EmployeeVO employeeVO);
+	//프로필 변경
+	public int profileUpdate(EmployeeVO employeeVO);
 	
 }
