@@ -14,11 +14,26 @@ public class CarManageService {
 		return carManageDAO.getUsableList();
 	}
 	
-	public int carAllocation(CarManageVO carManageVO) throws Exception{
-		//int result = carManageDAO.carAllocation(carManageVO);
-		int result =0;
+	public CarManageVO carAllocation(CarManageVO carManageVO) throws Exception{
+		
+		//배차 요청 정보 등록
+		int result = carManageDAO.carAllocation(carManageVO);
+		CarDetailVO carDetailVO = new CarDetailVO();
+		// 해당 차량 사용 가능 상태에서 배차요청 상태로 변경
+		carDetailVO.setCar_code(carManageVO.getCar_code());
+		
+		// 해당 현장의 배차코드 넘버 부여
+		carManageDAO.updateStatus1(carDetailVO);
+		
+		carManageVO = carManageDAO.getInfo(carManageVO);
+		
 		System.out.println("==========\n" + carManageVO);
-		return  result;
+		return  carManageVO;
+	}
+	
+	public CarDetailVO getCarNumber (CarDetailVO carDetailVO) throws Exception{
+		
+		return carManageDAO.getCarNumber(carDetailVO);
 	}
 	
 }

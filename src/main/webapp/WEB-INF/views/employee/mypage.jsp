@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,23 +14,40 @@
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 <c:import url="../temp/css.jsp"></c:import>
 <style>
-    .image-container {
-        position: relative;
-        display: inline-block;
-      }
-      
-      .overlay-button {
+    .overlay-button {
         position: absolute;
         bottom: 5px; /* 오른쪽 하단에서의 여백 조정 */
         right: 5px; /* 오른쪽 하단에서의 여백 조정 */
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background-color: rgba(0, 0, 0, 0.5); /* 배경색 및 투명도 조정 */
+        background-color: rgba(241, 241, 241, 0.822); /* 배경색 및 투명도 조정 */
         border: none;
         color: white; /* 텍스트 색상 */
         font-size: 16px; /* 텍스트 크기 */
-      }
+    }
+
+    .wrapper {
+        position: relative;
+        width: 400px;
+        height: 200px;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .signature-pad {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width:400px;
+        height:200px;
+        background-color: white;
+    }
+
+
+      
 </style>
 
 <body>
@@ -53,16 +71,6 @@
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
                             <h4>Profile</h4>
-                            <!-- 임시 -->
-                            <div class="image-container">
-                                <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" alt="Your Image" class="rounded-image">
-                                <!-- <div class="profile-photo">
-                                    
-                                    <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" class="img-fluid rounded-circle" alt="">
-                                </div> -->
-                                <button class="overlay-button"></button>
-                              </div>
-
 
                         </div>
                     </div>
@@ -83,15 +91,18 @@
                                 <div class="photo-content">
                                     <div class="cover-photo"></div>
                                     <div class="profile-photo">
-										<!-- src="/focus-bootstrap-main/theme/images/logo.png" -->
                                         <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" class="img-fluid rounded-circle" alt="">
+                                        <button class="overlay-button">
+                                            
+                                            <i class="fa-solid fa-pen-to-square" style="color: black;"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="profile-info">
                                     <div class="row justify-content-center">
                                         <div class="col-xl-8" style="margin-left: 2%;">
                                             <div class="row">
-                                                <div class="col-1">
+                                                <div class="col-1 mb-5">
                                                     <div class="profile-name">
                                                         <h4 class="text-primary"></h4>
                                                     </div>
@@ -130,35 +141,54 @@
                                         
                                         <div class="col-10" style="display: table;">
                                             <h4 class="text-primary" style="font-weight: 700; display: table-cell; vertical-align: middle;">비밀번호</h4>
+                                            <form:errors path="password"></form:errors>
+                                            <form:errors path="newPassword"></form:errors>
+                                            <form:errors path="passwordCheck"></form:errors>
+                                                                
                                         </div>
-										
                                         <!-- 비번변경 모달창 -->
                                         <div class="col-0">
                                             <button type="submit" class="btn btn-light btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg">변경</button>
                                         </div>
+
                                         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header" style="display: table;">
-                                                        <h4 class="text-primary" style="font-weight: 600; display: table-cell; vertical-align: middle;">비밀번호 변경</h4>
-                                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                                        </button>
+                                            <div class="modal-dialog ">
+                                                <form:form modelAttribute="employeeVO" action="./pwUpdate">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="display: table;">
+                                                            <h4 class="text-primary" style="font-weight: 600; display: table-cell; vertical-align: middle;">비밀번호 변경</h4>
+                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                            </button>
+                                                        </div>
+
+                                                            <div class="modal-body">
+
+                                                                <form:input path="username" value="${employeeVO.username}" hidden="true"></form:input>
+
+                                                                <label class="my-2"><strong>현재 비밀번호</strong></label>
+                                                                <form:password path="password" cssClass="form-control input-rounded" id="password"></form:password>
+                                                                
+                                                                <label class="my-2"><strong>새 비밀번호</strong></label>
+                                                                <form:password path="newPassword" cssClass="form-control input-rounded" id="newPassword"></form:password>
+                                                                
+                                                                    
+                                                                <label class="my-2"><strong>새 비밀번호 확인</strong></label>
+                                                                <form:password path="passwordCheck" cssClass="form-control input-rounded" id="passwordCheck"></form:password>
+                                                            </div>
+                                                                
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                            </div>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <label class="my-2"><strong>현재 비밀번호</strong></label>
-                                                        <input type="password" class="form-control input-rounded">
-                                                        <label class="my-2"><strong>새 비밀번호</strong></label>
-                                                        <input type="password" class="form-control input-rounded">
-                                                        <label class="my-2"><strong>새 비밀번호 확인</strong></label>
-                                                        <input type="password" class="form-control input-rounded">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                                    </div>
-                                                </div>
+                                                </form:form>
                                             </div>
                                         </div>
+
+                                        
+
+
+
                                     </div>
 
 
@@ -239,6 +269,8 @@
 											<div class="col-9"><span>${employeeVO.address}</span>
 											</div>
 										</div>
+
+                                        
 										<div class="row mb-4">
 											<div class="col-3">
 												<h5 class="f-w-500">결재 서명 <span class="pull-right">:</span>
@@ -248,19 +280,25 @@
 											</div>
                                             <!-- 서명 수정 모달 -->
                                             <div class="col-0">
-                                                <button type="submit" class="btn btn-light btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg">등록</button>
+                                                <button type="submit" class="btn btn-light btn-lg" data-toggle="modal" data-target=".bd-example1-modal-lg">등록</button>
                                             </div>
-                                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <!-- <div class="modal fade bd-example1-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
                                                         <div class="modal-header" style="display: table;">
-                                                            <h4 class="text-primary" style="font-weight: 600; display: table-cell; vertical-align: middle;">비밀번호 변경</h4>
+                                                            <h4 class="text-primary" style="font-weight: 600; display: table-cell; vertical-align: middle;">결재 서명 등록</h4>
                                                             <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
                                                             
+                                                            <img src="" id="img01" src="" width="400" height="200" style="border: 1px solid black" hidden/>
+                                                            <div class="wrapper">
+                                                                <canvas id="signature-pad" class="signature-pad" width=400 height=200 style="border: 1px solid black"></canvas>
+                                                            </div>
 
+                                                            <button id="save-png">Save</button>
+                                                            <button id="clear">Clear</button>
 
 
 
@@ -272,18 +310,39 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!-- temp -->
-                                            <div id="signature-pad" class="m-signature-pad">
-                                                <div class="m-signature-pad--body">
-                                                    <canvas id="signature-pad" class="signature-pad" width=400 height=200 style="border: 1px solid black"></canvas>
+                                            </div> -->
+
+                                            <!--  -->
+                                            <div class="modal fade bd-example1-modal-lg" id="exampleModalCenter" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Modal title</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            
+                                                            <img src="" id="img01" src="" width="400" height="200" style="border: 1px solid black" hidden/>
+                                                            <div class="wrapper">
+                                                                <canvas id="signature-pad" class="signature-pad" width=400 height=200 style="border: 1px solid black"></canvas>
+                                                            </div>
+
+                                                            <button id="save-png">Save</button>
+                                                            <button id="clear">Clear</button>
+                                                        
+                                                        
+                                                        
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="m-signature-pad--footer">
-                                                    
-                                                    <button type="button" class="button clear" data-action="clear">지우기</button>
-                                                    <button type="button" class="button save" data-action="save">저장</button>
-                                                </div>
                                             </div>
+
+                                        
                                             
 
 										</div>
@@ -317,53 +376,49 @@
         ***********************************-->
         
     </div>    
-        <script>
-            var canvas = $("#signature-pad canvas")[0]; 
-            var sign = new SignaturePad(canvas, { 
-                minWidth: 5, 
-                maxWidth: 2, 
-                penColor: "rgb(1, 2, 3)" 
-            });
 
-            $("[data-action]").on("click", function () {
-                if ($(this).data("action") == "clear") { 
-                    sign.clear(); 
-                }
-                else if ($(this).data("action") == "save") {
-                    if (sign.isEmpty()) { alert("사인해 주세요!!");
-                    } else { 
-                        $.ajax({ 
-                            url: "save.jsp", 
-                            method: "post", 
-                            dataType: "json", 
-                            data: { sign: sign.toDataURL() }, 
-                            success: function (r) {
-                                alert("저장완료 : " + r.filename);
-                                sign.clear();
-                            },
-                            error: function (res) {
-                                console.log(res);
-                            }
-                        });
-                    }
-                }
-            });
-            
-            function resizeCanvas() {
-                var canvas = $("#signature-pad canvas")[0];
-                var ratio = Math.max(window.devicePixelRatio || 1, 1);
-                canvas.width = canvas.offsetWidth * ratio;
-                canvas.height = canvas.offsetHeight * ratio;
-                canvas.getContext("2d").scale(ratio, ratio);
+    <script>
+        $( function() {
+          var canvas = document.getElementById('signature-pad');
+        
+           // 픽셀 비율을 고려하여 캔버스 좌표 공간을 조정합니다.
+           // 모바일 장치에서 선명하게 보이도록 합니다.
+           // 이것은 또한 캔버스가 지워지게 합니다.
+          function resizeCanvas() {
+              // 아주 이상한 이유로 100% 미만으로 축소하면,
+              // 일부 브라우저는 devicePixelRatio를 1 미만으로 보고합니다.
+              // 그러면 캔버스의 일부만 지워집니다.
+            var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+          }
+        
+          window.onresize = resizeCanvas;
+          resizeCanvas();
+        
+          var signaturePad = new SignaturePad(canvas, {
+            backgroundColor: 'rgb(255, 255, 255, 0)',
+            penColor: "rgb(1, 2, 3)"
+          });
+        
+          document.getElementById('save-png').addEventListener('click', function () {
+            if (signaturePad.isEmpty()) {
+              return alert("먼저 서명을 해주세요.");
             }
-            
-            $(window).on("resize", function () {
-                resizeCanvas();
-            });
-            resizeCanvas();
+        
+            var data = signaturePad.toDataURL('image/png');
+             //console.log(data);
+            // window.open(data);
+            $("#img01").attr('src', data);
+          });
+        
+          document.getElementById('clear').addEventListener('click', function () {
+            signaturePad.clear();
+          });
+        
+        });
         </script>
-
-
 
 
 	<c:import url="../temp/header.jsp"></c:import>

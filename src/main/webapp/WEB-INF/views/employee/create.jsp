@@ -115,12 +115,33 @@
 													<form:input path="phone" id="phone" cssClass="form-control" style="display: none" value=""></form:input>
 												</div>
 												<form:errors path="phone"></form:errors>
-
-											
-
-
 										</div>
 
+										<div class="form-group">
+											<label><strong>주소</strong></label>
+											<form:input path="address" id="address" cssClass="form-control col-6" style="display: none" value=""></form:input>
+											
+											
+											<div class="form-row">
+												<div class="col-sm-6">
+													<input type="text" id="sample6_postcode" class="form-control" placeholder="우편번호">
+												</div>
+												<div class="col-sm-6 mt-2 mt-sm-0">
+													<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+												</div>
+											</div>
+											<input type="text" id="sample6_address" class="form-control my-2" placeholder="주소">
+											<div class="form-row">
+												<div class="col-sm-6">
+													<input type="text" id="sample6_detailAddress" class="form-control" placeholder="상세주소">
+												</div>
+												<div class="col-sm-6 mt-2 mt-sm-0">
+													<input type="text" id="sample6_extraAddress" class="form-control" placeholder="참고항목" readonly>
+												</div>
+											</div>
+											
+											<form:errors path="address"></form:errors>
+									</div>
 
 
 										<div class="text-center mt-5">
@@ -139,7 +160,9 @@
 	</div>
 
 	<c:import url="../temp/js.jsp"></c:import>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="/bugclean/js/employee/create.js"></script>
-	
+
+
 </body>
 </html>

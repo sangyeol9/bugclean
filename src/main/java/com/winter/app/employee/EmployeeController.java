@@ -99,7 +99,7 @@ public class EmployeeController {
 
 	//sec 추가
 	@GetMapping("mypage")
-	public void mypage(HttpSession session) throws Exception{
+	public void mypage(@ModelAttribute EmployeeVO employeeVO, HttpSession session) throws Exception{
 		//유저 정보조회
 			//속성명
 			//Enumeration<String> e = session.getAttributeNames();
@@ -110,14 +110,29 @@ public class EmployeeController {
 //		EmployeeVO employeeVO = (EmployeeVO) sci.getAuthentication().getPrincipal();
 //		
 //		//System.out.println("====== employeeVO :"+employeeVO);
-//		SecurityContext context = SecurityContextHolder.getContext();
-		
-		
-		
+//		Security+Context context = SecurityContextHolder.getContext();
 		
 	}
-	//비밀번호 변경 sec1 마지맘ㄱ
-	
+	//비밀번호 변경
+	@PostMapping("pwUpdate")
+	public String pwUpdate(@Validated(EmployeePwupdateGroup.class)EmployeeVO employeeVO, BindingResult bindingResult, Model model) throws Exception{
+		
+		System.out.println("================:"+employeeVO.getUsername());
+		
+		boolean check = employeeService.checkPw(employeeVO, bindingResult);
+		
+		if(check) {
+			model.addAttribute("result","employee.update.fail");
+			model.addAttribute("path","mypage");
+			return "commons/result";
+		}
+		
+		int result = employeeService.pwUpdate(employeeVO);
+		model.addAttribute("result","employee.update.success");
+		model.addAttribute("path","mypage");
+		
+		return "commons/result";
+	}
 	
 	
 	@GetMapping("idSearch")
