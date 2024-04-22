@@ -37,7 +37,6 @@ public class EmployeeController {
 	private int number;
 	
 	//-----------------------------로그인
-	//그 아이디저장도!
 	@GetMapping("login")
 	public String login(@ModelAttribute EmployeeVO employeeVO, HttpSession session) throws Exception{
 		
@@ -112,19 +111,7 @@ public class EmployeeController {
 	//----------------------------마이페이지
 	@GetMapping("mypage")
 	public void mypage(@ModelAttribute EmployeeVO employeeVO, HttpSession session) throws Exception{
-		//유저 정보조회
-		//속성명
-		//Enumeration<String> e = session.getAttributeNames();
-		//e.nextElement() => SPRING_SECURITY_CONTEXT
-//		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
-//		
-//		SecurityContextImpl sci = (SecurityContextImpl) obj;
-//		EmployeeVO employeeVO = (EmployeeVO) sci.getAuthentication().getPrincipal();
-//		
-//		//System.out.println("====== employeeVO :"+employeeVO);
-//		Security+Context context = SecurityContextHolder.getContext();
-		
-//		employeeVO = employeeService.getDetail(employeeVO);
+
 
 	}
 
@@ -227,21 +214,13 @@ public class EmployeeController {
 	
 	//----------------------------찾기
 	@GetMapping("idSearch")
-	public void idFind() throws Exception{
+	public void idFind(@ModelAttribute EmployeeVO employeeVO) throws Exception{
 		
 	}
 	@GetMapping("pwSearch")
 	public void pwFind() throws Exception{
 		
 	}
-	
-	
-	//----------------------------메인페이지 다른컨트
-	
-	
-	
-	
-	
 	
 	
 	//----------------------------수신문서함,알림...?

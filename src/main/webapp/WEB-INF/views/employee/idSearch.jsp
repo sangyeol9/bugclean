@@ -46,7 +46,9 @@
                                     </div>
                                     <div class="card-body">
 
+                                        <form:form action="./idSearch" modelAttribute="employeeVO">
 
+                                        </form:form>
                                         <div class="basic-form">
                                             <form>
                                                 <div class="form-group row">

@@ -115,31 +115,26 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <c:if test="${boardVO.size()==0}">
+                                                <tr>
+                                                    <td colspan="4">결과 없습니다</td>
+                                                <tr>
+                                            </c:if>
+                                            
+                                            <c:forEach items="${boardVO}" var="list">
+                                                <tr>
+                                                    <td>${list.board_code}</td>
+                                                    <td><a href="javascript:void(0)" style="font-weight: bold;">${list.board_title}</a></td>
+                                                    <td>${list.board_date}</td>
+                                                    
+                                                </tr>
+                                            </c:forEach>
+                                            <!-- <tr>
                                                 <td>217</td>
                                                 <td><a href="javascript:void(0)" style="font-weight: bold;">공지입니당!</a></td>
                                                 <td>2024-04-05</td>
-                                            </tr>
-                                            <tr>
-                                                <td>217</td>
-                                                <td><a href="javascript:void(0)" style="font-weight: bold;">공지입니당!</a></td>
-                                                <td>2024-04-05</td>
-                                            </tr>
-                                            <tr>
-                                                <td>217</td>
-                                                <td><a href="javascript:void(0)" style="font-weight: bold;">공지입니당!</a></td>
-                                                <td>2024-04-05</td>
-                                            </tr>
-                                            <tr>
-                                                <td>217</td>
-                                                <td><a href="javascript:void(0)" style="font-weight: bold;">공지입니당!</a></td>
-                                                <td>2024-04-05</td>
-                                            </tr>
-                                            <tr>
-                                                <td>217</td>
-                                                <td><a href="javascript:void(0)" style="font-weight: bold;">공지입니당!</a></td>
-                                                <td>2024-04-05</td>
-                                            </tr>
+                                            </tr> -->
+                                            
                                             
                                         </tbody>
                                     </table>
