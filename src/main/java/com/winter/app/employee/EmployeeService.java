@@ -104,8 +104,35 @@ public class EmployeeService implements UserDetailsService{
     	return result;
     }
     
-    
-    
+    //비번 일치 여부
+    public boolean checkPw(EmployeeVO employeeVO, BindingResult bindingResult) throws Exception{
+    	boolean check= false;
+    	
+    	check = bindingResult.hasErrors();
+    	
+    	//현재비번 일치
+    	EmployeeVO current = employeeDAO.getDetail(employeeVO);
+    	
+    	if(!employeeVO.getPassword().equals(current.getPassword())) {
+    		check=true;
+    		bindingResult.rejectValue("password", "employeeVO.password.update");
+    	}
+    	//새비번 일치
+    	if(!employeeVO.getPasswordCheck().equals(employeeVO.getNewPassword())) {
+    		check=true;
+    		bindingResult.rejectValue("newPassword", "employeeVO.newPassword.update");
+    	}
+    	
+    	return check;
+    }
+    //비번변경
+    public int pwUpdate(EmployeeVO employeeVO) {
+    	
+    	employeeVO.setPassword(passwordEncoder.encode(employeeVO.getNewPassword()));
+    	int result = employeeDAO.pwUpdate(employeeVO);
+    	
+    	return result;
+    }
     
     
     //UserDetailService
@@ -126,6 +153,7 @@ public class EmployeeService implements UserDetailsService{
  
     	return employeeVO;
     }
+    
 	
 		
 	

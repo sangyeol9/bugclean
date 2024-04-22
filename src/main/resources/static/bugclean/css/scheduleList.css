@@ -79,5 +79,17 @@
 	margin-left:20%;
   }
   #sch_Color{
-	margin-left: 60%;
+	margin-left: 25%;
+  }
+  #sch_Filter_Input{
+	border: 1px solid #e2e2e2;
+	border-radius: 5px;
+  }
+  #sch_Filter_Label{
+	color : black;
+  }
+  #sch_Filter{
+	display: inline-block;
+	margin-left: 25%;
+	
   }

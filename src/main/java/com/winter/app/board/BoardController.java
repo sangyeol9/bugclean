@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Slf4j
-@RequestMapping("/notice")
-public class NoticeController {
+@RequestMapping("/board")
+public class BoardController {
 
-    @RequestMapping("list")
+    @RequestMapping("")
     public String getNoticeList() throws Exception{
-        return "notice/NoticeList";
+        return "board/list";
     }
 
 }
