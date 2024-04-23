@@ -3,6 +3,8 @@ package com.winter.app.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -12,10 +14,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+
 @Configuration
 @EnableWebSecurity //내설정
-public class SecurityConfig {
+public class SecurityConfig{
 	
+	@Autowired
+	private LoginSucessHandler sucessHandler;
 	@Autowired
 	private LoginFailHandler failHandler;
 	
@@ -23,6 +28,14 @@ public class SecurityConfig {
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	//세션값 변경
+	@Bean
+	AuthenticationManager authenticationManager (AuthenticationConfiguration authenticationConfiguration) throws Exception{
+		return authenticationConfiguration.getAuthenticationManager();
+	}
+
+
 	
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() {
@@ -47,7 +60,7 @@ public class SecurityConfig {
 											.requestMatchers("/employee/create").permitAll()
 											.requestMatchers("/employee/mailSend").permitAll()
 											.requestMatchers("/employee/mailCheck").permitAll()
-											.requestMatchers("/employee/logout", "/employee/mypage").authenticated()
+											.requestMatchers("/employee/logout", "/employee/mypage", "/employee/pwUpdate").authenticated()
 											.anyRequest().permitAll()
 											//.anyRequest().authenticated()//나머지
 		)
@@ -60,6 +73,7 @@ public class SecurityConfig {
 				.ignoringRequestMatchers("/hr/**")
 				.ignoringRequestMatchers("/customer/**")
 				.ignoringRequestMatchers("/carManage/**")
+				.ignoringRequestMatchers("/board/**")
 	    )
 		
 		
@@ -67,7 +81,7 @@ public class SecurityConfig {
 		.formLogin(
 				(login)->login
 						.loginPage("/employee/login")
-						.defaultSuccessUrl("/")
+						.successHandler(sucessHandler)
 						.failureHandler(failHandler)
 						.permitAll()
 		)
@@ -78,7 +92,8 @@ public class SecurityConfig {
 							.logoutSuccessUrl("/employee/login")
 							.invalidateHttpSession(true)//로그아웃시 session만료
 							.permitAll()
-				);
+		);
+		
 		
 		return security.build();
 	}

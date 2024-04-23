@@ -19,7 +19,8 @@
 	</properties>
 	<dependencies>
 		
-
+		
+		
 		<!-- 웹소켓 라이브러리 -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -69,8 +70,9 @@
 			
 		<!-- <https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api> -->
 		<dependency>
-		    <groupId>jakarta.servlet.jsp.jstl</groupId>
-		    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 	
 		<dependency>

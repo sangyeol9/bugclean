@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.winter.app.board.BoardDAO">
+    <select id="getCateList" resultType="BoardCateVO">
+        SELECT * FROM BOARD_CATEGORY
+    </select>
+
+    <select id="getBoardList" resultType="Map" parameterType="Pagination">
+        SELECT * FROM (
+        SELECT ROWNUM R, N.* FROM (
+        SELECT TO_CHAR(BOARD_CODE, '999,999,999,999') AS "BOARD_CODE",
+        NAME,
+        BOARD_TITLE,
+        TO_CHAR(BOARD_DATE, 'YY-MM-DD HH24:MI') AS "BOARD_DATE",
+        TO_CHAR(BOARD_HIT, '999,999,999,999') AS "BOARD_HIT"
+        FROM BOARD
+        JOIN EMPLOYEE USING (EMPLOYEE_NUM)
+        WHERE CATE_CODE = #{code}
+        AND BOARD_STATUS = 1
+        <if test="kind == 1">
+            AND BOARD_TITLE LIKE '%' || #{search} || '%'
+        </if>
+        <if test="kind == 2">
+            AND NAME LIKE '%' || #{search} || '%'
+        </if>
+        ORDER BY BOARD_CODE DESC
+        ) N
+        ) WHERE R BETWEEN #{startRow} AND #{lastRow}
+    </select>
+
+    <insert id="addBoard" parameterType="BoardVO">
+        INSERT INTO BOARD
+        (BOARD_CODE, EMPLOYEE_NUM, CATE_CODE, BOARD_TITLE, BOARD_DATE, BOARD_CONTENTS, BOARD_HIT, BOARD_STATUS)
+        VALUES
+        (#{board_code}, #{employee_num}, #{cate_code}, #{board_title}, SYSDATE, #{board_contents}, 0, 1)
+    </insert>
+
+    <select id="getTotalCount" parameterType="Pagination">
+        SELECT COUNT(BOARD_CODE) FROM BOARD WHERE CATE_CODE = #{code}
+        <if test="kind == 1">
+            AND BOARD_TITLE LIKE '%' || #{search} || '%'
+        </if>
+        <if test="kind == 2">
+            AND NAME LIKE '%' || #{search} || '%'
+        </if>
+    </select>
+
+    <select id="getSeq" resultType="Long">
+        SELECT FILE_CODE_SEQ.NEXTVAL FROM DUAL
+    </select>
+
+
+    <insert id="addFile" parameterType="BoardFileVO">
+        INSERT INTO BOARD_FILE (FILE_CODE, BOARD_CODE, FILE_NAME, ORIGIN_NAME, CATE_CODE) VALUES
+        (#{file_code}, #{board_code}, #{file_name}, #{origin_name}, #{cate_code})
+    </insert>
+
+    <resultMap id="BoardDetail" type="HashMap">
+        <result property="BOARD_TITLE" column="BOARD_TITLE"/>
+        <result property="BOARD_CONTENTS" column="BOARD_CONTENTS" jdbcType="CLOB" javaType="java.lang.String"/>
+        <result property="NAME" column="NAME"/>
+        <result property="BOARD_DATE" column="BOARD_DATE"/>
+        <result property="BOARD_HIT" column="BOARD_HIT"/>
+        <collection property="fileVOs" javaType="List" ofType="BoardFileVO">
+            <id column="FILE_CODE" property="file_code"/>
+            <result column="FILE_NAME" property="file_name"/>
+            <result column="ORIGIN_NAME" property="origin_name"/>
+        </collection>
+    </resultMap>
+
+    <select id="getBoardDetail" resultMap="BoardDetail" resultType="HashMap" parameterType="BoardVO">
+        SELECT BOARD_TITLE, BOARD_CONTENTS, NAME, TO_CHAR(BOARD_DATE, 'YYYY-MM-DD') AS "BOARD_DATE", FILE_NAME,
+        ORIGIN_NAME, FILE_CODE, TO_CHAR(BOARD_HIT, '999,999,999') AS "BOARD_HIT" FROM BOARD JOIN
+        EMPLOYEE USING (EMPLOYEE_NUM) LEFT JOIN
+        BOARD_FILE USING (BOARD_CODE, CATE_CODE)
+        WHERE BOARD_CODE = #{board_code} AND CATE_CODE =#{cate_code}
+    </select>
+
+    <select id="getFileDetail" parameterType="BoardFileVO" resultType="BoardFileVO">
+        SELECT * FROM BOARD_FILE WHERE FILE_CODE = #{file_code}
+    </select>
+
+
+</mapper>

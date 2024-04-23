@@ -14,6 +14,8 @@ let create_sch_btn = document.getElementById("create_sch_btn");
 let updel = document.getElementsByClassName("updel");
 //
 
+let postApi = document.getElementsByClassName("postApi");
+let postApiDis = document.getElementsByClassName("postApiDis");
 //input 값들
 let inputTitle = document.getElementById("inputTitle");
 let inputSales = document.getElementById("inputSales");
@@ -96,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     
     calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView : 'dayGridMonth',
+        initialView : 'dayGridDay',
         selectable : true,
         locale : "kr",
         editable: true,
@@ -169,6 +171,14 @@ function newModal(info){
 var modal = document.getElementById("myModal");
 var modalTitle = document.getElementById("modal-title"); // 모달 타이틀 엘리먼트
 
+
+for(let i=0;i<postApiDis.length;i++){
+    postApiDis[i].classList.remove("display_none");
+}
+for(let i=0;i<postApi.length;i++){
+    postApi[i].value = "";
+}
+inputAddress.classList.add("display_none");
 
 modal.style.display = "block";
 modalTitle.innerText="일정 등록";
@@ -245,10 +255,15 @@ let modalContent = document.getElementById("modal-content");
 let start_Time_Date = document.getElementById("start_Time_Date");
 let end_Time_Date = document.getElementById("end_Time_Date");
 
- function getCarNumber(askcar_code){
-   
-    }
-    
+for(let i=0;i<postApi.length;i++){
+    postApi[i].value = "";
+}
+for(let i=0;i<postApiDis.length;i++){
+    postApiDis[i].classList.add("display_none");    postApiDis[i].classList.add("display_none");
+}
+inputAddress.classList.remove("display_none")
+
+ 
 let inputStart = document.getElementById("inputStart");
 modal.style.display = "block";
 modalTitle.innerText="일정 확인";
@@ -562,4 +577,10 @@ function openWindow(e){
 window.addEventListener("load",function(){
     openWindow();    
 
+})
+
+let detailAddress = document.getElementById("detailAddress");
+let jibunAddress = document.getElementById("jibunAddress")
+detailAddress.addEventListener("change",function(){
+    inputAddress.value = jibunAddress.value + " " + detailAddress.value;
 })

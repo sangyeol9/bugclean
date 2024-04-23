@@ -16,15 +16,29 @@ public class Pagination {
     private Long startNum;
     private Long lastNum;
 
+    private Long code; //board 카테고리 코드 매칭용 필드
+    private String kind;
+    private String search;
+
+    public void setKind(String kind) {
+        if(kind==null){
+            kind="";
+        }
+        this.kind = kind;
+    }
+
+    public void setSearch(String search) {
+        if(search==null){
+            search="";
+        }
+        this.search = search;
+    }
+
     //이전 블럭이 없으면 true;
     private boolean start;
 
     //다음 블럭이 없으면 true;
     private boolean last;
-
-    //검색관련 변수
-    private String search;
-    private String kind;
 
     public Long getPerPage() {
         if(this.perPage==null||this.perPage<1) {
