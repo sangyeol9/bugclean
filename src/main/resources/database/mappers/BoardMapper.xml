@@ -58,5 +58,30 @@
         (#{file_code}, #{board_code}, #{file_name}, #{origin_name}, #{cate_code})
     </insert>
 
+    <resultMap id="BoardDetail" type="HashMap">
+        <result property="BOARD_TITLE" column="BOARD_TITLE"/>
+        <result property="BOARD_CONTENTS" column="BOARD_CONTENTS" jdbcType="CLOB" javaType="java.lang.String"/>
+        <result property="NAME" column="NAME"/>
+        <result property="BOARD_DATE" column="BOARD_DATE"/>
+        <result property="BOARD_HIT" column="BOARD_HIT"/>
+        <collection property="fileVOs" javaType="List" ofType="BoardFileVO">
+            <id column="FILE_CODE" property="file_code"/>
+            <result column="FILE_NAME" property="file_name"/>
+            <result column="ORIGIN_NAME" property="origin_name"/>
+        </collection>
+    </resultMap>
+
+    <select id="getBoardDetail" resultMap="BoardDetail" resultType="HashMap" parameterType="BoardVO">
+        SELECT BOARD_TITLE, BOARD_CONTENTS, NAME, TO_CHAR(BOARD_DATE, 'YYYY-MM-DD') AS "BOARD_DATE", FILE_NAME,
+        ORIGIN_NAME, FILE_CODE, TO_CHAR(BOARD_HIT, '999,999,999') AS "BOARD_HIT" FROM BOARD JOIN
+        EMPLOYEE USING (EMPLOYEE_NUM) LEFT JOIN
+        BOARD_FILE USING (BOARD_CODE, CATE_CODE)
+        WHERE BOARD_CODE = #{board_code} AND CATE_CODE =#{cate_code}
+    </select>
+
+    <select id="getFileDetail" parameterType="BoardFileVO" resultType="BoardFileVO">
+        SELECT * FROM BOARD_FILE WHERE FILE_CODE = #{file_code}
+    </select>
+
 
 </mapper>

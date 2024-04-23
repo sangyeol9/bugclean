@@ -39,6 +39,10 @@
             padding-right: 0 !important;
         }
 
+        .card-body img {
+            max-width: 100%;
+        }
+
     </style>
 </head>
 <c:import url="../temp/css.jsp"></c:import> <!-- //bootstrap-template-css -->
