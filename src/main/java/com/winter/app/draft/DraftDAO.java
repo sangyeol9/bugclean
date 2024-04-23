@@ -22,11 +22,10 @@ public interface DraftDAO {
 	int setApprovalLine(ApprovalLineVO approvalLineVO)throws Exception;
 	EmployeeVO getCEO()throws Exception;
 	ApprovalLineVO getApprovalMaxNum() throws Exception;
-
 	List<Map<String, Object>> getApprovalList(ApprovalLineVO approvalLineVO) throws Exception;
-	
 	int setAPList(APListVO apListVO)throws Exception;
 	List<APListVO> getAPList(APListVO apListVO)throws Exception;
+	List<ApprovalLineVO> getALDetail(ApprovalLineVO approvalLineVO)throws Exception;
 
 	
 	
