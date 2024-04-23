@@ -71,8 +71,14 @@
                                             
                                                 
                                                 <div class="text-center mt-4 mx-3">
-                                                    <button type="submit" class="btn btn-light btn-block" style="font-weight: bold;">출근</button>
-                                                    <button type="submit" class="btn btn-dark btn-block" style="font-weight: bold;">퇴근</button>
+                                                    <form action="/Attendence" method="post">
+                                                        <input type="hidden" name="employee_num" value="${employee_num}">
+                                                        <a type="button" id="attendence" class="btn btn-light btn-block" style="font-weight: bold;">출근</a>
+                                                    </form>
+                                                    <form action="/WorkOut" method="post" >
+                                                        <input type="hidden" name="employee_num" value="${employee_num}">
+                                                        <a type="button" id="workout"  class="btn btn-dark btn-block" style="font-weight: bold;">퇴근</a>
+                                                    </form>
                                                 </div>
 
                                                 <div class="text-center mt-4 mx-3">
@@ -86,7 +92,6 @@
                                                                 <td>퇴근 시간</td>
                                                                 <td id="leaveTime" style="font-size: large; color: darkgray;">-</td>
                                                             </tr>
-
                                                     </table>
 
                                                 </div>

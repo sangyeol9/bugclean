@@ -3,12 +3,18 @@ package com.winter.app;
 import com.winter.app.board.BoardCateVO;
 import com.winter.app.board.BoardService;
 import com.winter.app.board.BoardVO;
+import com.winter.app.employee.EmployeeVO;
+import com.winter.app.humanResource.AttendanceVO;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -45,5 +51,29 @@ public class HomeController {
         
         return "index";
     }
+    //@Scheduled(cron = "0 0 0 * * *")
+  	public void AttendenceDate() {
+  		//System.out.println("Cron");
+  		//memberDAO.getDetail(null);
+  	}
+    //출근
+    @PostMapping("Attendence")
+	private String Attendence(AttendanceVO attendanceVO, Model model) throws Exception {
+		int result = homeService.Attendence(attendanceVO);
+    	
+    	
+    	return "index";
+	}
+    //퇴근~~
+    @PostMapping("WorkOut")
+	private void WorkOut() throws Exception {
+		
+    	
+    	
+    	return;
+	}
+    
+    
+
     
 }

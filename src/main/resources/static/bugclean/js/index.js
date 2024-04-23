@@ -1,6 +1,14 @@
+const attendence = document.getElementById("attendence");
+const workout = document.getElementById("workout");
 
+attendence.addEventListener("click", function(){
+    confirm("출근하시겠습니까?")
+    
+})
 
-
+attendence.addEventListener("click", function(){
+    confirm("출근하시겠습니까")
+})
 
 
 
