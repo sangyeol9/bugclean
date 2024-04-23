@@ -38,53 +38,54 @@
 				<!-- 법인 체크시 노출 시작 -->
 				<div id="company">
 					<div id="bn_num">
+						
 						<button disabled="disabled"
 							class="btn-square btn-outline-dark left-div">사업자 번호</button>
-						<input class="right-div" id="bn_num_in" type="text"
+						<input class="right-div form-control" style="width:30%" id="bn_num_in" type="text"
 							placeholder="사업자 번호를 입력하세요." name="business_Num">
 					</div>
 					<div id="bn_name">
 						<button disabled="disabled"
 							class="btn-square btn-outline-dark left-div">사업자 명</button>
-						<input class="right-div" id="bn_name_in" type="text"
+						<input class="right-div form-control" style="width:30%" id="bn_name_in" type="text"
 							placeholder="사업자 명을 입력하세요." name="business_Name">
 					</div>
 					<div id="ceo_name">
 						<button disabled="disabled"
 							class="btn-square btn-outline-dark left-div">대표자 명</button>
-						<input class="right-div" id="ceo_name_in" type="text"
+						<input class="right-div form-control" style="width:30%"  id="ceo_name_in" type="text"
 							placeholder="대표자 이름을 입력하세요." name="ceo_Name">
 					</div>
 					<div id="ceo_phone">
 						<button disabled="disabled"
 							class="btn-square btn-outline-dark left-div">대표 전화번호</button>
-						<input class="right-div" id="ceo_phone_in" type="text"
+						<input class="right-div form-control" style="width:30%" id="ceo_phone_in" type="text"
 							placeholder="대표자 전화번호를 입력하세요." name="ceo_Phone">
 					</div>
 					<div id="addr">
 						<button disabled="disabled"
 							class="btn-square btn-outline-dark left-div">주소</button>
-						<input class="right-div" id="addr_in" type="text"
+						<input class="right-div form-control" style="width:30%" id="addr_in" type="text"
 							placeholder="사업자 주소를 입력하세요." name="address">
 					</div>
 					<div id="manager_name">
 						<button disabled="disabled"
 							class="btn-square btn-outline-dark left-div">매니저 명</button>
-						<input class="right-div" id="manager_name_in" type="text"
+						<input class="right-div form-control" style="width:30%" id="manager_name_in" type="text"
 							placeholder="거래처 담당자 명을 입력하세요." name="manager_Name">
 					</div>
 					<div id="manager_phone">
 						<button disabled="disabled"
 							class=" btn-square btn-outline-dark left-div">매니저 전화번호</button>
-						<input class="right-div" id="manager_phone_in" type="text"
+						<input class="right-div form-control" style="width:30%" id="manager_phone_in" type="text"
 							placeholder="거래처 담당자 전화번호를 입력하세요." name="manager_Phone">
 					</div>
 					<div id="sales_name">
 						<button disabled="disabled"
 							class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
-						<input class="right-div" id="sales_name_in" type="hidden"
+						<input class="right-div form-control" style="width:30%" id="sales_name_in" type="hidden"
 							placeholder="영업 담당자명을 입력하세요." name="employee_Num">
-						<select id="inputSelect" class="emp_choice right-div" >
+						<select id="inputSelect" class="emp_choice right-div form-control" style="width: 30%;" >
 								<option value="" >담당자 선택</option>
 							<c:forEach items="${list}" var="li">
 								<option value="${li.employee_num}">${li.employee_num} ${li.name}</option>
@@ -101,27 +102,27 @@
 					<div id="addr_person">
 						<button disabled="disabled"
 							class="btn-square btn-outline-dark left-div">주소</button>
-						<input class="right-div" id="addr_person_in" type="text"
+						<input class="right-div form-control" style="width:30%" id="addr_person_in" type="text"
 							placeholder="고객 주소를 입력하세요." name="address">
 					</div>
 					<div id="person_name">
 						<button disabled="disabled"
 							class="btn-square btn-outline-dark left-div">고객명</button>
-						<input class="right-div" id="person_name_in" type="text"
+						<input class="right-div form-control" style="width:30%" id="person_name_in" type="text"
 							placeholder="고객명을 입력하세요." name="ceo_Name">
 					</div>
 					<div id="person_phone">
 						<button disabled="disabled"
 							class=" btn-square btn-outline-dark left-div">고객 전화번호</button>
-						<input class="right-div" id="person_phone_in" type="text"
+						<input class="right-div form-control" style="width:30%" id="person_phone_in" type="text"
 							placeholder="고객 전화번호를 입력하세요." name="ceo_Phone">
 					</div>
 					<div id="person_sales_name">
 						<button disabled="disabled"
 							class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
-						<input class="right-div" id="person_sales_name_in" type="hidden"
+						<input class="right-div form-control" style="width:30%" id="person_sales_name_in" type="hidden"
 							placeholder="영업 담당자명을 입력하세요." name="employee_Num">
-						<select id="inputSelectPerson" class="emp_choice right-div">
+						<select id="inputSelectPerson" class="emp_choice right-div form-control" style="width: 30%;">
 								<option value="" >담당자 선택</option>
 							<c:forEach items="${list}" var="li">
 								<option value="${li.employee_num}">${li.employee_num} ${li.name}</option>
@@ -136,7 +137,10 @@
 				
 				
 				<!-- 작성완료 후 등록하기 버튼  -->
-				<button class="btn-rounded btn-dark create">등록하기</button>
+				<a href="/customer/list">
+					<button  type = "button" class="btn btn-secondary create">돌아가기</button>
+				</a>
+					<button class="btn btn-light create">등록하기</button>
 			</form>
 			<c:import url="../temp/messenger.jsp"></c:import>
 		</div>
