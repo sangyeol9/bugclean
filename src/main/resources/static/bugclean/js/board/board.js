@@ -313,7 +313,4 @@ const createBoard = async (board_code) => {
 }
 
 // 페이지 로드 시 초기 데이터 로드
-$(document).ready(async function () {
-    await pageLoad();
 
-});

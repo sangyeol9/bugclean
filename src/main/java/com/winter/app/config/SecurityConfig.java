@@ -20,6 +20,8 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 public class SecurityConfig{
 	
 	@Autowired
+	private LoginSucessHandler sucessHandler;
+	@Autowired
 	private LoginFailHandler failHandler;
 	
 	@Bean
@@ -79,7 +81,7 @@ public class SecurityConfig{
 		.formLogin(
 				(login)->login
 						.loginPage("/employee/login")
-						.defaultSuccessUrl("/")
+						.successHandler(sucessHandler)
 						.failureHandler(failHandler)
 						.permitAll()
 		)
@@ -90,7 +92,8 @@ public class SecurityConfig{
 							.logoutSuccessUrl("/employee/login")
 							.invalidateHttpSession(true)//로그아웃시 session만료
 							.permitAll()
-				);
+		);
+		
 		
 		return security.build();
 	}
