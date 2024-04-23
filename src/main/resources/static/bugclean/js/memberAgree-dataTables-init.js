@@ -139,7 +139,7 @@ $(document).ready(async function () {
                 });
             }
             Swal.fire({
-                title: '정말 가입을 승인하시겠습니까?',
+                title: '가입을 승인하시겠습니까?',
                 text: '',
                 icon: 'question',
                 showCancelButton: true,
@@ -164,7 +164,7 @@ $(document).ready(async function () {
         }
         if ($(this).attr('id') === "reject-btn") {
             Swal.fire({
-                title: '정말 가입을 거절하시겠습니까?',
+                title: '가입을 거절하시겠습니까?',
                 text: '요청이 삭제되며, 재가입 신청해야합니다.',
                 icon: 'warning',
                 showCancelButton: true,

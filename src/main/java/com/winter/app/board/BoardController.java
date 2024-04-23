@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,39 +27,42 @@ public class BoardController {
     BoardService boardService;
 
     @GetMapping("")
-    public ModelAndView getBoard(BoardCateVO boardCateVO, ModelAndView mv, HttpSession session) throws Exception{
+    public ModelAndView getBoard(BoardCateVO boardCateVO, Integer home, ModelAndView mv, HttpSession session) throws Exception {
         List<BoardCateVO> ar = boardService.getCateList();
 
         List<String> codes = new ArrayList<>();
         List<String> names = new ArrayList<>();
-        for(BoardCateVO cate : ar){
+        for (BoardCateVO cate : ar) {
             codes.add(cate.getCate_code().toString());
             names.add(cate.getCate_name());
         }
 
-        session.setAttribute("code",codes);
-        session.setAttribute("name",names);
+        session.setAttribute("code", codes);
+        session.setAttribute("name", names);
 
-        mv.addObject("active",boardCateVO.getCate_code());
+        mv.addObject("active", boardCateVO.getCate_code());
         mv.setViewName("board/mainPage");
 
         return mv;
     }
 
     @GetMapping("mainPage")
-    public ModelAndView viewBoard(BoardCateVO boardCateVO, ModelAndView mv)throws Exception{
+    public ModelAndView viewBoard(BoardCateVO boardCateVO, ModelAndView mv) throws Exception {
 
-        mv.addObject("active",boardCateVO.getCate_code());
+        mv.addObject("active", boardCateVO.getCate_code());
         mv.setViewName("board/list");
 
-        log.info("{}",mv);
+        log.info("{}", mv);
 
         return mv;
     }
 
     @GetMapping("create")
-    public ModelAndView createBoardPage(BoardCateVO boardCateVO, ModelAndView mv)throws Exception{
-        mv.addObject("code",boardCateVO.getCate_code());
+    public ModelAndView createBoardPage(BoardVO boardVO, ModelAndView mv) throws Exception {
+        if (boardVO.getBoard_code() != null) {
+            mv.addObject("board", boardService.getBoardDetail(boardVO));
+        }
+        mv.addObject("code", boardVO.getCate_code());
         mv.setViewName("board/create");
 
         return mv;
@@ -66,18 +70,40 @@ public class BoardController {
 
     @PostMapping("create")
     @ResponseBody
-    public int setBoard(BoardVO boardVO, MultipartFile [] files) throws Exception{
+    public int setBoard(BoardVO boardVO, MultipartFile[] files) throws Exception {
 
-        log.info("{}",boardVO);
-        log.info("{}", (Object) files);
+        if (boardVO.getBoard_title().equals("")) {
+            return 0;
+        }
 
         return boardService.setBoard(boardVO, files);
     }
 
+    @PostMapping("detail")
+    public ModelAndView getBoardDetail(BoardVO boardVO, ModelAndView mv) throws Exception {
+        Map<String, Object> response = boardService.getBoardDetail(boardVO);
+        mv.setViewName("board/detail");
+        mv.addObject("board", response);
+        log.info("{}", response);
+
+        return mv;
+    }
+
+    @RequestMapping("download")
+    public String download(BoardFileVO boardFileVO, Model model) throws Exception {
+        log.info("{}", boardFileVO);
+        BoardFileVO fileVO = boardService.getFileDetail(boardFileVO);
+        // 다운로드할 파일 정보 설정
+        model.addAttribute("fileVO", fileVO);
+
+        return "boardFileDown";
+    }
+
+
     @GetMapping("list")
     @ResponseBody
-    public Map<String, Object> getBoardList(Pagination pagination) throws Exception{
-        log.info("page : {}",pagination);
+    public Map<String, Object> getBoardList(Pagination pagination) throws Exception {
+        log.info("page : {}", pagination);
         return boardService.getBoardList(pagination);
     }
 

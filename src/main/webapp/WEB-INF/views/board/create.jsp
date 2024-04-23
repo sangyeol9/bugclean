@@ -15,7 +15,8 @@
                         <div class="form-group row align-items-center text-center">
                             <label for="board-title" class="col-2 col-form-label-lg m-0">제 목</label>
                             <div class="col-9">
-                                <input id="board-title" type="text" class="form-control form-control-lg">
+                                <input id="board-title" type="text" class="form-control form-control-lg"
+                                       value="${board.BOARD_TITLE}">
                             </div>
                         </div>
                     </div>
@@ -33,16 +34,40 @@
 
                 <div class="card-body">
                     <div class="summernote">
-
+                        <c:if test="${board ne null}">
+                            ${board.BOARD_CONTENTS}
+                        </c:if>
                     </div>
+                    <c:if test="${board ne null}">
+                    <c:forEach items="${board.fileVOs}" var="file" varStatus="loop">
+                    <div id="attachment-group">
+                        <div class="input-group mb-1" id="attachment-${loop.index}">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">첨부파일</span>
+                            </div>
+                            <div class="custom-file col">
+                                <input type="file" class="custom-file-input" name="file-${loop.index}">
+                                <label class="custom-file-label">파일을 선택하세요</label>
+                            </div>
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-sm btn-dark plus-file">+</button>
+                                <button type="button" class="btn btn-sm btn-dark minus-file" data-target="attachment-${loop.index}">
+                                    −
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    </c:forEach>
+                    </c:if>
 
+                    <c:if test="${board eq null}">
                     <div id="attachment-group">
                         <div class="input-group mb-1" id="attachment-1">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">첨부파일</span>
                             </div>
                             <div class="custom-file col">
-                                <input type="file" class="custom-file-input">
+                                <input type="file" class="custom-file-input" name="file-1">
                                 <label class="custom-file-label">파일을 선택하세요</label>
                             </div>
                             <div class="input-group-append">
@@ -53,12 +78,11 @@
                             </div>
                         </div>
                     </div>
+                    </c:if>
             </form>
         </div>
     </div>
 </div>
-</div>
-
 
 <div class="card-footer d-flex justify-content-end">
     <div>

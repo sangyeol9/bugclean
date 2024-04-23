@@ -53,11 +53,43 @@ const pageLoad = async () => {
         }
     });
 
+    $('.board-body').on('click', 'tr', function (){
+        let board_code = ($(this).attr('data-board-code').trim());
+        let cate_code = $('#page-title').attr('data-target');
+        console.log(board_code +"           "+ cate_code);
+        let formData = new FormData;
+        formData.append("board_code",board_code);
+        formData.append("cate_code",cate_code);
+        boardDetail(formData);
+    })
+
 
     $('#creat-board').on('click', function () {
-        createBoard();
+        createBoard(null);
     })
+
 };
+
+const boardDetail = async (formData) =>{
+    await fetch("board/detail",{
+        method: 'POST',
+        body: formData
+    }).then(response=>{
+        return response.text();
+    }).then(data =>{
+        $('.card-body').empty();
+        $('.card-body').html(data);
+    })
+
+    $('#list-btn').on('click', function (){
+        pageLoad();
+    })
+
+    $('#update-btn').on('click',function (){
+        createBoard(formData.get("board_code"));
+    })
+
+}
 
 const fetchAndDisplayBoard = (code, page, search = '', kind = '') => {
     let url = `board/list?code=${code}&page=${page}`;
@@ -80,7 +112,7 @@ const fetchAndDisplayBoard = (code, page, search = '', kind = '') => {
             data.boardList.forEach(item => {
                 const {BOARD_CODE, BOARD_TITLE, NAME, BOARD_DATE, BOARD_HIT} = item;
                 const newRow = `
-                    <tr>
+                    <tr data-board-code="${BOARD_CODE}">
                         <td>${BOARD_CODE}</td>
                         <td>${BOARD_TITLE}</td>
                         <td>${NAME}</td>
@@ -96,6 +128,7 @@ const fetchAndDisplayBoard = (code, page, search = '', kind = '') => {
         .catch(error => {
             console.error('Error:', error);
         });
+
 };
 
 // 페이지 인디케이터 생성 함수
@@ -117,13 +150,13 @@ const moveToPage = (page, code, search, kind) => {
     fetchAndDisplayBoard(code, page, search, kind);
 };
 
-const createBoard = async () => {
+const createBoard = async (board_code) => {
     let cate_code = $('#page-title').attr("data-target");
     await $.ajax({
-        url: `board/create?cate_code=${cate_code}`,
+        url: `board/create?cate_code=${cate_code}${board_code == null ? '' : '&board_code=' + board_code}`,
         type: "GET",
         success: function (response) {
-            // 서버에서 받은 HTML 코드를 카드 바디에 추가
+            // 서버에서 받은 HTML 코드를 카드 바디에 추가s
             $(".card-body").empty();
             $(".card-body").html(response);
         },
@@ -132,28 +165,21 @@ const createBoard = async () => {
             console.error(xhr.responseText);
         }
     });
-    // 일반 에디터 설정
-    let browserMaxHeight = window.innerHeight;
-    $(window).on('resize', function () {
-        browserMaxHeight = window.innerHeight;
-        $('#summernote').summernote('option', 'maxHeight', browserMaxHeight);
-    });
+
     $(".summernote").summernote({
-        height: browserMaxHeight - 100 > 600 ? 600 : 350,       // 에디터의 높이
-        minHeight: 350, // 최소 높이 (null로 설정하면 제한 없음)
-        maxHeight: browserMaxHeight - 100, // 최대 높이 (null로 설정하면 제한 없음)
+        height: 350,       // 에디터의 높이
+        minHeight: 350, // 최소 높이
+        maxHeight: 500, // 최대 높이
         focus: true,     // 에디터 로드 후 포커스 여부
         toolbar: [
             // [groupName, [list of button]]
-            ['fontname', ['fontname']],
             ['fontsize', ['fontsize']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
             ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
-            ['color', ['forecolor', 'color']],
+            ['color', ['forecolor']],
             ['table', ['table']],
             ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']],
-            ['insert', ['picture', 'link', 'table']],
-            ['view', ['fullscreen', 'help']]
+            ['insert', ['picture', 'link']],
         ],
         fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체'],
         fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72']
@@ -234,7 +260,15 @@ const createBoard = async () => {
         console.log(new_cate_code)
         // 제목 입력 값 가져오기
         const title = $('#board-title').val();
-
+        if(title===""){
+            return Swal.fire({
+                title: '제목은 필수입력 사항입니다.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '확인',
+                cancelButtonText: '취소',
+            })
+        }
         // 작성자 정보 가져오기
         const employeeNum = $('#employee_num').val();
 

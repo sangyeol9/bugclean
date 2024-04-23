@@ -44,6 +44,10 @@ public class BoardService {
         return map;
     }
 
+    public Map<String, Object> getBoardDetail(BoardVO boardVO) throws Exception{
+        return boardDAO.getBoardDetail(boardVO);
+    }
+
     public int setBoard(BoardVO boardVO, MultipartFile [] files) throws Exception{
 
         Pagination pagination = new Pagination();
@@ -73,6 +77,10 @@ public class BoardService {
             }
         }
         return result;
+    }
+
+    public BoardFileVO getFileDetail(BoardFileVO boardFileVO)throws Exception{
+        return boardDAO.getFileDetail(boardFileVO);
     }
 
 }
