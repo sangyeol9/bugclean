@@ -29,6 +29,6 @@
 		<typeAlias type="com.winter.app.board.BoardVO" alias="BoardVO"/>
 		<typeAlias type="com.winter.app.util.pagination.Pagination" alias="Pagination"/>
 		<typeAlias type="com.winter.app.board.BoardFileVO" alias="BoardFileVO"/>
-
+		<typeAlias type="com.winter.app.draft.APListVO" alias="APListVO"/>
   	</typeAliases>
   </configuration>

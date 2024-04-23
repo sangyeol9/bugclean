@@ -87,13 +87,12 @@
 						<button id="lineBtn" class="lineBtnDiv">
 							편<br>집<br>하<br>기
 						</button>
-					</div>
-					
-					<div id="saveBtnDiv">
+					</div>		
+<!-- 					<div id="saveBtnDiv">
 						<button id="saveBtn">
 							결<br>재<br>선<br>저<br>장
 						</button>
-					</div>
+					</div> -->
 					
 					<table border="1">
 						<tr id="input_grade">
@@ -147,12 +146,12 @@
 								value="${draftVO.draft_num}" disabled></td>
 						</tr>
 						<tr>
-							<td class="basisTitleTd">제목</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
-						</tr>
-						<tr>
 							<td class="basisTitleTd">참조</td>
 							<td class="basisTd"><input id="refInp" class="inp" type="text" disabled></td>
+						</tr>
+						<tr>
+							<td class="basisTitleTd">제목</td>
+							<td class="basisTd"><input class="inp" type="text"></td>
 						</tr>
 						<tr style="height: 300px;">
 							<td class="basisTitleTd">내용</td>
@@ -271,7 +270,7 @@
 						
 						<!-- 결재선 저장 타이틀 -->
 						<div id="approvalDiv">
-						<input type="text" placeholder="결재선 이름 입력" style="width: 120px;" name="line_name">
+						<input type="text" placeholder="결재선 이름 입력" style="width: 120px;" id="approvalInpName">
 						<button id="approvalBtn" type="button" style="display: inline-block;">저장</button>
 						</div>
 						<!-- 결재선 저장 타이틀 -->

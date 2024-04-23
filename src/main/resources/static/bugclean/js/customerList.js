@@ -44,9 +44,13 @@ let business;
 for(let i=0; i<modi_tr.length;i++){
 
     
-    modi_tr[i].addEventListener("click",function(){
+    modi_tr[i].addEventListener("click",function(event){
         console.log("event 진입 " + i );
-        
+            //A링크를 클릭했을때는 모달창이 나오지않는다.
+            if(event.target.tagName =='A' ){
+              event.stopPropagation();
+              return;
+            }
             customer = td_customer_num[i].getAttribute("data-customernum");
             customerType = td_customer_type[i].getAttribute("data-customertype");
             type.value = customerType;
