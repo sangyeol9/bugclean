@@ -99,15 +99,22 @@
                                         <c:if test="${home ne null}">
                                             <div class="card-body" data-active="${active}" data-board="${home}">
                                                 <script>
-
                                                     console.log("home에서 왔을때");
-                                                    let formData = new FormData;
-                                                    formData.append('board_code', $('.card-body').attr('data-board'));
-                                                    formData.append('cate_code', $('.card-body').attr('data-active'));
-                                                    const boardDetail = async (formData) => {
+                                                    let formDataHome = new FormData;
+                                                    formDataHome.append('board_code', $('.card-body').attr('data-board'));
+                                                    formDataHome.append('cate_code', $('.card-body').attr('data-active'));
+
+                                                    console.log(formDataHome.get("board_code"))
+                                                    console.log(formDataHome.get("cate_code"))
+
+                                                    $(document).ready(async function () {
+                                                        await boardDetailHome(formDataHome);
+                                                    });
+
+                                                    async function boardDetailHome(formDataHome) {
                                                         await fetch("board/detail", {
                                                             method: 'POST',
-                                                            body: formData
+                                                            body: formDataHome
                                                         }).then(response => {
                                                             return response.text();
                                                         }).then(data => {
@@ -120,15 +127,20 @@
                                                         })
 
                                                         $('#update-btn').on('click', function () {
-                                                            createBoard(formData.get("board_code"));
+                                                            createBoard(formDataHome.get("board_code"));
                                                         })
-
                                                     }
-                                                    boardDetail();
                                                 </script>
+                                            </div>
                                         </c:if>
                                         <c:if test="${home eq null}">
                                             <div class="card-body">
+                                                <script>
+                                                    $(document).ready(async function () {
+                                                        await pageLoad();
+                                                    });
+                                                </script>
+                                            </div>
                                         </c:if>
                                     </div>
                                 </div>
