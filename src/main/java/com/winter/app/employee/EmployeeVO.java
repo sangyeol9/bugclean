@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.validation.constraints.NotBlank;
@@ -86,7 +87,8 @@ public class EmployeeVO implements UserDetails{
 	}
 	@Override	//계정잠김
 	public boolean isAccountNonLocked() {
-		//퇴사자 false 나중
+		//퇴사자는 잠금
+		
 		return true;
 	}
 	@Override // 비밀번호 만료 여부

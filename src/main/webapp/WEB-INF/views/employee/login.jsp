@@ -42,9 +42,7 @@
 									
 										<div class="form-group">
 											<label><strong>ID</strong></label>
-											<!-- <input type="username" class="form-control" placeholder="bugclean@gmail.com"> -->
-											<!-- value="${cookie.rememberId.value}" -->
-											<form:input path="username" id="username" cssClass="form-control" placeholder="bugclean@gmail.com"></form:input>
+											<form:input path="username" id="username" value="${cookie.rememberId.value}" cssClass="form-control" placeholder="example@gmail.com"></form:input>
 											<form:errors path="username"></form:errors>
 										</div>
 										<div class="form-group">
@@ -56,7 +54,7 @@
 										<div class="form-row d-flex justify-content-between mt-4 mb-2">
 											<div class="form-group">
 												<div class="form-check ml-2">
-													<input class="form-check-input" type="checkbox" name="rememberId" checked id="basic_checkbox_1">
+													<input name="rememberId" id="remember-id" class="form-check-input" type="checkbox" checked id="basic_checkbox_1">
 													<label class="form-check-label" for="basic_checkbox_1">아이디 저장</label>
 												</div>
 											</div>

@@ -413,7 +413,7 @@
                                                     <div class="form-group row">
                                                         <label class="col-lg-4 col-form-label" for="val-password">닉네임</label>
                                                         <div class="col-lg-6">
-                                                            <form:input path="nickname" cssClass="form-control input-rounded" id="nickname"></form:input>
+                                                            <form:input path="nickname" cssClass="form-control input-rounded" id="nickname" maxlength="10" oninput="onlyEnglish(this)"></form:input>
                                                         </div>
                                                     </div>
                                                     
@@ -437,24 +437,24 @@
                                                                         <option value="018">018</option>
                                                                         <option value="019">019</option>
                                                                     </select>&emsp;-&emsp;
-                                                                    <input type="number"
+                                                                    <input type="text"
                                                                         class="form-control col-3"
                                                                         name="phoneMiddle" id="phoneMiddle"
-                                                                        maxlength="4" minlength="4">
+                                                                        maxlength="4" minlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
                                                                     &emsp;-&emsp;
-                                                                    <input type="number"
+                                                                    <input type="text"
                                                                         class="form-control col-3"
-                                                                        name="phoneEnd" id="phoneEnd" maxlength="4" minlength="4">
+                                                                        name="phoneEnd" id="phoneEnd" maxlength="4" minlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
                                                                 </div>
                                                                 <!-- <input type="text" id="phone" name="phone" style="display: none" value=""> -->
-                                                                <form:input path="phone" id="phone" cssClass="form-control" style="display: none" value=""></form:input>
+                                                                <!-- <form:input path="phone" id="phone" cssClass="form-control" style="display: none" value=""></form:input> -->
                                                             </div>
                                                         
                                                     </div>
             
                                                     <div class="form-group">
                                                         <label><strong>주소</strong></label>
-                                                        <form:input path="address" id="address" cssClass="form-control col-6" style="display: none" value=""></form:input>
+                                                        <!-- <form:input path="address" id="address" cssClass="form-control col-6" style="display: none" value=""></form:input> -->
                                                         
                                                         
                                                         <div class="form-row">
