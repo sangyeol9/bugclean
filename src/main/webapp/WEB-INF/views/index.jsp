@@ -71,11 +71,11 @@
                                             
                                                 
                                                 <div class="text-center mt-4 mx-3">
-                                                    <form action="/Attendence" method="post">
+                                                    <form action="/setAttendence" method="post" onsubmit="return confirm('출근하시겠습니까?');">
                                                         <input type="hidden" name="employee_num" value="${employee_num}">
-                                                        <a type="button" id="attendence" class="btn btn-light btn-block" style="font-weight: bold;">출근</a>
+                                                        <button type="submit" id="attendence" class="btn btn-light btn-block" style="font-weight: bold;">출근</button>
                                                     </form>
-                                                    <form action="/WorkOut" method="post" >
+                                                    <form action="/setWorkOut" method="post" >
                                                         <input type="hidden" name="employee_num" value="${employee_num}">
                                                         <a type="button" id="workout"  class="btn btn-dark btn-block" style="font-weight: bold;">퇴근</a>
                                                     </form>
@@ -86,11 +86,26 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td class="col-6">출근 시간</th>
-                                                                <td id="goTime" class="col-6" style="font-size: large; color: darkgray;">07:35:12</th>
+                                                                <c:if test="${null eq attendanceVO.attend_start_time}">
+                                                                    <td id="leaveTime" style="font-size: large; color: darkgray;">-</td>
+                                                                </c:if>
+                                                                <c:if test="${null ne attendanceVO.attend_start_time}">
+
+                                                                    <td id="leaveTime" style="font-size: large; color: darkgray;">${attendanceVO.attend_start_time}</td>
+                                                                </c:if>
                                                             </tr>
                                                             <tr>
                                                                 <td>퇴근 시간</td>
-                                                                <td id="leaveTime" style="font-size: large; color: darkgray;">-</td>
+                                                                
+                                                                <c:if test="${null eq attendanceVO.attend_done}">
+                                                                    <td id="leaveTime" style="font-size: large; color: darkgray;">-</td>
+                                                                </c:if>
+                                                                <c:if test="${null ne attendanceVO.attend_done}">
+
+                                                                    <td id="leaveTime" style="font-size: large; color: darkgray;">${attendanceVO.attend_done}</td>
+                                                                </c:if>
+
+                                                                
                                                             </tr>
                                                     </table>
 

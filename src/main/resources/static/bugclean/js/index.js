@@ -1,14 +1,25 @@
 const attendence = document.getElementById("attendence");
 const workout = document.getElementById("workout");
 
-attendence.addEventListener("click", function(){
-    confirm("출근하시겠습니까?")
-    
-})
+let employee_num = document.getElementById("employee_num");
 
-attendence.addEventListener("click", function(){
-    confirm("출근하시겠습니까")
-})
+// attendence.addEventListener("click",(e)=>{
+
+//     let result = confirm("출근하시겠습니까??");
+//         if(result){
+        
+//             console.log('연결');
+
+//         }else {
+//             e.defaultPrevented();
+//             return false;
+//             // alert("취소되었습니다.");
+//         }
+
+
+    
+
+// })
 
 
 

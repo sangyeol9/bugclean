@@ -1,5 +1,18 @@
 package com.winter.app;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.winter.app.board.BoardCateVO;
 import com.winter.app.board.BoardService;
 import com.winter.app.board.BoardVO;
@@ -7,21 +20,11 @@ import com.winter.app.employee.EmployeeVO;
 import com.winter.app.humanResource.AttendanceVO;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/")
+@Slf4j
 public class HomeController {
 	
 	@Autowired
@@ -30,10 +33,22 @@ public class HomeController {
     BoardService boardService;
 
     @GetMapping("")
-    public String SidebarInit(HttpSession session, Model model) throws Exception{
-        //공지
+    public String SidebarInit(AttendanceVO attendanceVO, HttpSession session, Model model) throws Exception{
+    	
+    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails)principal;
+		EmployeeVO employeeVO=(EmployeeVO)userDetails;
+		//System.out.println("employeeVO : "+employeeVO.getEmployee_num());
+		
+    	attendanceVO.setEmployee_num(employeeVO.getEmployee_num());
+        
+    	
+    	//공지
     	List<BoardVO> boardVO = homeService.getList();
     	model.addAttribute("boardVO",boardVO);
+    	//근태기록
+    	attendanceVO = homeService.getAttendTime(attendanceVO);
+    	model.addAttribute("attendanceVO",attendanceVO);
     	
     	//사이드바 게시판 항목
     	List<BoardCateVO> ar = boardService.getCateList();
@@ -51,26 +66,36 @@ public class HomeController {
         
         return "index";
     }
-    //@Scheduled(cron = "0 0 0 * * *")
-  	public void AttendenceDate() {
-  		//System.out.println("Cron");
-  		//memberDAO.getDetail(null);
+    
+    //근태
+    @Scheduled(cron = "0 0 0 * * *")
+  	public void setAttendDate() throws Exception {
+    	System.out.println("자정~~");
+  		homeService.setAttendDate();
   	}
-    //출근
-    @PostMapping("Attendence")
-	private String Attendence(AttendanceVO attendanceVO, Model model) throws Exception {
-		int result = homeService.Attendence(attendanceVO);
-    	
-    	
-    	return "index";
-	}
-    //퇴근~~
-    @PostMapping("WorkOut")
-	private void WorkOut() throws Exception {
+    @PostMapping("setAttendence")
+	private String setAttendence(AttendanceVO attendanceVO, Model model) throws Exception {
 		
+    	System.out.println("왔당~~");
+    	return "";
+    	//int result = homeService.setAttendence(attendanceVO);
     	
+//		model.addAttribute("result","attendence.update.success");
+//		model.addAttribute("path","/");
+//		
+//		return "commons/result";
+	}
+    @PostMapping("setWorkOut")
+	private String setWorkOut(AttendanceVO attendanceVO, Model model) throws Exception {
+    	int result = homeService.setWorkOut(attendanceVO);
     	
-    	return;
+    	//0일경우 추가~~
+    	if(result==1){
+    		model.addAttribute("result","workOut.update.success");
+    		model.addAttribute("path","/");
+    	}
+		
+    	return "commons/result";
 	}
     
     

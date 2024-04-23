@@ -9,8 +9,8 @@ import lombok.Data;
 public class AttendanceVO {
 	private String employee_num;
 	private Date attend_date;
-    private Date attend_start_time;
-    private Date attend_done;
+    private String attend_start_time;
+    private String attend_done;
     private String attend_vac;
 
 }

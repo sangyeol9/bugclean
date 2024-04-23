@@ -13,15 +13,30 @@ public class HomeService {
 	@Autowired
 	private HomeDAO homeDAO;
 	
+	//공지
 	public List<BoardVO> getList() throws Exception{
 		List<BoardVO> boardVO = homeDAO.getList();
 		return boardVO;
 	}
-	
-	
-	public int Attendence(AttendanceVO attendanceVO) {
-		//int result = homeService.Attendence(attendanceVO);
-		return 0;
+	//근태날짜
+	public void setAttendDate() throws Exception {
+		homeDAO.setAttendDate();
+		
 	}
+	public int setAttendence(AttendanceVO attendanceVO) throws Exception {
+		int result = homeDAO.setAttendence(attendanceVO);
+		return result;
+	}
+	public int setWorkOut(AttendanceVO attendanceVO) throws Exception {
+		int result = homeDAO.setWorkOut(attendanceVO);
+		return result;
+	}
+	public AttendanceVO getAttendTime(AttendanceVO attendanceVO) throws Exception {
+		attendanceVO = homeDAO.getAttendTime(attendanceVO);
+		
+		return attendanceVO;
+	}
+
+	
 	
 }
