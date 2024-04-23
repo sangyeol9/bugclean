@@ -182,7 +182,7 @@
 						<div class="input-group flex-nowrap mt-2" id="modal_sales_name">
 							<span class="input-group-text left-div" >영업 담당자 명</span>
 							<input id="modal_sales_name_in" type="hidden" class="form-control right-div" placeholder="영업 담당자명을 입력하세요." >
-							<select id="inputSelect" class="emp_choice right-div">
+							<select id="inputSelect" class="emp_choice right-div" style="width: 37%;">
 								<option class="base_selected" id="salse_choice_base" value="" >담당자 선택</option>
 							<c:forEach items="${sales_List}" var="li">
 								<option class="sales_choice_value" value="${li.employee_num}">${li.employee_num} ${li.name}</option>

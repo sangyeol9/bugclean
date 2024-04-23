@@ -39,49 +39,49 @@
 						<div id="bn_num">
 							<button disabled="disabled"
 								class="btn-square btn-outline-dark left-div">사업자 번호</button>
-							<input class="right-div" id="bn_num_in" type="text"
+							<input class="right-div form-control" style="width:30%" id="bn_num_in" type="text"
 								value="${vo.business_Num}" readonly="readonly">
 						</div>
 						<div id="bn_name">
 							<button disabled="disabled"
 								class="btn-square btn-outline-dark left-div">사업자 명</button>
-							<input class="right-div" id="bn_name_in" type="text"
+							<input class="right-div form-control" style="width:30%" id="bn_name_in" type="text"
 								value="${vo.business_Name}" readonly="readonly">
 						</div>
 						<div id="ceo_name">
 							<button disabled="disabled"
 								class="btn-square btn-outline-dark left-div">대표자 명</button>
-							<input class="right-div" id="ceo_name_in" type="text"
+							<input class="right-div form-control" style="width:30%" id="ceo_name_in" type="text"
 								value="${vo.ceo_Name}" readonly="readonly">
 						</div>
 						<div id="ceo_phone">
 							<button disabled="disabled"
 								class="btn-square btn-outline-dark left-div">대표 전화번호</button>
-							<input class="right-div" id="ceo_phone_in" type="text"
+							<input class="right-div form-control" style="width:30%" id="ceo_phone_in" type="text"
 								value="${vo.ceo_Phone}" readonly="readonly">
 						</div>
 						<div id="addr">
 							<button disabled="disabled"
 								class="btn-square btn-outline-dark left-div">주소</button>
-							<input class="right-div" id="addr_in" type="text"
+							<input class="right-div form-control" style="width:30%" id="addr_in" type="text"
 								value="${vo.address}" readonly="readonly">
 						</div>
 						<div id="manager_name">
 							<button disabled="disabled"
 								class="btn-square btn-outline-dark left-div">매니저 명</button>
-							<input class="right-div" id="manager_name_in" type="text"
+							<input class="right-div form-control" style="width:30%" id="manager_name_in" type="text"
 								value="${vo.manager_Name}" readonly="readonly">
 						</div>
 						<div id="manager_phone">
 							<button disabled="disabled"
 								class=" btn-square btn-outline-dark left-div">매니저 전화번호</button>
-							<input class="right-div" id="manager_phone_in" type="text"
+							<input class="right-div form-control" style="width:30%" id="manager_phone_in" type="text"
 								value="${vo.manager_Phone}" readonly="readonly">
 						</div>
 						<div id="sales_name">
 							<button disabled="disabled"
 								class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
-							<input class="right-div" id="sales_name_in" type="text"
+							<input class="right-div form-control" style="width:30%" id="sales_name_in" type="text"
 								value="${vo.employee_Name}" readonly="readonly">
 						</div>
 
@@ -96,25 +96,25 @@
 						<div id="addr_person">
 							<button disabled="disabled"
 								class="btn-square btn-outline-dark left-div">주소</button>
-							<input class="right-div" id="addr_person_in" type="text"
+							<input class="right-div form-control" style="width:30%" id="addr_person_in" type="text"
 								value="${vo.address}" readonly="readonly">
 						</div>
 						<div id="person_name">
 							<button disabled="disabled"
 								class="btn-square btn-outline-dark left-div">고객명</button>
-							<input class="right-div" id="person_name_in" type="text"
+							<input class="right-div form-control" style="width:30%" id="person_name_in" type="text"
 								value="${vo.ceo_Name}" readonly="readonly">
 						</div>
 						<div id="person_phone">
 							<button disabled="disabled"
 								class=" btn-square btn-outline-dark left-div">고객 전화번호</button>
-							<input class="right-div" id="person_phone_in" type="text"
+							<input class="right-div form-control" style="width:30%" id="person_phone_in" type="text"
 								value="${vo.ceo_Phone}" readonly="readonly">
 						</div>
 						<div id="person_sales_name">
 							<button disabled="disabled"
 								class=" btn-square btn-outline-dark left-div">영업 담당자 명</button>
-							<input class="right-div" id="person_sales_name_in" type="text"
+							<input class="right-div form-control" style="width:30%" id="person_sales_name_in" type="text"
 								value="${vo.employee_Name}" readonly="readonly">
 						</div>
 
