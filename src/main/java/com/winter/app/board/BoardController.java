@@ -26,16 +26,19 @@ public class BoardController {
     BoardService boardService;
 
     @GetMapping("")
-    public ModelAndView getBoard(BoardCateVO boardCateVO, ModelAndView mv, HttpSession session) throws Exception{
+    public ModelAndView getBoard(BoardCateVO boardCateVO, Integer home, ModelAndView mv, HttpSession session) throws Exception{
         List<BoardCateVO> ar = boardService.getCateList();
-
+        log.info("========home=========={}",home);
         List<String> codes = new ArrayList<>();
         List<String> names = new ArrayList<>();
         for(BoardCateVO cate : ar){
             codes.add(cate.getCate_code().toString());
             names.add(cate.getCate_name());
         }
-
+        if(home != null) {
+        	mv.addObject("home", home);
+        }
+        
         session.setAttribute("code",codes);
         session.setAttribute("name",names);
 
@@ -79,6 +82,17 @@ public class BoardController {
     public Map<String, Object> getBoardList(Pagination pagination) throws Exception{
         log.info("page : {}",pagination);
         return boardService.getBoardList(pagination);
+    }
+    
+    @PostMapping("detail")
+    public ModelAndView getBoardDetail(BoardVO boardVO, ModelAndView mv) throws Exception {
+//        Map<String, Object> response = boardService.getBoardDetail(boardVO);
+        mv.setViewName("board/detail");
+        log.info("노찌롱ㅁ ㅓㅇ청이{}",boardVO);
+//        mv.addObject("board", response);
+//        log.info("{}", response);
+
+        return mv;
     }
 
 }

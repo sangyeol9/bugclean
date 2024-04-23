@@ -124,7 +124,7 @@
                                             <c:forEach items="${boardVO}" var="list">
                                                 <tr>
                                                     <td>${list.board_code}</td>
-                                                    <td><a href="javascript:void(0)" style="font-weight: bold;">${list.board_title}</a></td>
+                                                    <td><a href="/board?cate_code=${list.cate_code}&home=${list.board_code}" style="font-weight: bold;">${list.board_title}</a></td>
                                                     <td>${list.board_date}</td>
                                                     
                                                 </tr>
