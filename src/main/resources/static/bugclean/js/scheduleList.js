@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     
     calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView : 'dayGridMonth',
+        initialView : 'dayGridDay',
         selectable : true,
         locale : "kr",
         editable: true,
@@ -259,7 +259,7 @@ for(let i=0;i<postApi.length;i++){
     postApi[i].value = "";
 }
 for(let i=0;i<postApiDis.length;i++){
-    postApiDis[i].classList.add("display_none");
+    postApiDis[i].classList.add("display_none");    postApiDis[i].classList.add("display_none");
 }
 inputAddress.classList.remove("display_none")
 
