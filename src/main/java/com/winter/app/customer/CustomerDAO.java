@@ -9,7 +9,9 @@ import com.winter.app.employee.EmployeeVO;
 @Mapper
 public interface CustomerDAO {
 
-	List<CustomerVO> getList() throws Exception;
+	List<CustomerVO> getCompanyList() throws Exception;
+	List<CustomerVO> getPersonList() throws Exception;
+	
 	EmployeeVO getEmployeeName(CustomerVO customerVO) throws Exception;
 	
 	

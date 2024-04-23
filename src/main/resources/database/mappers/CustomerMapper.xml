@@ -8,9 +8,13 @@
   <mapper namespace="com.winter.app.customer.CustomerDAO">
 
   	
-  	<select id="getList" resultType="CustomerVO">
-  		SELECT * FROM CUSTOMER ORDER BY CUSTOMER_NUM ASC
+  	<select id="getCompanyList" resultType="CustomerVO">
+  		SELECT * FROM CUSTOMER WHERE CUSTOMER_TYPE = '법인' ORDER BY CUSTOMER_NUM ASC
   	</select>
+  	<select id="getPersonList" resultType="CustomerVO">
+  		SELECT * FROM CUSTOMER WHERE CUSTOMER_TYPE = '개인' ORDER BY CUSTOMER_NUM ASC
+  	</select>
+  	
   	<select id="getEmployeeName" resultType="EmployeeVO" parameterType="CustomerVO">
  		SELECT * FROM EMPLOYEE WHERE EMPLOYEE_NUM = #{employee_Num} 	
   	</select>

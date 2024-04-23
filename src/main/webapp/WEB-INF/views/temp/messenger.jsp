@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link ref="stylesheet" href="/bugclean/css/messenger.css">	
+	
 
 <div id="messenger_div" class="display_none">
 	        <div class="left_messenger" >
