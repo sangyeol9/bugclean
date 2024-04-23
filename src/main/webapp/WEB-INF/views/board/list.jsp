@@ -46,7 +46,7 @@
                                 작성자
                             </th>
                             <th>
-                                작성일자
+                                작성일시
                             </th>
                             <th>
                                 조회수
@@ -76,14 +76,14 @@
                                 작성자
                             </th>
                             <th>
-                                작성일자
+                                작성일시
                             </th>
                             <th>
                                 조회수
                             </th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="board-body">
 
                         </tbody>
                     </table>

@@ -15,4 +15,6 @@ public interface BoardDAO {
     public int addBoard(BoardVO boardVO)throws Exception;
     public int addFile(BoardFileVO fileVO)throws Exception;
     public Long getSeq();
+    public Map<String, Object> getBoardDetail(BoardVO boardVO)throws Exception;
+    public BoardFileVO getFileDetail(BoardFileVO boardFileVO)throws Exception;
 }
