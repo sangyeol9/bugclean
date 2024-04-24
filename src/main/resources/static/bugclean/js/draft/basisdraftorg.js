@@ -264,6 +264,27 @@ refPlusBtn.addEventListener(
         /////////////이벤트위임
         let selectDiv = document.getElementById("selectDiv")
         selectDiv.addEventListener("change",function(e){
+            //초기화
+            for(let n=0; n<orgDep.length;n++){
+                let orgAllArr = [...orgAll];
+                let peopleSpanArr = [...orgPepleSpan];
+                for(let j =0; j<orgPepleSpan.length; j++){
+
+                let a = orgAllArr[j].getAttribute("data-dep-name");
+                let orTemp = peopleSpanArr[j]
+               
+                
+                        console.log(a);
+                        console.log(orgDep[n].textContent, a,orgDep[n].textContent == a)
+                        if(orgDep[n].textContent == a){
+                        orgPepleDiv[n].appendChild(orTemp)
+                        orTemp.style.backgroundColor = "white";
+                        }                    
+                
+            }
+            }
+
+
             let selectIndex = e.target.value;
             console.log("selectIndex : "+selectIndex);
 
@@ -274,10 +295,41 @@ refPlusBtn.addEventListener(
             },
             body:"approval_line_code="+selectIndex
             })
-            .then(res=>res.text())
+            .then(res=>res.json())
             .then(res=>{
+                console.log("res : "+res)
+                //console.log
+                for(let i=0; i<res.length;i++){
+                    console.log(res[i])
+                    console.log("res[i].innerHTML : "+res[i].approval_line_code)
+                    console.log("res[i] : " +res[i].employee_num) 
 
-                console.log(res)
+                }
+                
+                //draftboxTd에 넣기
+
+                for(let i=0; i<orgPepleSpan.length;i++){
+
+                   let empNum = orgPepleSpan[i].lastElementChild.getAttribute("data-emp-num")
+                   console.log("empNum"+ empNum);
+
+                   let orgPeopleSpan = orgPepleSpan[i];
+                   console.log("orgPeoPleSpan"+ orgPeopleSpan)
+
+                   for(let n=0; n<res.length;n++){
+                    let getApRank = res[n].line_rank;
+                   let getEmpNum =  res[n].employee_num;
+                   console.log("getEmpNum"+getEmpNum)
+
+                    if(empNum == getEmpNum){
+                            if(getApRank != 0){
+                                draftBoxTd.appendChild(orgPeopleSpan)
+                            }
+                    }
+                   }
+
+                }
+                
             })
             
         })

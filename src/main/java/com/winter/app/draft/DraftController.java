@@ -33,10 +33,8 @@ public class DraftController {
 		EmployeeVO employeeVO = new EmployeeVO();
 		employeeVO.setEmployee_num("2024001");
 		Map<String, Object> empMap = draftService.getEmployeeDetail(employeeVO);
-		System.out.println("empMap@@@@@@@@@@@@@@@ : "+empMap.toString());
 		model.addAttribute("empMap", empMap);
 		 List<Map<String, Object>> ar = draftService.getBasisDraft();
-		 System.out.println(ar.toString());
 		 model.addAttribute("list", ar);
 		 List<DepartmentVO> depar = draftService.getDepartmentList();
 		 model.addAttribute("dep", depar);
@@ -44,15 +42,13 @@ public class DraftController {
 		 model.addAttribute("draftVO", draftVO);
 		 List<DepartmentVO> depHighAr = draftService.getDepartmentHighList();
 		 model.addAttribute("depHighAr", depHighAr);
-		 System.out.println("depHighAr: " + depHighAr );
+
 		 employeeVO = draftService.getCEO();
 		 model.addAttribute("CEO", employeeVO);
 		 
-		 System.out.println("employee_num @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ : " + employeeVO.getEmployee_num());
 		 APListVO apListVO = new APListVO();
 		 apListVO.setEmployee_num(employeeVO.getEmployee_num());
-		 List<APListVO>aplist = draftService.getAPList(apListVO);
-		 System.out.println("aplist@@@@@@@@@@@@@@@@@@@@@@: " + aplist.toString());
+		 List<APListVO>aplist = draftService.getAPList(apListVO);	
 		 model.addAttribute("aplist", aplist);
 		 
 		return "draft/basisdraft";
@@ -66,10 +62,8 @@ public class DraftController {
 		EmployeeVO employeeVO = new EmployeeVO();
 		employeeVO.setEmployee_num("2024001");
 		Map<String, Object> empMap = draftService.getEmployeeDetail(employeeVO);
-		System.out.println("empMap@@@@@@@@@@@@@@@ : "+empMap.toString());
 		model.addAttribute("empMap", empMap);
 		 List<Map<String, Object>> ar = draftService.getBasisDraft();
-		 System.out.println(ar.toString());
 		 model.addAttribute("list", ar);
 		 List<DepartmentVO> depar = draftService.getDepartmentList();
 		 model.addAttribute("dep", depar);
@@ -77,7 +71,6 @@ public class DraftController {
 		 model.addAttribute("draftVO", draftVO);
 		 List<DepartmentVO> depHighAr = draftService.getDepartmentHighList();
 		 model.addAttribute("depHighAr", depHighAr);
-		 System.out.println("depHighAr: " + depHighAr );
 		 employeeVO = draftService.getCEO();
 		 model.addAttribute("CEO", employeeVO);		 
 
@@ -98,17 +91,14 @@ public class DraftController {
 		EmployeeVO employeeVO = new EmployeeVO();
 		employeeVO.setEmployee_num("2024001");
 		Map<String, Object> empMap = draftService.getEmployeeDetail(employeeVO);
-		System.out.println("empMap@@@@@@@@@@@@@@@ : "+empMap.toString());
 		model.addAttribute("empMap", empMap);
 		 List<Map<String, Object>> ar = draftService.getBasisDraft();
-		 System.out.println(ar.toString());
 		 model.addAttribute("list", ar);
 		 List<DepartmentVO> depar = draftService.getDepartmentList();
 		 model.addAttribute("dep", depar);
 		 DraftVO draftVO= draftService.getDraftDocNum();
 		 model.addAttribute("draftVO", draftVO);
 
-		System.out.println("line_name : "+lineName.toString());
 		 for(int i=0; i<empCode.length;i++) {
 			System.out.println("empCode : "+empCode[i]); 
 		 }
@@ -129,11 +119,11 @@ public class DraftController {
 	}
 	
 	@PostMapping("getaldetail")
-	public void getALDetail(ApprovalLineVO approvalLineVO)throws Exception{		
+	@ResponseBody
+	public List<ApprovalLineVO> getALDetail(ApprovalLineVO approvalLineVO)throws Exception{		
 		List<ApprovalLineVO> ar  = draftService.getALDetail(approvalLineVO);
-		System.out.println("ApprovalLineVoAr : "+ar.toString());
 		
-		
+		return ar;
 	
 	}
 	
