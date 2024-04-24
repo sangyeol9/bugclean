@@ -74,6 +74,7 @@ public class SecurityConfig{
 				.ignoringRequestMatchers("/customer/**")
 				.ignoringRequestMatchers("/carManage/**")
 				.ignoringRequestMatchers("/board/**")
+				.ignoringRequestMatchers("/general/**")
 	    )
 		
 		

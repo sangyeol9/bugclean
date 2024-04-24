@@ -1,3 +1,4 @@
+// 직원 목록을 불러와 DataTable에 표시하는 함수
 function memberList() {
     $.ajax({
         url: "/hr/member/list",
@@ -10,7 +11,7 @@ function memberList() {
                     {data: "NAME", title: "이름"},
                     {data: "NICKNAME", title: "닉네임"},
                     {data: "PHONE", title: "연락처"},
-                    {data: "ADDRESS", title: "주소"},
+                    {data: "ADDRESS", title: "주소", defaultContent: "미입력"},
                     {data: "DEP_NAME", title: "부서"},
                     {data: "POS_NAME", title: "직급"},
                     {data: "JOIN_DATE", title: "입사일"}
@@ -29,12 +30,14 @@ function memberList() {
     })
 }
 
+// 퇴사 직원 목록을 불러와 DataTable에 표시하는 함수
 function resignationList() {
     $.ajax({
         url: "/hr/resignation/list",
         type: "GET",
         success: function (response) {
             console.log(response);
+            //복구 가능한 퇴사자 목록
             $('#possibleList').DataTable({
                 "data": response.possible,
                 "columns": [
@@ -42,7 +45,7 @@ function resignationList() {
                     {data: "NAME", title: "이름"},
                     {data: "NICKNAME", title: "닉네임"},
                     {data: "PHONE", title: "연락처"},
-                    {data: "ADDRESS", title: "주소"},
+                    {data: "ADDRESS", title: "주소", defaultContent: "미입력"},
                     {data: "DEP_NAME", title: "부서"},
                     {data: "POS_NAME", title: "직급"},
                     {data: "JOIN_DATE", title: "입사일"},
@@ -64,6 +67,7 @@ function resignationList() {
                 }
             })
 
+            //복구 불가능한 퇴사자 목록
             $('#impossibleList').DataTable({
                 "data": response.impossible,
                 "columns": [
@@ -71,7 +75,7 @@ function resignationList() {
                     {data: "NAME", title: "이름"},
                     {data: "NICKNAME", title: "닉네임"},
                     {data: "PHONE", title: "연락처"},
-                    {data: "ADDRESS", title: "주소"},
+                    {data: "ADDRESS", title: "주소", defaultContent: "미입력"},
                     {data: "DEP_NAME", title: "부서"},
                     {data: "POS_NAME", title: "직급"},
                     {data: "JOIN_DATE", title: "입사일"},
@@ -92,31 +96,37 @@ function resignationList() {
     })
 }
 
-
 $(document).ready(async function () {
+    // 페이지 로드 시 직원 목록과 퇴사 직원 목록을 표시
     await memberList();
     await resignationList();
 
-    const modiBtn = $('#modi-btn')
-    const saveBtn = $('#save-btn')
+    const modiBtn = $('#modi-btn');
+    const saveBtn = $('#save-btn');
     const selects = $('.custom-select');
     const userName = $('#user_name');
     const fireBtn = $('#fire-btn');
 
+    // 수정 버튼 클릭 시 수정 입력 필드 활성화
     modiBtn.on('click', function (){
         modiBtn.prop('hidden', true);
         saveBtn.prop('hidden', false);
         selects.prop('disabled', false);
-        userName.removeClass('user_name').prop('disabled', false)
-    })
+        userName.removeClass('user_name').prop('disabled', false);
+    });
+
     let checkModi = false;
+
+    // 입력 필드 변경 시 수정 여부 체크
     selects.on('change',function (){
         checkModi = true;
-    })
+    });
+
     userName.on('change', function (){
         checkModi = true;
-    })
+    });
 
+    // 저장 버튼 클릭 시 수정된 정보 서버에 전송
     saveBtn.on('click', function (){
         $('#EmployeeModalCenter').modal('hide');
         let data = {
@@ -125,7 +135,7 @@ $(document).ready(async function () {
             DEP_CODE: $('#user_team').val(),
             RNR_CODE: $('#user_rnr').val(),
             POS_CODE: $('#user_pos').val()
-        }
+        };
         if(checkModi) {
             fetch(`/hr/member/update`, {
                 method: 'POST',
@@ -143,8 +153,9 @@ $(document).ready(async function () {
                 }
             })
         }
-    })
+    });
 
+    // 퇴사 버튼 클릭 시 직원 퇴사 처리
     fireBtn.on('click', function () {
         Swal.fire({
             title: '해당 직원을 퇴사처리 하시겠습니까?',
@@ -161,7 +172,7 @@ $(document).ready(async function () {
 
                 let data = {
                     EMPLOYEE_NUM: $('#modal-title-num').html()
-                }
+                };
 
                 fetch(`/hr/member/fired`, {
                     method: 'POST',
@@ -185,7 +196,7 @@ $(document).ready(async function () {
         });
     });
 
-
+    // 직원 목록 테이블에서 행 클릭 시 모달에 직원 상세 정보 표시
     $('#memberList tbody').on('click', 'tr', function() {
         $('#EmployeeModalCenter').modal('show');
 
@@ -208,6 +219,7 @@ $(document).ready(async function () {
             $("#user_address").html(`${response.data.ADDRESS || '오류'}`);
             $("#user_join").html(`${response.data.JOIN_DATE || '오류'}`);
 
+            // 셀렉트 박스 렌더링 함수
             function renderSelectBox(dataArray, selectElementId, selectedCode) {
                 const selectElement = $(`#${selectElementId}`);
                 // 셀렉트 박스 초기화
@@ -224,6 +236,7 @@ $(document).ready(async function () {
                 }
             }
 
+            // 상위 부서 선택 시 하위 부서 옵션 로드
             $('#user_dep').change(function() {
                 let upperDepCode = $(this).val(); // 사용자가 선택한 상위 부서 코드
                 renderSelectBox(
@@ -255,13 +268,14 @@ $(document).ready(async function () {
         });
     });
 
+    // 퇴사 직원 목록에서 복구 버튼 클릭 시 해당 직원을 복구 처리
     $("#possibleList tbody").on('click', 'button', function (event) {
         let tr = $(this).closest('tr');
         let table = $("#possibleList").DataTable();
         let rowData = table.row(tr).data();
         let data = {
             employee_num: rowData.EMPLOYEE_NUM
-        }
+        };
         if ($(this).attr('id') === "restore-btn") {
             Swal.fire({
                 title: '해당 직원을 복구하시겠습니까?',
@@ -291,4 +305,4 @@ $(document).ready(async function () {
         }
     });
 
-})
+});

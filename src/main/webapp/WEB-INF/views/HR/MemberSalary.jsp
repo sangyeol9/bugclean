@@ -82,7 +82,7 @@
 <c:import url="../temp/js.jsp"></c:import> <%--bootstrap-template-js--%>
 <script src="/focus-bootstrap-main/theme/vendor/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/focus-bootstrap-main/theme/vendor/select2/js/select2.full.min.js"></script>
-<script src="/bugclean/js/salaryList-dataTables-init.js"></script>
+<script src="/bugclean/js/hr/salaryList-dataTables-init.js"></script>
 
 </body>
 </html>
