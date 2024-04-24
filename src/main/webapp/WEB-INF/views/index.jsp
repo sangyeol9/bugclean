@@ -172,13 +172,13 @@
                                 <h4 class="card-title">Schedule</h4>
                             </div>
 
-                            <div class="card-body">
+                            <div class="card-body" id="card-body">
                                 
-                                <div id='calendar'></div>
+                                <div id='calendar' style="color: black"></div>
 
-
-
-
+                                
+                                <div id="content" style="color: red"></div>
+                                    
                             </div>
                         </div>
                     </div>

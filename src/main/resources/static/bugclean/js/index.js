@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         center: 'title',
         right: 'dayGridWeek,listMonth'
       },
-      //editable: false,
+      //editable: true,
       events: [
         
       ],
@@ -38,9 +38,15 @@ document.addEventListener('DOMContentLoaded', function() {
     calendar.render();
   });
 
-
+//cl
 let sch_Id;
+// content 요소 선택
+const content = document.getElementById('content');
+let isContentVisible = false;
+
+
   function getInfo(id){
+	
     sch_Id = id.substring(id.lastIndexOf('-')+1,id.length);
     console.log("id====",sch_Id);
     fetch("/schedule/getSchedule",{
@@ -54,7 +60,21 @@ let sch_Id;
     }).then(res=>res.json())
     .then(res=>{
         console.log("res====",res);
+
+        content.innerText = res.site_Num;
+
+        //내용 보임안보임
+        if (isContentVisible) {
+            content.style.display = 'none';
+        } else {
+            content.style.display = 'block';
+        }
+        
+        isContentVisible = !isContentVisible;
+
     })
+
+    
 }
 
 function openWindow(e){
@@ -103,7 +123,7 @@ function openWindow(e){
                   calendar.addEvent({
                    title : element.business_Name  + element.ceo_Name,
                    start : start_first +"T"+ start_last,
-                   backgroundColor : color,
+                   color : color,
                    classNames : textDeco,
                    end : element.end_Time,
                    id : element.ceo_Name+start_first+"-"+element.site_Num
