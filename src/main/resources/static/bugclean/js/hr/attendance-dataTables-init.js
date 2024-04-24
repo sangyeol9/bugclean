@@ -40,9 +40,9 @@ $(document).ready(async function () {
                 {data: "EMPLOYEE_NUM", title: "사번"},
                 {data: "NAME", title: "이름"},
                 {data: "ATTEND_DATE", title: "출근날짜"},
-                {data: "LATE", title: "상태"},
-                {data: "START_TIME", title: "출근시간"},
-                {data: "DONE_TIME", title: "퇴근시간"},
+                {data: "LATE", title: "상태", defaultContent: "결근"},
+                {data: "START_TIME", title: "출근시간", defaultContent: ""},
+                {data: "DONE_TIME", title: "퇴근시간", defaultContent: ""},
                 {data: "DEP_NAME", title: "부서"},
             ],
             "language": {

@@ -49,7 +49,7 @@
                 <ul aria-expanded="false">
                     <li><a href="/focus-bootstrap-main/theme/app-profile.html">자산관리</a></li>
                     <li><a href="/focus-bootstrap-main/theme/app-profile.html">구매요청서</a></li>
-                    <li><a href="/focus-bootstrap-main/theme/app-profile.html">배차관리</a></li>
+                    <li><a href="/general/carManage">배차관리</a></li>
                     <li><a href="/focus-bootstrap-main/theme/app-profile.html">수익관리</a></li>
                 </ul>
             </li>

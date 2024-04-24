@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.winter.app.general.GeneralDAO">
+    <select id="getManageList" resultType="Map">
+        SELECT MANAGE_CODE, NAME, DEP_NAME, PRO_NUM, TO_CHAR(BOOKING_START, 'YYYY-MM-DD HH24:MM') AS "BOOKING_START", TO_CHAR(BOOKING_DONE, 'YYYY-MM-DD HH24:MM') AS "BOOKING_DONE" FROM CAR_MANAGE
+            JOIN (SELECT NAME, EMPLOYEE_NUM, DEP_NAME FROM EMPLOYEE
+                JOIN DEPARTMENT USING(DEP_CODE))
+            USING (EMPLOYEE_NUM)
+        JOIN (SELECT PRO_NUM, CAR_CODE FROM CAR_DETAIL) USING (CAR_CODE)
+        WHERE BOOKING_AGREE = 0
+    </select>
+
+    <update id="updateCarManage" parameterType="CarManageVO">
+        UPDATE CAR_MANAGE SET BOOKING_AGREE = 1 WHERE MANAGE_CODE = #{manage_code}
+    </update>
+
+    <delete id="deleteCarManage" parameterType="CarManageVO">
+        DELETE FROM CAR_MANAGE WHERE MANAGE_CODE = #{manage_code}
+    </delete>
+</mapper>
