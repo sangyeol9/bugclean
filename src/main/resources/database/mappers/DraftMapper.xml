@@ -95,5 +95,11 @@
 		SELECT * FROM AL_LIST
 		WHERE employee_num = #{employee_num}
 	</select>
+	
+	<select id="getALDetail" resultType="ApprovalLineVO" parameterType="ApprovalLineVO">
+	SELECT * FROM APPROVAL_LINE
+WHERE APPROVAL_LINE_CODE = #{approval_line_code}
+ORDER BY LINE_RANK ASC
+	</select>
 
 </mapper>

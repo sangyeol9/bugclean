@@ -2,6 +2,7 @@ package com.winter.app.draft;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -104,12 +105,23 @@ public class DraftService {
 	
 	public List<APListVO> setAPList(APListVO apListVO)throws Exception{
 		 
-		draftDAO.setAPList(apListVO);
+		 int result = draftDAO.setAPList(apListVO);
 		 
 		 List<APListVO> ar = draftDAO.getAPList(apListVO);
-		 System.out.println("serviceAr : "+ar.toString());
+
 		 return ar;
 		 
+	}
+	
+	///////////////////////////////////////////////////
+	public List<APListVO> getAPList(APListVO apListVO)throws Exception{
+		return draftDAO.getAPList(apListVO);
+	}
+	
+	public List<ApprovalLineVO> getALDetail(ApprovalLineVO approvalLineVO)throws Exception{
+		List<ApprovalLineVO> ar = draftDAO.getALDetail(approvalLineVO);
+		return ar;
+		
 	}
 	
 	public List<DepartmentVO> getDepartmentList()throws Exception{

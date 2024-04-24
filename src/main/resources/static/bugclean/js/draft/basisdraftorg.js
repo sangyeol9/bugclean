@@ -17,6 +17,7 @@ let modalResetBtn = document.getElementById("modalResetBtn");
 let highPlusIcon = document.getElementsByClassName("highPlusIcon");
 let highMinusIcon = document.getElementsByClassName("highMinusIcon");
 let orgTeamBigDiv = document.getElementsByClassName("orgTeamBigDiv");
+let select = document.getElementById("select");
 console.log("basis js")
 
 
@@ -109,7 +110,8 @@ draftBtnPlus
         function() {
             for(let j =0; j<orgPepleSpan.length; j++){
                 let orTemp = orgPepleSpan[j];
-            if (getComputedStyle(orTemp).backgroundColor == "rgb(196, 232, 230)") {
+                
+            if (getComputedStyle(orTemp).backgroundColor == "rgb(196, 232, 230)" ) {
                 draftBoxTd
                         .appendChild(orTemp)
                         orTemp.style.backgroundColor = "white";
@@ -204,6 +206,7 @@ refPlusBtn.addEventListener(
         })
         ////fetch
         let modalCreateBtn = document.getElementById("modalCreateBtn");
+        let draftLine = document.getElementById("draftLine");
         
         modalCreateBtn.addEventListener("click",function(){
             modalBack.classList.add("noshow")
@@ -249,36 +252,39 @@ refPlusBtn.addEventListener(
           })
           .then(Response=>Response.text())
           .then(res=>{
-            let draftLine = document.getElementById("draftLine");
-            draftLine.innerHTML=res;
-
-
-            let linebtn = document.getElementById("lineBtn");
-            let modal = document.getElementById("modal");
-            let modalBack = document
-                    .getElementById("modalBack");
-            let modalCloseBtn = document
-                    .getElementById("modalCloseBtn");
-            
-            linebtn.addEventListener("click", function() {
-                console.log("여기는 모달 여기는 모달")
-                modalBack.classList.remove("noshow")
-                modal.classList.remove("noshow")
-            })
-            
-            modalCloseBtn.addEventListener("click", function() {
-                console.log("여기는 닫기버튼 여기는 닫기버튼")
-                modalBack.classList.add("noshow")
-                modal.classList.add("noshow")
-            })
+            const allineTable = document.getElementById("allineTable")
+            console.log(res)
+            console.log(allineTable.innerHTML)
+            allineTable.innerHTML=res;
 
           })
 
         })
 
+        /////////////이벤트위임
+        let selectDiv = document.getElementById("selectDiv")
+        selectDiv.addEventListener("change",function(e){
+            let selectIndex = e.target.value;
+            console.log("selectIndex : "+selectIndex);
+
+            fetch("/draft/getaldetail", {
+                method : 'POST',
+                headers:{
+                "Content-type":"application/x-www-form-urlencoded"
+            },
+            body:"approval_line_code="+selectIndex
+            })
+            .then(res=>res.text())
+            .then(res=>{
+
+                console.log(res)
+            })
+            
+        })
         let approvalBtn = document.getElementById("approvalBtn");
         let approvalInpName = document.getElementById("approvalInpName")
         approvalBtn.addEventListener("click", function(){
+
             let approvalValue = draftBoxTd.children;
             console.log("approvalValue : "+ approvalValue.length)
             let empCode = [approvalValue.length];
@@ -297,9 +303,16 @@ refPlusBtn.addEventListener(
               })
              .then(Response=>Response.text())
             .then(res=>{
-                console.log(res);
+                selectDiv.innerHTML=res;
             })
-            
+        
 
         })
+        
+        // select.addEventListener("click", function(){
+        //     let selectIndex = select.selectedIndex;
+        //     let selectValue = select.options[selectIndex].value;
+        //     console.log("selectIndex : "+selectIndex);
+        //     console.log("selectValue : " + selectValue);
+        // })
         

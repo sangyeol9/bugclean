@@ -2,14 +2,8 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-				<div id="lineBtnDiv">
-					<button id="lineBtn" class="lineBtnDiv" >
-						편<br>집<br>하<br>기
-					</button>
-				</div>
-				
-					<table border="1">
+			
+					<table border="1" id="allineTable">
 						<tr id="input_grade">
 							<td rowspan="4">결재선</td>
 							<td>기안자</td>
