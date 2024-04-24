@@ -1,9 +1,9 @@
-let linebtn = document.getElementById("lineBtn");
-let modal = document.getElementById("modal");
-let modalBack = document
-        .getElementById("modalBack");
-let modalCloseBtn = document
-        .getElementById("modalCloseBtn");
+const linebtn = document.getElementById("lineBtn");
+const modal = document.getElementById("modal");
+const modalBack = document.getElementById("modalBack");
+const modalCloseBtn = document.getElementById("modalCloseBtn");
+
+
 
 linebtn.addEventListener("click", function() {
     console.log("여기는 모달 여기는 모달")

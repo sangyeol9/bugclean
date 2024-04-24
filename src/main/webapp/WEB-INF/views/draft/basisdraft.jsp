@@ -94,7 +94,7 @@
 						</button>
 					</div> -->
 					
-					<table border="1">
+					<table border="1" id="allineTable">
 						<tr id="input_grade">
 							<td rowspan="4">결재선</td>
 							<td>기안자</td>
@@ -185,11 +185,12 @@
 				<div id="modalBack" class="noshow">
 					<div id="modal" class="noshow">
 						<!-- 셀렉트 시작 -->
-						<div id="selete1">
-							<select id="selete1">
+						<div id="selectDiv">
+							<select id="select">
 								<option>자주쓰는결재선</option>
-								<option>박성제1</option>
-								<option>박성제2</option>
+							<c:forEach items="${allist}" var="allist">
+							<option value="${allist.approval_line_code}">${allist.line_name}</option>
+							</c:forEach>
 							</select>
 						</div>
 						<!-- 셀렉트 끝 -->
