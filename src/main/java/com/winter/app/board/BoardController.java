@@ -4,12 +4,11 @@ import com.winter.app.util.pagination.Pagination;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,19 +28,19 @@ public class BoardController {
     @GetMapping("")
     public ModelAndView getBoard(BoardCateVO boardCateVO, Integer home, ModelAndView mv, HttpSession session) throws Exception {
         List<BoardCateVO> ar = boardService.getCateList();
-        log.info("========home=========={}",home);
+        log.info("========home=========={}", home);
         List<String> codes = new ArrayList<>();
         List<String> names = new ArrayList<>();
         for (BoardCateVO cate : ar) {
             codes.add(cate.getCate_code().toString());
             names.add(cate.getCate_name());
         }
-        if(home != null) {
-        	mv.addObject("home", home);
+        if (home != null) {
+            mv.addObject("home", home);
         }
-        
-        session.setAttribute("code",codes);
-        session.setAttribute("name",names);
+
+        session.setAttribute("code", codes);
+        session.setAttribute("name", names);
 
         mv.addObject("active", boardCateVO.getCate_code());
         mv.setViewName("board/mainPage");
@@ -68,6 +67,8 @@ public class BoardController {
         mv.addObject("code", boardVO.getCate_code());
         mv.setViewName("board/create");
 
+        log.info("============================================={}", mv.getModel().get("board"));
+
         return mv;
     }
 
@@ -75,11 +76,19 @@ public class BoardController {
     @ResponseBody
     public int setBoard(BoardVO boardVO, MultipartFile[] files) throws Exception {
 
-        if (boardVO.getBoard_title().equals("")) {
+        if (boardVO.getBoard_title().isEmpty()) {
             return 0;
         }
 
         return boardService.setBoard(boardVO, files);
+    }
+
+    @PostMapping("upload/image")
+    public ResponseEntity<String> uploadImg(@RequestParam("file") MultipartFile file) throws Exception {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("");
+        }
+        return ResponseEntity.ok(boardService.uploadImg(file));
     }
 
     @RequestMapping("download")
@@ -99,16 +108,31 @@ public class BoardController {
         log.info("page : {}", pagination);
         return boardService.getBoardList(pagination);
     }
-    
+
     @PostMapping("detail")
     public ModelAndView getBoardDetail(BoardVO boardVO, ModelAndView mv) throws Exception {
-    Map<String, Object> response = boardService.getBoardDetail(boardVO);
+        boardService.updateHit(boardVO);
+        Map<String, Object> response = boardService.getBoardDetail(boardVO);
         mv.setViewName("board/detail");
-        log.info("노찌롱ㅁ ㅓㅇ청이{}",boardVO);
-      mv.addObject("board", response);
-       log.info("{}", response);
+        mv.addObject("board", response);
 
         return mv;
+    }
+
+    @PostMapping("delete")
+    @ResponseBody
+    public int deleteBoard(BoardVO boardVO) throws Exception {
+        log.info("뭐가 삭제 될까? ============ {}", boardVO);
+        if (boardVO.getCate_code() == 1) {
+            return boardService.updateStatus(boardVO);
+        }
+        return boardService.deleteBoard(boardVO);
+    }
+
+    @PostMapping("deleteFile")
+    @ResponseBody
+    public int deleteFile(BoardFileVO boardFileVO) throws Exception {
+        return boardService.deleteFile(boardFileVO);
     }
 
 }
