@@ -72,12 +72,12 @@
                                                 
                                                 <div class="text-center mt-4 mx-3">
                                                     <form action="/setAttendence" method="post" onsubmit="return confirm('출근하시겠습니까?');">
-                                                        <input type="hidden" name="employee_num" value="${employee_num}">
+                                                        <input type="hidden" name="employee_num" value="${employeeVO.employee_num}">
                                                         <button type="submit" id="attendence" class="btn btn-light btn-block" style="font-weight: bold;">출근</button>
                                                     </form>
-                                                    <form action="/setWorkOut" method="post" >
-                                                        <input type="hidden" name="employee_num" value="${employee_num}">
-                                                        <a type="button" id="workout"  class="btn btn-dark btn-block" style="font-weight: bold;">퇴근</a>
+                                                    <form action="/setWorkOut" method="post" onsubmit="return confirm('퇴근하시겠습니까?');">
+                                                        <input type="hidden" name="employee_num" value="${employeeVO.employee_num}">
+                                                        <button type="submit" id="workout"  class="btn btn-dark btn-block" style="font-weight: bold;">퇴근</button>
                                                     </form>
                                                 </div>
 
@@ -169,63 +169,16 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Individual</h4>
+                                <h4 class="card-title">Schedule</h4>
                             </div>
 
                             <div class="card-body">
-                                <!-- Nav-->
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#home8">
-                                            <span>
-                                                <i class="fi fi-rs-calendar"></i>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#profile8">
-                                            <span>
-                                                <i class="fi fi-rs-map-marker"></i>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#messages8">
-                                            <span>
-                                                <i class="ti-email"></i>
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <!-- Tab -->
-                                <div class="tab-content tabcontent-border">
-                                    <!-- 일정 -->
-                                    <div class="tab-pane fade active show" id="home8" role="tabpanel">
-                                        <div class="pt-4">
-                                            <h4>This is icon title</h4>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                            </p>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <!-- 지도 -->
-                                    <div class="tab-pane fade" id="profile8" role="tabpanel">
-                                        <div class="pt-4">
-                                            <div id="map" style="width:1000px;height:500px;"></div>
-                                        </div>
-                                    </div>
-                                    <!-- ??? -->
-                                    <div class="tab-pane fade" id="messages8" role="tabpanel">
-                                        <div class="pt-4">
-                                            <h4>This is icon title</h4>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                            </p>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                
+                                <div id='calendar'></div>
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -246,6 +199,7 @@
         
         <c:import url="./temp/footer.jsp"></c:import>
         <c:import url="./temp/js.jsp"></c:import>
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
         <script src="/bugclean/js/index.js"></script>
 </body>
     

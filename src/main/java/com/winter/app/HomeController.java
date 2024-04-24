@@ -73,30 +73,54 @@ public class HomeController {
     	System.out.println("자정~~");
   		homeService.setAttendDate();
   	}
+    
     @PostMapping("setAttendence")
 	private String setAttendence(AttendanceVO attendanceVO, Model model) throws Exception {
 		
-    	System.out.println("왔당~~");
-    	return "";
-    	//int result = homeService.setAttendence(attendanceVO);
+    	//출근 여부
+    	boolean isAttended = homeService.isAttended(attendanceVO);
     	
-//		model.addAttribute("result","attendence.update.success");
-//		model.addAttribute("path","/");
-//		
-//		return "commons/result";
+    	if(isAttended) {
+    		model.addAttribute("result","attendence.update.already");
+			model.addAttribute("path","/");
+    	}else {		
+    		int result = homeService.setAttendence(attendanceVO);
+    		if(result==1){
+    			model.addAttribute("result","attendence.update.success");
+    			model.addAttribute("path","/");
+    		}else {
+    			model.addAttribute("result","attendence.update.fail");
+    			model.addAttribute("path","/");
+    		}
+		}
+		return "commons/result";
 	}
     @PostMapping("setWorkOut")
 	private String setWorkOut(AttendanceVO attendanceVO, Model model) throws Exception {
-    	int result = homeService.setWorkOut(attendanceVO);
     	
-    	//0일경우 추가~~
-    	if(result==1){
-    		model.addAttribute("result","workOut.update.success");
-    		model.addAttribute("path","/");
-    	}
-		
+    	boolean isAttended = homeService.isAttended(attendanceVO);
+    	boolean isWorkOut = homeService.isWorkOut(attendanceVO);
+    	
+    	if(isWorkOut) {
+    		model.addAttribute("result","attendence.update.already");
+			model.addAttribute("path","/");
+    	}else if(!isAttended) {
+    		model.addAttribute("result","workOut.update.fail");
+			model.addAttribute("path","/");
+    	}else {		
+    		int result = homeService.setWorkOut(attendanceVO);
+    		if(result==1){
+    			model.addAttribute("result","workOut.update.success");
+        		model.addAttribute("path","/");
+    		}else {
+    			model.addAttribute("result","attendence.update.fail");
+    			model.addAttribute("path","/");
+    		}
+		}
+    	
     	return "commons/result";
 	}
+    
     
     
 

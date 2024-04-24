@@ -1,28 +1,3 @@
-const attendence = document.getElementById("attendence");
-const workout = document.getElementById("workout");
-
-let employee_num = document.getElementById("employee_num");
-
-// attendence.addEventListener("click",(e)=>{
-
-//     let result = confirm("출근하시겠습니까??");
-//         if(result){
-        
-//             console.log('연결');
-
-//         }else {
-//             e.defaultPrevented();
-//             return false;
-//             // alert("취소되었습니다.");
-//         }
-
-
-    
-
-// })
-
-
-
 // 시간
 const clock = document.getElementById("clock");
         function getClock(){
@@ -36,75 +11,151 @@ const clock = document.getElementById("clock");
         getClock();
         setInterval(getClock, 1000);
 
-//지도
-function selectMapList() {
-    var map = new naver.maps.Map("map", {
-        center: new naver.maps.LatLng(37.3595316, 127.1052133),
-        zoom: 15,
-        mapTypeControl: true
-    });
-
-var map = new naver.maps.Map('map', {
-        center: new naver.maps.LatLng(37.3595704, 127.105399),
-        zoom: 10
-    });
-}
-
-var map = new naver.maps.Map('map', {
-        center: new naver.maps.LatLng(37.3595704, 127.105399),
-        zoom: 10
-    });
-    
-
-
-
-function moveMap(len, lat) {
-    var mapOptions = {
-            center: new naver.maps.LatLng(len, lat),
-            zoom: 15,
-            mapTypeControl: true
-        };
-        var map = new naver.maps.Map('map', mapOptions);
-        var marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(len, lat),
-            map: map
-        });
-}
-    
-function insertAddress() {
-
-
-    // var map = new naver.maps.Map('map', {
-    //     center: new naver.maps.LatLng(37.3595704, 127.105399),
-    //     zoom: 100
-    // });
-    var marker = new naver.maps.Marker({
-        map: map,
-        position: new naver.maps.LatLng(37.3595704, 127.105399),
-        icon: {
-            // content: '<img src="<c:url value="/focus-bootstrap-main/theme/images/logo-text.png"/>" alt="" style="margin: 0px; padding: 0px; border: 0px solid transparent; display: block; max-width: none; max-height: none; -webkit-user-select: none; position: absolute; width: 32px; height: 32px; left: 0px; top: 0px;">',
-            // size: new naver.maps.Size(32, 32),
-            // anchor: new naver.maps.Point(16, 32)
-            url: '/focus-bootstrap-main/theme/images/marker.png',
-            size: { width: 500, height: 500 }
+//캘린더
+let calendar;
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+  
+    calendar = new FullCalendar.Calendar(calendarEl, {
+      timeZone: 'local',
+      locale: 'ko',
+      initialView: 'dayGridWeek',
+      height : 450,
+      headerToolbar: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'dayGridWeek,listMonth'
+      },
+      //editable: false,
+      events: [
+        
+      ],
+      eventClick:function(info){
+            getInfo(info.event.id)
         }
     });
-    var marker = new naver.maps.Marker({
-        map: map,
-        position: new naver.maps.LatLng(37.40477775043365, 126.94888048324393),
-        
-    });
-    var marker = new naver.maps.Marker({
-        map: map,
-        position: new naver.maps.LatLng(37.26789682108881, 127.43529412436473),
-    });
-    var marker = new naver.maps.Marker({
-        map: map,
-        position: new naver.maps.LatLng(37.36210588898155, 126.95035433674495),
-    });
-    var marker = new naver.maps.Marker({
-        map: map,
-        position: new naver.maps.LatLng(37.45879032013797, 127.2193863041188),
-    });
+  
+    calendar.render();
+  });
+
+
+let sch_Id;
+  function getInfo(id){
+    sch_Id = id.substring(id.lastIndexOf('-')+1,id.length);
+    console.log("id====",sch_Id);
+    fetch("/schedule/getSchedule",{
+        method : "POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body : JSON.stringify({
+           site_Num : sch_Id
+            })
+    }).then(res=>res.json())
+    .then(res=>{
+        console.log("res====",res);
+    })
 }
-insertAddress()
+
+function openWindow(e){
+    let param
+    console.log("e === == " , e);
+    param = e;
+    if(e == null || e =='undefined'){
+        param  = "";
+        console.log("null or undef")
+    } 
+    fetch("/schedule/getList?search="+param,{
+        method : "GET"
+    })
+    .then(res => res.json())
+    .then(res => {
+             calendar.getEvents().forEach(function(event) {
+             event.remove();
+            });
+
+            console.log("h2");
+            console.log("test = ",res);
+            res.forEach(element => {
+               console.log("start = ", element.start_Time);
+               
+               start_first = element.start_Time.substr(0,10);
+               console.log("start_first = ", start_first);
+               console.log("site_Num === ", element.site_Num)
+               let start_last = element.start_Time.substring(11,19);
+                
+                if(element.site_Type == '긴급'){
+                    color = "red";
+                    textDeco = "none";
+                } 
+                else if(element.site_Type =='일반'){
+                    color = "black";
+                    textDeco = "none"
+                } 
+                else if(element.site_Type == '취소'){
+                    color = 'gray';
+                    textDeco = "line-through";
+                }else if (element.site_Type == '완료'){
+                    color = 'blue';
+                    textDeco = 'none';
+                }
+                console.log("color == ", color);
+                  calendar.addEvent({
+                   title : element.business_Name  + element.ceo_Name,
+                   start : start_first +"T"+ start_last,
+                   backgroundColor : color,
+                   classNames : textDeco,
+                   end : element.end_Time,
+                   id : element.ceo_Name+start_first+"-"+element.site_Num
+                  })
+            });
+    })
+}
+
+window.addEventListener("load",function(){
+    openWindow();    
+
+})
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   var calendarEl = document.getElementById('calendar');
+//   var calendar = new FullCalendar.Calendar(calendarEl, {
+//     //initialView: 'dayGridMonth',
+//     initialView: 'listWeek',
+//     initialDate: '2024-03-07',
+//     headerToolbar: {
+//       left: 'prev,next today',
+//       center: 'title',
+//       right: 'dayGridMonth,timeGridWeek,timeGridDay'
+//     },
+//     events: [
+//       {
+//         title: 'All Day Event',
+//         start: '2024-03-01'
+//       },
+//       {
+//         title: 'Long Event',
+//         start: '2024-03-07',
+//         end: '2024-03-10',
+//         backgroundColor: 'green',
+//         borderColor: 'green'
+//       },
+//       {
+//         title: 'Conference',
+//         start: '2024-03-11',
+//         end: '2024-03-13'
+//       },
+//       {
+//         title: 'Click for Google',
+//         url: 'https://google.com/',
+//         start: '2024-03-28'
+//       }
+//     ]
+//   });
+
+//   calendar.render();
+// });
+
+//지도
+

@@ -20,4 +20,8 @@ public interface HomeDAO {
 
 	public AttendanceVO getAttendTime(AttendanceVO attendanceVO) throws Exception;
 
+	public boolean isAttended(AttendanceVO attendanceVO);
+
+	public boolean isWorkOut(AttendanceVO attendanceVO);
+
 }
