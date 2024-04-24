@@ -122,5 +122,9 @@
         DELETE FROM BOARD WHERE BOARD_CODE = #{board_code} AND CATE_CODE = #{cate_code}
     </delete>
 
+    <update id="updateHit" parameterType="BoardVO">
+        UPDATE BOARD SET BOARD_HIT = BOARD_HIT + 1
+        WHERE BOARD_CODE = #{board_code} AND CATE_CODE = #{cate_code}
+    </update>
 
 </mapper>
