@@ -21,6 +21,8 @@ public class BoardService {
 
     @Value("${app.upload.basePath}")
     private String uploadPath;
+    @Value("${app.upload.imgPath}")
+    private String imgPath;
 
     @Autowired
     FileManager fileManager;
@@ -49,10 +51,15 @@ public class BoardService {
     }
 
     public int setBoard(BoardVO boardVO, MultipartFile [] files) throws Exception{
-
-        Pagination pagination = new Pagination();
-        pagination.setCode(boardVO.getCate_code());
-        boardVO.setBoard_code(boardDAO.getTotalCount(pagination)+1L);
+        log.info("보드코드 널인지 확인해봐{}",boardVO);
+        if(boardVO.getBoard_code() == null){
+            if(boardVO.getCate_code()==1){
+                boardVO.setBoard_code(boardDAO.getNoticeSeq());
+            }
+            else{
+                boardVO.setBoard_code(boardDAO.getFreeSeq());
+            }
+        }
 
         int result = boardDAO.addBoard(boardVO);
         if(files != null){
@@ -62,7 +69,7 @@ public class BoardService {
                     continue;
                 }
 
-                String fileName = fileManager.fileSave(uploadPath, multipartFile);
+                String fileName = fileManager.fileSave(uploadPath, multipartFile, false);
                 BoardFileVO fileVO = new BoardFileVO();
                 fileVO.setBoard_code(boardVO.getBoard_code());
                 fileVO.setFile_name(fileName);
@@ -79,8 +86,25 @@ public class BoardService {
         return result;
     }
 
+    public String uploadImg(MultipartFile file)throws Exception{
+        String imgURL = fileManager.fileSave(imgPath,file,true);
+        return imgURL;
+    }
+
     public BoardFileVO getFileDetail(BoardFileVO boardFileVO)throws Exception{
         return boardDAO.getFileDetail(boardFileVO);
+    }
+
+    public int deleteFile(BoardFileVO boardFileVO)throws Exception{
+        return boardDAO.deleteFile(boardFileVO);
+    }
+
+    public int deleteBoard(BoardVO boardVO) throws Exception{
+        return boardDAO.deleteBoard(boardVO);
+    }
+
+    public int updateStatus(BoardVO boardVO) throws Exception{
+        return boardDAO.updateStatus(boardVO);
     }
 
 }

@@ -17,4 +17,9 @@ public interface BoardDAO {
     public Long getSeq();
     public Map<String, Object> getBoardDetail(BoardVO boardVO)throws Exception;
     public BoardFileVO getFileDetail(BoardFileVO boardFileVO)throws Exception;
+    public int deleteFile(BoardFileVO boardFileVO)throws Exception;
+    public int deleteBoard(BoardVO boardVO) throws Exception;
+    public int updateStatus(BoardVO boardVO) throws Exception;
+    public Long getFreeSeq() throws Exception;
+    public Long getNoticeSeq() throws Exception;
 }

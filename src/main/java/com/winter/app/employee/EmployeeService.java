@@ -180,7 +180,7 @@ public class EmployeeService implements UserDetailsService{
 			return result;
 		}
 		
-		String fileName = fileManager.fileSave(uploadPath, file);
+		String fileName = fileManager.fileSave(uploadPath, file,false);
 
 		employeeVO.setProfile(fileName);
 		employeeVO.setProfile_name(file.getOriginalFilename());

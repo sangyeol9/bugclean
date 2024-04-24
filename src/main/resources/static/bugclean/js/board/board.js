@@ -21,7 +21,6 @@ const pageLoad = async () => {
         $('#list-1').removeClass('show').removeClass('active');
         showTable.addClass('show').addClass('active');
     }
-    console.log("초기코드: {}", initialCode)
 
     fetchAndDisplayBoard(initialCode, 1);
 
@@ -47,19 +46,19 @@ const pageLoad = async () => {
             $('#title-a').html($(this).text());
             $('#search').val("");
             const code = $(this).attr('data-source');
-            console.log(code)
+
             $('#page-title').attr('data-target', code);
             fetchAndDisplayBoard(code, 1);
         }
     });
 
-    $('.board-body').on('click', 'tr', function (){
+    $('.board-body').on('click', 'tr', function () {
         let board_code = ($(this).attr('data-board-code').trim());
         let cate_code = $('#page-title').attr('data-target');
-        console.log(board_code +"           "+ cate_code);
+
         let formData = new FormData;
-        formData.append("board_code",board_code);
-        formData.append("cate_code",cate_code);
+        formData.append("board_code", board_code);
+        formData.append("cate_code", cate_code);
         boardDetail(formData);
     })
 
@@ -70,22 +69,52 @@ const pageLoad = async () => {
 
 };
 
-const boardDetail = async (formData) =>{
-    await fetch("board/detail",{
+const deleteFile = (file_code) => {
+    return Swal.fire({
+        title: '첨부파일을 삭제 하시겠습니까?',
+        text: '삭제하면 첨부파일 관련 정보가 초기화 됩니다.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '확인',
+        cancelButtonText: '취소'
+    }).then((result) => {
+        if (result.value) {
+            let fileForm = new FormData;
+            fileForm.append("file_code", file_code);
+            return fetch('board/deleteFile', {
+                method: "POST",
+                body: fileForm
+            }).then(response => {
+                if (response.ok) {
+                    let board_code = ($('#board-title').attr('data-board-code').trim());
+                    createBoard(board_code);
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+        }
+    });
+};
+
+const boardDetail = async (formData) => {
+    await fetch("board/detail", {
         method: 'POST',
         body: formData
-    }).then(response=>{
+    }).then(response => {
         return response.text();
-    }).then(data =>{
+    }).then(data => {
         $('.card-body').empty();
         $('.card-body').html(data);
     })
 
-    $('#list-btn').on('click', function (){
+    $('#list-btn').on('click', function () {
         pageLoad();
     })
 
-    $('#update-btn').on('click',function (){
+    $('#update-btn').on('click', function () {
         createBoard(formData.get("board_code"));
     })
 
@@ -182,25 +211,51 @@ const createBoard = async (board_code) => {
             ['insert', ['picture', 'link']],
         ],
         fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체'],
-        fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72']
+        fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72'],
+        callbacks: {
+            onImageUpload: function(files) {
+                // 이미지를 서버에 업로드하고 imgNode를 생성하는 코드를 작성합니다.
+                    uploadSummerImg(files[0]);
+            }
+        }
     });
 
-    let attachmentCounter = $('#attachment-group .input-group').length;
+    const uploadSummerImg = (file)=>{
+        let imgForm = new FormData;
+        imgForm.append("file",file);
+
+        fetch('board/upload/image',{
+            method: 'POST',
+            body: imgForm
+        }).then((response) => {
+            // 서버에서 이미지 URL을 받아옴
+            return response.text(); // JSON 형태의 응답을 파싱
+        }).then((data) => {
+            const imgUrl = data; // 서버에서 받은 이미지 URL
+            console.log(imgUrl)
+            const imgNode = document.createElement('img');
+            imgNode.src = imgUrl;
+            $('.summernote').summernote('insertNode', imgNode);
+        })
+    }
+
+    let attachmentCounter = $('#files .attached-index').length;
+    let filesCounter = $('#files .input-group').length;
     const maxAttachments = 3;
 
 // 플러스 버튼 클릭 이벤트
     $('#attachment-group').on('click', '.plus-file', function () {
-        if (attachmentCounter < maxAttachments) {
-            attachmentCounter++;
-            let newAttachmentId = 'attachment-' + attachmentCounter;
+        if (attachmentCounter + filesCounter < maxAttachments) {
+            filesCounter++;
+            let newAttachmentId = 'attachment-' + filesCounter;
             let newAttachmentHtml = `
     <div class="input-group mb-1" id="${newAttachmentId}">
         <div class="input-group-prepend">
             <span class="input-group-text">첨부파일</span>
         </div>
         <div class="custom-file col">
-            <input type="file" class="custom-file-input" id="file-input-${attachmentCounter}">
-            <label class="custom-file-label" for="file-input-${attachmentCounter}">파일을 선택하세요</label>
+            <input type="file" class="custom-file-input" id="file-input-${filesCounter}">
+            <label class="custom-file-label" for="file-input-${filesCounter}">파일을 선택하세요</label>
         </div>
         <div class="input-group-append">
             <button type="button" class="btn btn-sm btn-dark plus-file" >+</button>
@@ -223,7 +278,7 @@ const createBoard = async (board_code) => {
 // 마이너스 버튼 클릭 이벤트
     $('#attachment-group').on('click', '.minus-file', function () {
         $(`#${$(this).data('target')}`).remove();
-        attachmentCounter--;
+        filesCounter--;
 
         // 첨부파일 갯수에 따라 플러스/마이너스 버튼 활성화/비활성화 설정
         updateButtonStatus();
@@ -231,13 +286,14 @@ const createBoard = async (board_code) => {
 
 // 플러스/마이너스 버튼 활성화/비활성화 함수
     function updateButtonStatus() {
-        if (attachmentCounter >= maxAttachments) {
+
+        if (attachmentCounter + filesCounter >= maxAttachments) {
             $('.plus-file').prop('disabled', true);
         } else {
             $('.plus-file').prop('disabled', false);
         }
 
-        if (attachmentCounter <= 1) {
+        if (filesCounter <= 1) {
             $('.minus-file').prop('disabled', true);
         } else {
             $('.minus-file').prop('disabled', false);
@@ -247,9 +303,52 @@ const createBoard = async (board_code) => {
 // 페이지 로드시 버튼 초기화
     updateButtonStatus();
 
+    $('.file-code').on('click', async function () {
+
+        let result = await deleteFile($(this).attr("data-file-code"));
+
+        if (result === 1) {
+            attachmentCounter--;
+        }
+    })
+
     $('#close-btn').on('click', function () {
         pageLoad()
     });
+
+    $('#delete-btn').on('click', function () {
+        Swal.fire({
+            title: '게시글을 삭제 하시겠습니까?',
+            text: '삭제하면 복구 불가능 합니다.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '확인',
+            cancelButtonText: '취소'
+        }).then(async (result) => {
+            if (result.value) {
+                let new_cate_code = $('#page-title').attr("data-target");
+                if (new_cate_code === undefined) {
+                    new_cate_code = $('.nav-item .active').attr("data-source");
+                }
+                let board_code = $('#board-title').attr('data-board-code');
+                let formDataDel = new FormData;
+                formDataDel.append("board_code", board_code);
+                formDataDel.append("cate_code", new_cate_code);
+
+                await fetch("board/delete", {
+                    method: 'POST',
+                    body: formDataDel
+                }).then((response) => {
+                    if (response.ok) {
+                        pageLoad();
+                    }
+                })
+            }
+        })
+    })
+
 
     $('#save-btn').on('click', async (e) => {
         e.preventDefault(); // 기본 동작 방지
@@ -257,10 +356,11 @@ const createBoard = async (board_code) => {
         if (new_cate_code === undefined) {
             new_cate_code = $('.nav-item .active').attr("data-source");
         }
-        console.log(new_cate_code)
+
+
         // 제목 입력 값 가져오기
         const title = $('#board-title').val();
-        if(title===""){
+        if (title === "") {
             return Swal.fire({
                 title: '제목은 필수입력 사항입니다.',
                 icon: 'warning',
@@ -280,13 +380,13 @@ const createBoard = async (board_code) => {
 
         // 폼 데이터 객체 생성
         const formData = new FormData();
+        formData.append("board_code", $('#board-title').attr('data-board-code'));
         formData.append('cate_code', new_cate_code);
         formData.append('board_title', title);
         formData.append('employee_num', employeeNum);
         formData.append('board_contents', content);
         files.forEach(file => formData.append('files', file));
 
-        console.log(formData)
 
         try {
             // 서버로 데이터 전송
@@ -297,7 +397,6 @@ const createBoard = async (board_code) => {
 
             if (response.ok) {
                 const responseData = await response.json();
-                console.log('Data successfully sent:', responseData);
                 // 성공 메시지 표시 또는 리다이렉션 등의 후속 작업 수행
                 await pageLoad();
             } else {
