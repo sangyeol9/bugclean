@@ -89,6 +89,9 @@ function create_sch(date){
                 alert("추가완료")
                 openWindow();
             }
+            else{
+                alert("퇴사 직원은 선택하지 못합니다");
+            }
         })
     }
 
@@ -98,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     
     calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView : 'dayGridDay',
+        initialView : 'dayGridMonth',
         selectable : true,
         locale : "kr",
         editable: true,
@@ -331,7 +334,6 @@ modalTitle.innerText="일정 확인";
 
             for(let i=0;i<emp_choice_value.length;i++){
                 if(emp_choice_value[i].value == res.customer_Num ){
-                    console.log("hiie")
                     emp_choice_value[i].selected = true;
                 }
             }
@@ -387,8 +389,13 @@ modalTitle.innerText="일정 확인";
             })
                 .then(res=>res.json())
                 .then(res=>{
-                    console.log("res update fetch === ", res);
-                    openWindow(); 
+                    if(res>0){
+                        console.log("res update fetch === ", res);
+                        openWindow(); 
+                    }
+                    else{
+                alert("퇴사 직원은 선택하지 못합니다");
+            }
             })
         })
 
