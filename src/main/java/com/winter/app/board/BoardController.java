@@ -4,12 +4,11 @@ import com.winter.app.util.pagination.Pagination;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -68,6 +67,8 @@ public class BoardController {
         mv.addObject("code", boardVO.getCate_code());
         mv.setViewName("board/create");
 
+        log.info("============================================={}",mv.getModel().get("board"));
+
         return mv;
     }
 
@@ -75,11 +76,19 @@ public class BoardController {
     @ResponseBody
     public int setBoard(BoardVO boardVO, MultipartFile[] files) throws Exception {
 
-        if (boardVO.getBoard_title().equals("")) {
+        if (boardVO.getBoard_title().isEmpty()) {
             return 0;
         }
 
         return boardService.setBoard(boardVO, files);
+    }
+
+    @PostMapping("upload/image")
+    public ResponseEntity<String> uploadImg(@RequestParam("file") MultipartFile file)throws Exception{
+        if(file.isEmpty()){
+            return ResponseEntity.badRequest().body("");
+        }
+        return ResponseEntity.ok(boardService.uploadImg(file));
     }
 
     @RequestMapping("download")
@@ -109,6 +118,22 @@ public class BoardController {
        log.info("{}", response);
 
         return mv;
+    }
+
+    @PostMapping("delete")
+    @ResponseBody
+    public int deleteBoard(BoardVO boardVO) throws Exception{
+        log.info("뭐가 삭제 될까? ============ {}",boardVO);
+        if(boardVO.getCate_code()==1){
+            return boardService.updateStatus(boardVO);
+        }
+        return boardService.deleteBoard(boardVO);
+    }
+
+    @PostMapping("deleteFile")
+    @ResponseBody
+    public int deleteFile(BoardFileVO boardFileVO) throws Exception {
+        return boardService.deleteFile(boardFileVO);
     }
 
 }
