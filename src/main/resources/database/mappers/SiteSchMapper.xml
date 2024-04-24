@@ -27,6 +27,25 @@
 		 		
  	</insert>
  	
+ 	<!-- 퇴사한 영업사원이나 현장담당자로 일정을 추가하거나 수정하면 에러처리 하기위한 재직상태 확인 -->
+ 	<select id="getEmployeeState" parameterType="SiteSchVO" resultType="EmployeeVO" >
+ 		SELECT e.* FROM SITE_SCH ss 
+		LEFT OUTER JOIN EMPLOYEE e 
+		ON ss.EMPLOYEE_NUM  = e.EMPLOYEE_NUM 
+		LEFT OUTER JOIN EMPLOYEE e2 
+		ON ss.SALES_MANAGER = e2.EMPLOYEE_NUM 
+		WHERE (e.dep_code = 102 OR e2.DEP_CODE = 101 ) AND (e.EMPLOYEE_NUM = #{employee_Num} AND e2.EMPLOYEE_NUM = #{sales_Manager})
+ 	</select>
+ 	
+ 	<select id="getEmployeeState2" parameterType="SiteSchVO" resultType="EmployeeVO" >
+ 		SELECT e2.* FROM SITE_SCH ss 
+		LEFT OUTER JOIN EMPLOYEE e 
+		ON ss.EMPLOYEE_NUM  = e.EMPLOYEE_NUM 
+		LEFT OUTER JOIN EMPLOYEE e2 
+		ON ss.SALES_MANAGER = e2.EMPLOYEE_NUM 
+		WHERE (e.dep_code = 102 OR e2.DEP_CODE = 101 ) AND (e.EMPLOYEE_NUM = #{employee_Num} AND e2.EMPLOYEE_NUM = #{sales_Manager})
+ 	</select>
+ 	
  	<!-- 일정 수정 -->
  	<update id="updateSch" parameterType="SiteSchVO">
  		UPDATE SITE_SCH
@@ -54,12 +73,12 @@
  	
  	<!-- 영업 사원 리스트 가져오기 , 셀렉트 박스에 사용  -->
  	<select id="getSales" resultType="EmployeeVO">
- 		SELECT EMPLOYEE_NUM, NAME FROM EMPLOYEE WHERE DEP_CODE = 101 AND STATE =1
+ 		SELECT EMPLOYEE_NUM, NAME,STATE FROM EMPLOYEE WHERE DEP_CODE = 101 
  	</select>
  	
  	<!-- 현장 사원 리스트 가져오기 , 셀렉트 박스에 사용 -->
  	<select id="getSiter" resultType="EmployeeVO">
- 		SELECT EMPLOYEE_NUM, NAME FROM EMPLOYEE WHERE DEP_CODE = 102 AND STATE =1
+ 		SELECT EMPLOYEE_NUM, NAME,STATE FROM EMPLOYEE WHERE DEP_CODE = 102 
  	</select>
  	
  	<!-- 모든 거래처 가져오기 , 회사명 입력 셀렉트 박스에 사용 -->
