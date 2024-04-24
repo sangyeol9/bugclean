@@ -107,4 +107,7 @@ public class BoardService {
         return boardDAO.updateStatus(boardVO);
     }
 
+    public int updateHit(BoardVO boardVO) throws Exception{
+        return boardDAO.updateHit(boardVO);
+    }
 }

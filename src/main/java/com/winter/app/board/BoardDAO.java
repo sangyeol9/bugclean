@@ -22,4 +22,5 @@ public interface BoardDAO {
     public int updateStatus(BoardVO boardVO) throws Exception;
     public Long getFreeSeq() throws Exception;
     public Long getNoticeSeq() throws Exception;
+    public int updateHit(BoardVO boardVO) throws Exception;
 }

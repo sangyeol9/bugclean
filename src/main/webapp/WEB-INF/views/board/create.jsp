@@ -25,10 +25,12 @@
                     <sec:authorize access="isAuthenticated()">
                         <sec:authentication property="principal" var="employeeVO"/>
                         <h5 class="col-3 m-0">${employeeVO.name}</h5>
-                        <input type="hidden" id="employee_num" value=${employeeVO.employee_num}/>
+                        <input type="hidden" id="employee_num" value="${employeeVO.employee_num}"/>
                     </sec:authorize>
-                    <h5 class="col-3 m-0">비로그인</h5>
-                    <input type="hidden" id="employee_num" value="2022001"/>
+                    <sec:authorize access="!isAuthenticated()">
+                        <h5 class="col-3 m-0">비로그인</h5>
+                        <input type="hidden" id="employee_num" value="2022001"/>
+                    </sec:authorize>
                 </div>
             </div>
 
