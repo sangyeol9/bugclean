@@ -89,7 +89,7 @@
                             <c:if test="${active == sessionScope.code[index]}">
                                 <li class="breadcrumb-item">
                                     <a id="title-a"
-                                       href="http://localhost/board?code=${sessionScope.code[index]}">${sessionScope.name[index]}</a>
+                                       href="board?cate_code=${sessionScope.code[index]}">${sessionScope.name[index]}</a>
                                 </li>
                             </c:if>
                         </c:forEach>
