@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.winter.app.carManage.CarDetailVO;
-import com.winter.app.customer.CustomerController;
+import com.winter.app.general.CarDetailVO;
 import com.winter.app.customer.CustomerVO;
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.util.pagination.Pagination;
