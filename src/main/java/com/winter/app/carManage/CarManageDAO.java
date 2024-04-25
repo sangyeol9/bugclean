@@ -9,7 +9,7 @@ import com.winter.app.sitesch.SiteSchVO;
 @Mapper
 public interface CarManageDAO {
 	
-	List<CarDetailVO> getUsableList() throws Exception;
+	List<CarDetailVO> getUsableList(CarManageVO carManageVO) throws Exception;
 	
 	int carAllocation(CarManageVO carManageVO) throws Exception;
 	

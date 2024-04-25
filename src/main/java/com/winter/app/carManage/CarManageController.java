@@ -1,5 +1,7 @@
 package com.winter.app.carManage;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,5 +43,12 @@ public class CarManageController {
 		return carDetailVO;
 	}
 	
+	@PostMapping("getUsableList")
+	@ResponseBody
+	public List<CarDetailVO> getUsableList(@RequestBody CarManageVO carManageVO) throws Exception{
+		System.out.println(carManageVO);
+		return carManageService.getUsableList(carManageVO);
+		
+	}
 	
 }

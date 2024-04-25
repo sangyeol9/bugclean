@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.winter.app.carManage.CarDetailVO;
 import com.winter.app.carManage.CarManageDAO;
+import com.winter.app.carManage.CarManageVO;
 import com.winter.app.customer.CustomerVO;
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.util.pagination.Pagination;
@@ -92,8 +93,8 @@ public class SiteSchService {
 		
 		return schDAO.getCustomerList();
 	}
-	public List<CarDetailVO> getUsableList() throws Exception{
-		return carManageDAO.getUsableList();
+	public List<CarDetailVO> getUsableList(CarManageVO carManageVO) throws Exception{
+		return carManageDAO.getUsableList(carManageVO);
 		
 	}
 	

@@ -10,8 +10,8 @@ public class CarManageService {
 	@Autowired
 	private CarManageDAO carManageDAO;
 	
-	public List<CarDetailVO> getUsableList() throws Exception{
-		return carManageDAO.getUsableList();
+	public List<CarDetailVO> getUsableList(CarManageVO carManageVO) throws Exception{
+		return carManageDAO.getUsableList(carManageVO);
 	}
 	
 	public CarManageVO carAllocation(CarManageVO carManageVO) throws Exception{
