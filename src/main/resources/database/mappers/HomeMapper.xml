@@ -2,9 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-  
-  
+ 
 <mapper namespace="com.winter.app.HomeDAO">
 	<select id="getList" resultType="BoardVO">
 		SELECT *
@@ -18,5 +16,39 @@
 		WHERE R BETWEEN 1 AND 5
 	</select>
 	
- 	
+	<insert id="setAttendDate">
+		INSERT INTO ATTENDANCE (EMPLOYEE_NUM, ATTEND_DATE, ATTEND_VAC)
+		SELECT EMPLOYEE_NUM, CURRENT_DATE, 0
+		FROM EMPLOYEE
+		WHERE STATE =1
+	</insert>
+		
+	<update id="setAttendence" parameterType="AttendanceVO">
+		UPDATE ATTENDANCE
+		SET ATTEND_START_TIME = CURRENT_DATE
+		WHERE TRUNC(ATTEND_DATE) = TRUNC(CURRENT_DATE) AND EMPLOYEE_NUM =#{employee_num}
+	</update>
+	
+	<update id="setWorkOut" parameterType="AttendanceVO">
+		UPDATE ATTENDANCE
+		SET ATTEND_DONE = CURRENT_DATE
+		WHERE TRUNC(ATTEND_DATE) = TRUNC(CURRENT_DATE) AND ATTEND_START_TIME IS NOT NULL AND EMPLOYEE_NUM =#{employee_num}
+	</update>
+	
+	<select id="getAttendTime" parameterType="AttendanceVO" resultType="AttendanceVO">
+		SELECT TO_CHAR(ATTEND_START_TIME, 'HH24:MI:SS') AS ATTEND_START_TIME, TO_CHAR(ATTEND_DONE, 'HH24:MI:SS') AS ATTEND_DONE
+		FROM ATTENDANCE a 
+		WHERE TRUNC(ATTEND_DATE) = TRUNC(CURRENT_DATE) AND EMPLOYEE_NUM =#{employee_num}
+	</select>
+	
+	<select id="isAttended" parameterType="AttendanceVO">
+		SELECT CASE WHEN COUNT(ATTEND_START_TIME) > 0 THEN 'true' ELSE 'false' END
+		FROM ATTENDANCE
+		WHERE TRUNC(ATTEND_DATE) = TRUNC(CURRENT_DATE) AND EMPLOYEE_NUM =#{employee_num}
+	</select>
+	<select id="isWorkOut" parameterType="AttendanceVO">
+		SELECT CASE WHEN COUNT(ATTEND_DONE) > 0 THEN 'true' ELSE 'false' END
+		FROM ATTENDANCE
+		WHERE TRUNC(ATTEND_DATE) = TRUNC(CURRENT_DATE) AND EMPLOYEE_NUM =#{employee_num}
+	</select>
 </mapper>

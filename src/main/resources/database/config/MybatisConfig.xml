@@ -33,5 +33,6 @@
 		<typeAlias type="com.winter.app.general.ProCategoryVO" alias="ProCategoryVO"/>
 		<typeAlias type="com.winter.app.draft.DraftVO" alias="DraftVO"/>
 		<typeAlias type="com.winter.app.draft.SignCheckVO" alias="SignCheckVO"/>
+		<typeAlias type="com.winter.app.humanResource.AttendanceVO" alias="AttendanceVO"/>
   	</typeAliases>
   </configuration>
