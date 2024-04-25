@@ -356,7 +356,22 @@ modalTitle.innerText="일정 확인";
                     inputRadio[i].checked= true;
                 }
             }
+            console.log("inputStart === " , inputStart.value)
+            fetch("/carManage/getUsableList",{
+                method : "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                  },
+                body : JSON.stringify({
+                    booking_start :  res.start_Time,
+                    booking_done : res.end_Time
+                })
+            }).then(res=>res.json())
+            .then(res=>{
+                console.log("사용가능차량",res);
+            })
         })
+
 
         //수정 버튼 클릭시 수정
         update_sch_btn.addEventListener("click",function(){
