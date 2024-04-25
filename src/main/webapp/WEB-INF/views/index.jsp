@@ -16,14 +16,10 @@
     <title>Bug Clean</title>
     <!-- Favicon icon -->
 	<c:import url="./temp/css.jsp"></c:import>
-
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-thin-straight/css/uicons-thin-straight.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-straight/css/uicons-regular-straight.css'>
-
-    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=s6s3pnbbrh&submodules=geocoder"></script>
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=s6s3pnbbrh&submodules=geocoder"></script>
     
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+
 </head>
 
 <body>
@@ -71,8 +67,14 @@
                                             
                                                 
                                                 <div class="text-center mt-4 mx-3">
-                                                    <button type="submit" class="btn btn-light btn-block" style="font-weight: bold;">출근</button>
-                                                    <button type="submit" class="btn btn-dark btn-block" style="font-weight: bold;">퇴근</button>
+                                                    <form action="/setAttendence" method="post" onsubmit="return confirm('출근하시겠습니까?');">
+                                                        <input type="hidden" name="employee_num" value="${employeeVO.employee_num}">
+                                                        <button type="submit" id="attendence" class="btn btn-light btn-block" style="font-weight: bold;">출근</button>
+                                                    </form>
+                                                    <form action="/setWorkOut" method="post" onsubmit="return confirm('퇴근하시겠습니까?');">
+                                                        <input type="hidden" name="employee_num" value="${employeeVO.employee_num}">
+                                                        <button type="submit" id="workout"  class="btn btn-dark btn-block" style="font-weight: bold;">퇴근</button>
+                                                    </form>
                                                 </div>
 
                                                 <div class="text-center mt-4 mx-3">
@@ -80,13 +82,27 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td class="col-6">출근 시간</th>
-                                                                <td id="goTime" class="col-6" style="font-size: large; color: darkgray;">07:35:12</th>
+                                                                <c:if test="${null eq attendanceVO.attend_start_time}">
+                                                                    <td id="leaveTime" style="font-size: large; color: darkgray;">-</td>
+                                                                </c:if>
+                                                                <c:if test="${null ne attendanceVO.attend_start_time}">
+
+                                                                    <td id="leaveTime" style="font-size: large; color: darkgray;">${attendanceVO.attend_start_time}</td>
+                                                                </c:if>
                                                             </tr>
                                                             <tr>
                                                                 <td>퇴근 시간</td>
-                                                                <td id="leaveTime" style="font-size: large; color: darkgray;">-</td>
-                                                            </tr>
+                                                                
+                                                                <c:if test="${null eq attendanceVO.attend_done}">
+                                                                    <td id="leaveTime" style="font-size: large; color: darkgray;">-</td>
+                                                                </c:if>
+                                                                <c:if test="${null ne attendanceVO.attend_done}">
 
+                                                                    <td id="leaveTime" style="font-size: large; color: darkgray;">${attendanceVO.attend_done}</td>
+                                                                </c:if>
+
+                                                                
+                                                            </tr>
                                                     </table>
 
                                                 </div>
@@ -149,63 +165,62 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Individual</h4>
+                                <h4 class="card-title">Schedule</h4>
                             </div>
 
-                            <div class="card-body">
-                                <!-- Nav-->
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#home8">
-                                            <span>
-                                                <i class="fi fi-rs-calendar"></i>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#profile8">
-                                            <span>
-                                                <i class="fi fi-rs-map-marker"></i>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#messages8">
-                                            <span>
-                                                <i class="ti-email"></i>
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <!-- Tab -->
-                                <div class="tab-content tabcontent-border">
-                                    <!-- 일정 -->
-                                    <div class="tab-pane fade active show" id="home8" role="tabpanel">
-                                        <div class="pt-4">
-                                            <h4>This is icon title</h4>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                            </p>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                            </p>
+                            <div class="card-body" id="card-body">
+                                
+                                <div id='calendar' style="color: black"></div>
+                                <!-- <i class="fa-regular fa-circle-check" style="color: #B197FC;"></i> -->
+                                <!-- style="color: red"  text-warning-->
+                                <div id="content" >
+
+                                    <!-- <div class="row justify-content-between">
+                                        
+                                        <div class="col-12">
+                                            <br>
+                                            <hr>
+                                            <br>
                                         </div>
-                                    </div>
-                                    <!-- 지도 -->
-                                    <div class="tab-pane fade" id="profile8" role="tabpanel">
-                                        <div class="pt-4">
-                                            <div id="map" style="width:1000px;height:500px;"></div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-4">
+                                                <h4 class="card-title card-intro-title">Details</h4>
+                                            </div>
+    
+                                            <div class="card-content" >
+                                                <p class="text-sm-left"> 현장 번호 : res.site_Num</p>
+                                                <p class="text-sm-left"> 거래처 번호 : res.customer_Num</p>
+                                                <p class="text-sm-left"> 작업 시작일시 : res.start_Time</p>
+                                                <p class="text-sm-left"> 작업 종료일시 : res.end_Time</p>
+                                                <p class="text-sm-left"> 주소 : res.address</p>
+                                                <p class="text-sm-left"> 사업자 이름 : res.business_Name</p>
+                                                <p class="text-sm-left"> 대표자 이름 : res.ceo_Name</p>
+                                                <p class="text-sm-left"> 기안서 번호 : res.draft_Num</p>
+                                                <p class="text-sm-left"> 담당사원 : res.employee_Num</p>
+                                                <p class="text-sm-left"> 배차코드 : res.manage_Code</p>
+                                                <p class="text-sm-left"> 단가 : res.price</p>
+                                                <p class="text-sm-left"> 영업 담당자 : res.sales_Manager</p>
+                                                <p class="text-sm-left"> 현장구분 : res.site_Type</p>
+
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- ??? -->
-                                    <div class="tab-pane fade" id="messages8" role="tabpanel">
-                                        <div class="pt-4">
-                                            <h4>This is icon title</h4>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                            </p>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                            </p>
+                                        
+                                        <div class="col-lg-6">
+                                            <div class="mb-4">
+                                                <h4 class="card-title card-intro-title">Map</h4>
+                                                
+                                            </div>
+    
+                                            <div id="map" style="width:100%;height:500px;"></div>
+
+
                                         </div>
-                                    </div>
+                                        
+                                    </div> -->
+                                
+                                
                                 </div>
+                                    
                             </div>
                         </div>
                     </div>
@@ -226,6 +241,8 @@
         
         <c:import url="./temp/footer.jsp"></c:import>
         <c:import url="./temp/js.jsp"></c:import>
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fff43990ae8a3d5c0de034a2023420d6&libraries=services"></script>
         <script src="/bugclean/js/index.js"></script>
 </body>
     
