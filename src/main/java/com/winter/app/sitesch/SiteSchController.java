@@ -51,7 +51,7 @@ public class SiteSchController {
 		
 		List<EmployeeVO> ar_emp = schService.getSiter();
 		List<CustomerVO> list = schService.getCustomerList();
-		List<CarDetailVO> ar_car = schService.getUsableList(carManageVO);
+		List<CarDetailVO> ar_car = schService.getUsableList();
 		model.addAttribute("customerList", list);
 		model.addAttribute("list", ar);
 		model.addAttribute("list_emp", ar_emp);
