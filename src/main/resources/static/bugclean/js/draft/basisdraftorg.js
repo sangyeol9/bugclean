@@ -207,7 +207,7 @@ refPlusBtn.addEventListener(
         ////fetch
         let modalCreateBtn = document.getElementById("modalCreateBtn");
         let draftLine = document.getElementById("draftLine");
-        
+        let refempnum = document.getElementById("refempnum");
         modalCreateBtn.addEventListener("click",function(){
             modalBack.classList.add("noshow")
             modal.classList.add("noshow")
@@ -227,7 +227,7 @@ refPlusBtn.addEventListener(
             console.log("dep : "+ orgArrDep)
             console.log("name : "+ orgArrName)
             let refInp = document.getElementById("refInp")
-
+            
             //refBoxTd
             let refBoxTdAr = refBoxTd.children;
             let refBoxTdArCode = [refBoxTdAr.length]
@@ -239,6 +239,7 @@ refPlusBtn.addEventListener(
                 refBoxTdArCode[i] = refBoxTdAr[i].lastElementChild.getAttribute("data-emp-num");
                 refBoxTdName[i] = refBoxTdAr[i].lastElementChild.getAttribute("data-pp-name");
                 console.log("refName : "+refBoxTdName[i])
+                refempnum.value += refBoxTdArCode[i]+",";
                 refInp.value += refBoxTdName[i]+",";
 
             }
