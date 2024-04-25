@@ -17,7 +17,7 @@ public interface GeneralDAO {
 
     int carAllocation(CarManageVO carManageVO) throws Exception;
 
-    int updateStatus1(CarDetailVO carDetailVO) throws Exception;
+    int updateStatus(CarDetailVO carDetailVO) throws Exception;
 
     CarManageVO getInfo(CarManageVO carManageVO) throws Exception;
 

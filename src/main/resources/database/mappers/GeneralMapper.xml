@@ -27,9 +27,9 @@
         SELECT * FROM CAR_DETAIL WHERE PRO_STATUS = 0
     </select>
 
-    <!-- 차량 현재 상태를 배차요청중으로 변경 // 배차 요청시 -->
-    <update id="updateStatus1" parameterType="CarDetailVO">
-        UPDATE CAR_DETAIL SET PRO_STATUS = 1 WHERE CAR_CODE = #{car_code}
+    <!-- 차량 현재 상태를 변경 // 배차 요청시 & 배차 거절시 -->
+    <update id="updateStatus" parameterType="CarDetailVO">
+        UPDATE CAR_DETAIL SET PRO_STATUS = #{pro_status} WHERE CAR_CODE = #{car_code}
     </update>
 
     <!-- 배차 요청 등록  -->

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.winter.app.general.CarDetailVO;
-import com.winter.app.general.CarManageDAO;
+import com.winter.app.general.GeneralDAO;
 import com.winter.app.general.CarManageVO;
 import com.winter.app.customer.CustomerVO;
 import com.winter.app.employee.EmployeeVO;
@@ -94,7 +94,7 @@ public class SiteSchService {
 		return schDAO.getCustomerList();
 	}
 	public List<CarDetailVO> getUsableList() throws Exception{
-		return generalDAO.getUsableList(carManageVO);
+		return generalDAO.getUsableList();
 		
 	}
 	
