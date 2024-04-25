@@ -89,6 +89,9 @@ function create_sch(date){
                 alert("추가완료")
                 openWindow();
             }
+            else{
+                alert("퇴사 직원은 선택하지 못합니다");
+            }
         })
     }
 
@@ -98,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     
     calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView : 'dayGridDay',
+        initialView : 'dayGridMonth',
         selectable : true,
         locale : "kr",
         editable: true,
@@ -295,7 +298,7 @@ modalTitle.innerText="일정 확인";
             schManageCode = res.manage_Code;
             console.log(schManageCode)
             if(schManageCode != null) {
-                    fetch("/carManage/getCarNumber",{
+                    fetch("/general/getCarNumber",{
                     method : "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -308,10 +311,6 @@ modalTitle.innerText="일정 확인";
                 .then(res => {
                     console.log("res === = == = =" , res);
                     
-                    
-                        let carSelectBase = document.getElementById("carSelectBase")
-                        carSelectBase.value = res.pro_num +" " +res.car_code;
-                        carSelectBase.innerHTML = res.pro_num;
                         if(res.pro_status == 1){
                             input_carAllocation.value = '배차 신청중';
                         }else if(res.pro_status ==2){
@@ -321,8 +320,8 @@ modalTitle.innerText="일정 확인";
                 })
                 }else{
                     console.log("미정이")
-                    carSelectBase.value = "미정"
-                    carSelectBase.innerHTML = '배차 정보';
+                  
+                    
                     input_carAllocation.value="미정";
                 }
                 
@@ -331,7 +330,6 @@ modalTitle.innerText="일정 확인";
 
             for(let i=0;i<emp_choice_value.length;i++){
                 if(emp_choice_value[i].value == res.customer_Num ){
-                    console.log("hiie")
                     emp_choice_value[i].selected = true;
                 }
             }
@@ -354,7 +352,54 @@ modalTitle.innerText="일정 확인";
                     inputRadio[i].checked= true;
                 }
             }
+            let allocationState  = res.manage_Code;
+            console.log("inputStart === " , inputStart.value)
+            fetch("/general/getUsableList",{
+                method : "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                  },
+                body : JSON.stringify({
+                    booking_start :  res.start_Time,
+                    booking_done : res.end_Time
+                })
+            }).then(res=>res.json())
+            .then(res=>{
+                console.log("사용가능차량",res);
+                if(allocationState == null){
+                    console.log("null입니당")
+                    carAllocation.innerHTML = `<option id ="carSelectBase" value="">배차요청</option>`;
+                    res.forEach(element => {
+                        carAllocation.innerHTML += `<option class="car_choice" value="${element.pro_num} ${element.car_code}">${element.pro_num}</option>`
+                     });
+                }else{
+                    console.log("null이 아닙ㅂ니당",allocationState);
+                    fetch("/general/getAllocationState",{
+                        method : "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                          },
+                        body : JSON.stringify({
+                            manage_code : allocationState
+                        })
+                    }).then(res=>res.json())
+                    .then(res=>{
+                      console.log("배차 정보 확인 res = >>",res);  
+                      carAllocation.innerHTML = `<option id ="carSelectBase" value="${res.PRO_NUM} ${res.CAR_CODE} ">${res.PRO_NUM}</option>`;
+                      if(res.BOOKING_AGREE == '0'){
+                        input_carAllocation.value = "배차 신청중"
+                      }else{
+                        input_carAllocation.value = "배차 완료";
+                      }
+                    })
+                }
+                
+            })
+            //사용가능 차량 리스트 가져오기 끝
+            //배차 정보 가져오기
+           
         })
+
 
         //수정 버튼 클릭시 수정
         update_sch_btn.addEventListener("click",function(){
@@ -387,8 +432,13 @@ modalTitle.innerText="일정 확인";
             })
                 .then(res=>res.json())
                 .then(res=>{
-                    console.log("res update fetch === ", res);
-                    openWindow(); 
+                    if(res>0){
+                        console.log("res update fetch === ", res);
+                        openWindow(); 
+                    }
+                    else{
+                alert("퇴사 직원은 선택하지 못합니다");
+            }
             })
         })
 
@@ -470,7 +520,7 @@ function changeSelect(sch_ID){
         }
         else{
             carAllocation.value=car_temp;
-            fetch("/carManage/carAllocation",{
+            fetch("/general/carAllocation",{
                 method:"POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -498,6 +548,7 @@ function changeSelect(sch_ID){
                 }).then(res=>res.json())
                 .then(res => {
                     console.log("sch 배차 정보 상태 갱신 === ",res);
+                    closeModal();
                 })
 
 

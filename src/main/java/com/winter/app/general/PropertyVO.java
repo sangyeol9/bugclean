@@ -1,4 +1,4 @@
-package com.winter.app.carManage;
+package com.winter.app.general;
 
 import java.sql.Timestamp;
 

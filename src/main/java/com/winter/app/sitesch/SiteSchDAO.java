@@ -16,6 +16,9 @@ public interface SiteSchDAO {
 	
 	int createSch(SiteSchVO schVO) throws Exception;
 	
+	List<EmployeeVO> getEmployeeState(SiteSchVO schVO) throws Exception;
+	List<EmployeeVO> getEmployeeState2(SiteSchVO schVO) throws Exception;
+	
 	int updateSch(SiteSchVO schVO) throws Exception;
 	int updateSchType(SiteSchVO schVO) throws Exception;
 	//회사명으로 회사 pk와 사장 이름 가져오기
