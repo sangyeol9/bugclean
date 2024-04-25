@@ -29,14 +29,18 @@
     <!-- 사용 가능 차량 조회 -->
 
     <select id="getUsableList" resultType="CarDetailVO" parameterType="CarManageVO">
-        SELECT * FROM CAR_DETAIL cd  
-		WHERE  car_code in (
-		SELECT CAR_CODE FROM CAR_MANAGE cm 
-		WHERE not
-		( BOOKING_START <![CDATA[>=]]> TO_DATE(#{booking_start}, 'YYYY-MM-DD HH24:MI:SS')-1/24
-		AND
-		BOOKING_DONE <![CDATA[<=]]> TO_DATE(#{booking_done}, 'YYYY-MM-DD HH24:MI:SS')+1/24 )
-		)
+       SELECT * FROM CAR_DETAIL cd  
+WHERE not  car_code IN (
+    SELECT CAR_CODE FROM CAR_MANAGE cm 
+    WHERE (
+        BOOKING_START <![CDATA[>=]]>  TO_DATE(#{booking_start}, 'YYYY-MM-DD HH24:MI:SS') - 1/24
+        AND
+        BOOKING_START <![CDATA[<=]]>  TO_DATE(#{booking_done}, 'YYYY-MM-DD HH24:MI:SS') + 1/24)
+        OR 
+        (BOOKING_DONE <![CDATA[>=]]>  TO_DATE(#{booking_start}, 'YYYY-MM-DD HH24:MI:SS') - 1/24
+        AND
+        BOOKING_DONE <![CDATA[<=]]>  TO_DATE(#{booking_done}, 'YYYY-MM-DD HH24:MI:SS') + 1/24)
+       )
     </select>
 
     <!-- 차량 현재 상태를 변경 // 배차 요청시 & 배차 거절시 -->
@@ -69,4 +73,14 @@
         WHERE MANAGE_CODE = #{car_code}
         )
     </select>
+    
+    <!-- 해당 현장의 배차 번호를 가져오고 해당 배차 번호에 차량번호와 예약 상태 조회 -->
+	<select id="getAllocationState" parameterType="CarManageVO" resultType="Map">
+		SELECT cd.PRO_NUM ,cm.BOOKING_AGREE,cm.car_code  FROM CAR_DETAIL cd 
+      LEFT OUTER JOIN CAR_MANAGE cm 
+      ON cd.CAR_CODE  = cm.CAR_CODE 
+      WHERE cm.MANAGE_CODE  = #{manage_code}
+	</select>
+    
+    
 </mapper>

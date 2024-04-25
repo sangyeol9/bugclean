@@ -84,6 +84,15 @@ public class GeneralController {
         return carDetailVO;
     }
 
-
+    @PostMapping("getAllocationState")
+    @ResponseBody
+    public Map<String,Object> getAllocationState(@RequestBody CarManageVO carManageVO) throws Exception{
+    	Map<String, Object> map = generalService.getAllocationState(carManageVO);
+    	
+    	return map;
+    	
+    }
+    
+    
 
 }
