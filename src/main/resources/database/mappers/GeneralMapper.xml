@@ -22,6 +22,10 @@
         DELETE FROM CAR_MANAGE WHERE MANAGE_CODE = #{manage_code}
     </delete>
 
+    <select id="getCate" resultType="ProCategoryVO">
+        SELECT * FROM PRO_CATEGORY
+    </select>
+
     <!-- 사용 가능 차량 조회 -->
 
     <select id="getUsableList" resultType="CarDetailVO" parameterType="CarManageVO">

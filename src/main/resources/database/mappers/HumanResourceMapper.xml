@@ -21,7 +21,8 @@
 
     <select id="getMemberDetail" parameterType="EmployeeVO" resultType="Map">
         SELECT USERNAME, EMPLOYEE_NUM, NAME, NICKNAME, PHONE, TO_CHAR(JOIN_DATE,'YYYY-MM-DD') AS "JOIN_DATE", ADDRESS,
-        DEP_CODE, POS_CODE, RNR_CODE, TYPE_CODE, UPPER_DEP_CODE FROM EMPLOYEE JOIN DEPARTMENT USING (DEP_CODE) WHERE EMPLOYEE_NUM = #{employee_num}
+        DEP_CODE, POS_CODE, RNR_CODE, TYPE_CODE, UPPER_DEP_CODE FROM EMPLOYEE JOIN DEPARTMENT USING (DEP_CODE) WHERE
+        EMPLOYEE_NUM = #{employee_num}
     </select>
 
     <select id="getResignationList" resultType="Map">
@@ -80,58 +81,61 @@
 
     <select id="getAttendanceList" parameterType="Map" resultType="Map">
         SELECT * FROM (
-            SELECT ROWNUM R, N.* FROM (
-                SELECT EMPLOYEE_NUM,TO_CHAR(ATTEND_DATE, 'YYYY-MM-DD') AS ATTEND_DATE,
-                TO_CHAR(ATTEND_START_TIME, 'HH24:MI:SS') AS START_TIME,
-                TO_CHAR(ATTEND_DONE, 'HH24:MI:SS') AS DONE_TIME,
-                ATTEND_VAC, DEP_NAME, NAME,
-                CASE
-                WHEN ATTEND_START_TIME IS NULL OR ATTEND_DONE IS NULL THEN '결근'
-                WHEN TO_TIMESTAMP(TO_CHAR(ATTEND_START_TIME, 'HH24:MI:SS'), 'HH24:MI:SS') > TO_TIMESTAMP('09:00:00', 'HH24:MI:SS') THEN '지각'
-                ELSE '정상출근'
-                END AS LATE
-            FROM EMPLOYEE
-                LEFT JOIN DEPARTMENT USING (DEP_CODE)
-                LEFT JOIN ATTENDANCE USING (EMPLOYEE_NUM)
-        WHERE ATTEND_DATE BETWEEN TO_DATE(#{startDate} || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE(#{endDate} || ' 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
-                AND (EMPLOYEE_NUM LIKE '%'||#{pagination.search}||'%'
-                OR TO_CHAR(ATTEND_DATE, 'YYYY-MM-DD') LIKE '%'||#{pagination.search}||'%'
-                OR TO_CHAR(ATTEND_START_TIME, 'HH24:MI:SS') LIKE '%'||#{pagination.search}||'%'
-                OR TO_CHAR(ATTEND_DONE, 'HH24:MI:SS') LIKE '%'||#{pagination.search}||'%'
-                OR ATTEND_VAC LIKE '%'||#{pagination.search}||'%'
-                OR DEP_NAME LIKE '%'||#{pagination.search}||'%'
-                OR NAME LIKE '%'||#{pagination.search}||'%'
-                OR (CASE
-                WHEN TO_TIMESTAMP(TO_CHAR(ATTEND_START_TIME, 'HH24:MI:SS'), 'HH24:MI:SS') > TO_TIMESTAMP('09:00:00',
-                'HH24:MI:SS') THEN '지각'
-                ELSE '정상출근'
-                END) LIKE '%'||#{pagination.search}||'%'
-                )
-            ORDER BY
-            <choose>
-                <when test="column == 'NAME'">
-                    NAME
-                </when>
-                <when test="column == 'ATTEND_DATE'">
-                    ATTEND_DATE
-                </when>
-                <when test="column == 'START_TIME'">
-                    START_TIME
-                </when>
-                <when test="column == 'DONE_TIME'">
-                    DONE_TIME
-                </when>
-                <when test="column == 'LATE'">
-                    LATE
-                </when>
-                <otherwise>
-                    EMPLOYEE_NUM
-                </otherwise>
-            </choose>
-            <if test="dir != null">
-                ${dir}
-            </if>
-            ) N
+        SELECT ROWNUM R, N.* FROM (
+        SELECT EMPLOYEE_NUM,TO_CHAR(ATTEND_DATE, 'YYYY-MM-DD') AS ATTEND_DATE,
+        TO_CHAR(ATTEND_START_TIME, 'HH24:MI:SS') AS START_TIME,
+        TO_CHAR(ATTEND_DONE, 'HH24:MI:SS') AS DONE_TIME,
+        ATTEND_VAC, DEP_NAME, NAME,
+        CASE
+        WHEN ATTEND_START_TIME IS NULL THEN '결근'
+        WHEN TO_TIMESTAMP(TO_CHAR(ATTEND_START_TIME, 'HH24:MI:SS'), 'HH24:MI:SS') > TO_TIMESTAMP('09:00:00',
+        'HH24:MI:SS') THEN '지각'
+        ELSE '정상출근'
+        END AS LATE
+        FROM EMPLOYEE
+        LEFT JOIN DEPARTMENT USING (DEP_CODE)
+        LEFT JOIN ATTENDANCE USING (EMPLOYEE_NUM)
+        WHERE ATTEND_DATE BETWEEN TO_DATE(#{startDate} || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE(#{endDate}
+        || ' 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+        AND (EMPLOYEE_NUM LIKE '%'||#{pagination.search}||'%'
+        OR TO_CHAR(ATTEND_DATE, 'YYYY-MM-DD') LIKE '%'||#{pagination.search}||'%'
+        OR TO_CHAR(ATTEND_START_TIME, 'HH24:MI:SS') LIKE '%'||#{pagination.search}||'%'
+        OR TO_CHAR(ATTEND_DONE, 'HH24:MI:SS') LIKE '%'||#{pagination.search}||'%'
+        OR ATTEND_VAC LIKE '%'||#{pagination.search}||'%'
+        OR DEP_NAME LIKE '%'||#{pagination.search}||'%'
+        OR NAME LIKE '%'||#{pagination.search}||'%'
+        OR (CASE
+        WHEN ATTEND_START_TIME IS NULL THEN '결근'
+        WHEN TO_TIMESTAMP(TO_CHAR(ATTEND_START_TIME, 'HH24:MI:SS'), 'HH24:MI:SS') > TO_TIMESTAMP('09:00:00',
+        'HH24:MI:SS') THEN '지각'
+        ELSE '정상출근'
+        END) LIKE '%'||#{pagination.search}||'%'
+        )
+        ORDER BY
+        <choose>
+            <when test="column == 'NAME'">
+                NAME
+            </when>
+            <when test="column == 'ATTEND_DATE'">
+                ATTEND_DATE
+            </when>
+            <when test="column == 'START_TIME'">
+                START_TIME
+            </when>
+            <when test="column == 'DONE_TIME'">
+                DONE_TIME
+            </when>
+            <when test="column == 'LATE'">
+                LATE
+            </when>
+            <otherwise>
+                EMPLOYEE_NUM
+            </otherwise>
+        </choose>
+        <if test="dir != null">
+            ${dir}
+        </if>
+        ) N
         ) WHERE R BETWEEN #{pagination.startRow} AND #{pagination.lastRow}
     </select>
 

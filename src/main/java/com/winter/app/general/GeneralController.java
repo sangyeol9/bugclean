@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.winter.app.general.CarDetailVO;
 import com.winter.app.general.CarManageVO;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,14 @@ public class GeneralController {
     @GetMapping("carManage")
     public String getRequestPage(){
         return "general/CarManageAgree";
+    }
+
+    @GetMapping("property")
+    public ModelAndView getPropertyPage(ModelAndView mv) throws Exception{
+        mv.setViewName("general/PropertyList");
+        mv.addObject("pro_cate", generalService.getCate());
+        log.info("{}",mv.getModel());
+        return mv;
     }
 
     @PostMapping("carManage")
