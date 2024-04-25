@@ -58,6 +58,11 @@ public class GeneralService {
 		return generalDAO.getUsableList(carManageVO);
 	}
 
+    public Map<String ,Object> getAllocationState(CarManageVO carManageVO) throws Exception{
+    	return generalDAO.getAllocationState(carManageVO);
+    }
+    
+    
 
     public CarDetailVO getCarNumber(CarDetailVO carDetailVO) throws Exception {
 
