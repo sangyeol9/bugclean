@@ -49,19 +49,94 @@
                         <div class="card-header">
                             <h4 class="card-title" style="font-weight: bold;">문서 목록</h4>
                         </div>
+
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="inbox" class="table-hover table" style="width: 98%">
-                                    <tr>
-                                        <th>문서번호</th>
-                                        <th>제목</th>
-                                        <th>기안자</th>
-                                        <th>기안날짜</th>
-                                        <th>상태</th>
-                                    </tr>
-                                </table>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#all8">
+                                        <span>
+                                            전체
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#wait8">
+                                        <span>
+                                            대기
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#ing8">
+                                        <span>
+                                            진행
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#okay8">
+                                        <span>
+                                            완료
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content tabcontent-border">
+                                <div class="tab-pane fade active show" id="all8" role="tabpanel">
+                                    
+                                        <div class="table-responsive">
+                                            <table id="inbox" class="table-hover table" style="width: 98%">
+                                                <tr>
+                                                    <th>문서번호</th>
+                                                    <th>제목</th>
+                                                    <th>기안자</th>
+                                                    <th>기안날짜</th>
+                                                    <th>상태</th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        
+                                    
+                                </div>
+                                <div class="tab-pane fade" id="wait8" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table id="inbox" class="table-hover table" style="width: 98%">
+                                            <tr>
+                                                <th>문서번호</th>
+                                                <th>제목</th>
+                                                <th>기안자</th>
+                                                <th>기안날짜</th>
+                                                <th>상태</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="ing8" role="tabpanel">
+                                    <div class="pt-4">
+                                        <h4>This is icon title</h4>
+                                        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
+                                        </p>
+                                        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="okay8" role="tabpanel">
+                                    <div class="pt-4">
+                                        <h4>This is icon title</h4>
+                                        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
+                                        </p>
+                                        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+
+
+                        
                     </div>
                 </div>
 
