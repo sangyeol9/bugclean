@@ -548,6 +548,7 @@ function changeSelect(sch_ID){
                 }).then(res=>res.json())
                 .then(res => {
                     console.log("sch 배차 정보 상태 갱신 === ",res);
+                    closeModal();
                 })
 
 
