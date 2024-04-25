@@ -1,14 +1,15 @@
 package com.winter.app.sitesch;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.winter.app.general.GeneralDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.winter.app.carManage.CarDetailVO;
 import com.winter.app.carManage.CarManageDAO;
 import com.winter.app.carManage.CarManageVO;
+import com.winter.app.general.CarDetailVO;
 import com.winter.app.customer.CustomerVO;
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.util.pagination.Pagination;
@@ -18,7 +19,7 @@ public class SiteSchService {
 	@Autowired
 	private SiteSchDAO schDAO;
 	@Autowired
-	private CarManageDAO carManageDAO;
+	private GeneralDAO generalDAO;
 	
 	public List<SiteSchVO> getList(Pagination pagination) throws Exception{
 		return schDAO.getList(pagination);
@@ -95,6 +96,8 @@ public class SiteSchService {
 	}
 	public List<CarDetailVO> getUsableList(CarManageVO carManageVO) throws Exception{
 		return carManageDAO.getUsableList(carManageVO);
+	public List<CarDetailVO> getUsableList() throws Exception{
+		return generalDAO.getUsableList();
 		
 	}
 	

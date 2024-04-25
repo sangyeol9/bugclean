@@ -1,16 +1,11 @@
 package com.winter.app.general;
 
-import com.winter.app.carManage.CarManageVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -45,5 +40,25 @@ public class GeneralController {
         response.put("data",generalService.getManageList());
         return response;
     }
+
+    @PostMapping("carAllocation")
+    @ResponseBody
+    public CarManageVO carAllocation (@RequestBody CarManageVO carManageVO) throws Exception{
+        carManageVO = generalService.carAllocation(carManageVO);
+
+
+        return carManageVO;
+    }
+
+    @PostMapping("getCarNumber")
+    @ResponseBody
+    public CarDetailVO postMethodName(@RequestBody CarDetailVO carDetailVO) throws Exception {
+
+        carDetailVO = generalService.getCarNumber(carDetailVO);
+
+        return carDetailVO;
+    }
+
+
 
 }
