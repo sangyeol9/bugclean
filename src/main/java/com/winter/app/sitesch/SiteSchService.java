@@ -93,8 +93,10 @@ public class SiteSchService {
 		
 		return schDAO.getCustomerList();
 	}
+
 	public List<CarDetailVO> getUsableList(CarManageVO carManageVO) throws Exception{
 		return generalDAO.getUsableList(carManageVO);
+
 	}
 	
 	

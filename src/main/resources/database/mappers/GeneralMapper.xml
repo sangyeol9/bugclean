@@ -23,6 +23,7 @@
     </delete>
 
     <!-- 사용 가능 차량 조회 -->
+
     <select id="getUsableList" resultType="CarDetailVO" parameterType="CarManageVO">
         SELECT * FROM CAR_DETAIL cd  
 		WHERE  car_code in (

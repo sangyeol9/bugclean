@@ -7,6 +7,7 @@
   
   <mapper namespace="com.winter.app.carManage.CarManageDAO">
 
+
 	<!-- 사용 가능 차량 조회 -->
 	<select id="getUsableList" resultType="CarDetailVO" parameterType="CarManageVO">
 		SELECT * FROM CAR_DETAIL cd  
@@ -49,4 +50,5 @@
 			WHERE MANAGE_CODE = #{car_code}
 			)
 	 </select>
+
   </mapper>

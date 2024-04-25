@@ -2,6 +2,7 @@ package com.winter.app.general;
 
 import org.apache.ibatis.annotations.Mapper;
 
+
 import com.winter.app.general.CarManageVO;
 
 import java.util.List;
@@ -15,7 +16,9 @@ public interface GeneralDAO {
 
     public int deleteCarManage(CarManageVO carManageVO) throws Exception;
 
+
     List<CarDetailVO> getUsableList(CarManageVO carManageVO) throws Exception;
+
 
     int carAllocation(CarManageVO carManageVO) throws Exception;
 

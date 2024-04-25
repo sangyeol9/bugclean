@@ -53,10 +53,11 @@ public class GeneralService {
         carManageVO = generalDAO.getInfo(carManageVO);
         return carManageVO;
     }
-    
+
     public List<CarDetailVO> getUsableList(CarManageVO carManageVO) throws Exception{
 		return generalDAO.getUsableList(carManageVO);
 	}
+
 
     public CarDetailVO getCarNumber(CarDetailVO carDetailVO) throws Exception {
 

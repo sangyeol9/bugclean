@@ -5,11 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+
 import com.winter.app.general.CarDetailVO;
 import com.winter.app.general.CarManageVO;
 
 import java.util.HashMap;
 import java.util.List;
+
 import java.util.Map;
 
 @Controller
@@ -53,6 +55,7 @@ public class GeneralController {
 
         return carManageVO;
     }
+
     
     @PostMapping("getUsableList")
 	@ResponseBody
@@ -61,6 +64,7 @@ public class GeneralController {
 		return generalService.getUsableList(carManageVO);
 		
 	}
+
 
     @PostMapping("getCarNumber")
     @ResponseBody
