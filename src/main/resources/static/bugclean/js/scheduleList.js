@@ -298,7 +298,7 @@ modalTitle.innerText="일정 확인";
             schManageCode = res.manage_Code;
             console.log(schManageCode)
             if(schManageCode != null) {
-                    fetch("/carManage/getCarNumber",{
+                    fetch("/general/getCarNumber",{
                     method : "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -311,10 +311,6 @@ modalTitle.innerText="일정 확인";
                 .then(res => {
                     console.log("res === = == = =" , res);
                     
-                    
-                        let carSelectBase = document.getElementById("carSelectBase")
-                        carSelectBase.value = res.pro_num +" " +res.car_code;
-                        carSelectBase.innerHTML = res.pro_num;
                         if(res.pro_status == 1){
                             input_carAllocation.value = '배차 신청중';
                         }else if(res.pro_status ==2){
@@ -324,8 +320,8 @@ modalTitle.innerText="일정 확인";
                 })
                 }else{
                     console.log("미정이")
-                    carSelectBase.value = "미정"
-                    carSelectBase.innerHTML = '배차 정보';
+                  
+                    
                     input_carAllocation.value="미정";
                 }
                 
@@ -357,7 +353,7 @@ modalTitle.innerText="일정 확인";
                 }
             }
             console.log("inputStart === " , inputStart.value)
-            fetch("/carManage/getUsableList",{
+            fetch("/general/getUsableList",{
                 method : "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -369,7 +365,14 @@ modalTitle.innerText="일정 확인";
             }).then(res=>res.json())
             .then(res=>{
                 console.log("사용가능차량",res);
+                carAllocation.innerHTML = `<option id ="carSelectBase" value="">배차요청</option>`;
+                res.forEach(element => {
+                   carAllocation.innerHTML += `<option class="car_choice" value="${element.pro_num} ${element.car_code}">${element.pro_num}</option>`
+                });
             })
+            //사용가능 차량 리스트 가져오기 끝
+            //배차 정보 가져오기
+            fetch("")
         })
 
 
@@ -492,7 +495,7 @@ function changeSelect(sch_ID){
         }
         else{
             carAllocation.value=car_temp;
-            fetch("/carManage/carAllocation",{
+            fetch("/general/carAllocation",{
                 method:"POST",
                 headers: {
                     "Content-Type": "application/json",

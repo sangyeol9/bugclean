@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.winter.app.general.CarDetailVO;
+import com.winter.app.general.CarManageVO;
+
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +53,11 @@ public class GeneralService {
         carManageVO = generalDAO.getInfo(carManageVO);
         return carManageVO;
     }
+
+    public List<CarDetailVO> getUsableList(CarManageVO carManageVO) throws Exception{
+		return generalDAO.getUsableList(carManageVO);
+	}
+
 
     public CarDetailVO getCarNumber(CarDetailVO carDetailVO) throws Exception {
 
