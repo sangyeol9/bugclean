@@ -9,7 +9,7 @@
 							<td>기안자</td>
 							<c:forEach items="${approvalMap}" var="apMap">
 								<c:if test="${apMap.LINE_RANK ne 0}">
-									<td>${apMap.POS_NAME}</td>
+									<td>${apMap.POS_NAME}</td>	
 								</c:if>
 							</c:forEach>
 						</tr>
@@ -42,6 +42,9 @@
 							</c:forEach>
 						</tr>
 					</table>
-					
+					<c:forEach items="${approvalMap}" var="apMap">
+					<input type="hidden" value="${apMap.LINE_RANK}" name="sign_rank">
+					<input type="hidden" value="${apMap.EMPLOYEE_NUM}" name="approvalemp_num">
+					</c:forEach>
 <script src="/bugclean/js/draft/basisdraftmodal.js"></script>
 	

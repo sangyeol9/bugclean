@@ -7,15 +7,23 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.winter.app.employee.DepartmentVO;
 import com.winter.app.employee.EmployeeVO;
+import com.winter.app.util.commons.FileManager;
 
 @Service
 public class DraftService {
 	@Autowired
 	private DraftDAO draftDAO;
+	@Autowired
+	private FileManager fileManager;
+//	@Value("${app.upload,draftFile}")
+//	private String uploadPath;
+	///파일매니저에서 경로랑,파일
+	//리턴으로 저장된파일명을 리턴받음
 
 	public List<Map<String, Object>> getBasisDraft()throws Exception{
 		return draftDAO.getBasisDraft();
@@ -24,6 +32,27 @@ public class DraftService {
 		return draftDAO.getDepartmentHighList();
 	}
 	
+	public int setBasisDraft(DraftVO draftVO)throws Exception{
+		draftVO.setState(1L);
+		int result = draftDAO.setBasisDraft(draftVO);
+		return result;
+	}
+	
+	public int setSignCheck(List<SignCheckVO> signCheckVO, String [] approvalemp_num, Long [] sign_rank,DraftVO draftVO)throws Exception{
+		
+		for(int i=0; i<approvalemp_num.length;i++) {
+			signCheckVO.get(i).setDraft_num(draftVO.getDraft_num());
+			signCheckVO.get(i).setEmployee_num(approvalemp_num[i]);
+			signCheckVO.get(i).setSign_rank(sign_rank[i]);
+			LocalDate localDate = LocalDate.now();
+			String date = localDate.toString();
+			signCheckVO.get(i).setSign_date(date);
+			signCheckVO.get(i).setSign_ref(0L);
+			draftDAO.setSignCheck(signCheckVO.get(i));
+		}
+		
+		return 1;
+	}
 
 
 	public List<Map<String, Object>> setApprovalLine(String [] orgCode, Map<String, Object> empMap )throws Exception{
@@ -32,7 +61,6 @@ public class DraftService {
 		ApprovalLineVO approvalLineVO = new ApprovalLineVO();
 		approvalLineVO = draftDAO.getApprovalMaxNum();
 		
-		System.out.println("serviceApprovalLineVO.getMaxNum : " + approvalLineVO.toString());
 			//결재선의 리스트를 가져와서 approval_code의 값이 max인걸 가져옴
 				//결재선테이블에 기안자 순서 먼저 넣기
 
@@ -88,12 +116,12 @@ public class DraftService {
 		 		 String Doc_num = draftVO.getDraft_num();
 		 		Long.parseLong(Doc_num);
 		 	}else {
-		 	String Doc_num = draftVO.getDraft_num();
-		 	parsingDm = Long.parseLong(Doc_num.substring(7));	
+		 	parsingDm = Long.parseLong(draftVO.getDraft_num());	
 			}
-		 
+		 	System.out.println("여기는 문서번호 결장하는 서비스 VO세팅전@@@@@@@@@@@@@@@@@@@");
 		draftVO.setDraft_num(localDateYear[0]+"BS"+(parsingDm+1));
-		draftVO.setDraft_date(Date.valueOf(localDate.now()));
+		draftVO.setDraft_date((localDate.now().toString()));
+		System.out.println("여기는 문서번호 결장하는 서비스끝부분@@@@@@@@@@@@@@@@@@@");
 		return draftVO;
 	}
 	

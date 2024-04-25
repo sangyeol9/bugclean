@@ -26,7 +26,9 @@ public interface DraftDAO {
 	int setAPList(APListVO apListVO)throws Exception;
 	List<APListVO> getAPList(APListVO apListVO)throws Exception;
 	List<ApprovalLineVO> getALDetail(ApprovalLineVO approvalLineVO)throws Exception;
-
+	int setBasisDraft(DraftVO draftVO)throws Exception;
+	int setSignCheck(SignCheckVO signCheckVO)throws Exception;
+	
 	
 	
 }

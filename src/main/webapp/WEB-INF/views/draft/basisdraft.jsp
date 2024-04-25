@@ -71,105 +71,101 @@
 		<div class="content-body" style="min-height: 877px;">
 			<!-- 기안서 제목 시작 -->
 			<div id="standardDraftDiv">
-				<div>
-					<h1 id="title">기안서</h1>
-				</div>
-				<!-- 기안서 제목 끝 -->
+				<form action="/draft/setbasisdraft" method="post"
+					enctype="multipart/form-data">
+					<div>
+						<h1 id="title">기안서</h1>
+					</div>
+					<!-- 기안서 제목 끝 -->
 
-				<!--  결재선 편집버튼 시작 -->
+					<!--  결재선 편집버튼 시작 -->
 
-				<!-- 결재선 편집버튼 끝 -->
+					<!-- 결재선 편집버튼 끝 -->
 
-				<!-- 결재선 시작 -->
-				<div id="draftLine">
-				
-					<div id="lineBtnDiv">
-						<button id="lineBtn" class="lineBtnDiv">
-							편<br>집<br>하<br>기
-						</button>
-					</div>		
-<!-- 					<div id="saveBtnDiv">
-						<button id="saveBtn">
-							결<br>재<br>선<br>저<br>장
-						</button>
-					</div> -->
-					
-					<table border="1" id="allineTable">
-						<tr id="input_grade">
-							<td rowspan="4">결재선</td>
-							<td>기안자</td>
-						</tr>
-						<tr id="input_blank">
-							<td></td>
-						</tr>
-						<tr id="input_name">
-							<td>${empMap.NAME}</td>
-						</tr>
-						<tr>
-							<td class="date"></td>
-						</tr>
-					</table>
+					<!-- 결재선 시작 -->
+					<div id="draftLine">
 
-				</div>
+						<div id="lineBtnDiv">
+							<button type="button" id="lineBtn" class="lineBtnDiv">
+								편<br>집<br>하<br>기
+							</button>
+						</div>
 
-				<!-- 결재선 끝 -->
+						<table border="1" id="allineTable">
+							<tr id="input_grade">
+								<td rowspan="4">결재선</td>
+								<td>기안자</td>
+							</tr>
+							<tr id="input_blank">
+								<td></td>
+							</tr>
+							<tr id="input_name">
+								<td>${empMap.NAME}</td>
+							</tr>
+							<tr>
+								<td class="date"></td>
+							</tr>
+						</table>
 
-				<!-- 모달창 css 시작 -->
-				<!-- 모달창 css 끝 -->
+					</div>
 
+					<!-- 결재선 끝 -->
 
+					<!-- 기안서양식 시작 -->
+					<div id="basisDraft">
+						<table border="1">
+							<tr>
+								<td class="basisTitleTd">기안자</td>
+								<td class="basisTd"><input class="inp" type="text"
+									value="${empMap.NAME}" readonly="readonly" >
+									<input type="hidden" value="${empMap.EMPLOYEE_NUM}" name="employee_num">
+									</td>
+								<td class="basisTitleTd">소속부서</td>
+								<td class="basisTd"><input class="inp" type="text"
+									value="${empMap.DEP_NAME}" readonly="readonly"></td>
+							</tr>
 
+							<tr>
+								<td class="basisTitleTd">기안일자</td>
+								<td class="basisTd"><input name="draft_date" class="inp" type="text"
+									value="${draftVO.draft_date}" readonly="readonly" ></td>
+								<td class="basisTitleTd">문서번호</td>
+								<td class="basisTd"><input name="draft_num" class="inp" type="text"
+									value="${draftVO.draft_num}" readonly="readonly" ></td>
+							</tr>
+							
+							<tr>
+								<td class="basisTitleTd">제목</td>
+								<td class="basisTd"><input name="title" class="inp" type="text"></td>
+								<td class="basisTitleTd">참조</td>
+								<td class="basisTd"><input id="refInp" class="inp" 
+									type="text" readonly="readonly">
+									<input id="refempnum" type="hidden" class="inp" name="refempnum">
+									</td>
+							</tr>
 
-				<!-- 기안서양식 시작 -->
-				<div id="basisDraft">
-					<table border="1">
-						<tr>
-							<td class="basisTitleTd">기안자</td>
-
-							<td class="basisTd"><input class="inp" type="text"
-								value="${empMap.NAME}" disabled></td>
-							<td class="basisTitleTd">소속부서</td>
-							<td class="basisTd"><input class="inp" type="text"
-								value="${empMap.DEP_NAME }" disabled></td>
-						</tr>
-
-						<tr>
-							<td class="basisTitleTd">기안일자</td>
-							<td class="basisTd"><input class="inp" type="text"
-								value="${draftVO.draft_date}" disabled></td>
-							<td class="basisTitleTd" rowspan="4">첨부파일</td>
-							<td class="basisTd" rowspan="4" colspan="2"></td>
-						</tr>
-						<tr>
-							<td class="basisTitleTd">문서번호</td>
-							<td class="basisTd"><input class="inp" type="text"
-								value="${draftVO.draft_num}" disabled></td>
-						</tr>
-						<tr>
-							<td class="basisTitleTd">참조</td>
-							<td class="basisTd"><input id="refInp" class="inp" type="text" disabled></td>
-						</tr>
-						<tr>
-							<td class="basisTitleTd">제목</td>
-							<td class="basisTd"><input class="inp" type="text"></td>
-						</tr>
-						<tr style="height: 300px;">
-							<td class="basisTitleTd">내용</td>
-							<td class="basisTitleTd" colspan="4"><input class="inp"
-								type="text"></td>
-						</tr>
-						<tr style="height: 130px;">
-							<td class="basisTitleTd">의견</td>
-							<td class="basisTitleTd" colspan="4"><input class="inp"
-								type="text"></td>
-						</tr>
-					</table>
-				</div>
+							<tr style="height: 300px;">
+								<td class="basisTitleTd">내용</td>
+								<td class="basisTitleTd" colspan="4"><input name="contents" class="inp"
+									type="text"></td>
+							</tr>
+							<tr style="height: 130px;">
+								<td class="basisTitleTd">의견</td>
+								<td class="basisTitleTd" colspan="4"><input name="sign_comment" class="inp"
+									type="text"></td>
+							</tr>
+							
+							<tr>
+								<td>첨부파일</td>
+								<td colspan="4"><input type="file" name="attach"></td>
+							</tr>
+						</table>
+					</div>
 				<!-- 기안서양식 끝 -->
 
 				<!-- 버튼모음 시작 -->
 				<div id="btn">
-					<button>승인하기</button>
+					<button type="submit">승인하기</button>
 					&nbsp;&nbsp;&nbsp;
 					<button>반려하기</button>
 					&nbsp;&nbsp;&nbsp;
@@ -179,6 +175,7 @@
 					&nbsp;&nbsp;&nbsp;
 					<button>파일첨부</button>
 				</div>
+				</form>
 				<!-- 버튼모음 끝 -->
 
 				<!-- 모달창 시작 -->
@@ -268,14 +265,16 @@
 							<button>초기화</button>
 						</div>
 						<!-- 초기화 버튼 끝 -->
-						
+
 						<!-- 결재선 저장 타이틀 -->
 						<div id="approvalDiv">
-						<input type="text" placeholder="결재선 이름 입력" style="width: 120px;" id="approvalInpName">
-						<button id="approvalBtn" type="button" style="display: inline-block;">저장</button>
+							<input type="text" placeholder="결재선 이름 입력" style="width: 120px;"
+								id="approvalInpName">
+							<button id="approvalBtn" type="button"
+								style="display: inline-block;">저장</button>
 						</div>
 						<!-- 결재선 저장 타이틀 -->
-							
+
 						<!-- 조직도 제목 시작 -->
 						<div id="orgTitle">
 							<h4>조직도</h4>
