@@ -95,10 +95,6 @@
 							<span class="input-group-text" id="manage_Code">배차 정보</span>
 						  	<input type="text" class="form-control" value="미정" readonly id="input_carAllocation" >
 						  	<select id="carAllocation" class="form-select">
-						  		<option id ="carSelectBase" value="">배차요청</option>
-						  		<c:forEach items="${list_car}" var="li">
-									<option class="car_choice" value="${li.pro_num} ${li.car_code}">${li.pro_num}</option>
-								</c:forEach>
 						  	</select>
 						</div>
 						<div class="input-group flex-nowrap mt-2">
