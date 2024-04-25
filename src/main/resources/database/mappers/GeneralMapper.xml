@@ -23,8 +23,15 @@
     </delete>
 
     <!-- 사용 가능 차량 조회 -->
-    <select id="getUsableList" resultType="CarDetailVO">
-        SELECT * FROM CAR_DETAIL WHERE PRO_STATUS = 0
+    <select id="getUsableList" resultType="CarDetailVO" parameterType="CarManageVO">
+        SELECT * FROM CAR_DETAIL cd  
+		WHERE  car_code in (
+		SELECT CAR_CODE FROM CAR_MANAGE cm 
+		WHERE not
+		( BOOKING_START <![CDATA[>=]]> TO_DATE(#{booking_start}, 'YYYY-MM-DD HH24:MI:SS')-1/24
+		AND
+		BOOKING_DONE <![CDATA[<=]]> TO_DATE(#{booking_done}, 'YYYY-MM-DD HH24:MI:SS')+1/24 )
+		)
     </select>
 
     <!-- 차량 현재 상태를 변경 // 배차 요청시 & 배차 거절시 -->

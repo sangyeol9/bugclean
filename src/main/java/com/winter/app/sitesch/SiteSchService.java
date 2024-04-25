@@ -6,10 +6,9 @@ import com.winter.app.general.GeneralDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.winter.app.carManage.CarDetailVO;
-import com.winter.app.carManage.CarManageDAO;
-import com.winter.app.carManage.CarManageVO;
 import com.winter.app.general.CarDetailVO;
+import com.winter.app.general.GeneralDAO;
+import com.winter.app.general.CarManageVO;
 import com.winter.app.customer.CustomerVO;
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.util.pagination.Pagination;
@@ -95,11 +94,9 @@ public class SiteSchService {
 		return schDAO.getCustomerList();
 	}
 	public List<CarDetailVO> getUsableList(CarManageVO carManageVO) throws Exception{
-		return carManageDAO.getUsableList(carManageVO);
-	public List<CarDetailVO> getUsableList() throws Exception{
-		return generalDAO.getUsableList();
-		
+		return generalDAO.getUsableList(carManageVO);
 	}
+	
 	
 	public SiteSchVO getSchedule(SiteSchVO schVO) throws Exception{
 		SiteSchVO siteSchVO = schDAO.getSchedule(schVO);	
