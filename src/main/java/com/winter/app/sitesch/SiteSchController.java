@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.winter.app.carManage.CarDetailVO;
+import com.winter.app.general.CarDetailVO;
+import com.winter.app.general.CarManageVO;
 import com.winter.app.customer.CustomerController;
 import com.winter.app.customer.CustomerVO;
 import com.winter.app.employee.EmployeeVO;
@@ -42,9 +43,11 @@ public class SiteSchController {
 	}
 	
 	@GetMapping("list")
-	public void list( Model model ) throws Exception{
+	public void list( Model model,CarManageVO carManageVO ) throws Exception{
 	
 		List<EmployeeVO> ar = schService.getSales();
+		
+		
 		List<EmployeeVO> ar_emp = schService.getSiter();
 		List<CustomerVO> list = schService.getCustomerList();
 		List<CarDetailVO> ar_car = schService.getUsableList();
