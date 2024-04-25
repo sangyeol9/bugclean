@@ -298,7 +298,7 @@ modalTitle.innerText="일정 확인";
             schManageCode = res.manage_Code;
             console.log(schManageCode)
             if(schManageCode != null) {
-                    fetch("/carManage/getCarNumber",{
+                    fetch("/general/getCarNumber",{
                     method : "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -353,7 +353,7 @@ modalTitle.innerText="일정 확인";
                 }
             }
             console.log("inputStart === " , inputStart.value)
-            fetch("/carManage/getUsableList",{
+            fetch("/general/getUsableList",{
                 method : "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -369,8 +369,10 @@ modalTitle.innerText="일정 확인";
                 res.forEach(element => {
                    carAllocation.innerHTML += `<option class="car_choice" value="${element.pro_num} ${element.car_code}">${element.pro_num}</option>`
                 });
-
             })
+            //사용가능 차량 리스트 가져오기 끝
+            //배차 정보 가져오기
+            fetch("")
         })
 
 
@@ -493,7 +495,7 @@ function changeSelect(sch_ID){
         }
         else{
             carAllocation.value=car_temp;
-            fetch("/carManage/carAllocation",{
+            fetch("/general/carAllocation",{
                 method:"POST",
                 headers: {
                     "Content-Type": "application/json",
