@@ -42,6 +42,7 @@ public class DraftController {
 		model.addAttribute("empMap", empMap);
 		System.out.println("empMap emp_num : " + empMap.get("EMPLOYEE_NUM"));
 		
+		
 		 List<Map<String, Object>> ar = draftService.getBasisDraft();
 		 model.addAttribute("list", ar);
 		 
