@@ -352,6 +352,7 @@ modalTitle.innerText="일정 확인";
                     inputRadio[i].checked= true;
                 }
             }
+            let allocationState  = res.manage_Code;
             console.log("inputStart === " , inputStart.value)
             fetch("/general/getUsableList",{
                 method : "POST",
@@ -365,14 +366,38 @@ modalTitle.innerText="일정 확인";
             }).then(res=>res.json())
             .then(res=>{
                 console.log("사용가능차량",res);
-                carAllocation.innerHTML = `<option id ="carSelectBase" value="">배차요청</option>`;
-                res.forEach(element => {
-                   carAllocation.innerHTML += `<option class="car_choice" value="${element.pro_num} ${element.car_code}">${element.pro_num}</option>`
-                });
+                if(allocationState == null){
+                    console.log("null입니당")
+                    carAllocation.innerHTML = `<option id ="carSelectBase" value="">배차요청</option>`;
+                    res.forEach(element => {
+                        carAllocation.innerHTML += `<option class="car_choice" value="${element.pro_num} ${element.car_code}">${element.pro_num}</option>`
+                     });
+                }else{
+                    console.log("null이 아닙ㅂ니당",allocationState);
+                    fetch("/general/getAllocationState",{
+                        method : "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                          },
+                        body : JSON.stringify({
+                            manage_code : allocationState
+                        })
+                    }).then(res=>res.json())
+                    .then(res=>{
+                      console.log("배차 정보 확인 res = >>",res);  
+                      carAllocation.innerHTML = `<option id ="carSelectBase" value="${res.PRO_NUM} ${res.CAR_CODE} ">${res.PRO_NUM}</option>`;
+                      if(res.BOOKING_AGREE == '0'){
+                        input_carAllocation.value = "배차 신청중"
+                      }else{
+                        input_carAllocation.value = "배차 완료";
+                      }
+                    })
+                }
+                
             })
             //사용가능 차량 리스트 가져오기 끝
             //배차 정보 가져오기
-            fetch("")
+           
         })
 
 
