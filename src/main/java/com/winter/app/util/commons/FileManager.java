@@ -9,7 +9,7 @@ import java.util.UUID;
 @Component
 public class FileManager {
 
-    public String fileSave(String path, MultipartFile multipartFile)throws Exception{
+    public String fileSave(String path, MultipartFile multipartFile, Boolean check)throws Exception{
 
         File file = new File(path);
         if(!file.exists()) {
@@ -26,7 +26,10 @@ public class FileManager {
 
         multipartFile.transferTo(file);
         //FileCopyUtils.copy(file, file);
-
+        if(check){
+            //이미지 저장 URL 필요 여부
+            return "files/boardImg/"+fileName;
+        }
         return fileName;
     }
 }

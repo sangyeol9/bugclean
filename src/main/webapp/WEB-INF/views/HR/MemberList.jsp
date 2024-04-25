@@ -235,7 +235,7 @@
 <c:import url="../temp/footer.jsp"></c:import> <%--footer--%>
 <c:import url="../temp/js.jsp"></c:import> <%--bootstrap-template-js--%>
 <script src="/focus-bootstrap-main/theme/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="/bugclean/js/memberList-dataTables-init.js"></script>
+<script src="/bugclean/js/hr/memberList-dataTables-init.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
