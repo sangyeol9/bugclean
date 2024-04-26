@@ -1,7 +1,10 @@
 package com.winter.app.employee;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -194,7 +197,24 @@ public class EmployeeService implements UserDetailsService{
 		return result;
 	}
     
-    
+    //문자인증
+//    public ResponseEntity<?> sendSmsToFindEmail(FindEmailRequestDto requestDto) {
+//        String name = requestDto.getName();
+//        //수신번호 형태에 맞춰 "-"을 ""로 변환
+//        String phoneNum = requestDto.getPhoneNum().replaceAll("-","");
+//        
+//        User foundUser = userRepository.findByNameAndPhone(name, phoneNum).orElseThrow(()->
+//                new NoSuchElementException("회원이 존재하지 않습니다."));
+//                
+//        String receiverEmail = foundUser.getEmail();
+//        String verificationCode = validationUtil.createCode();
+//        smsUtil.sendOne(phoneNum, verificationCode);
+//        
+//        //인증코드 유효기간 5분 설정
+//        redisUtil.setDataExpire(verificationCode, receiverEmail, 60 * 5L);
+//
+//        return ResponseEntity.ok(new Message("SMS 전송 성공"));
+//    }
     
     //UserDetailService
     @Override			//유저의 정보를 불러와서 UserDetails로 리턴

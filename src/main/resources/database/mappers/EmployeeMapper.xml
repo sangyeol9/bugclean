@@ -78,5 +78,8 @@
 		WHERE EMPLOYEE_NUM=#{employee_num}
 	</update>
 	
-	
+	<select id="idSearchNum" parameterType="EmployeeVO" resultType="EmployeeVO">
+		SELECT * FROM EMPLOYEE e 
+		WHERE NAME = #{name} AND EMPLOYEE_NUM = #{employee_num};
+	</select>
 </mapper>

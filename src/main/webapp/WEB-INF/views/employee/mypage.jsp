@@ -125,8 +125,8 @@
                                                                 <c:if test="${empty employeeVO.profile}">
                                                                     <img src="/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg" id="preview" style="width: 100px; height: 100px; border-radius: 50px;" alt="..." >
                                                                 </c:if>
-                                                                <c:if test="${not empty dto.moimFileDTO.fileName}">
-                                                                    <img src="/resources/upload/moim/${dto.moimFileDTO.fileName}" id="preview" style="width: 100px; height: 100px; border-radius: 50px;" alt="...">
+                                                                <c:if test="${not empty employeeVO.profile}">
+                                                                    <img src="/files/profile/${employeeVO.profile}" id="preview" style="width: 100px; height: 100px; border-radius: 50px;" alt="...">
                                                                 </c:if>
                                                             </div>
                                                             <div class="input-group mb-3">

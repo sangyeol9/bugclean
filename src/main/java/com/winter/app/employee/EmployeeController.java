@@ -3,6 +3,7 @@ package com.winter.app.employee;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -217,6 +218,15 @@ public class EmployeeController {
 	public void idFind(@ModelAttribute EmployeeVO employeeVO) throws Exception{
 		
 	}
+//	@PostMapping("idSearchPhone")
+//	public void idFind(@Validated(EmployeeIdSearchGroup.class) EmployeeVO employeeVO, BindingResult bindingResult,Model model) throws Exception{
+//		System.out.println("에베베베베베베"+employeeVO.getName()); 
+//	}
+	@PostMapping("idSearchNum")
+	public void idFind(@Validated(EmployeeIdSearchGroup.class) EmployeeVO employeeVO, BindingResult bindingResult,Model model) throws Exception{
+		System.out.println("에베베베베베베"+employeeVO.getName()); 
+	}
+	
 	@GetMapping("pwSearch")
 	public void pwFind() throws Exception{
 		
@@ -226,6 +236,11 @@ public class EmployeeController {
 	//----------------------------수신문서함,알림...?
 	@GetMapping("inbox")
 	public void getInbox() throws Exception{
+		
+	}
+	
+	@GetMapping("idSearchResult")
+	public void idSearchResult() throws Exception{
 		
 	}
 	

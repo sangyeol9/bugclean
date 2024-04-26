@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 <!DOCTYPE html>
 <html>
 
@@ -11,7 +11,6 @@
 <c:import url="../temp/css.jsp"></c:import> <!-- //bootstrap-template-css -->
 
 <body>
-
 
 <div class="authincation mt-5">
     <div class="container-fluid h-100 mx-5">
@@ -47,30 +46,27 @@
                                     <div class="card-body">
 
                                         <form:form action="./idSearch" modelAttribute="employeeVO">
-
+                                            <form:input path="employee_num" hidden="true"></form:input>
+                                            <form:input path="phone" id="phone" value="" hidden="true"></form:input>
                                         </form:form>
                                         <div class="basic-form">
                                             <form>
                                                 <div class="form-group row">
-                                                    <label
-                                                            class="col-sm-2 col-form-label ">이름</label>
+                                                    <label class="col-sm-2 col-form-label ">이름</label>
                                                     <div class="col-sm-10">
                                                         <input type="text" class="form-control col-5">
                                                     </div>
                                                 </div>
+                                                
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">휴대전화
-                                                        번호</label>
+                                                    <label class="col-sm-2 col-form-label">휴대전화 번호</label>
                                                     <div class="col">
-
-
                                                         <div class="form-row ml-3">
                                                             <div class="form-group row">
-                                                                <select id="phone" name="phone"
-                                                                        class="form-control col-3">
+                                                                <select id="phoneStart" name="phoneStart"
+                                                                    class="form-control col-3">
                                                                     <option selected="" value="">
-                                                                        -선택-
-                                                                    </option>
+                                                                        -선택-</option>
                                                                     <option value="010">010</option>
                                                                     <option value="011">011</option>
                                                                     <option value="016">016</option>
@@ -79,15 +75,20 @@
                                                                     <option value="019">019</option>
                                                                 </select>&emsp;-&emsp;
                                                                 <input type="text"
-                                                                       class="form-control col-3"
-                                                                       name="moblmiddleNo"
-                                                                       maxlength="4">
+                                                                    class="form-control col-3"
+                                                                    name="phoneMiddle" id="phoneMiddle"
+                                                                    maxlength="4" minlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
                                                                 &emsp;-&emsp;
                                                                 <input type="text"
-                                                                       class="form-control col-3"
-                                                                       name="moblendNo" maxlength="4">
+                                                                    class="form-control col-3"
+                                                                    name="phoneEnd" id="phoneEnd" maxlength="4" minlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
                                                             </div>
-                                                        </div>
+                                                                <button type="button" class="btn-sm btn-light" style="height: 35px;">인증번호 받기</button>
+                                                            </div>
+                                                            <div class="form-group row col-sm-10">
+                                                                <input type="text" class="form-control col-5" disabled>
+                                                            </div>
+
                                                     </div>
                                                 </div>
 
@@ -114,19 +115,21 @@
                                     <div class="card-body">
 
                                         <div class="basic-form">
-                                            <form>
+                                            <form:form action="./idSearchNum" modelAttribute="employeeVO">
                                                 <div class="form-group row">
-                                                    <label
-                                                            class="col-sm-2 col-form-label">이름</label>
+                                                    <label class="col-sm-2 col-form-label">이름</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" class="form-control col-5">
+                                                        <form:input path="name" cssClass="form-control col-5"></form:input>
+                                                        <form:errors path="name" style="color: red;"></form:errors></br>
+                                                        <!-- <input type="text" class="form-control col-5"> -->
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label
-                                                            class="col-sm-2 col-form-label">사번</label>
+                                                    <label class="col-sm-2 col-form-label">사번</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" class="form-control col-5">
+                                                        <form:input path="employee_num" cssClass="form-control col-5"></form:input>
+                                                        <form:errors path="employee_num" style="color: red;"></form:errors></br>
+                                                        <!-- <input type="text" class="form-control col-5"> -->
                                                     </div>
                                                 </div>
 
@@ -136,7 +139,7 @@
                                                     </button>
                                                 </div>
 
-                                            </form>
+                                            </form:form>
                                         </div>
 
                                     </div>
@@ -152,6 +155,7 @@
 
 
 <c:import url="../temp/js.jsp"></c:import> <!-- // bootstrap-template-js -->
+<script src="/bugclean/js/employee/idSearch.js"></script>
 </body>
 
 </html>
