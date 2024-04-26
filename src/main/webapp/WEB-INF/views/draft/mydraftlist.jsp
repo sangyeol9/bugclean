@@ -41,34 +41,15 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <c:forEach items="${list}" var="list">                 
                                 <tr>
-                                    <td>1</td>
-                                    <td>매출보고서</td>
-                                    <td><span>박성제</span></td>
-                                    <td><span>2024.01.02</span></td>
+                                    <td>${list.DRAFT_NUM}</td>
+                                    <td>${list.TITLE}</td>
+                                    <td><span>${list.NAME }</span></td>
+                                    <td><span>${list.DRAFT_DATE}</span></td>
                                     <td><span class="badge badge-success">결재완</span></td>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>현장보고서</td>
-                                    <td><span>윤석열</span></td>
-                                    <td><span>2024.01.03</span></td>
-                                    <td><span class="badge badge-warning">결재중</span></td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>현장보고서</td>
-                                    <td><span>노지언</span></td>
-                                    <td><span>2024.01.03</span></td>
-                                    <td><span class="badge badge-primary">임시저장</span></td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>현장보고서</td>
-                                    <td><span>허석훈</span></td>
-                                    <td><span>2024.01.03</span></td>
-                                    <td><span class="badge badge-danger">반려</span></td>
-                                </tr>
+                                    </c:forEach>
                             </tbody>
                         </table>
                     </div>

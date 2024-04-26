@@ -162,10 +162,10 @@
 						</table>
 					</div>
 				<!-- 기안서양식 끝 -->
-
+					<input type="hidden" value="0" name="draft_category">
 				<!-- 버튼모음 시작 -->
 				<div id="btn">
-					<button type="submit">승인하기</button>
+					<button type="submit">상신하기</button>
 					&nbsp;&nbsp;&nbsp;
 					<button>반려하기</button>
 					&nbsp;&nbsp;&nbsp;

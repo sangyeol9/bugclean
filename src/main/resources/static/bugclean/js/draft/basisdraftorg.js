@@ -239,10 +239,9 @@ refPlusBtn.addEventListener(
                 refBoxTdArCode[i] = refBoxTdAr[i].lastElementChild.getAttribute("data-emp-num");
                 refBoxTdName[i] = refBoxTdAr[i].lastElementChild.getAttribute("data-pp-name");
                 console.log("refName : "+refBoxTdName[i])
-                refempnum.value += refBoxTdArCode[i]+",";
-                refInp.value += refBoxTdName[i]+",";
-
             }
+            refempnum.value = refBoxTdArCode.join(",");
+            refInp.value = refBoxTdName.join(",");
 
           fetch("/draft/getapprovalline",{
             method : 'POST',

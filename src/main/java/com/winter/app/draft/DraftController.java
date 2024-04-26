@@ -21,101 +21,105 @@ import com.winter.app.employee.DepartmentVO;
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.employee.PositionVO;
 import com.winter.app.employee.RnRVO;
+import com.winter.app.util.pagination.Pagination;
 
 import jakarta.servlet.http.HttpSession;
-
 
 @Controller
 @RequestMapping("/draft/*")
 public class DraftController {
 	@Autowired
 	private DraftService draftService;
-	
-	
+
 	@GetMapping("basisdraft")
-	public String getBasisDraft(Map<String, Object> map, Model model, HttpSession session, MultipartFile attach)throws Exception {
+	public String getBasisDraft(Map<String, Object> map, Model model, HttpSession session, MultipartFile attach)
+			throws Exception {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserDetails userDetails = (UserDetails)principal;
-		EmployeeVO employeeVO=(EmployeeVO)userDetails;
+		UserDetails userDetails = (UserDetails) principal;
+		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 
 		Map<String, Object> empMap = draftService.getEmployeeDetail(employeeVO);
 		model.addAttribute("empMap", empMap);
 		System.out.println("empMap emp_num : " + empMap.get("EMPLOYEE_NUM"));
-		
-		 List<Map<String, Object>> ar = draftService.getBasisDraft();
-		 model.addAttribute("list", ar);
-		 
-		 
-		 List<DepartmentVO> depar = draftService.getDepartmentList();
-		 model.addAttribute("dep", depar);
-		 
-		 
-		 DraftVO draftVO= draftService.getDraftDocNum();
-		 model.addAttribute("draftVO", draftVO);
-		 
-		 
-		 List<DepartmentVO> depHighAr = draftService.getDepartmentHighList();
-		 model.addAttribute("depHighAr", depHighAr);
+
+		List<Map<String, Object>> ar = draftService.getBasisDraft();
+		model.addAttribute("list", ar);
+
+		List<DepartmentVO> depar = draftService.getDepartmentList();
+		model.addAttribute("dep", depar);
+
+		DraftVO draftVO = draftService.getDraftDocNum();
+		model.addAttribute("draftVO", draftVO);
+
+		List<DepartmentVO> depHighAr = draftService.getDepartmentHighList();
+		model.addAttribute("depHighAr", depHighAr);
 
 //		 employeeVO = draftService.getCEO();
 //		 model.addAttribute("CEO", employeeVO);
-		 
-		 System.out.println("empMap emp_num : " + employeeVO.getEmployee_num());
-		 APListVO apListVO = new APListVO();
-		 apListVO.setEmployee_num(employeeVO.getEmployee_num());
-		 List<APListVO>allist = draftService.getAPList(apListVO);	
-		 model.addAttribute("allist", allist);
-		 
-		 
-		 
+
+		System.out.println("empMap emp_num : " + employeeVO.getEmployee_num());
+		APListVO apListVO = new APListVO();
+		apListVO.setEmployee_num(employeeVO.getEmployee_num());
+		List<APListVO> allist = draftService.getAPList(apListVO);
+		model.addAttribute("allist", allist);
+
 		return "draft/basisdraft";
 	}
-	
+
 	@PostMapping("setbasisdraft")
-	public void setBasisDraft(DraftVO draftVO,MultipartFile attach,Model model, String [] refempnum,String [] approvalemp_num, Long [] sign_rank)throws Exception {
-		System.out.println("draftVO : " + draftVO.toString());
-		System.out.println("attach : " + attach.toString());
-		System.out.println("refempnum[0] : " + refempnum[0]);
-		System.out.println("approvalemp_num.legth : "+ approvalemp_num.length);
+	public String setBasisDraft(DraftVO draftVO, MultipartFile attach, Model model, String[] refempnum,
+			String[] approvalemp_num, Long[] sign_rank) throws Exception {
 		
-		for(int i=0; i<approvalemp_num.length;i++) {
-			 System.out.println("approvalemp_num : "+approvalemp_num[i]);
-			 System.out.println("sign_rank : "+sign_rank[i]);
+		if(draftVO.getDraft_category() == 0) {
+		int result=0;
+		String msg="실패";
+		// 기안서 값들 db에 저장
+		draftService.setBasisDraft(draftVO);
+		// 결재라인 db에 저장
+		draftService.setSignCheck(approvalemp_num, sign_rank, draftVO);
+		//참조값을 db에 저장
+		result = draftService.setRef(draftVO, refempnum);
+		
+		if(result>0) {
+			msg="성공";
 		}
-		int result  = draftService.setBasisDraft(draftVO);
-		List<SignCheckVO> SCAr = new ArrayList<SignCheckVO>();
 		
-	 	 draftService.setSignCheck(SCAr, approvalemp_num, sign_rank,draftVO);
-		
-	
-		
+		model.addAttribute("result", msg);
+		model.addAttribute("path", "/draft/mydraftlist");
+		}else if(draftVO.getDraft_category() == 1) {
+			
+		}else if(draftVO.getDraft_category() == 2) {
+			
+		}
+		return "commons/result";
 	}
-	
+
 	@PostMapping("getapprovalline")
-	public String getApprovalLine(String [] dep, String [] name, String [] orgCode, String [] refCode, Map<String, Object> map, Model model, HttpSession session)throws Exception {
-		
+	public String getApprovalLine(String[] dep, String[] name, String[] orgCode, String[] refCode,
+			Map<String, Object> map, Model model, HttpSession session) throws Exception {
+
 //		model.addAttribute("aplvdep", dep);
 //		model.addAttribute("aplvname", name);
-		
+
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserDetails userDetails = (UserDetails)principal;
-		EmployeeVO employeeVO=(EmployeeVO)userDetails;
+		UserDetails userDetails = (UserDetails) principal;
+		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		Map<String, Object> empMap = draftService.getEmployeeDetail(employeeVO);
 		model.addAttribute("empMap", empMap);
 		System.out.println("empMap emp_num(getapprovalLine) : " + empMap.get("EMPLOYEE_NUM"));
-		
-		 List<Map<String, Object>> ar = draftService.getBasisDraft();
-		 model.addAttribute("list", ar);
-		 
-		 List<DepartmentVO> depar = draftService.getDepartmentList();
-		 model.addAttribute("dep", depar);
-		 
-		 DraftVO draftVO= draftService.getDraftDocNum();
-		 model.addAttribute("draftVO", draftVO);
-		 
-		 List<DepartmentVO> depHighAr = draftService.getDepartmentHighList();
-		 model.addAttribute("depHighAr", depHighAr);
-		 
+
+		List<Map<String, Object>> ar = draftService.getBasisDraft();
+		model.addAttribute("list", ar);
+
+		List<DepartmentVO> depar = draftService.getDepartmentList();
+		model.addAttribute("dep", depar);
+
+		DraftVO draftVO = draftService.getDraftDocNum();
+		model.addAttribute("draftVO", draftVO);
+
+		List<DepartmentVO> depHighAr = draftService.getDepartmentHighList();
+		model.addAttribute("depHighAr", depHighAr);
+
 //		 employeeVO = draftService.getCEO();
 //		 model.addAttribute("CEO", employeeVO);		 
 
@@ -123,98 +127,112 @@ public class DraftController {
 		model.addAttribute("approvalMap", ALar);
 		System.out.println("empMap emp_num(getapprovalLine) : " + empMap.get("EMPLOYEE_NUM"));
 		System.out.println("empMap emp_num(getapprovalLine) : " + employeeVO.getEmployee_num());
-		 APListVO apListVO = new APListVO();
-		 apListVO.setEmployee_num(employeeVO.getEmployee_num());
-		 List<APListVO>allist = draftService.getAPList(apListVO);
-		 model.addAttribute("allist", allist);
-		 
+		APListVO apListVO = new APListVO();
+		apListVO.setEmployee_num(employeeVO.getEmployee_num());
+		List<APListVO> allist = draftService.getAPList(apListVO);
+		model.addAttribute("allist", allist);
+
 		return "ajax/approvalline";
 	}
-	
-	// 즐겨찾기에 저장 버튼을 눌렀을때 실행하는 메서드 
-	//(approval_line테이블에 값 넣어놓고 al_Line테이블에 값 넣어놓고 넣어둔 값 다시 꺼내오는 역할)
+
+	// 즐겨찾기에 저장 버튼을 눌렀을때 실행하는 메서드
+	// (approval_line테이블에 값 넣어놓고 al_Line테이블에 값 넣어놓고 넣어둔 값 다시 꺼내오는 역할)
 	@PostMapping("getaplist")
-	public String getAPList(String [] empCode,String lineName, Model model)throws Exception{
-		
+	public String getAPList(String[] empCode, String lineName, Model model) throws Exception {
+
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserDetails userDetails = (UserDetails)principal;
-		EmployeeVO employeeVO=(EmployeeVO)userDetails;
-		
+		UserDetails userDetails = (UserDetails) principal;
+		EmployeeVO employeeVO = (EmployeeVO) userDetails;
+
 		Map<String, Object> empMap = draftService.getEmployeeDetail(employeeVO);
 		model.addAttribute("empMap", empMap);
 		System.out.println("empMap emp_num(getaplist) : " + empMap.get("EMPLOYEE_NUM"));
-		 List<Map<String, Object>> ar = draftService.getBasisDraft();
-		 model.addAttribute("list", ar);
-		 
-		 List<DepartmentVO> depar = draftService.getDepartmentList();
-		 model.addAttribute("dep", depar);
-		 
-		 DraftVO draftVO= draftService.getDraftDocNum();
-		 model.addAttribute("draftVO", draftVO);
-		 
+		List<Map<String, Object>> ar = draftService.getBasisDraft();
+		model.addAttribute("list", ar);
+
+		List<DepartmentVO> depar = draftService.getDepartmentList();
+		model.addAttribute("dep", depar);
+
+		DraftVO draftVO = draftService.getDraftDocNum();
+		model.addAttribute("draftVO", draftVO);
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 //		 for(int i=0; i<empCode.length;i++) {
 //			System.out.println("empCode : "+empCode[i]); 
 //		 }
-		 
-		 //approval_line테이블에 값 넣기
-		 List<Map<String, Object>> ALar = draftService.setApprovalLine(empCode, empMap);
-		 
-		 APListVO apListVO = new APListVO();
-		 Long approval_line_code = Long.parseLong(ALar.get(0).get("APPROVAL_LINE_CODE").toString());
-		 apListVO.setApproval_line_code(approval_line_code);
-		 
-		 String employee_num = ALar.get(0).get("EMPLOYEE_NUM").toString();
+
+		// approval_line테이블에 값 넣기
+		List<Map<String, Object>> ALar = draftService.setApprovalLine(empCode, empMap);
+
+		APListVO apListVO = new APListVO();
+		Long approval_line_code = Long.parseLong(ALar.get(0).get("APPROVAL_LINE_CODE").toString());
+		apListVO.setApproval_line_code(approval_line_code);
+
+		String employee_num = ALar.get(0).get("EMPLOYEE_NUM").toString();
 		apListVO.setEmployee_num(employee_num);
 		apListVO.setLine_name(lineName);
-		
+
 		List<APListVO> apar = draftService.setAPList(apListVO);
 		model.addAttribute("allist", apar);
-		
-		 return "ajax/allist";
-		
-	}
-	
-	//즐겨찾기 이름 누를때마다 값 적용해주는 메서드
-	@PostMapping("getaldetail")
-	@ResponseBody
-	public List<ApprovalLineVO> getALDetail(ApprovalLineVO approvalLineVO)throws Exception{		
-		List<ApprovalLineVO> ar  = draftService.getALDetail(approvalLineVO);
-		
-		return ar;
-	
+
+		return "ajax/allist";
+
 	}
 
-	
+	// 즐겨찾기 이름 누를때마다 값 적용해주는 메서드
+	@PostMapping("getaldetail")
+	@ResponseBody
+	public List<ApprovalLineVO> getALDetail(ApprovalLineVO approvalLineVO) throws Exception {
+		List<ApprovalLineVO> ar = draftService.getALDetail(approvalLineVO);
+
+		return ar;
+
+	}
+
 	@GetMapping("draftLine")
-	public void getDraftLine()throws Exception{
-		
+	public void getDraftLine() throws Exception {
+
 	}
-	
+
 	@GetMapping("draftlist")
-	public void getDraftList()throws Exception {
-		
+	public void getDraftList() throws Exception {
+
 	}
-	
+
 	@GetMapping("mydraftlist")
-	public void getMyDraftList()throws Exception{
+	public String getMyDraftList(Pagination pagination, Model model) throws Exception {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails) principal;
+		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
+		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
+		System.out.println("mapAr : "+ mapAr.toString());
+		System.out.println("mapAr2 : "+ mapAr.get(0).toString());
+		pagination = (Pagination)mapAr.get(0).get("Pagination");
+		model.addAttribute("pager", pagination);
+		model.addAttribute("list",mapAr);
+		
+		return "draft/mydraftlist";
 	}
+
 	@GetMapping("myrejectiondraftlist")
-	public void getMyReJectionList()throws Exception {
-		
+	public void getMyReJectionList() throws Exception {
+
 	}
+
 	@GetMapping("myapprovinglist")
-	public void getMyApprovingList()throws Exception {
-		
+	public void getMyApprovingList() throws Exception {
+
 	}
+
 	@GetMapping("myapprovedlist")
-	public void getMyApprovedList()throws Exception {
-		
+	public void getMyApprovedList() throws Exception {
+
 	}
+
 	@GetMapping("mytemporarylist")
-	public void getMyTemporaryList()throws Exception {
-		
+	public void getMyTemporaryList() throws Exception {
+
 	}
-	
+
 }
