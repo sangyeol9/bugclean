@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.winter.app.employee.DepartmentVO;
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.util.commons.FileManager;
+import com.winter.app.util.pagination.Pagination;
 
 @Service
 public class DraftService {
@@ -32,23 +33,49 @@ public class DraftService {
 		return draftDAO.getDepartmentHighList();
 	}
 	
+	public int setRef(DraftVO draftVO,String [] refempnum)throws Exception{
+		ReferencesVO [] referencesVOs = new ReferencesVO[refempnum.length];
+		
+		int result = 0;
+		for(int i=0; i<referencesVOs.length;i++) {
+			
+			System.out.println("refNum : "+ refempnum[i]);	
+			referencesVOs[i] = new ReferencesVO();
+			referencesVOs[i].setDraft_num(draftVO.getDraft_num());
+			referencesVOs[i].setEmployee_num(refempnum[i]);
+			result = draftDAO.setRef(referencesVOs[i]);
+		}
+				
+		return result;
+	}
+	
+	//////////////////////////////////
+	
 	public int setBasisDraft(DraftVO draftVO)throws Exception{
-		draftVO.setState(1L);
+		draftVO.setState(0L);
+		draftVO.setNowapproval(1L);
 		int result = draftDAO.setBasisDraft(draftVO);
 		return result;
 	}
 	
-	public int setSignCheck(List<SignCheckVO> signCheckVO, String [] approvalemp_num, Long [] sign_rank,DraftVO draftVO)throws Exception{
+	public int setSignCheck(String [] approvalemp_num, Long [] sign_rank,DraftVO draftVO)throws Exception{
 		
+		System.out.println("ddddddddddddddddddddddddddddddddddd11111");
+		SignCheckVO [] signCheckVOs = new SignCheckVO[approvalemp_num.length];
 		for(int i=0; i<approvalemp_num.length;i++) {
-			signCheckVO.get(i).setDraft_num(draftVO.getDraft_num());
-			signCheckVO.get(i).setEmployee_num(approvalemp_num[i]);
-			signCheckVO.get(i).setSign_rank(sign_rank[i]);
+			signCheckVOs[i] = new SignCheckVO();
+			System.out.println("ddddddddddddddddddddddddddddddddddd22222");
+
+			signCheckVOs[i].setDraft_num(draftVO.getDraft_num());
+			signCheckVOs[i].setEmployee_num(approvalemp_num[i]);
+			signCheckVOs[i].setSign_rank(sign_rank[i]);
 			LocalDate localDate = LocalDate.now();
 			String date = localDate.toString();
-			signCheckVO.get(i).setSign_date(date);
-			signCheckVO.get(i).setSign_ref(0L);
-			draftDAO.setSignCheck(signCheckVO.get(i));
+			signCheckVOs[i].setSign_date(date);
+			signCheckVOs[i].setSign_ref(0L);
+			
+			System.out.println("signCheckValue : " + signCheckVOs[i].toString());
+			draftDAO.setSignCheck(signCheckVOs[i]);
 		}
 		
 		return 1;
@@ -120,6 +147,8 @@ public class DraftService {
 			}
 		 	System.out.println("여기는 문서번호 결장하는 서비스 VO세팅전@@@@@@@@@@@@@@@@@@@");
 		draftVO.setDraft_num(localDateYear[0]+"BS"+(parsingDm+1));
+		draftVO.setDraft_num(draftVO.getDraft_num().toString());
+		System.out.println("draftVO.getDraft_num() : " + draftVO.getDraft_num());
 		draftVO.setDraft_date((localDate.now().toString()));
 		System.out.println("여기는 문서번호 결장하는 서비스끝부분@@@@@@@@@@@@@@@@@@@");
 		return draftVO;
@@ -156,6 +185,20 @@ public class DraftService {
 	
 	public EmployeeVO getCEO()throws Exception{
 		return draftDAO.getCEO();
+	}
+	
+	public List<Map<String, Object>> getMyDraftList(Pagination pagination,EmployeeVO employeeVO)throws Exception{
+				
+		Long totalCount = draftDAO.getTotalCount(employeeVO);
+		
+		pagination.makeNum(totalCount);
+		pagination.makeRow();
+		Map<String, Object> map = new HashMap<>();
+		map.put("EmployeeVO", employeeVO);
+		map.put("Pagination", pagination);
+	 	 List<Map<String, Object>> mapAr = draftDAO.getMyDraftList(map);
+		
+		return mapAr;
 	}
 	
 }

@@ -17,16 +17,23 @@
 		ON emp.POS_CODE = pos.POS_CODE
 	</select>
 
+	<insert id="setRef" parameterType="ReferencesVO">
+		INSERT INTO REFERENCE
+		VALUES(#{draft_num},#{employee_num})
+
+	</insert>
+
 	<select id="getDepartmentList" resultType="DepartmentVO">
 		SELECT * FROM
 		DEPARTMENT
 		WHERE DEP_CODE LIKE '___'
 	</select>
-<!-- SELECT MAX(DRAFT_NUM)
-		AS draft_num FROM DRAFT -->
+	<!-- SELECT MAX(DRAFT_NUM) AS draft_num FROM DRAFT -->
 	<select id="getDraftMaxDocNum" resultType="DraftVO">
-	SELECT MAX(SUBSTR(DRAFT_NUM,7)) AS draft_num FROM DRAFT
-	WHERE SUBSTR(DRAFT_NUM,6,1)  = 'S'
+		SELECT
+		MAX(TO_NUMBER(SUBSTR(DRAFT_NUM,7))) AS draft_num FROM DRAFT
+		WHERE
+		SUBSTR(DRAFT_NUM,6,1) = 'S'
 	</select>
 
 	<select id="getDepartmentHighList" resultType="DepartmentVO">
@@ -116,4 +123,24 @@
 		VALUES(#{draft_num},#{employee_num},#{sign_rank},#{sign_date},#{sign_comment},#{sign_ref})
 	</insert>
 
+<select id="getMyDraftList" resultType="Map" parameterType="Map">
+SELECT * FROM
+	(
+	SELECT rownum r, n.* FROM
+		(	
+		SELECT d.*,e.name FROM DRAFT d
+		LEFT OUTER JOIN EMPLOYEE e
+		ON d.employee_num = e.employee_num
+		WHERE d.employee_num = #{EmployeeVO.employee_num}
+		ORDER BY draft_num DESC
+		) n
+	)
+WHERE r BETWEEN #{Pagination.startRow} AND #{Pagination.lastRow}
+				   
+</select>
+
+<select id="getTotalCount" resultType="Long" parameterType="EmployeeVO">
+SELECT count(DRAFT_NUM) FROM DRAFT
+WHERE EMPLOYEE_NUM = #{employee_num}
+</select>
 </mapper>

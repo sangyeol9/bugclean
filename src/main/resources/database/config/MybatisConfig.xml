@@ -32,5 +32,6 @@
 		<typeAlias type="com.winter.app.draft.APListVO" alias="APListVO"/>
 		<typeAlias type="com.winter.app.draft.DraftVO" alias="DraftVO"/>
 		<typeAlias type="com.winter.app.draft.SignCheckVO" alias="SignCheckVO"/>
+		<typeAlias type="com.winter.app.draft.ReferencesVO" alias="ReferencesVO"/>
   	</typeAliases>
   </configuration>

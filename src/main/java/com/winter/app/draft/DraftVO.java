@@ -14,4 +14,5 @@ public class DraftVO {
 	private String contents;
 	private Long state;
 	private Long draft_category;
+	private Long nowapproval;
 }
