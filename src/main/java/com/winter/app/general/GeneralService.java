@@ -30,12 +30,16 @@ public class GeneralService {
         carDetailVO.setCar_code(carManageVO.getCar_code());
         carDetailVO.setPro_status(0L);
         int result = generalDAO.updateStatus(carDetailVO);
-        if (result == 1) {
+        if (result == 0) {
             result = generalDAO.deleteCarManage(carManageVO);
         }else {
             return result;
         }
         return result;
+    }
+
+    public List<ProCategoryVO> getCate() throws Exception{
+        return generalDAO.getCate();
     }
 
     public CarManageVO carAllocation(CarManageVO carManageVO) throws Exception {
