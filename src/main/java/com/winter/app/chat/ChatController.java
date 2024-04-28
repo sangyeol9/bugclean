@@ -3,6 +3,7 @@
 import java.util.List;
 import java.util.Map;
 
+import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -15,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.winter.app.customer.CustomerController;
 import com.winter.app.employee.DepartmentVO;
+import com.winter.app.employee.EmployeeVO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,40 +35,32 @@ public class ChatController {
 	@Autowired
 	ChatService chatService;
 	
-	private final ChatRoomRepository chatRoomRepository;
+	private final ChatRoomRepository repository;
 	
-	
-	
-	@GetMapping("room")
-	public String room() {
-		return "chat/room";
-	}
 	
 	@GetMapping("rooms")
-	@ResponseBody
-	public List<ChatRoom> rooms(){
-		return chatRoomRepository.findAllRoom();
+	public ModelAndView rooms() {
+		log.info("# all chat rooms");
+		ModelAndView mv = new ModelAndView("chat/rooms");
+		
+		mv.addObject("list",repository.findAllRooms());
+		
+		return mv;
 	}
 	
-	//방 생성
 	@PostMapping("room")
-	@ResponseBody
-	public ChatRoom createRoom(@RequestBody String name) {
-		return chatRoomRepository.createChatRoom(name);
+	public String create(@RequestParam String name, RedirectAttributes rttr) {
+		log.info("# create chat room , name : " + name);
+		rttr.addFlashAttribute("roomName", repository.createChatRoom(name));
+		return "redirect:/chat/rooms";
 	}
 	
-	@GetMapping("room/enter/{roomId}")
-	public String roomDetail(Model model, @PathVariable String roomId) {
-		model.addAttribute("roomId", roomId);
-		return "chat/roomdetail";
+	@GetMapping("room")
+	public void getRoom(String roomId, Model model) {
+		log.info("# get chat room, roomId = ", roomId);
+		
+		model.addAttribute("room", repository.findRoomById(roomId));
 	}
-	@GetMapping("room/{roomId}")
-	@ResponseBody
-	public ChatRoom roomInfo(@PathVariable String roomId) {
-		return chatRoomRepository.findRoomById(roomId);
-	}
-	
-	
 	
 	
 	//사원 리스트 가져오기
@@ -85,6 +81,28 @@ public class ChatController {
 		
 		List<DepartmentVO> ar = chatService.getDepartment();
 		return ar;
+	}
+	
+	// 메신저에서 사원 이름 클릭시 사원 정보 모달창
+	@PostMapping("getEmpInfo")
+	@ResponseBody
+	public Map<String, Object> getEmpIfo(@RequestBody EmployeeVO employeeVO) throws Exception{
+		System.out.println("getempInfo === \n" + employeeVO);
+		Map<String, Object> map = chatService.getEmpInfo(employeeVO);
+		System.out.println("after get Info === \n" + employeeVO);
+		return map;
+	}
+	
+	@PostMapping("getEmpName")
+	@ResponseBody
+	public EmployeeVO getEmployeeNum(@RequestBody EmployeeVO employeeVO) throws Exception{
+		System.out.println("employee vo username ===== \n" + employeeVO);
+		employeeVO = chatService.getEmpName(employeeVO);
+		System.out.println("employee vo username ===== \n" + employeeVO);
+		
+		
+		return employeeVO;
+		
 	}
 	
 }

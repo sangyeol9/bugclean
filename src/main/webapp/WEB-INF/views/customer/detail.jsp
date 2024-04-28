@@ -92,13 +92,6 @@
 					<!-- 개인출력 시작  -->
 				<c:if test="${vo.customer_Type eq '개인'}">
 					<div id="person1">
-
-						<div id="addr_person">
-							<button disabled="disabled"
-								class="btn-square btn-outline-dark left-div">주소</button>
-							<input class="right-div form-control" style="width:30%" id="addr_person_in" type="text"
-								value="${vo.address}" readonly="readonly">
-						</div>
 						<div id="person_name">
 							<button disabled="disabled"
 								class="btn-square btn-outline-dark left-div">고객명</button>
@@ -110,6 +103,12 @@
 								class=" btn-square btn-outline-dark left-div">고객 전화번호</button>
 							<input class="right-div form-control" style="width:30%" id="person_phone_in" type="text"
 								value="${vo.ceo_Phone}" readonly="readonly">
+						</div>
+						<div id="addr_person">
+							<button disabled="disabled"
+								class="btn-square btn-outline-dark left-div">주소</button>
+							<input class="right-div form-control" style="width:30%" id="addr_person_in" type="text"
+								value="${vo.address}" readonly="readonly">
 						</div>
 						<div id="person_sales_name">
 							<button disabled="disabled"

@@ -9,6 +9,15 @@ let personal = document.getElementById("인사팀_list");
 let sales = document.getElementById("영업팀");
 let field = document.getElementById("현장팀");
 
+
+let info_name = document.getElementById("info_name");
+let info_nick = document.getElementById("info_nick");
+let info_def = document.getElementById("info_def");
+let info_pos = document.getElementById("info_pos");
+let info_phone = document.getElementById("info_phone");
+let info_profile = document.getElementById("info_profile");
+let info_Email = document.getElementById("info_Email");
+
 let obj = {};
 
 // affairs_team_div.addEventListener("click",function(){
@@ -22,6 +31,46 @@ let obj = {};
 //     }
 
 // })
+let basicModal = document.getElementById("basicModal");
+async function emp_modal(e){
+    console.log("target.id === " , e.target.id);
+    const response = await fetch("/chat/getEmpInfo",{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body : JSON.stringify({
+            employee_num : e.target.id
+        })
+    })
+    const res = await response.json();
+    basicModal.classList.remove("display_none");
+    info_name.value = res.NAME;
+    info_def.value = res.DEP_NAME;
+    info_nick.value = res.NICKNAME;
+    info_phone.value = res.PHONE;
+    info_pos.value = res.POS_NAME;
+    info_Email.value = res.USERNAME;
+
+    console.log("get info == ", res);
+    
+}
+
+window.onclick = function(event) {
+    
+    if (event.target == basicModal) {
+      basicModal.classList.add ("display_none");
+    }
+  }
+
+  let close = document.getElementsByClassName("close");
+
+function close_modal(){
+    basicModal.classList.add("display_none");
+}
+
+
+
 
 window.addEventListener("load",async function(){
     const response =  await fetch("/chat/department",{
@@ -82,13 +131,14 @@ window.addEventListener("load",async function(){
         res.forEach((element,index) => {
             console.log(element);
 
-            obj[element.DEP_CODE].innerHTML = `<div id="${element.NAME}_${index}" style="color:black;" class="mt-1">&emsp;&emsp;<i class="fa-solid fa-user mr-1"></i>${element.POS_NAME} ${element.NAME} ( ${element.NICKNAME} )</div>`
+            obj[element.DEP_CODE].innerHTML = `<div id="${element.EMPLOYEE_NUM}" onclick="emp_modal(event)" style="color:black;" class="mt-1">&emsp;&emsp;<i class="fa-solid fa-user mr-1"></i>${element.POS_NAME} ${element.NAME} ( ${element.NICKNAME} )</div>`
             +`${obj[element.DEP_CODE].innerHTML}`
         
         
     })
 
 }) 
+
 
 function displayOnOff(name){
     

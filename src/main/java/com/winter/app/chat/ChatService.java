@@ -13,6 +13,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.winter.app.employee.DepartmentVO;
+import com.winter.app.employee.EmployeeVO;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -59,6 +60,14 @@ public class ChatService {
 	public List<DepartmentVO> getDepartment() throws Exception{
 		
 		return chatDAO.getDepartment();
+	}
+	
+	public Map<String, Object> getEmpInfo(EmployeeVO employeeVO) throws Exception{
+		return chatDAO.getEmpInfo(employeeVO);
+	}
+	
+	public EmployeeVO getEmpName(EmployeeVO employeeVO) throws Exception{
+		return chatDAO.getEmpName(employeeVO);
 	}
 	
 }
