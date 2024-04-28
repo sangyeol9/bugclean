@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.winter.app.employee.DepartmentVO;
+import com.winter.app.employee.EmployeeVO;
 
 @Mapper
 public interface ChatDAO {
@@ -13,4 +14,8 @@ public interface ChatDAO {
 	List<Map<String, Object>> getEmployeeList() throws Exception;
 	
 	List<DepartmentVO> getDepartment() throws Exception;
+	
+	Map<String, Object> getEmpInfo(EmployeeVO employeeVO) throws Exception;
+	
+	EmployeeVO getEmpName(EmployeeVO employeeVO) throws Exception;
 }

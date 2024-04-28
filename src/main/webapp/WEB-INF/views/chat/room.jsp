@@ -3,114 +3,114 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Websocket Chat</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!-- CSS -->
-    <style>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
+    <th:block th:fragment="content">
+
+        <div class="container">
+            <div class="col-6">
+                <h1>${room.name}</h1>
+            </div>
+            <div>
+                <div id="msgArea" class="col"></div>
+                <div class="col-6">
+                    <div class="input-group mb-3">
+                        <input type="text" id="msg" class="form-control">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6"></div>
+        </div>
+
+
         
-    </style>
-</head>
-<body>
-<div class="container" id="app">
-    <div class="row">
-        <div class="col-md-12">
-            <h3>채팅방 리스트</h3>
-        </div>
-    </div>
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <label class="input-group-text">방제목</label>
-        </div>
-        <input type="text" class="form-control" id="room_name">
-        <div class="input-group-append">
-            <button class="btn btn-primary" type="button" id="createRoomBtn">채팅방 개설</button>
-        </div>
-    </div>
-    <ul class="list-group" id="chatroomsList">
-        <!-- Chatrooms will be populated here -->
-    </ul>
-</div>
-<!-- JavaScript -->
+    </th:block>
+</th:block>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Find elements
-        const roomNameInput = document.getElementById('room_name');
-        const createRoomBtn = document.getElementById('createRoomBtn');
-        const chatroomsList = document.getElementById('chatroomsList');
 
-        // Define methods
-        function findAllRoom() {
-            fetch("/chat/rooms",{
-                method:"GET"
-            }).then(response=>response.json())
-            .then(response => {
-                console.log("res==",response);
-                chatroomsList.innerHTML = ''; // Clear previous chatrooms
-                response.forEach(item => {
+let username1 = '${pageContext.request.userPrincipal.name}';
 
-                    const jsonString = item.name;
-                    const startIndex = jsonString.indexOf("\"") + 8; // "의 다음 인덱스
-                    const endIndex = jsonString.lastIndexOf("\""); // 마지막 " 인덱스
-
-                    const real_name = jsonString.substring(startIndex, endIndex);
-                    console.log("name === ", real_name);
-                    console.log("item == ",item);
-                    const li = document.createElement('li');
-                    li.className = 'list-group-item list-group-item-action';
-                    li.setAttribute('data-roomId', item.roomId);
-                    li.innerText = real_name;
-                    li.addEventListener('click', function () {
-                        enterRoom(item.roomId);
-                    });
-                    chatroomsList.appendChild(li);
-                });
-            });
-        }
-
-        function createRoom() {
-            const roomName = roomNameInput.value.trim();
-            console.log("roomname=",roomName);
-            if (roomName === '') {
-                alert("방 제목을 입력해 주십시요.");
-                return;
-            }
-            fetch("/chat/room",{
-                    method : "POST",
+fetch("/chat/getEmpName",{
+                    method:"POST",
                     headers: {
                         "Content-Type": "application/json",
-                      },
+                    },
                     body : JSON.stringify({
-                       name : roomName
+                        username : username1
                     })
-            }).then(response=>response.json())
-            .then(response => {
-                    alert(response.data.name + "방 개설에 성공하였습니다.");
-                    roomNameInput.value = '';
-                    findAllRoom();
+                }).then(res=>res.json())
+                .then(res=>{
+                    console.log("res=== > ",res.name)
+                    username1 = res.name;
                 })
-                .catch(error => {
-                    alert("채팅방 개설에 실패하였습니다.");
+
+
+            $(document).ready(function(){
+
+                var roomName = "${room.name}";
+                var roomId = "${room.roomId}";
+                
+
+                
+                let message;
+
+
+                console.log(roomName + ", " + roomId + ", " + username1);
+
+                var sockJs = new SockJS("/stomp/chat");
+                //1. SockJS를 내부에 들고있는 stomp를 내어줌
+                var stomp = Stomp.over(sockJs);
+
+                //2. connection이 맺어지면 실행
+                stomp.connect({}, function (){
+                   console.log("STOMP Connection")
+
+                   //4. subscribe(path, callback)으로 메세지를 받을 수 있음
+                   stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
+                       var content = JSON.parse(chat.body);
+
+                       var writer = content.writer;
+                       var str = '';
+
+                       if(writer === username1){
+                           str = "<div class='col-6'>";
+                           str += "<div class='alert alert-secondary'>";
+                           str += "<b>" + writer + " : " + message + "</b>";
+                           str += "</div></div>";
+                           $("#msgArea").append(str);
+                       }
+                       else{
+                           str = "<div class='col-6'>";
+                           str += "<div class='alert alert-warning'>";
+                           str += "<b>" + writer + " : " + message + "</b>";
+                           str += "</div></div>";
+                           $("#msgArea").append(str);
+                       }
+
+                       
+                   });
+
+                   //3. send(path, header, message)로 메세지를 보낼 수 있음
+                   stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username1}))
                 });
-        }
 
-        function enterRoom(roomId) {
-            const sender = prompt('대화명을 입력해 주세요.');
-            if (sender !== null && sender.trim() !== "") {
-                localStorage.setItem('wschat.sender', sender.trim());
-                localStorage.setItem('wschat.roomId', roomId);
-                location.href = "/chat/room/enter/" + roomId;
-            }
-        }
+                $("#button-send").on("click", function(e){
+                    var msg = document.getElementById("msg");
+                    message = $("#msg").val();
+                    console.log(username1 + ":" + msg.value);
+                    stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username1}));
+                    msg.value = '';
+                });
+            });
+        </script>
 
-        // Attach event listeners
-        createRoomBtn.addEventListener('click', createRoom);
 
-        // Initial load
-        findAllRoom();
-    });
-</script>
-</body>
 </html>

@@ -67,10 +67,10 @@
  	}
  	#messenger_list_icon{
  		border-radius: 50%;
- 		margin-top : 19.5%;
- 		width: 50px;
- 		height: 50px;
- 		margin-left:19.8%;
+ 		margin-top : 30%;
+ 		width: 100%;
+ 		height: 100%;
+ 		margin-left:1.8%;
  		display: flex;
  		text-align: center;
  		justify-content: center;
@@ -79,7 +79,7 @@
  	}
  	#messenger_msg_icon{
  		border-radius: 50%;
- 		margin-top : 22.5%;
+ 		margin-top : 50.5%;
  		width: 100%;
  		height: 100%;
  		margin-left:1.8%;
