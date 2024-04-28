@@ -34,5 +34,7 @@ public interface DraftDAO {
 	List<Map<String, Object>> getMyDraftList(Map<String, Object> map)throws Exception;
 	Long getTotalCount(EmployeeVO employeeVO)throws Exception;
 	
+	int setDraftFile(DraftFileVO draftFileVO)throws Exception;
+	
 	
 }
