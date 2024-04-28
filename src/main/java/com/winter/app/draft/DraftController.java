@@ -32,7 +32,7 @@ public class DraftController {
 	private DraftService draftService;
 
 	@GetMapping("basisdraft")
-	public String getBasisDraft(Map<String, Object> map, Model model, HttpSession session, MultipartFile attach)
+	public String getBasisDraft(Map<String, Object> map, Model model, HttpSession session, MultipartFile [] attach)
 			throws Exception {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserDetails userDetails = (UserDetails) principal;
@@ -67,7 +67,7 @@ public class DraftController {
 	}
 
 	@PostMapping("setbasisdraft")
-	public String setBasisDraft(DraftVO draftVO, MultipartFile attach, Model model, String[] refempnum,
+	public String setBasisDraft(DraftVO draftVO, MultipartFile [] attach, Model model, String[] refempnum,
 			String[] approvalemp_num, Long[] sign_rank) throws Exception {
 		
 		if(draftVO.getDraft_category() == 0) {
@@ -79,6 +79,9 @@ public class DraftController {
 		draftService.setSignCheck(approvalemp_num, sign_rank, draftVO);
 		//참조값을 db에 저장
 		result = draftService.setRef(draftVO, refempnum);
+		//파일첨부
+		result = draftService.setDraftFile(attach, draftVO);
+		
 		
 		if(result>0) {
 			msg="성공";

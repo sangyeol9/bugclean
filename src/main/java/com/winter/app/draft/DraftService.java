@@ -9,7 +9,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.winter.app.board.BoardFileVO;
 import com.winter.app.employee.DepartmentVO;
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.util.commons.FileManager;
@@ -21,11 +23,38 @@ public class DraftService {
 	private DraftDAO draftDAO;
 	@Autowired
 	private FileManager fileManager;
-//	@Value("${app.upload,draftFile}")
-//	private String uploadPath;
+	@Value("${app.upload.draftFile}")
+	private String uploadPath;
 	///파일매니저에서 경로랑,파일
 	//리턴으로 저장된파일명을 리턴받음
 
+	public int setDraftFile(MultipartFile [] files, DraftVO draftVO)throws Exception{
+		int result = 0;
+		System.out.println("for밖 : "+files.length);
+        if(files != null){
+
+            for (MultipartFile multipartFile : files) {
+            	
+            	System.out.println("for안 : "+multipartFile);
+                if (multipartFile.isEmpty()) {
+                    continue;
+                }
+
+                String fileName = fileManager.fileSave(uploadPath, multipartFile, false);
+               DraftFileVO draftFileVO =  new DraftFileVO();
+               draftFileVO.setDraft_num(draftVO.getDraft_num());
+               draftFileVO.setFile_name(fileName);
+               draftFileVO.setOri_name(multipartFile.getOriginalFilename());
+                result = draftDAO.setDraftFile(draftFileVO);
+
+//                if (result == 0) {
+//                    throw new Exception();
+//                }
+            }
+        }
+        return result;
+	}
+	
 	public List<Map<String, Object>> getBasisDraft()throws Exception{
 		return draftDAO.getBasisDraft();
 	}
@@ -53,7 +82,7 @@ public class DraftService {
 	
 	public int setBasisDraft(DraftVO draftVO)throws Exception{
 		draftVO.setState(0L);
-		draftVO.setNowapproval(1L);
+		draftVO.setNow_approval(1L);
 		int result = draftDAO.setBasisDraft(draftVO);
 		return result;
 	}
