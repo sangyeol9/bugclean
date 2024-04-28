@@ -117,9 +117,9 @@
 							<tr>
 								<td class="basisTitleTd">기안자</td>
 								<td class="basisTd"><input class="inp" type="text"
-									value="${empMap.NAME}" readonly="readonly" >
-									<input type="hidden" value="${empMap.EMPLOYEE_NUM}" name="employee_num">
-									</td>
+									value="${empMap.NAME}" readonly="readonly"> <input
+									type="hidden" value="${empMap.EMPLOYEE_NUM}"
+									name="employee_num"></td>
 								<td class="basisTitleTd">소속부서</td>
 								<td class="basisTd"><input class="inp" type="text"
 									value="${empMap.DEP_NAME}" readonly="readonly"></td>
@@ -127,54 +127,69 @@
 
 							<tr>
 								<td class="basisTitleTd">기안일자</td>
-								<td class="basisTd"><input name="draft_date" class="inp" type="text"
-									value="${draftVO.draft_date}" readonly="readonly" ></td>
+								<td class="basisTd"><input name="draft_date" class="inp"
+									type="text" value="${draftVO.draft_date}" readonly="readonly"></td>
 								<td class="basisTitleTd">문서번호</td>
-								<td class="basisTd"><input name="draft_num" class="inp" type="text"
-									value="${draftVO.draft_num}" readonly="readonly" ></td>
+								<td class="basisTd"><input name="draft_num" class="inp"
+									type="text" value="${draftVO.draft_num}" readonly="readonly"></td>
 							</tr>
-							
+
 							<tr>
 								<td class="basisTitleTd">제목</td>
-								<td class="basisTd"><input name="title" class="inp" type="text"></td>
+								<td class="basisTd"><input name="title" class="inp"
+									type="text"></td>
 								<td class="basisTitleTd">참조</td>
-								<td class="basisTd"><input id="refInp" class="inp" 
-									type="text" readonly="readonly">
-									<input id="refempnum" type="hidden" class="inp" name="refempnum">
-									</td>
+								<td class="basisTd"><input id="refInp" class="inp"
+									type="text" readonly="readonly"> <input id="refempnum"
+									type="hidden" class="inp" name="refempnum"></td>
 							</tr>
 
 							<tr style="height: 300px;">
 								<td class="basisTitleTd">내용</td>
-								<td class="basisTitleTd" colspan="4"><input name="contents" class="inp"
-									type="text"></td>
+								<td class="basisTitleTd" colspan="4"><input name="contents"
+									class="inp" type="text"></td>
 							</tr>
 							<tr style="height: 130px;">
 								<td class="basisTitleTd">의견</td>
-								<td class="basisTitleTd" colspan="4"><input name="sign_comment" class="inp"
-									type="text"></td>
-							</tr>
-							
-							<tr>
-								<td>첨부파일</td>
-								<td colspan="4"><input type="file" name="attach"></td>
+								<td class="basisTitleTd" colspan="4"><input
+									name="sign_comment" class="inp" type="text"></td>
 							</tr>
 						</table>
+						<!-- 파일 시작 -->
+						<div id="files">
+							<div id="attachment-group">
+								<div class="input-group mb-1" id="attachment-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text">첨부파일</span>
+									</div>
+									<div class="custom-file col">
+										<input type="file" class="custom-file-input" name="attach">
+										<label class="custom-file-label">파일을 선택하세요</label>
+									</div>
+									<div class="input-group-append">
+										<button type="button" class="btn btn-sm btn-dark plus-file">+</button>
+										<button type="button" class="btn btn-sm btn-dark minus-file"
+											data-target="attachment-1" disabled="">−</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 파일 끝 -->
 					</div>
-				<!-- 기안서양식 끝 -->
+					<!-- 기안서양식 끝 -->
 					<input type="hidden" value="0" name="draft_category">
-				<!-- 버튼모음 시작 -->
-				<div id="btn">
-					<button type="submit">상신하기</button>
-					&nbsp;&nbsp;&nbsp;
-					<button>반려하기</button>
-					&nbsp;&nbsp;&nbsp;
-					<button>임시저장</button>
-					&nbsp;&nbsp;&nbsp;
-					<button>삭제하기</button>
-					&nbsp;&nbsp;&nbsp;
-					<button>파일첨부</button>
-				</div>
+					<!-- 버튼모음 시작 -->
+					<div id="btn">
+						<button type="submit">상신하기</button>
+						&nbsp;&nbsp;&nbsp;
+						<button>반려하기</button>
+						&nbsp;&nbsp;&nbsp;
+						<button>임시저장</button>
+						&nbsp;&nbsp;&nbsp;
+						<button>삭제하기</button>
+						&nbsp;&nbsp;&nbsp;
+						<button>파일첨부</button>
+					</div>
 				</form>
 				<!-- 버튼모음 끝 -->
 
@@ -185,9 +200,9 @@
 						<div id="selectDiv">
 							<select id="select">
 								<option>자주쓰는결재선</option>
-							<c:forEach items="${allist}" var="allist">
-							<option value="${allist.approval_line_code}">${allist.line_name}</option>
-							</c:forEach>
+								<c:forEach items="${allist}" var="allist">
+									<option value="${allist.approval_line_code}">${allist.line_name}</option>
+								</c:forEach>
 							</select>
 						</div>
 						<!-- 셀렉트 끝 -->

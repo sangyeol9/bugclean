@@ -115,7 +115,7 @@
 
 	<insert id="setBasisDraft" parameterType="DraftVO">
 		INSERT INTO DRAFT
-		VALUES(#{draft_num},#{employee_num},#{draft_date},#{title},#{contents},#{state},#{draft_category})
+		VALUES(#{draft_num},#{employee_num},#{draft_date},#{title},#{contents},#{state},#{draft_category},#{now_approval})
 	</insert>
 
 	<insert id="setSignCheck" parameterType="SignCheckVO">
@@ -143,4 +143,9 @@ WHERE r BETWEEN #{Pagination.startRow} AND #{Pagination.lastRow}
 SELECT count(DRAFT_NUM) FROM DRAFT
 WHERE EMPLOYEE_NUM = #{employee_num}
 </select>
+
+<insert id="setDraftFile" parameterType="DraftFileVO">
+INSERT INTO DRAFTFILE
+VALUES(DRAFTFILE_SEQ.NEXTVAL,#{draft_num},#{ori_name},#{file_name})
+</insert>
 </mapper>
