@@ -46,14 +46,23 @@
 
                                         
                                         <div class="basic-form my-3">
-                                            <h3 class="text-primary mb-3" style="text-align: center;"><i class="fa-solid fa-check" style="color: #74C0FC;"></i>&nbsp; sbugclean1@gmail.com </h3>
-                                            <h5 style="color: darkgray; text-align: center;">입사일 : 2023-01-01</h5>
-
-                                            
+                                            <c:if test="${employeeVO eq null}">
+                                                <h3 class="text-primary mb-3" style="text-align: center;"><i class="fa-solid fa-xmark" style="color: #fd72ca;"></i>&nbsp; 일치하는 정보가 없습니다. 사원 등록 요청을 해주세요.</h3>
+                                            </c:if>
+                                            <c:if test="${employeeVO ne null}">
+                                                <h3 class="text-primary mb-3" style="text-align: center;"><i class="fa-solid fa-check" style="color: #74C0FC;"></i>&nbsp; ${employeeVO.username}</h3>
+                                                <h5 style="color: darkgray; text-align: center;">입사일 : ${employeeVO.join_date}</h5>
+                                            </c:if>
                                         </div>
                                         <div class="col-sm-12 pt-4 pb-1" style="text-align: center;">
-                                            <a href="./login" type="button" class="btn btn-primary mr-1" style="height: 35px;">로그인하기</a>
-                                            <a href="./pwSearch" type="button" class="btn btn-light" style="height: 35px;">비밀번호 찾기</a>
+                                            <c:if test="${employeeVO eq null}">
+                                                <a href="./create" type="button" class="btn btn-primary mr-1" style="height: 35px;">사원 등록</a>
+                                                <a href="./idSearch" type="button" class="btn btn-light" style="height: 35px;">뒤로가기</a>
+                                            </c:if>
+                                            <c:if test="${employeeVO ne null}">
+                                                <a href="./login" type="button" class="btn btn-primary mr-1" style="height: 35px;">로그인하기</a>
+                                                <a href="./pwSearch" type="button" class="btn btn-light" style="height: 35px;">비밀번호 찾기</a>
+                                            </c:if>
                                         </div>
 
           

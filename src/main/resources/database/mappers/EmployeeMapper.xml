@@ -3,18 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.winter.app.employee.EmployeeDAO">
+	<select id="getAlreadyCheck" parameterType="EmployeeVO" resultType="EmployeeVO">
+		SELECT * FROM EMP_TEMP
+		WHERE USERNAME = #{username}
+	</select>
 	<select id="getDetail" parameterType="EmployeeVO" resultMap="getResultDetail">
 		SELECT *
 		FROM EMPLOYEE
-			INNER JOIN
-			DEPARTMENT
-			USING (DEP_CODE)
-			INNER JOIN
-			"POSITION" p 
-			USING (POS_CODE)
-			INNER JOIN
-			RNR r 
-			USING (RNR_CODE)
+			LEFT OUTER JOIN DEPARTMENT USING (DEP_CODE)
+			LEFT OUTER JOIN "POSITION" p USING (POS_CODE)
+			LEFT OUTER JOIN RNR r USING (RNR_CODE)
 		WHERE USERNAME=#{username}
 	</select>
 	<resultMap type="EmployeeVO" id="getResultDetail">
@@ -80,6 +78,20 @@
 	
 	<select id="idSearchNum" parameterType="EmployeeVO" resultType="EmployeeVO">
 		SELECT * FROM EMPLOYEE e 
-		WHERE NAME = #{name} AND EMPLOYEE_NUM = #{employee_num};
+		WHERE NAME = #{name} AND EMPLOYEE_NUM = #{employee_num}
+	</select>
+	<select id="idSearchPhone" parameterType="EmployeeVO" resultType="EmployeeVO">
+		SELECT * FROM EMPLOYEE e 
+		WHERE NAME = #{name} AND PHONE= #{phone}
+	</select>
+	
+	<select id="getUserEmailCheck" parameterType="EmployeeVO" resultType="EmployeeVO">
+		SELECT * FROM EMPLOYEE e
+		WHERE EMPLOYEE_NUM =#{employee_num} AND NAME = #{name} AND USERNAME = #{username}
+	</select>
+	
+	<select id="getUserPhoneCheck" parameterType="EmployeeVO" resultType="EmployeeVO">
+		SELECT * FROM EMPLOYEE e
+		WHERE PHONE =#{phone} AND NAME = #{name} AND USERNAME = #{username}
 	</select>
 </mapper>

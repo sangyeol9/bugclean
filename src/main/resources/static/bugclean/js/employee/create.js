@@ -12,6 +12,8 @@ let number;
 
 //메일전송
 mailCheckBtn.addEventListener("click",function(){
+		//인증번호 폼 초기화
+		document.getElementById("userNumCheck").setAttribute("value","")
 		//공백시
 	    if(document.getElementById("username").value === ''){
 	      alert('아이디를 입력해주세요.');
@@ -30,59 +32,50 @@ mailCheckBtn.addEventListener("click",function(){
 		$("#mailCheckBtn").attr("disabled","disabled");
 
 })
-		//이메일 전송
-		function sendNumber(){
-			console.log(email);
-			$("#mail_number").css("display","block");
-			$.ajax({
-				url:"/employee/mailSend",
-				type:"post",
-				dataType:"json",
-				data:{"email" : email},
-				success: function(data){
-					alert("인증번호 발송");
-					$("#Confirm").attr("value",data);
-				}
-				// ,error:function(request, status, error){
-				// 	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				// }
-				}
-			);
-		}
-		
-		//인증번호 일치여부
-		function confirmNumber(){
 
-			userNumCheck = document.getElementById("userNumCheck").value
-			//console.log("number : "+number);
-			fetch("/employee/mailCheck?userNumber="+userNumCheck,{
-				method:"get"
-			})
-			.then(res=>res.text())
-			.then(r=>{
-				//console.log("r : "+r);
-				if(r){
-					alert("인증되었습니다.");
-				}else{
-					alert("다시 시도해주세요.");
-				}
-			})
-
+//이메일 전송
+function sendNumber(){
+	alert("인증번호 발송");
+	//console.log(email);
+	$("#mail_number").css("display","block");
+	$.ajax({
+		url:"/employee/mailSend",
+		type:"post",
+		dataType:"json",
+		data:{"email" : email},
+		success: function(data){
+			//alert("인증번호 발송");
+			//$("#Confirm").attr("value",data);
 		}
-		// //인증번호 확인
-		// function confirmNumber(){
-		// 	var number1 = $("#number").val();
-		// 	var number2 = $("#Confirm").val();
-	
-		// 	if(number1 == number2){
-		// 		alert("인증되었습니다.");
-		// 	}else{
-		// 		alert("번호가 다릅니다.");
-		// 	}
+		// ,error:function(request, status, error){
+		// 	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		// }
+		}
+	);
+}
+
+//인증번호 일치여부
+function confirmNumber(){
+
+	userNumCheck = document.getElementById("userNumCheck").value
+	//console.log("number : "+number);
+	fetch("/employee/mailCheck?userNumCheck="+userNumCheck,{
+		method:"get"
+	})
+	.then(res=>res.text())
+	.then(r=>{
+		console.log("r : "+r);
+		if(r == "true"){
+			alert("인증되었습니다.");
+		}else if(r == "false"){
+			alert("다시 시도해주세요.");
+		}
+	})
+
+}
 
 
-//
+
 
 
 let phone = document.getElementById("phone");
@@ -97,6 +90,7 @@ submit.addEventListener("click",function(){
 		phone.setAttribute("value",phoneStart.value+"-"+phoneMiddle.value+"-"+phoneEnd.value);
 	}
 	//alert(phone.value);
+	
 	//주소 sample6_address+sample6_detailAddress
 	if(sample6_address.value != ""&&sample6_detailAddress.value != ""){
 		address.setAttribute("value",sample6_address.value+" "+sample6_detailAddress.value);

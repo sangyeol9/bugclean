@@ -62,7 +62,7 @@ let isContentVisible = false;
             })
     }).then(res=>res.json())
     .then(res=>{
-        console.log("res====",res);
+        //console.log("res====",res);
 
 		const draft_Num = res.draft_Num !== null ? res.draft_Num : "없음";
 		const manage_Code = res.manage_Code !== null ? res.manage_Code : "없음";
@@ -72,8 +72,12 @@ let isContentVisible = false;
         <div class="col-12">
             <br>
             <hr>
+             <div class="close-button" id="closeButton" style="display: inline-block; margin: 0 5px; float: right;
+                                            font-size: 16px; color: black;">X</div>
             <br>
         </div>
+        
+        
         <div class="col-lg-6">
             <div class="mb-4">
                 <h4 class="card-title card-intro-title">Details</h4>
@@ -309,12 +313,22 @@ function openWindow(e){
     })
 }
 
+
+
 window.addEventListener("load",function(){
     openWindow();    
 
 })
 
+//x버튼 누를시 안됨..이따가
+document.addEventListener("DOMContentLoaded", function() {
+    let closeButton = document.getElementById("closeButton");
 
+    closeButton.addEventListener("click", function() {
+		alert("클릭됨?");
+        closeButton.style.display = "none"; // X 표시를 클릭하면 해당 요소를 화면에서 숨김
+    });
+});
 // document.addEventListener('DOMContentLoaded', function() {
 //   var calendarEl = document.getElementById('calendar');
 //   var calendar = new FullCalendar.Calendar(calendarEl, {

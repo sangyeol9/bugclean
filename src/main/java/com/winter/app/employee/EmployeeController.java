@@ -36,6 +36,7 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	private int number;
+	private String tempPw;
 	
 	//-----------------------------로그인
 	@GetMapping("login")
@@ -68,7 +69,6 @@ public class EmployeeController {
 	public String create(@Validated(EmployeeCreateGroup.class) EmployeeVO employeeVO, BindingResult bindingResult,Model model) throws Exception{
 		
 		System.out.println("Member Add");
-		//System.out.println("error : "+bindingResult);
 		String username= employeeVO.getUsername();
 		employeeVO.setUsername(username+"@gmail.com");
 		
@@ -79,7 +79,7 @@ public class EmployeeController {
 		
 		int result = employeeService.create(employeeVO);
 		model.addAttribute("result", "employee.create.result");
-		model.addAttribute("path","employee/login");
+		model.addAttribute("path","login");
 
 		return "commons/result";
 	}
@@ -101,10 +101,10 @@ public class EmployeeController {
 	// 인증번호 일치여부 확인
     @GetMapping("mailCheck")
     @ResponseBody
-    public ResponseEntity<?> mailCheck(@RequestParam String userNumber) {
-    	System.out.println(userNumber);
-        boolean isMatch = userNumber.equals(String.valueOf(number));
-
+    public ResponseEntity<?> mailCheck(@RequestParam String userNumCheck) {
+    	//System.out.println("일치확인"+userNumCheck);
+        boolean isMatch = userNumCheck.equals(String.valueOf(number));
+        
         return ResponseEntity.ok(isMatch);
     }
 	
@@ -218,19 +218,110 @@ public class EmployeeController {
 	public void idFind(@ModelAttribute EmployeeVO employeeVO) throws Exception{
 		
 	}
-//	@PostMapping("idSearchPhone")
-//	public void idFind(@Validated(EmployeeIdSearchGroup.class) EmployeeVO employeeVO, BindingResult bindingResult,Model model) throws Exception{
-//		System.out.println("에베베베베베베"+employeeVO.getName()); 
-//	}
-	@PostMapping("idSearchNum")
-	public void idFind(@Validated(EmployeeIdSearchGroup.class) EmployeeVO employeeVO, BindingResult bindingResult,Model model) throws Exception{
-		System.out.println("에베베베베베베"+employeeVO.getName()); 
+    
+	//폰으로 아이디 찾기
+	@PostMapping("idSearchPhone")
+	public String idSearchPhone(@Validated(EmployeeIdSearchPhoneGroup.class) EmployeeVO employeeVO, BindingResult bindingResult,Model model) throws Exception{
+		
+		if(bindingResult.hasErrors()) {
+			return "employee/idSearch";
+		}
+		employeeVO = employeeService.idSearchPhone(employeeVO);
+		
+		model.addAttribute("employeeVO", employeeVO);
+		
+		return "employee/idSearchResult";
 	}
-	
+	//사번으로 아이디 찾기
+	@PostMapping("idSearchNum")
+	public String idSearchNum(@Validated(EmployeeIdSearchNumGroup.class) EmployeeVO employeeVO, BindingResult bindingResult, Model model) throws Exception{
+		
+		if(bindingResult.hasErrors()) {
+			return "employee/idSearch";
+		}
+		employeeVO = employeeService.idSearchNum(employeeVO);
+		
+		model.addAttribute("employeeVO", employeeVO);
+		
+		return "employee/idSearchResult";
+	}
+
+	//===================================비번 찾기
 	@GetMapping("pwSearch")
-	public void pwFind() throws Exception{
+	public void pwFind(@ModelAttribute EmployeeVO employeeVO) throws Exception{
 		
 	}
+
+	//문자 임시번호
+	@PostMapping("pwSearchPhone")
+	public String pwSearchPhone(@Validated(EmployeePwSearchPhoneGroup.class) EmployeeVO employeeVO, BindingResult bindingResult, Model model) throws Exception{
+		
+		if(bindingResult.hasErrors()) {
+			return "employee/pwSearch";
+		}
+		
+		employeeVO = employeeService.getUserPhoneCheck(employeeVO);
+		
+		//정보 없을 시
+		if(employeeVO == null) {
+			model.addAttribute("result", "info.search.fail");
+			model.addAttribute("path", "pwSearch");
+
+			return "commons/result";
+		}
+		//정보 일치 시 임시비번 문자 전송
+		tempPw = employeeService.sendPhone(employeeVO.getPhone());
+
+		System.out.println("SMS임시:"+tempPw);
+		
+		//임시비번으로 비밀번호 변경
+		int result = employeeService.tempPwUpdate(employeeVO);
+		
+		//System.out.println("비번변경 성공?> "+result);
+		
+		model.addAttribute("result", "tempPw.send.success");
+		model.addAttribute("path", "login");
+
+		return "commons/result";
+	}
+
+	//이메일 임시번호
+	@PostMapping("pwSearchEmail")
+	public String pwSearchEmail(@Validated(EmployeePwSearchEmailGroup.class) EmployeeVO employeeVO, BindingResult bindingResult, Model model) throws Exception{
+			
+		if(bindingResult.hasErrors()) {
+			return "employee/pwSearch";
+		}
+		
+		employeeVO.setUsername(employeeVO.getUsername()+"@gmail.com");
+		//System.out.println("employeeVO 확인: "+employeeVO.getEmployee_num()+employeeVO.getName()+employeeVO.getUsername());
+		employeeVO = employeeService.getUserEmailCheck(employeeVO);
+		
+		//정보 없을 시
+		if(employeeVO == null) {
+			model.addAttribute("result", "info.search.fail");
+			model.addAttribute("path", "pwSearch");
+
+			return "commons/result";
+		}
+		
+		//정보 일치 시 임시비번 이메일 전송
+		tempPw = employeeService.sendPwMail(employeeVO.getUsername());
+
+		//System.out.println("임시비번 : "+tempPw);
+		
+		//임시비번으로 비밀번호 변경
+		int result = employeeService.tempPwUpdate(employeeVO);
+		
+		//System.out.println("비번변경 성공?> "+result);
+		model.addAttribute("result", "tempPw.send.success");
+		model.addAttribute("path", "login");
+
+		return "commons/result";
+		
+		
+	}
+	
 	
 	
 	//----------------------------수신문서함,알림...?

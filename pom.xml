@@ -20,12 +20,12 @@
 	<dependencies>
 		
 		<!-- SMS -->
-		<dependency>
+		 <dependency>
 		    <groupId>net.nurigo</groupId>
-		    <artifactId>sdk</artifactId>
-		    <version>4.3.0</version>
-		</dependency>
-		
+		    <artifactId>javaSDK</artifactId>
+		    <version>2.2</version>
+		 </dependency> 
+
 		<!-- 웹소켓 라이브러리 -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>

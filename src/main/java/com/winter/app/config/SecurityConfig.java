@@ -60,8 +60,10 @@ public class SecurityConfig{
 											.requestMatchers("/employee/create").permitAll()
 											.requestMatchers("/employee/mailSend").permitAll()
 											.requestMatchers("/employee/mailCheck").permitAll()
-											//.requestMatchers("/employee/logout", "/employee/mypage",
-											//		"/employee/pwUpdate","/setAttendence","/setWorkOut").authenticated()
+											.requestMatchers("/employee/idSearchResult").permitAll()
+											.requestMatchers("/employee/idSearchPhone").permitAll()
+											.requestMatchers("/employee/logout", "/employee/mypage",
+													"/employee/pwUpdate","/setAttendence","/setWorkOut").authenticated()
 											
 											.anyRequest().permitAll()
 											//.anyRequest().authenticated()//나머지
@@ -78,6 +80,9 @@ public class SecurityConfig{
 				.ignoringRequestMatchers("/board/**")
 				.ignoringRequestMatchers("/setAttendence")
 				.ignoringRequestMatchers("/setWorkOut")
+				.ignoringRequestMatchers("/employee/idSearchNum")
+				.ignoringRequestMatchers("/employee/phoneSend")
+				.ignoringRequestMatchers("/employee/**")
 	    )
 		
 		
