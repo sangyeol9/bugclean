@@ -34,16 +34,19 @@
 		<association property="departmentVO" javaType="DepartmentVO">
 			<id column="DEP_CODE" property="dep_code"/>
 			<result column="DEP_NAME" property="dep_name"/>
+			<result column="DEP_ROLE" property="dep_role"/>
 		</association>
 		
 		<association property="positionVO" javaType="PositionVO">
 			<id column="POS_CODE" property="pos_code"/>
 			<result column="POS_NAME" property="pos_name"/>
+			<result column="POS_ROLE" property="pos_role"/>
 		</association>
 		
 		<association property="rnrVO" javaType="RnRVO">
 			<id column="RNR_CODE" property="rnr_code"/>
 			<result column="RNR_NAME" property="rnr_name"/>
+			<result column="RNR_ROLE" property="rnr_role"/>
 		</association>
 		
 	</resultMap>

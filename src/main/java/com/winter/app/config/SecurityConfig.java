@@ -64,7 +64,7 @@ public class SecurityConfig{
 											.requestMatchers("/employee/idSearchPhone").permitAll()
 											.requestMatchers("/employee/logout", "/employee/mypage",
 													"/employee/pwUpdate","/setAttendence","/setWorkOut").authenticated()
-											//.requestMatchers("/hr/**").hasAnyRole("인사팀", "사장")
+											.requestMatchers("/hr/**").hasAnyRole("PERSON", "CEO")
 											
 											.anyRequest().permitAll()
 											//.anyRequest().authenticated()//나머지

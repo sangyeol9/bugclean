@@ -95,7 +95,7 @@
                            aria-expanded="false"><i class="icon icon-app-store"></i><span
                             class="nav-text">수신문서함</span></a>
                         <ul>
-                            <li><a href="/employee/inbox">수신문서함</a></li>
+                            <li><a href="/receive/inbox">수신문서함</a></li>
                         </ul>
                     </li>
                 </ul>

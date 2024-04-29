@@ -327,12 +327,6 @@ public class EmployeeController {
 	
 	
 	
-	//----------------------------수신문서함,알림...?
-	@GetMapping("inbox")
-	public void getInbox() throws Exception{
-		
-	}
-	
 	
 	
 	

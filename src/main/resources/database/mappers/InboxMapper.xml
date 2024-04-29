@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.winter.app.inbox.InboxDAO">
+	<!-- 전체 -->
+	<!-- 대기 -->
+	<!-- 진행 -->
+	<!-- 완료 -->
+	<!-- 참조 -->
+	<select id="getReferList" parameterType="EmployeeVO">		
+		SELECT * 
+		FROM DRAFT d 
+			FULL OUTER JOIN REFERENCE r
+			ON d.DRAFT_NUM = r.DRAFT_NUM
+		WHERE R.EMPLOYEE_NUM = #{employee_num}
+	</select>
+</mapper>

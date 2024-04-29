@@ -327,7 +327,7 @@ public class EmployeeService implements UserDetailsService{
 		params.put("to", phone); //수신 번호
 		params.put("from", fromNumber); //발신번호
 		params.put("type", "SMS");  // 문자 타입
-		params.put("text", "[BugClean] 임시비밀번호 :"+tempPw+" 입니다.");
+		params.put("text", "[BugClean] 임시비밀번호 : "+tempPw+" 입니다.");
 		params.put("app_version", "test app 1.2"); // application name and version
 		
 		try {

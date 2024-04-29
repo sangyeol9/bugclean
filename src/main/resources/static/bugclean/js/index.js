@@ -63,9 +63,9 @@ let isContentVisible = false;
     }).then(res=>res.json())
     .then(res=>{
         //console.log("res====",res);
-
-		const draft_Num = res.draft_Num !== null ? res.draft_Num : "없음";
-		const manage_Code = res.manage_Code !== null ? res.manage_Code : "없음";
+		const draft_Num = res.draft_Num !== null ? res.draft_Num : "-";
+		const manage_Code = res.manage_Code !== null ? res.manage_Code : "-";
+		const employee_Num = res.employee_Num !== null ? res.employee_Num : "-";
 		
         $("#content").html(`<div class="row justify-content-between">
                                         
@@ -142,7 +142,7 @@ let isContentVisible = false;
                 </div>
                 <div class="row mb-2">
                     <div class="col-4">
-                        <h5 class="f-w-500">담당사원 <span class="pull-right">:</span></h5>
+                        <h5 class="f-w-500">현장관리자 <span class="pull-right">:</span></h5>
                     </div>
                     <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${res.employee_Num}</span>
                     </div>

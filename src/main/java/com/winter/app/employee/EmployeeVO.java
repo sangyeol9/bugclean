@@ -76,15 +76,20 @@ public class EmployeeVO implements UserDetails{
 		
 		authorities.add(new SimpleGrantedAuthority(state));
 		if(departmentVO != null) {
-			authorities.add(new SimpleGrantedAuthority(departmentVO.getDep_name()));
-		}else if(positionVO != null){
-			authorities.add(new SimpleGrantedAuthority(positionVO.getPos_name()));
-		}else if(rnrVO != null){
-			authorities.add(new SimpleGrantedAuthority(rnrVO.getRnr_name()));
+//			authorities.add(new SimpleGrantedAuthority(departmentVO.getDep_name()));
+			authorities.add(new SimpleGrantedAuthority(departmentVO.getDep_role()));
+		}
+		if(positionVO != null){
+//			authorities.add(new SimpleGrantedAuthority(positionVO.getPos_name()));
+			authorities.add(new SimpleGrantedAuthority(positionVO.getPos_role()));
+		}
+		if(rnrVO != null){
+//			authorities.add(new SimpleGrantedAuthority(rnrVO.getRnr_name()));
+			authorities.add(new SimpleGrantedAuthority(rnrVO.getRnr_role()));
 		}
 		
 		
-		
+		System.out.println("권한!: "+departmentVO.getDep_role()+positionVO.getPos_role()+rnrVO.getRnr_role());
 		log.info("=== ROLE :  {}", authorities); //[1, 총무팀, 과장, 팀장]
 		return authorities;
 	}
