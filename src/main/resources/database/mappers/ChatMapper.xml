@@ -28,8 +28,13 @@
 		WHERE EMPLOYEE_NUM = #{employee_num}
 	</select>
 	
-	<select id="getEmpName" parameterType="EmployeeVO"  resultType="EmployeeVO">
-		SELECT * FROM EMPLOYEE WHERE USERNAME = #{username}
+	<select id="getEmpName" parameterType="EmployeeVO"  resultType="Map">
+		SELECT d.DEP_NAME,p.POS_NAME,e.EMPLOYEE_NUM,e.USERNAME ,e.NICKNAME ,e.PHONE ,e.NAME  FROM EMPLOYEE e 
+			LEFT OUTER JOIN DEPARTMENT d 
+			ON e.DEP_CODE  = d.DEP_CODE
+			LEFT OUTER JOIN "POSITION" p 
+			ON e.POS_CODE  = p.POS_CODE 
+		WHERE username = #{username}
 	</select>
 	
 	

@@ -17,5 +17,5 @@ public interface ChatDAO {
 	
 	Map<String, Object> getEmpInfo(EmployeeVO employeeVO) throws Exception;
 	
-	EmployeeVO getEmpName(EmployeeVO employeeVO) throws Exception;
+	Map<String, Object> getEmpName(EmployeeVO employeeVO) throws Exception;
 }

@@ -66,7 +66,7 @@ public class ChatService {
 		return chatDAO.getEmpInfo(employeeVO);
 	}
 	
-	public EmployeeVO getEmpName(EmployeeVO employeeVO) throws Exception{
+	public Map<String, Object> getEmpName(EmployeeVO employeeVO) throws Exception{
 		return chatDAO.getEmpName(employeeVO);
 	}
 	

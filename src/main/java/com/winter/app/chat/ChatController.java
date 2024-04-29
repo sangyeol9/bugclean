@@ -51,19 +51,27 @@ public class ChatController {
 	}
 	
 	@PostMapping("room")
+	@ResponseBody
 	public String create(@RequestBody String roomId, RedirectAttributes rttr) {
 		log.info("# create chat room , name : " + roomId);
 		String name = "채팅방";
 
 		rttr.addFlashAttribute("roomName", repository.createChatRoom(name,roomId));
-		return "chat/room";
+		return "hello";
 	}
 	
-	@PostMapping("inRoom")
+	/*
+	 * @PostMapping("inRoom") public void getRoom(String roomId, Model model) {
+	 * log.info("# get chat room, roomId = ", roomId);
+	 * 
+	 * model.addAttribute("room", repository.findRoomById(roomId)); }
+	 */
+	@GetMapping("room")
 	public void getRoom(String roomId, Model model) {
 		log.info("# get chat room, roomId = ", roomId);
-		
+	
 		model.addAttribute("room", repository.findRoomById(roomId));
+		model.addAttribute("roomId", roomId);
 	}
 	
 	
@@ -87,7 +95,7 @@ public class ChatController {
 		return ar;
 	}
 	
-	// 메신저에서 사원 이름 클릭시 사원 정보 모달창
+	// 메신저에서 사원 이름 클릭시 사원 정보 모달창 , employee_Num으로 조회
 	@PostMapping("getEmpInfo")
 	@ResponseBody
 	public Map<String, Object> getEmpIfo(@RequestBody EmployeeVO employeeVO) throws Exception{
@@ -100,10 +108,10 @@ public class ChatController {
 	// 지메일로 사원 정보 받기 
 	@PostMapping("getEmpName")
 	@ResponseBody
-	public EmployeeVO getEmployeeNum(@RequestBody EmployeeVO employeeVO) throws Exception{
-		employeeVO = chatService.getEmpName(employeeVO);
+	public Map<String, Object> getEmployeeName(@RequestBody EmployeeVO employeeVO) throws Exception{
+		Map<String, Object> map = chatService.getEmpName(employeeVO);
 
-		return employeeVO;
+		return map;
 	}
 	
 	@GetMapping("getPrincipal")

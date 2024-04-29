@@ -58,8 +58,8 @@ function chatRoom(e){
         }).then(res=>res.json())
         .then(res=>{
             console.log("res=== > ",res)
-            username1 = res.name;
-            empnum2 = res.employee_num;
+            username1 = res.NAME;
+            empnum2 = res.EMPLOYEE_NUM;
             
             if(empnum > empnum2){
                 room_Id = empnum2+""+empnum;
@@ -76,11 +76,12 @@ function chatRoom(e){
                     roomId : room_Id
                 })
             }).then(res=>res.text())
-            .then(res=>{
-                let url = "/chat/room";
-                let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=800, height=500, top=50,left=50";
-                const newWindow= window.open(url,'_blank',options);
-                newWindow.document.write(res);
+	            .then(res=>{
+	                let url = "/chat/room?roomId="+room_Id;
+	                localStorage.setItem('sendData', JSON.stringify(room_Id));
+	                let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=400, height=600, top=50,left=50";
+	                window.open(url,'_blank',options);
+                //newWindow.document.write(res);
                 // 다시 겟으로 바꿔서 해보쟈! 
             })
         })
