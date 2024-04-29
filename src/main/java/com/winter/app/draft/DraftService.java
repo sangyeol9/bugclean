@@ -3,6 +3,7 @@ package com.winter.app.draft;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +56,29 @@ public class DraftService {
         return result;
 	}
 	
+	
+	public Map<String, Object> getDraftDetail(DraftVO draftVO)throws Exception{
+		Map<String,Object> map = draftDAO.getDraftDetail(draftVO);
+		return map;
+	}
+	public List<SignCheckVO> getSignCheckDetail(DraftVO draftVO)throws Exception{
+		return draftDAO.getSignCheckDetail(draftVO);
+		
+	}
+	
+	public String getRefDetail(DraftVO draftVO)throws Exception{
+		List<Map<String, Object>> maps  = draftDAO.getRefDetail(draftVO);
+		String [] name = new String[maps.size()];
+		for(int i=0; i<maps.size();i++) {
+			name[i]= maps.get(i).get("NAME").toString();
+		}
+		String joinName = String.join(",", name);
+		return joinName;
+	}
+	public List<DraftFileVO> getDraftFileDetail(DraftVO draftVO)throws Exception{
+		return draftDAO.getDraftFileDetail(draftVO);
+	}
+	
 	public List<Map<String, Object>> getBasisDraft()throws Exception{
 		return draftDAO.getBasisDraft();
 	}
@@ -81,8 +105,13 @@ public class DraftService {
 	//////////////////////////////////
 	
 	public int setBasisDraft(DraftVO draftVO)throws Exception{
-		draftVO.setState(0L);
+		if(draftVO.getState() == 0) {
 		draftVO.setNow_approval(1L);
+		}
+		
+		if(draftVO.getState() == 2) {
+			draftVO.setNow_approval(0L);
+			}
 		int result = draftDAO.setBasisDraft(draftVO);
 		return result;
 	}

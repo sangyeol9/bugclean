@@ -65,6 +65,41 @@ public class DraftController {
 
 		return "draft/basisdraft";
 	}
+	
+	@GetMapping("getdraftdetail")
+	public String getDraftDetail(Model model, DraftVO draftVO)throws Exception{
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails) principal;
+		EmployeeVO employeeVO = (EmployeeVO) userDetails;
+		//기안서 부분
+		draftVO.setEmployee_num(employeeVO.getEmployee_num());
+		Map<String, Object> map = draftService.getDraftDetail(draftVO);
+		model.addAttribute("draftmap", map);
+		//기안서 결재라인부분
+		List<SignCheckVO> approvalAr = draftService.getSignCheckDetail(draftVO);
+		model.addAttribute("approvalar", approvalAr);
+		//기안서 참조 부분
+		String name = draftService.getRefDetail(draftVO);
+		model.addAttribute("refname", name);
+		System.out.println("name : "+name);
+		//기안서 파일 부분
+		List<DraftFileVO> fileAr = draftService.getDraftFileDetail(draftVO);
+		model.addAttribute("filear", fileAr);
+		//조직도리스트
+		List<Map<String, Object>> ar = draftService.getBasisDraft();
+		model.addAttribute("list", ar);
+
+		List<DepartmentVO> depar = draftService.getDepartmentList();
+		model.addAttribute("dep", depar);
+		//기안자 
+		Map<String, Object> empMap = draftService.getEmployeeDetail(employeeVO);
+		model.addAttribute("empMap", empMap);
+		
+		System.out.println("fileAr : "+fileAr.toString());
+		System.out.println("approvalAr : "+approvalAr.toString() );
+		System.out.println("Map : "+map.toString());
+		return "draft/draftdetail";
+	}               
 
 	@PostMapping("setbasisdraft")
 	public String setBasisDraft(DraftVO draftVO, MultipartFile [] attach, Model model, String[] refempnum,
@@ -219,23 +254,59 @@ public class DraftController {
 	}
 
 	@GetMapping("myrejectiondraftlist")
-	public void getMyReJectionList() throws Exception {
-
+	public void getMyReJectionList(Pagination pagination, Model model) throws Exception {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails) principal;
+		EmployeeVO employeeVO = (EmployeeVO) userDetails;
+		
+		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
+		System.out.println("mapAr : "+ mapAr.toString());
+		System.out.println("mapAr2 : "+ mapAr.get(0).toString());
+		pagination = (Pagination)mapAr.get(0).get("Pagination");
+		model.addAttribute("pager", pagination);
+		model.addAttribute("list",mapAr);
 	}
 
 	@GetMapping("myapprovinglist")
-	public void getMyApprovingList() throws Exception {
-
+	public void getMyApprovingList(Pagination pagination, Model model) throws Exception {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails) principal;
+		EmployeeVO employeeVO = (EmployeeVO) userDetails;
+		
+		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
+		System.out.println("mapAr : "+ mapAr.toString());
+		System.out.println("mapAr2 : "+ mapAr.get(0).toString());
+		pagination = (Pagination)mapAr.get(0).get("Pagination");
+		model.addAttribute("pager", pagination);
+		model.addAttribute("list",mapAr);
 	}
 
 	@GetMapping("myapprovedlist")
-	public void getMyApprovedList() throws Exception {
-
+	public void getMyApprovedList(Pagination pagination, Model model) throws Exception {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails) principal;
+		EmployeeVO employeeVO = (EmployeeVO) userDetails;
+		
+		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
+		System.out.println("mapAr : "+ mapAr.toString());
+		System.out.println("mapAr2 : "+ mapAr.get(0).toString());
+		pagination = (Pagination)mapAr.get(0).get("Pagination");
+		model.addAttribute("pager", pagination);
+		model.addAttribute("list",mapAr);
 	}
 
 	@GetMapping("mytemporarylist")
-	public void getMyTemporaryList() throws Exception {
-
+	public void getMyTemporaryList(Pagination pagination, Model model) throws Exception {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails) principal;
+		EmployeeVO employeeVO = (EmployeeVO) userDetails;
+		
+		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
+		System.out.println("mapAr : "+ mapAr.toString());
+		System.out.println("mapAr2 : "+ mapAr.get(0).toString());
+		pagination = (Pagination)mapAr.get(0).get("Pagination");
+		model.addAttribute("pager", pagination);
+		model.addAttribute("list",mapAr);
 	}
 
 }

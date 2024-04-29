@@ -180,11 +180,11 @@
 					<input type="hidden" value="0" name="draft_category">
 					<!-- 버튼모음 시작 -->
 					<div id="btn">
-						<button type="submit">상신하기</button>
+						<button type="submit" name="state" value="0">상신하기</button>
 						&nbsp;&nbsp;&nbsp;
-						<button>반려하기</button>
+						<button type="submit" name="state" value="1">반려하기</button>
 						&nbsp;&nbsp;&nbsp;
-						<button>임시저장</button>
+						<button type="submit" name="state" value="2">임시저장</button>
 						&nbsp;&nbsp;&nbsp;
 						<button>삭제하기</button>
 						&nbsp;&nbsp;&nbsp;
