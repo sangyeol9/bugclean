@@ -33,8 +33,12 @@ public interface DraftDAO {
 	////////////
 	List<Map<String, Object>> getMyDraftList(Map<String, Object> map)throws Exception;
 	Long getTotalCount(EmployeeVO employeeVO)throws Exception;
-	
 	int setDraftFile(DraftFileVO draftFileVO)throws Exception;
 	
+	///기안서꺼내기
+	Map<String, Object> getDraftDetail(DraftVO draftVO)throws Exception;
+	List<SignCheckVO> getSignCheckDetail(DraftVO draftVO)throws Exception;
+	List<Map<String, Object>> getRefDetail(DraftVO draftVO)throws Exception;
+	List<DraftFileVO> getDraftFileDetail(DraftVO draftVO)throws Exception;
 	
 }

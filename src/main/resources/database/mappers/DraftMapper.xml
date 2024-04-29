@@ -123,29 +123,66 @@
 		VALUES(#{draft_num},#{employee_num},#{sign_rank},#{sign_date},#{sign_comment},#{sign_ref})
 	</insert>
 
-<select id="getMyDraftList" resultType="Map" parameterType="Map">
-SELECT * FROM
-	(
-	SELECT rownum r, n.* FROM
-		(	
+	<select id="getMyDraftList" resultType="Map" parameterType="Map">
+		SELECT * FROM
+		(
+		SELECT rownum r, n.* FROM
+		(
 		SELECT d.*,e.name FROM DRAFT d
 		LEFT OUTER JOIN EMPLOYEE e
-		ON d.employee_num = e.employee_num
-		WHERE d.employee_num = #{EmployeeVO.employee_num}
-		ORDER BY draft_num DESC
+		ON d.employee_num =
+		e.employee_num
+		WHERE
+		d.employee_num = #{EmployeeVO.employee_num}
+		ORDER
+		BY draft_num DESC
 		) n
-	)
-WHERE r BETWEEN #{Pagination.startRow} AND #{Pagination.lastRow}
-				   
-</select>
+		)
+		WHERE r BETWEEN #{Pagination.startRow} AND #{Pagination.lastRow}
 
-<select id="getTotalCount" resultType="Long" parameterType="EmployeeVO">
-SELECT count(DRAFT_NUM) FROM DRAFT
-WHERE EMPLOYEE_NUM = #{employee_num}
-</select>
+	</select>
 
-<insert id="setDraftFile" parameterType="DraftFileVO">
-INSERT INTO DRAFTFILE
-VALUES(DRAFTFILE_SEQ.NEXTVAL,#{draft_num},#{ori_name},#{file_name})
-</insert>
+	<select id="getTotalCount" resultType="Long"
+		parameterType="EmployeeVO">
+		SELECT count(DRAFT_NUM) FROM DRAFT
+		WHERE EMPLOYEE_NUM =
+		#{employee_num}
+	</select>
+
+	<insert id="setDraftFile" parameterType="DraftFileVO">
+		INSERT INTO DRAFTFILE
+		VALUES(DRAFTFILE_SEQ.NEXTVAL,#{draft_num},#{ori_name},#{file_name})
+	</insert>
+
+	<select id="getDraftDetail" resultType="Map"
+		parameterType="DraftVO">
+		SELECT d.*,e.NAME ,e.SIGN_FILE FROM DRAFT d
+		LEFT OUTER
+		JOIN EMPLOYEE e
+		ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+		WHERE d.EMPLOYEE_NUM
+		=#{employee_num} AND d.DRAFT_NUM =#{draft_num}
+		ORDER BY d.DRAFT_NUM
+		ASC
+	</select>
+
+	<select id="getSignCheckDetail" resultType="DraftVO"
+		parameterType="DraftVO">
+		SELECT * FROM SIGN_CHECK
+		WHERE DRAFT_NUM =#{draft_num}
+		ORDER BY SIGN_RANK ASC
+	</select>
+
+	<select id="getRefDetail" resultType="Map"
+		parameterType="DraftVO">
+SELECT r.*,e.NAME  FROM REFERENCE r
+			LEFT OUTER JOIN EMPLOYEE e 
+			ON r.EMPLOYEE_NUM  = e.EMPLOYEE_NUM 
+			WHERE r.DRAFT_NUM =#{draft_num}
+	</select>
+
+	<select id="getDraftFileDetail" resultType="DraftFileVO" parameterType="DraftVO">
+		SELECT * FROM DRAFTFILE d
+		WHERE DRAFT_NUM = #{draft_num}
+	</select>
 </mapper>
