@@ -16,6 +16,11 @@ public interface GeneralDAO {
 
     public int deleteCarManage(CarManageVO carManageVO) throws Exception;
 
+    public List<Object> getPropertyList(PropertyVO propertyVO) throws Exception;
+
+    public List<Object> getCarList(PropertyVO propertyVO) throws Exception;
+
+    public List<Object> getCarType() throws Exception;
 
     public List<ProCategoryVO> getCate() throws Exception;
 

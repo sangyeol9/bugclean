@@ -2,6 +2,7 @@ package com.winter.app.general;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +33,19 @@ public class GeneralController {
     public ModelAndView getPropertyPage(ModelAndView mv) throws Exception{
         mv.setViewName("general/PropertyList");
         mv.addObject("pro_cate", generalService.getCate());
+        mv.addObject("car_type", generalService.getCarType());
         log.info("{}",mv.getModel());
         return mv;
+    }
+
+    @GetMapping("property/list")
+    @ResponseBody
+    public Map<String, Object> getPropertyList(Long code) throws Exception{
+        PropertyVO propertyVO = new PropertyVO();
+        propertyVO.setPro_category(code);
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", generalService.getPropertyList(propertyVO));
+        return response;
     }
 
     @PostMapping("carManage")

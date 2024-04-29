@@ -75,14 +75,17 @@
                                 </ul>
                                 <div class="tab-content">
                                     <c:forEach items="${pro_cate}" var="cate" varStatus="loop">
-                                        <div class="tab-pane fade ${loop.first ? 'show active' : ''}" id="list-${cate.pro_category}"
+                                        <div class="tab-pane fade ${loop.first ? 'show active' : ''}"
+                                             id="list-${cate.pro_category}"
                                              role="tabpanel">
                                             <div class="pt-4">
-                                                <div class="card-title">
-                                                        ${cate.pro_name}
+                                                <div class="card-title d-flex justify-content-between">
+                                                    <span>${cate.pro_name}</span>
+                                                    <button id="property-add" class="btn btn-primary">자산등록</button>
                                                 </div>
                                                 <div class="table-responsive">
-                                                    <table id="memberList" class="table-hover table" style="width: 98%">
+                                                    <table id="propertyList-${cate.pro_category}"
+                                                           class="table-hover table property" style="width: 98%">
                                                         <c:if test="${cate.pro_category eq 100}">
                                                             <tr>
                                                                 <th>자산번호</th>
@@ -93,11 +96,11 @@
                                                             </tr>
                                                         </c:if>
                                                         <c:if test="${cate.pro_category ne 100}">
-                                                        <tr>
-                                                            <th>자산번호</th>
-                                                            <th>자산이름</th>
-                                                            <th>등록날짜</th>
-                                                        </tr>
+                                                            <tr>
+                                                                <th>자산번호</th>
+                                                                <th>자산이름</th>
+                                                                <th>등록날짜</th>
+                                                            </tr>
                                                         </c:if>
                                                     </table>
                                                 </div>
@@ -111,13 +114,13 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="EmployeeModalCenter">
+        <div class="modal fade" id="property-modal">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title"><i class="fa-solid fa-user"></i></h5>
-                        <h5 id="modal-title-num" class="modal-title">2024001</h5>
-                        <h5 id="modal-title-name" class="modal-title">허쿠니</h5>
+                        <%--                        <h5 id="modal-title-num" class="modal-title">2024001</h5>--%>
+                        <h5 id="modal-title-name" class="modal-title">차량상세 정보</h5>
                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                         </button>
                     </div>
@@ -126,64 +129,54 @@
                             <table class="table table-hover text-muted detail-table">
                                 <tbody>
                                 <tr>
-                                    <th class="font-weight-bolder">아 이 디</th>
-                                    <td id="user_id" class="col-7">sughoon1@gmail.com</td>
+                                    <th class="font-weight-bolder">자산번호</th>
+                                    <td id="car_code" class="col-7">지정불가</td>
                                 </tr>
                                 <tr>
-                                    <th class="font-weight-bolder">닉 네 임</th>
+                                    <th class="font-weight-bolder">차량이름</th>
                                     <td class="col-7" style="padding: 0">
                                         <div style="display: inline-flex; width: 90%">
-                                            <input id="user_name" type="text"
-                                                   class="form-control input-default user_name" style="width: 50%"
-                                                   disabled/>
+                                            <input id="pro_name" type="text"
+                                                   class="form-control input-default user_name"
+                                                   style="width: 50%"/>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="font-weight-bolder">연 락 처</th>
-                                    <td id="user_phone" class="col-7">010-7777-8888</td>
-                                </tr>
-                                <tr>
-                                    <th class="font-weight-bolder">주 &nbsp;&nbsp;&nbsp;&nbsp; 소</th>
-                                    <td id="user_address" class="col-7">서울시 관악구 청림동 1-917</td>
-                                </tr>
-                                <tr>
-                                    <th class="font-weight-bolder">부 &nbsp;&nbsp;&nbsp;&nbsp; 서</th>
+                                    <th class="font-weight-bolder">차량번호</th>
                                     <td class="col-7" style="padding: 0">
                                         <div style="display: inline-flex; width: 90%">
-                                            <select id="user_dep" class="custom-select"
-                                                    style="width: 50%; margin-right: 5px" disabled>
-
-                                            </select>
-                                            <select id="user_team" class="custom-select" style="width: 50%" disabled>
-
+                                            <input id="car_num" type="text" class="form-control input-default user_name"
+                                                   style="width: 50%"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="font-weight-bolder">차량상태</th>
+                                    <td class="col-7" style="padding: 0">
+                                        <div style="display: inline-flex; width: 90%">
+                                            <select id="car_status" class="custom-select" style="width: 50%">
+                                                <option value="0">운용가능</option>
+                                                <option value="1">수리/점검중</option>
                                             </select>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="font-weight-bolder">직 &nbsp;&nbsp;&nbsp;&nbsp; 책</th>
+                                    <th class="font-weight-bolder">차량종류</th>
                                     <td class="col-7" style="padding: 0">
                                         <div style="display: inline-flex; width: 90%">
-                                            <select id="user_rnr" class="custom-select" style="width: 50%" disabled>
-
+                                            <select id="car_type" class="custom-select" style="width: 50%">
+                                                <c:forEach items="${car_type}" var="type">
+                                                    <option value="${type.CAR_TYPE}">${type.TYPE_NAME}</option>
+                                                </c:forEach>
                                             </select>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="font-weight-bolder">직 &nbsp;&nbsp;&nbsp;&nbsp; 급</th>
-                                    <td class="col-7" style="padding: 0">
-                                        <div style="display: inline-flex; width: 90%">
-                                            <select id="user_pos" class="custom-select" style="width: 50%" disabled>
-
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="font-weight-bolder">입 사 일</th>
-                                    <td id="user_join" class="col-7">2021-04-01</td>
+                                    <th class="font-weight-bolder">등록일자</th>
+                                    <td id="join_date" class="col-7">2021-04-01</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -193,7 +186,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <div>
-                            <button id="fire-btn" type="button" class="btn btn-warning">퇴사</button>
+                            <button id="fire-btn" type="button" class="btn btn-warning">삭제</button>
                         </div>
                         <div>
                             <button id="close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">닫기
@@ -212,7 +205,7 @@
 <c:import url="../temp/footer.jsp"></c:import> <%--footer--%>
 <c:import url="../temp/js.jsp"></c:import> <%--bootstrap-template-js--%>
 <script src="/focus-bootstrap-main/theme/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<%--<script src="/bugclean/js/hr/memberList-dataTables-init.js"></script>--%>
+<script src="/bugclean/js/general/propertyList-dataTables-init.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
