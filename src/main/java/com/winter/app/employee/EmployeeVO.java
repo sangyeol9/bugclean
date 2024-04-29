@@ -97,7 +97,11 @@ public class EmployeeVO implements UserDetails{
 	public boolean isAccountNonLocked() {
 		//퇴사자는 잠금
 		
-		return true;
+		//System.out.println("트루는 맞냐?"+"0".equals(state));
+		if ("0".equals(state)) {
+	        return false; // 계정이 잠겨 있음
+	    }
+		return true; 
 	}
 	@Override // 비밀번호 만료 여부
 	public boolean isCredentialsNonExpired() {

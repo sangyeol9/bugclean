@@ -229,7 +229,7 @@
                                                         <h5 class="f-w-500">이름 <span class="pull-right">:</span>
                                                         </h5>
                                                     </div>
-                                                    <div class="col-9"><span>${employeeVO.name}</span>
+                                                    <div class="col-9"><span style="font-size: medium; font-weight: bold;">${employeeVO.name}</span>
                                                     </div>
                                                 </div>
                                                 
@@ -238,7 +238,7 @@
                                                         <h5 class="f-w-500">부서 <span class="pull-right">:</span>
                                                         </h5>
                                                     </div>
-                                                    <div class="col-9"><span>${employeeVO.departmentVO.dep_name}</span></div>
+                                                    <div class="col-9"><span style="font-size: medium; font-weight: bold;">${employeeVO.departmentVO.dep_name}</span></div>
                                                 </div>
 
 
@@ -250,7 +250,7 @@
                                                         <h5 class="f-w-500">사번 <span class="pull-right">:</span>
                                                         </h5>
                                                     </div>
-                                                    <div class="col-9"><span>${employeeVO.employee_num}</span>
+                                                    <div class="col-9"><span style="font-size: medium; font-weight: bold;">${employeeVO.employee_num}</span>
                                                     </div>
                                                 </div>
 
@@ -258,7 +258,7 @@
                                                     <div class="col-3">
                                                         <h5 class="f-w-500">직급 <span class="pull-right">:</span></h5>
                                                     </div>
-                                                    <div class="col-9"><span>${employeeVO.positionVO.pos_name}</span>
+                                                    <div class="col-9"><span style="font-size: medium; font-weight: bold;">${employeeVO.positionVO.pos_name}</span>
                                                     </div>
                                                 </div>
 
@@ -295,7 +295,7 @@
                                                         <h5 class="f-w-500">닉네임 <span class="pull-right">:</span>
                                                         </h5>
                                                     </div>
-                                                    <div class="col-9"><span>${employeeVO.nickname}</span>
+                                                    <div class="col-9"><span style="font-size: medium; font-weight: bold;">${employeeVO.nickname}</span>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-4">
@@ -303,14 +303,14 @@
                                                         <h5 class="f-w-500">휴대번호 <span class="pull-right">:</span>
                                                         </h5>
                                                     </div>
-                                                    <div class="col-9"><span>${employeeVO.phone}</span>
+                                                    <div class="col-9"><span style="font-size: medium; font-weight: bold;">${employeeVO.phone}</span>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-4">
                                                     <div class="col-3">
                                                         <h5 class="f-w-500">주소 <span class="pull-right">:</span></h5>
                                                     </div>
-                                                    <div class="col-9"><span>${employeeVO.address}</span>
+                                                    <div class="col-9"><span style="font-size: medium; font-weight: bold;">${employeeVO.address}</span>
                                                     </div>
                                                 </div>
     
@@ -413,7 +413,7 @@
                                                     <div class="form-group row">
                                                         <label class="col-lg-4 col-form-label" for="val-password">닉네임</label>
                                                         <div class="col-lg-6">
-                                                            <form:input path="nickname" cssClass="form-control input-rounded" id="nickname" maxlength="10" oninput="onlyEnglish(this)"></form:input>
+                                                            <form:input path="nickname" cssClass="form-control input-rounded" id="nickname" maxlength="8" oninput="onlyEnglish(this)"></form:input>
                                                         </div>
                                                     </div>
                                                     

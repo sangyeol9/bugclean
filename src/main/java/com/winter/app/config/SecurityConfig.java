@@ -64,6 +64,7 @@ public class SecurityConfig{
 											.requestMatchers("/employee/idSearchPhone").permitAll()
 											.requestMatchers("/employee/logout", "/employee/mypage",
 													"/employee/pwUpdate","/setAttendence","/setWorkOut").authenticated()
+											//.requestMatchers("/hr/**").hasAnyRole("인사팀", "사장")
 											
 											.anyRequest().permitAll()
 											//.anyRequest().authenticated()//나머지
@@ -102,7 +103,6 @@ public class SecurityConfig{
 							.invalidateHttpSession(true)//로그아웃시 session만료
 							.permitAll()
 		);
-		
 		
 		return security.build();
 	}

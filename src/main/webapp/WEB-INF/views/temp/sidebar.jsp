@@ -96,7 +96,6 @@
                             class="nav-text">수신문서함</span></a>
                         <ul>
                             <li><a href="/employee/inbox">수신문서함</a></li>
-                            <li><a href="/employee/inbox">참조문서함</a></li>
                         </ul>
                     </li>
                 </ul>

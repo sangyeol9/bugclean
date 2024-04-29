@@ -81,6 +81,13 @@
                                         </span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#refer8">
+                                        <span>
+                                            참조
+                                        </span>
+                                    </a>
+                                </li>
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content tabcontent-border">
@@ -114,21 +121,42 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="ing8" role="tabpanel">
-                                    <div class="pt-4">
-                                        <h4>This is icon title</h4>
-                                        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                        </p>
-                                        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                        </p>
+                                    <div class="table-responsive">
+                                        <table id="inbox" class="table-hover table" style="width: 98%">
+                                            <tr>
+                                                <th>문서번호</th>
+                                                <th>제목</th>
+                                                <th>기안자</th>
+                                                <th>기안날짜</th>
+                                                <th>상태</th>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="okay8" role="tabpanel">
-                                    <div class="pt-4">
-                                        <h4>This is icon title</h4>
-                                        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                        </p>
-                                        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                        </p>
+                                    <div class="table-responsive">
+                                        <table id="inbox" class="table-hover table" style="width: 98%">
+                                            <tr>
+                                                <th>문서번호</th>
+                                                <th>제목</th>
+                                                <th>기안자</th>
+                                                <th>기안날짜</th>
+                                                <th>상태</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="refer8" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table id="inbox" class="table-hover table" style="width: 98%">
+                                            <tr>
+                                                <th>문서번호</th>
+                                                <th>제목</th>
+                                                <th>기안자</th>
+                                                <th>기안날짜</th>
+                                                <th>상태</th>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

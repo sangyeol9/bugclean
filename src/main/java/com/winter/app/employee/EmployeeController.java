@@ -218,7 +218,10 @@ public class EmployeeController {
 	public void idFind(@ModelAttribute EmployeeVO employeeVO) throws Exception{
 		
 	}
-    
+	@GetMapping("idSearchResult")
+	public void idSearchResult() throws Exception{
+		
+	}
 	//폰으로 아이디 찾기
 	@PostMapping("idSearchPhone")
 	public String idSearchPhone(@Validated(EmployeeIdSearchPhoneGroup.class) EmployeeVO employeeVO, BindingResult bindingResult,Model model) throws Exception{
@@ -330,10 +333,7 @@ public class EmployeeController {
 		
 	}
 	
-	@GetMapping("idSearchResult")
-	public void idSearchResult() throws Exception{
-		
-	}
+	
 	
 	
 }
