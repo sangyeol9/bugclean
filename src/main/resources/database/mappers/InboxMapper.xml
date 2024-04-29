@@ -4,16 +4,51 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.winter.app.inbox.InboxDAO">
+	
 	<!-- 전체 -->
-	<!-- 대기 -->
-	<!-- 진행 -->
+	<select id="getAllList" parameterType="EmployeeVO" resultType="Map">
+		SELECT * 
+		FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
+		WHERE STATE =0 
+			AND SC.SIGN_RANK >0 
+			AND SC.EMPLOYEE_NUM =#{employee_num} 
+			AND D.NOW_APPROVAL >= SC.SIGN_RANK
+	</select>
+	
+	<!-- 대기 : 결재중이면서 / 기안자 제외 / 결재라인에 나포함 리스트에서 / 현결재자가 나인 리스트 -->
+	<select id="getWaitList" parameterType="EmployeeVO" resultType="Map">
+		SELECT * 
+		FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
+		WHERE STATE =0 
+			AND SC.SIGN_RANK >0 
+			AND SC.EMPLOYEE_NUM =#{employee_num} 
+			AND D.NOW_APPROVAL = SC.SIGN_RANK
+	</select>
+	
+	<!-- 진행 : 결재중이면서 / 기안자 제외 / 결재라인에 나포함 리스트에서 / 난 결재완 뒤에 할사람있음 / 근데 완료는 아닌 리스트 -->
+	<select id="getProgressList" parameterType="EmployeeVO" resultType="Map">
+		SELECT * 
+		FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
+		WHERE STATE =0 
+			AND SC.SIGN_RANK >0 
+			AND SC.EMPLOYEE_NUM =#{employee_num}
+			AND D.NOW_APPROVAL > SC.SIGN_RANK 
+			AND 4 > D.NOW_APPROVAL
+	</select>	
+
 	<!-- 완료 -->
-	<!-- 참조 -->
-	<select id="getReferList" parameterType="EmployeeVO">		
+	<select id="getDoneList" parameterType="EmployeeVO" resultType="Map">
+		SELECT * 
+		FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
+		WHERE STATE =0 AND SC.SIGN_RANK >0 AND SC.EMPLOYEE_NUM =#{employee_num} AND D.NOW_APPROVAL = 4
+		<!--  결재중이면서?? 		기안자 제외 			결재라인에 나포함 리스트에서 		완료된 리스트 -->	
+	</select>
+	<!-- 참조 완료??? 물어보자-->
+	<select id="getReferList" parameterType="EmployeeVO" resultType="Map">		
 		SELECT * 
 		FROM DRAFT d 
 			FULL OUTER JOIN REFERENCE r
 			ON d.DRAFT_NUM = r.DRAFT_NUM
-		WHERE R.EMPLOYEE_NUM = #{employee_num}
+		WHERE R.EMPLOYEE_NUM = #{employee_num} AND D.NOW_APPROVAL = 4;
 	</select>
 </mapper>
