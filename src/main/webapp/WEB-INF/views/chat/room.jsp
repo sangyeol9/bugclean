@@ -38,7 +38,8 @@
 
 let username1 = '${pageContext.request.userPrincipal.name}';
 
-fetch("/chat/getEmpName",{
+window.onload = function(){
+    fetch("/chat/getEmpName",{
                     method:"POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -52,64 +53,68 @@ fetch("/chat/getEmpName",{
                     username1 = res.name;
                 })
 
+}
 
-            $(document).ready(function(){
-
-                var roomName = "${room.name}";
-                var roomId = "${room.roomId}";
-                
+            
 
                 
-                let message;
-
-
-                console.log(roomName + ", " + roomId + ", " + username1);
-
-                var sockJs = new SockJS("/stomp/chat");
-                //1. SockJS를 내부에 들고있는 stomp를 내어줌
-                var stomp = Stomp.over(sockJs);
-
-                //2. connection이 맺어지면 실행
-                stomp.connect({}, function (){
-                   console.log("STOMP Connection")
-
-                   //4. subscribe(path, callback)으로 메세지를 받을 수 있음
-                   stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
-                       var content = JSON.parse(chat.body);
-
-                       var writer = content.writer;
-                       var str = '';
-
-                       if(writer === username1){
-                           str = "<div class='col-6'>";
-                           str += "<div class='alert alert-secondary'>";
-                           str += "<b>" + writer + " : " + message + "</b>";
-                           str += "</div></div>";
-                           $("#msgArea").append(str);
-                       }
-                       else{
-                           str = "<div class='col-6'>";
-                           str += "<div class='alert alert-warning'>";
-                           str += "<b>" + writer + " : " + message + "</b>";
-                           str += "</div></div>";
-                           $("#msgArea").append(str);
-                       }
-
-                       
-                   });
-
-                   //3. send(path, header, message)로 메세지를 보낼 수 있음
-                   stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username1}))
-                });
-
-                $("#button-send").on("click", function(e){
-                    var msg = document.getElementById("msg");
-                    message = $("#msg").val();
-                    console.log(username1 + ":" + msg.value);
-                    stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username1}));
-                    msg.value = '';
-                });
-            });
+    
+                    var roomName = "${room.name}";
+                    var roomId = "${room.roomId}";
+                    
+    
+                    
+                    let message;
+    
+    
+                    console.log(roomName + ", " + roomId + ", " + username1);
+    
+                    var sockJs = new SockJS("/stomp/chat");
+                    //1. SockJS를 내부에 들고있는 stomp를 내어줌
+                    var stomp = Stomp.over(sockJs);
+    
+                    //2. connection이 맺어지면 실행
+                    stomp.connect({}, function (){
+                       console.log("STOMP Connection")
+    
+                       //4. subscribe(path, callback)으로 메세지를 받을 수 있음
+                       stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
+                           var content = JSON.parse(chat.body);
+    
+                           var writer = content.writer;
+                           var str = '';
+    
+                           if(writer === username1){
+                               str = "<div class='col-6'>";
+                               str += "<div class='alert alert-secondary'>";
+                               str += "<b>" + writer + " : " + content.message + "</b>";
+                               str += "</div></div>";
+                               $("#msgArea").append(str);
+                           }
+                           else{
+                               str = "<div class='col-6'>";
+                               str += "<div class='alert alert-warning'>";
+                               str += "<b>" + writer + " : " + content.message + "</b>";
+                               str += "</div></div>";
+                               $("#msgArea").append(str);
+                           }
+    
+                           
+                       });
+    
+                       //3. send(path, header, message)로 메세지를 보낼 수 있음
+                       stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username1}))
+                    });
+    
+                    $("#button-send").on("click", function(e){
+                        var msg = document.getElementById("msg");
+                        message = $("#msg").val();
+                        console.log(username1 + ":" + msg.value);
+                        stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username1}));
+                        msg.value = '';
+                    });
+               
+            
         </script>
 
 

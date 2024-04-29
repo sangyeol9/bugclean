@@ -7,6 +7,8 @@ import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,13 +51,15 @@ public class ChatController {
 	}
 	
 	@PostMapping("room")
-	public String create(@RequestParam String name, RedirectAttributes rttr) {
-		log.info("# create chat room , name : " + name);
-		rttr.addFlashAttribute("roomName", repository.createChatRoom(name));
-		return "redirect:/chat/rooms";
+	public String create(@RequestBody String roomId, RedirectAttributes rttr) {
+		log.info("# create chat room , name : " + roomId);
+		String name = "채팅방";
+
+		rttr.addFlashAttribute("roomName", repository.createChatRoom(name,roomId));
+		return "chat/room";
 	}
 	
-	@GetMapping("room")
+	@PostMapping("inRoom")
 	public void getRoom(String roomId, Model model) {
 		log.info("# get chat room, roomId = ", roomId);
 		
@@ -93,16 +97,24 @@ public class ChatController {
 		return map;
 	}
 	
+	// 지메일로 사원 정보 받기 
 	@PostMapping("getEmpName")
 	@ResponseBody
 	public EmployeeVO getEmployeeNum(@RequestBody EmployeeVO employeeVO) throws Exception{
-		System.out.println("employee vo username ===== \n" + employeeVO);
 		employeeVO = chatService.getEmpName(employeeVO);
-		System.out.println("employee vo username ===== \n" + employeeVO);
-		
-		
+
 		return employeeVO;
-		
+	}
+	
+	@GetMapping("getPrincipal")
+	@ResponseBody
+	public String getPrincipal() throws Exception{
+		String name ="";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails)principal;
+		name = userDetails.getUsername();
+		System.out.println("get principal : " + name);
+		return name;
 	}
 	
 }

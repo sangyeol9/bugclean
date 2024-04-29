@@ -28,7 +28,7 @@
 		WHERE EMPLOYEE_NUM = #{employee_num}
 	</select>
 	
-	<select id="getEmpName" parameterType="EmployeeVO"  resultType="EmployeeVO">"
+	<select id="getEmpName" parameterType="EmployeeVO"  resultType="EmployeeVO">
 		SELECT * FROM EMPLOYEE WHERE USERNAME = #{username}
 	</select>
 	

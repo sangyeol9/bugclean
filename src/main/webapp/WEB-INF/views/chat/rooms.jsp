@@ -43,7 +43,7 @@
             if(name == "")
                 alert("Please write the name.")
             else
-                $("form").submit();
+                //$("form").submit();
         });
 
     });

@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-	
+
 	<link rel="stylesheet" href="/bugclean/css/messenger.css">
 
 	<div class="modal fade show display_none" id="basicModal" aria-modal="true" style="padding-right: 17px; display: block;">
@@ -72,13 +72,11 @@
 						</div>
 					</div>
 					<div id="footer_info">
-						<div>
+						<div class="open_chat" >
 							<div class="messenger_modal_footer mt-1">
-								<i class="fa-regular fa-comment fa-3x"></i>
+								<i onclick="chatRoom(event)" class="emp_num fa-regular fa-comment fa-3x"></i>
 							</div>
-							<div class="messenger_modal_footer mt-2">
-								<b style="color: black;" >채팅하기</b>
-							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -115,3 +113,4 @@
         </div> 
 		<i id="messenger_img" class="fa-regular fa-comment-dots fa-4x" onclick="messenger_toggle()"></i>
         <script src="/bugclean/js/messenger.js"></script>   
+
