@@ -16,9 +16,9 @@ public class ChatRoom {
 	private String name;
 	private Set<WebSocketSession> sessions = new HashSet<>();
 	
-	public static ChatRoom create(String name) {
+	public static ChatRoom create(String name,String room_Id) {
 		ChatRoom chatRoom = new ChatRoom();
-		chatRoom.roomId = UUID.randomUUID().toString();
+		chatRoom.roomId = room_Id;
 		chatRoom.name = name;
 		return chatRoom;
 		
