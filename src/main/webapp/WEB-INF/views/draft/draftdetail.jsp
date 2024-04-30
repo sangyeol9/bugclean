@@ -195,6 +195,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text">첨부파일</span>
 									</div>
+									
 									<div class="custom-file col">
 										<input type="file" class="custom-file-input" name="attach">
 										<label class="custom-file-label">파일을 선택하세요</label>
