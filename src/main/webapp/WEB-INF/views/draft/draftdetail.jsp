@@ -150,8 +150,8 @@
 							<tr>
 								<td class="basisTitleTd">기안자</td>
 								<td class="basisTd"><input class="inp" type="text"
-									value="${empMap.NAME}" readonly="readonly"> <input
-									type="hidden" value="${empMap.EMPLOYEE_NUM}"
+									value="${draftmap.NAME}" readonly="readonly"> <input
+									type="hidden" value="${draftmap.EMPLOYEE_NUM}"
 									name="employee_num"></td>
 								<td class="basisTitleTd">소속부서</td>
 								<td class="basisTd"><input class="inp" type="text"

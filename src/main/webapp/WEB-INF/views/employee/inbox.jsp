@@ -106,19 +106,19 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${allList}" var="ar">
+                                            <c:forEach items="${allList}" var="list">
 
                                             
                                                 <tr style="text-align: center;">
-                                                    <th>${ar.DRAFT_NUM}</th>
-                                                    <td ><a href="#" style="font-weight: bold;">${ar.TITLE}</a></td>
+                                                    <th>${list.DRAFT_NUM}</th>
+                                                    <td ><a href="/draft/getdraftdetail?draft_num=${list.DRAFT_NUM}" style="font-weight: bold;">${list.TITLE}</a></td>
                                                     <td>
                                                         <div class="progress" style="background: rgba(127, 99, 244, .1)">
                                                             <div class="progress-bar" style="width: 70%;" role="progressbar"><span class="sr-only">70% Complete</span>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>${ar.DRAFT_DATE}</td>
+                                                    <td>${list.DRAFT_DATE}</td>
                                                     <td><span class="badge badge-primary">70%</span>
                                                     </td>
                                                 </tr>
