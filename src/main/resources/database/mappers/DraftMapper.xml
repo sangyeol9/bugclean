@@ -160,8 +160,7 @@
 		LEFT OUTER
 		JOIN EMPLOYEE e
 		ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
-		WHERE d.EMPLOYEE_NUM
-		=#{employee_num} AND d.DRAFT_NUM =#{draft_num}
+		WHERE d.DRAFT_NUM =#{draft_num}
 		ORDER BY d.DRAFT_NUM
 		ASC
 	</select>

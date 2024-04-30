@@ -65,15 +65,17 @@ public class DraftService {
 	
 	public Map<String, Object> getDraftDetail(DraftVO draftVO)throws Exception{
 		Map<String,Object> map = draftDAO.getDraftDetail(draftVO);
-		String date = map.get("DRAFT_DATE").toString();
-		System.out.println("date : " + date);
-		String [] splitDate = date.split(" ");
-		System.out.println("splitDate : "+ splitDate[0]);
-				map.put("DRAFT_DATE", splitDate[0]);
-				System.out.println("mapDate :" + map.get("DRAFT_DATE"));
-				Clob clob = (Clob) map.get("CONTENTS");
-				String data = clobToString(clob); // CLOB 데이터를 문자열로 변환
-				map.put("CONTENTS", data);
+		if(map != null) {			
+			String date = map.get("DRAFT_DATE").toString();
+			System.out.println("date : " + date);
+			String [] splitDate = date.split(" ");
+			System.out.println("splitDate : "+ splitDate[0]);
+			map.put("DRAFT_DATE", splitDate[0]);
+			System.out.println("mapDate :" + map.get("DRAFT_DATE"));
+			Clob clob = (Clob) map.get("CONTENTS");
+			String data = clobToString(clob); // CLOB 데이터를 문자열로 변환
+			map.put("CONTENTS", data);
+		}
 				
 		return map;
 	}
