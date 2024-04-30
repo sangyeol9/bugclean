@@ -5,12 +5,49 @@
 
 
 <mapper namespace="com.winter.app.general.GeneralDAO">
+
+    <insert id="cateAdd" parameterType="ProCategoryVO">
+        INSERT INTO PRO_CATEGORY (PRO_CATEGORY, PRO_NAME) VALUES (PRO_CATE_SEQ.NEXTVAL, #{pro_name})
+    </insert>
+
+    <insert id="updateCar" parameterType="CarDetailVO">
+        MERGE INTO CAR_DETAIL c
+        USING(
+            SELECT #{car_code} AS car_code,
+                    #{car_num} AS car_num,
+                    #{car_status} AS car_status,
+                    #{car_type} AS car_type,
+                    #{pro_category} AS pro_category
+            FROM DUAL) new_data ON (c.CAR_CODE = new_data.CAR_CODE AND c.PRO_CATEGORY = new_data.PRO_CATEGORY)
+            WHEN MATCHED THEN UPDATE SET
+            c.CAR_NUM = new_data.car_num,
+            c.CAR_STATUS = new_data.car_status,
+            c.CAR_TYPE = new_data.car_type
+            WHEN NOT MATCHED THEN
+            INSERT (CAR_CODE, CAR_NUM, CAR_STATUS, CAR_TYPE, PRO_CATEGORY, CAR_INT_DATE)
+            VALUES (CAR_DETAIL_SEQ.NEXTVAL,#{car_num},#{car_status},#{car_type},#{pro_category},SYSDATE)
+    </insert>
+
+    <insert id="updatePro" parameterType="PropertyVO">
+        MERGE INTO PROPERTY c
+        USING(
+        SELECT #{property_code} AS property_code,
+        #{property_name} AS property_name,
+        #{pro_category} AS pro_category
+        FROM DUAL) new_data ON (c.PROPERTY_CODE = new_data.PROPERTY_CODE AND c.PRO_CATEGORY = new_data.PRO_CATEGORY)
+        WHEN MATCHED THEN UPDATE SET
+        c.property_name = new_data.property_name
+        WHEN NOT MATCHED THEN
+        INSERT (property_code, property_name, PRO_CATEGORY, PRO_INT_DATE)
+        VALUES (PRO_SEQ.NEXTVAL,#{property_name},#{pro_category},SYSDATE)
+    </insert>
+
     <select id="getManageList" resultType="Map">
-        SELECT MANAGE_CODE, NAME, DEP_NAME, PRO_NUM, TO_CHAR(BOOKING_START, 'YYYY-MM-DD HH24:MM') AS "BOOKING_START", TO_CHAR(BOOKING_DONE, 'YYYY-MM-DD HH24:MM') AS "BOOKING_DONE" FROM CAR_MANAGE
+        SELECT MANAGE_CODE, NAME, DEP_NAME, CAR_NUM, TO_CHAR(BOOKING_START, 'YYYY-MM-DD HH24:MM') AS "BOOKING_START", TO_CHAR(BOOKING_DONE, 'YYYY-MM-DD HH24:MM') AS "BOOKING_DONE" FROM CAR_MANAGE
             JOIN (SELECT NAME, EMPLOYEE_NUM, DEP_NAME FROM EMPLOYEE
                 JOIN DEPARTMENT USING(DEP_CODE))
             USING (EMPLOYEE_NUM)
-        JOIN (SELECT PRO_NUM, CAR_CODE FROM CAR_DETAIL) USING (CAR_CODE)
+        JOIN (SELECT CAR_NUM, CAR_CODE FROM CAR_DETAIL) USING (CAR_CODE)
         WHERE BOOKING_AGREE = 0
     </select>
 
@@ -22,9 +59,40 @@
         DELETE FROM CAR_MANAGE WHERE MANAGE_CODE = #{manage_code}
     </delete>
 
+    <delete id="deleteCar" parameterType="CarDetailVO">
+        DELETE FROM CAR_DETAIL WHERE CAR_CODE = #{car_code}
+    </delete>
+
+    <delete id="deletePro" parameterType="PropertyVO">
+        DELETE FROM PROPERTY WHERE PROPERTY_CODE = #{property_code} AND PRO_CATEGORY = #{pro_category}
+    </delete>
+
     <select id="getCate" resultType="ProCategoryVO">
         SELECT * FROM PRO_CATEGORY
     </select>
+    <select id="getCarType" resultType="Map">
+        SELECT * FROM CAR_TYPE
+    </select>
+
+    <select id="getPropertyList" parameterType="PropertyVO" resultType="PropertyVO">
+        SELECT PROPERTY_CODE, PROPERTY_NAME, TO_CHAR(PRO_INT_DATE, 'YYYY-MM-DD') AS "PRO_INT_DATE", PRO_CATEGORY FROM PROPERTY WHERE PRO_CATEGORY = #{pro_category}
+    </select>
+
+    <select id="getCarList" parameterType="PropertyVO" resultType="MAP">
+        SELECT CAR_NUM,
+        TO_CHAR(CAR_INT_DATE, 'YYYY-MM-DD') AS "CAR_INT_DATE",
+        CAR_CODE,
+        CASE
+        WHEN CAR_STATUS = 0 THEN '운용가능'
+        WHEN CAR_STATUS = 1 THEN '수리/점검중'
+        END AS "CAR_STATUS",
+        TYPE_NAME,
+        CAR_TYPE
+        FROM CAR_DETAIL
+        JOIN CAR_TYPE USING (CAR_TYPE)
+        WHERE PRO_CATEGORY = #{pro_category}
+    </select>
+
 
     <!-- 사용 가능 차량 조회 -->
 
@@ -45,7 +113,7 @@ WHERE not  car_code IN (
 
     <!-- 차량 현재 상태를 변경 // 배차 요청시 & 배차 거절시 -->
     <update id="updateStatus" parameterType="CarDetailVO">
-        UPDATE CAR_DETAIL SET PRO_STATUS = #{pro_status} WHERE CAR_CODE = #{car_code}
+        UPDATE CAR_DETAIL SET CAR_STATUS = #{car_status} WHERE CAR_CODE = #{car_code}
     </update>
 
     <!-- 배차 요청 등록  -->
@@ -76,7 +144,7 @@ WHERE not  car_code IN (
     
     <!-- 해당 현장의 배차 번호를 가져오고 해당 배차 번호에 차량번호와 예약 상태 조회 -->
 	<select id="getAllocationState" parameterType="CarManageVO" resultType="Map">
-		SELECT cd.PRO_NUM ,cm.BOOKING_AGREE,cm.car_code  FROM CAR_DETAIL cd 
+		SELECT cd.CAR_NUM ,cm.BOOKING_AGREE,cm.car_code  FROM CAR_DETAIL cd
       LEFT OUTER JOIN CAR_MANAGE cm 
       ON cd.CAR_CODE  = cm.CAR_CODE 
       WHERE cm.MANAGE_CODE  = #{manage_code}

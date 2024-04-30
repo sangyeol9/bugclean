@@ -47,14 +47,14 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">날짜별 근태 조회</div>
-                        </div>
-                        <div class="card-body">
                             <div class="form-inline mb-2">
                                 <label class="mr-2" for="datePicker">조회 날짜 선택</label>
                                 <div>
                                     <input class="form-control datePicker" id="datePicker" type="text" name="dateRange">
                                 </div>
                             </div>
+                        </div>
+                        <div class="card-body">
                             <table id="attendanceList" class="table-hover table" style="width: 98%">
                                 <tr>
                                     <th>사번</th>

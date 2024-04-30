@@ -6,7 +6,8 @@ import lombok.Data;
 public class CarDetailVO {
 	private Long car_code;
 	private Long pro_category;
-	private Long pro_type;
-	private Long pro_status;
-	private String pro_num;
+	private String car_type;
+	private Long car_status;
+	private String car_num;
+
 }

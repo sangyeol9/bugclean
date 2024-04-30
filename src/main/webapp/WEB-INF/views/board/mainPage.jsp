@@ -108,9 +108,6 @@
                                     formDataHome.append('board_code', $('.card-body').attr('data-board'));
                                     formDataHome.append('cate_code', $('.card-body').attr('data-active'));
 
-                                    console.log(formDataHome.get("board_code"))
-                                    console.log(formDataHome.get("cate_code"))
-
                                     $(document).ready(async function () {
                                         await boardDetailHome(formDataHome);
                                     });
