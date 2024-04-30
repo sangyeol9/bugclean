@@ -109,7 +109,7 @@ z-index: 116;
 						<div class="dropdown-menu dropdown-menu-right">
 							<a href="/employee/mypage" class="dropdown-item"> <i
 								class="icon-user"></i> <span class="ml-2">Profile </span>
-							</a> <a href="./email-inbox.html" class="dropdown-item"> <i
+							</a> <a href="/receive/inbox" class="dropdown-item"> <i
 								class="icon-envelope-open"></i> <span class="ml-2">Inbox
 							</span>
 							</a> <a href="/employee/logout" class="dropdown-item"> <i

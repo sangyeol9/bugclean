@@ -62,36 +62,120 @@ let isContentVisible = false;
             })
     }).then(res=>res.json())
     .then(res=>{
-        console.log("res====",res);
-
-
+        //console.log("res====",res);
+		const draft_Num = res.draft_Num !== null ? res.draft_Num : "-";
+		const manage_Code = res.manage_Code !== null ? res.manage_Code : "-";
+		const employee_Num = res.employee_Num !== null ? res.employee_Num : "-";
+		
         $("#content").html(`<div class="row justify-content-between">
                                         
         <div class="col-12">
             <br>
             <hr>
+             <div class="close-button" id="closeButton" style="display: inline-block; margin: 0 5px; float: right;
+                                            font-size: 16px; color: black;">X</div>
             <br>
         </div>
+        
+        
         <div class="col-lg-6">
             <div class="mb-4">
                 <h4 class="card-title card-intro-title">Details</h4>
             </div>
 
             <div class="card-content" >
-                <p class="text-sm-left"> 현장 번호 : ${res.site_Num}</p>
-                <p class="text-sm-left"> 거래처 번호 : ${res.customer_Num}</p>
-                <p class="text-sm-left"> 작업 시작일시 : ${res.start_Time}</p>
-                <p class="text-sm-left"> 작업 종료일시 : ${res.end_Time}</p>
-                <p class="text-sm-left"> 주소 : ${res.address}</p>
-                <p class="text-sm-left"> 사업자 이름 : ${res.business_Name}</p>
-                <p class="text-sm-left"> 대표자 이름 : ${res.ceo_Name}</p>
-                <p class="text-sm-left"> 기안서 번호 : ${res.draft_Num}</p>
-                <p class="text-sm-left"> 담당사원 : ${res.employee_Num}</p>
-                <p class="text-sm-left"> 배차코드 : ${res.manage_Code}</p>
-                <p class="text-sm-left"> 단가 : ${res.price}</p>
-                <p class="text-sm-left"> 영업 담당자 : ${res.sales_Manager}</p>
-                <p class="text-sm-left"> 현장구분 : ${res.site_Type}</p>
-
+            	<div class="row mb-2">
+                    <div class="col-4">
+                        <h5 class="f-w-500">현장 번호 <span class="pull-right">:</span></h5>
+                    </div>
+                    <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${res.site_Num}</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <h5 class="f-w-500">거래처 번호 <span class="pull-right">:</span></h5>
+                    </div>
+                    <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${res.customer_Num}</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <h5 class="f-w-500">작업 시작일시 <span class="pull-right">:</span></h5>
+                    </div>
+                    <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${res.start_Time}</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <h5 class="f-w-500">작업 종료일시 <span class="pull-right">:</span></h5>
+                    </div>
+                    <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${res.end_Time}</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <h5 class="f-w-500">주소 <span class="pull-right">:</span></h5>
+                    </div>
+                    <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${res.address}</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <h5 class="f-w-500">사업자 이름 <span class="pull-right">:</span></h5>
+                    </div>
+                    <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${res.business_Name}</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <h5 class="f-w-500">대표자 이름 <span class="pull-right">:</span></h5>
+                    </div>
+                    <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${res.ceo_Name}</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <h5 class="f-w-500">기안서 번호 <span class="pull-right">:</span></h5>
+                    </div>
+                    <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${draft_Num}</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <h5 class="f-w-500">현장관리자 <span class="pull-right">:</span></h5>
+                    </div>
+                    <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${res.employee_Num}</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <h5 class="f-w-500">배차코드 <span class="pull-right">:</span></h5>
+                    </div>
+                    <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${manage_Code}</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <h5 class="f-w-500">단가 <span class="pull-right">:</span></h5>
+                    </div>
+                    <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${res.price}</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <h5 class="f-w-500">영업 담당자 <span class="pull-right">:</span></h5>
+                    </div>
+                    <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${res.sales_Manager}</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <h5 class="f-w-500">현장구분 <span class="pull-right">:</span></h5>
+                    </div>
+                    <div class="col-8"><span class="text-primary" style="font-weight: bolder;">${res.site_Type}</span>
+                    </div>
+                </div>
+                
             </div>
         </div>
         <div class="col-lg-6">
@@ -133,7 +217,7 @@ geocoder.addressSearch(`${res.address}`, function(result, status) {
 
     // 인포윈도우로 장소에 대한 설명을 표시합니다
     var infowindow = new kakao.maps.InfoWindow({
-        content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        content: '<div class="text-primary" style="width:150px;text-align:center;padding:6px 0; font-weight: bolder;">'+`${res.business_Name}`+'</div>'
     });
     infowindow.open(map, marker);
 
@@ -229,12 +313,22 @@ function openWindow(e){
     })
 }
 
+
+
 window.addEventListener("load",function(){
     openWindow();    
 
 })
 
+//x버튼 누를시 안됨..이따가
+document.addEventListener("DOMContentLoaded", function() {
+    let closeButton = document.getElementById("closeButton");
 
+    closeButton.addEventListener("click", function() {
+		alert("클릭됨?");
+        closeButton.style.display = "none"; // X 표시를 클릭하면 해당 요소를 화면에서 숨김
+    });
+});
 // document.addEventListener('DOMContentLoaded', function() {
 //   var calendarEl = document.getElementById('calendar');
 //   var calendar = new FullCalendar.Calendar(calendarEl, {

@@ -9,7 +9,7 @@
     <title>BugClean</title>
 </head>
 <c:import url="../temp/css.jsp"></c:import> <!-- //bootstrap-template-css -->
-<link href="/focus-bootstrap-main/theme/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+
 <body>
 <div id="preloader">
     <div class="sk-three-bounce">
@@ -49,19 +49,218 @@
                         <div class="card-header">
                             <h4 class="card-title" style="font-weight: bold;">문서 목록</h4>
                         </div>
+
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="inbox" class="table-hover table" style="width: 98%">
-                                    <tr>
-                                        <th>문서번호</th>
-                                        <th>제목</th>
-                                        <th>기안자</th>
-                                        <th>기안날짜</th>
-                                        <th>상태</th>
-                                    </tr>
-                                </table>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#all8">
+                                        <span>
+                                            전체
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#wait8">
+                                        <span>
+                                            대기
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#ing8">
+                                        <span>
+                                            진행
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#okay8">
+                                        <span>
+                                            완료
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#refer8">
+                                        <span>
+                                            참조
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content tabcontent-border">
+
+                                <!-- 전체 -->
+                                <div class="tab-pane fade active show" id="all8" role="tabpanel">
+                                    
+                                    <table class="table header-border table-hover verticle-middle">
+                                        <thead>
+                                            <tr>
+                                                <th class="col-2" style="text-align: center;">문서번호</th>
+                                                <th class="col-6" style="text-align: center;">제목</th>
+                                                <th class="col-1" style="text-align: center;">기안자</th>
+                                                <th class="col-2" style="text-align: center;">기안날짜</th>
+                                                <th class="col-1" style="text-align: center;">상태</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${allList}" var="ar">
+
+                                            
+                                                <tr style="text-align: center;">
+                                                    <th>${ar.DRAFT_NUM}</th>
+                                                    <td ><a href="#" style="font-weight: bold;">${ar.TITLE}</a></td>
+                                                    <td>
+                                                        <div class="progress" style="background: rgba(127, 99, 244, .1)">
+                                                            <div class="progress-bar" style="width: 70%;" role="progressbar"><span class="sr-only">70% Complete</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>${ar.DRAFT_DATE}</td>
+                                                    <td><span class="badge badge-primary">70%</span>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+                                            
+                                        </tbody>
+                                    </table>
+                                        
+                                    
+                                </div>
+
+                                <!-- 대기 -->
+                                <div class="tab-pane fade" id="wait8" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table id="inbox" class="table-hover table" style="width: 98%">
+                                            <tr>
+                                                <th>문서번호</th>
+                                                <th>제목</th>
+                                                <th>기안자</th>
+                                                <th>기안날짜</th>
+                                                <th>상태</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- 진행 -->
+                                <div class="tab-pane fade" id="ing8" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table id="inbox" class="table-hover table" style="width: 98%">
+                                            <tr>
+                                                <th>문서번호</th>
+                                                <th>제목</th>
+                                                <th>기안자</th>
+                                                <th>기안날짜</th>
+                                                <th>상태</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- 완료 -->
+                                <div class="tab-pane fade" id="okay8" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table id="inbox" class="table-hover table" style="width: 98%">
+                                            <tr>
+                                                <th>문서번호</th>
+                                                <th>제목</th>
+                                                <th>기안자</th>
+                                                <th>기안날짜</th>
+                                                <th>상태</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="refer8" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table class="table header-border table-hover verticle-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Product</th>
+                                                    <th scope="col">Popularity</th>
+                                                    <th scope="col">Sales</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>1</th>
+                                                    <td>Air Conditioner</td>
+                                                    <td>
+                                                        <div class="progress" style="background: rgba(127, 99, 244, .1)">
+                                                            <div class="progress-bar" style="width: 70%;" role="progressbar"><span class="sr-only">70% Complete</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge badge-primary">70%</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>2</th>
+                                                    <td>Textiles</td>
+                                                    <td>
+                                                        <div class="progress" style="background: rgba(76, 175, 80, .1)">
+                                                            <div class="progress-bar bg-success" style="width: 70%;" role="progressbar"><span class="sr-only">70% Complete</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge badge-success">70%</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>3</th>
+                                                    <td>Milk Powder</td>
+                                                    <td>
+                                                        <div class="progress" style="background: rgba(70, 74, 83, .1)">
+                                                            <div class="progress-bar bg-dark" style="width: 70%;" role="progressbar"><span class="sr-only">70% Complete</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge badge-dark">70%</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>4</th>
+                                                    <td>Vehicles</td>
+                                                    <td>
+                                                        <div class="progress" style="background: rgba(255, 87, 34, .1)">
+                                                            <div class="progress-bar bg-danger" style="width: 70%;" role="progressbar"><span class="sr-only">70% Complete</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge badge-danger">70%</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>5</th>
+                                                    <td>Boats</td>
+                                                    <td>
+                                                        <div class="progress" style="background: rgba(255, 193, 7, .1)">
+                                                            <div class="progress-bar bg-warning" style="width: 70%;" role="progressbar"><span class="sr-only">70% Complete</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge badge-warning">70%</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                               
+
+                                
+
+
                             </div>
                         </div>
+
+
+
+                        
                     </div>
                 </div>
 
@@ -78,8 +277,7 @@
 
 <c:import url="../temp/footer.jsp"></c:import> <!-- //footer -->
 <c:import url="../temp/js.jsp"></c:import> <!-- // bootstrap-template-js -->
-<script src="/focus-bootstrap-main/theme/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="/bugclean/js/inbox-dataTables-init.js"></script>
+
 
 </body>
 </html>

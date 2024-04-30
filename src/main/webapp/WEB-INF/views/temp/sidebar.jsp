@@ -95,11 +95,7 @@
                            aria-expanded="false"><i class="icon icon-app-store"></i><span
                             class="nav-text">수신문서함</span></a>
                         <ul>
-                            <li><a href="/employee/inbox">전체</a></li>
-                            <li><a href="/employee/inbox">대기</a></li>
-                            <li><a href="/employee/inbox">진행</a></li>
-                            <li><a href="/employee/inbox">완료</a></li>
-                            <li><a href="/employee/inbox">참조문서함</a></li>
+                            <li><a href="/receive/inbox">수신문서함</a></li>
                         </ul>
                     </li>
                 </ul>

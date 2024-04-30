@@ -23,7 +23,7 @@
 						<div class="row no-gutters">
 							<div class="col-xl-12">
 								<div class="auth-form">
-									<h4 class="text-center mb-4">Sign up your account</h4>
+									<h3 class="text-primary text-center mb-5" style="font-weight: bolder;">BugClean 가입 신청</h3>
 									
 									
 									<form:form modelAttribute="employeeVO">
@@ -43,8 +43,8 @@
 													</div>
 												</div>
 											</div>
-											<form:errors path="username"></form:errors></br>
-											<form:errors path="userNumCheck"></form:errors>
+											<form:errors path="username" style="color: red;"></form:errors></br>
+											<form:errors path="userNumCheck" style="color: red;"></form:errors>
 										</div>
 
 										<div id="mail_number" class="form-group mb-4" style="display: none;">
@@ -69,19 +69,19 @@
 											<label><strong>비밀번호</strong></label>
 											<p class="my-0">10~16자 영문자, 숫자, 특수문자</p>
 											<form:password path="password" cssClass="form-control" id="password"></form:password>
-											<form:errors path="password">비밀번호는 10~16자 영문자, 숫자, 특수문자를 사용하세요</form:errors>
+											<form:errors path="password" style="color: red;"></form:errors>
 										</div>
 
 										<div class="form-group">
 											<label><strong>비밀번호 확인</strong></label>
 											<form:password path="passwordCheck" cssClass="form-control" id="passwordCheck"></form:password>
-											<form:errors path="passwordCheck"></form:errors>
+											<form:errors path="passwordCheck" style="color: red;"></form:errors>
 										</div>
 
 										<div class="form-group">
 											<label><strong>이름</strong></label>
 											<form:input path="name" id="name" cssClass="form-control col-6"></form:input>
-											<form:errors path="name"></form:errors>
+											<form:errors path="name"  style="color: red;"></form:errors>
 										</div>
 										<div class="form-group">
 											<label><strong>휴대전화번호</strong></label>
@@ -105,16 +105,16 @@
 														<input type="text"
 															class="form-control col-3"
 															name="phoneMiddle" id="phoneMiddle"
-															maxlength="4" minlength="4">
+															maxlength="4" minlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 														&emsp;-&emsp;
 														<input type="text"
 															class="form-control col-3"
-															name="phoneEnd" id="phoneEnd" maxlength="4" minlength="4">
+															name="phoneEnd" id="phoneEnd" maxlength="4" minlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 													</div>
 													<!-- <input type="text" id="phone" name="phone" style="display: none" value=""> -->
 													<form:input path="phone" id="phone" cssClass="form-control" style="display: none" value=""></form:input>
 												</div>
-												<form:errors path="phone"></form:errors>
+												<form:errors path="phone" style="color: red;"></form:errors>
 										</div>
 
 										<div class="form-group">
@@ -124,10 +124,10 @@
 											
 											<div class="form-row">
 												<div class="col-sm-6">
-													<input type="text" id="sample6_postcode" class="form-control" placeholder="우편번호">
+													<input type="text" id="sample6_postcode" class="form-control" placeholder="우편번호" readonly>
 												</div>
 												<div class="col-sm-6 mt-2 mt-sm-0">
-													<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+													<input type="button" class="btn-sm btn-light" onclick="sample6_execDaumPostcode()" style="height: 35px;" value="우편번호 찾기">
 												</div>
 											</div>
 											<input type="text" id="sample6_address" class="form-control my-2" placeholder="주소">
@@ -140,7 +140,7 @@
 												</div>
 											</div>
 											
-											<form:errors path="address"></form:errors>
+											<form:errors path="address" style="color: red;"></form:errors>
 										</div>
 
 
