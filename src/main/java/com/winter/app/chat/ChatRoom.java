@@ -12,13 +12,13 @@ import lombok.Data;
 @Data
 public class ChatRoom {
 
-	private String roomId;
+	private String room_num;
 	private String name;
 	private Set<WebSocketSession> sessions = new HashSet<>();
 	
-	public static ChatRoom create(String name,String room_Id) {
+	public static ChatRoom create(String name,String room_num) {
 		ChatRoom chatRoom = new ChatRoom();
-		chatRoom.roomId = room_Id;
+		chatRoom.room_num = room_num;
 		chatRoom.name = name;
 		return chatRoom;
 		

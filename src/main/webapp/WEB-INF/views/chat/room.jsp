@@ -7,6 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <link rel="stylesheet" href="/bugclean/css/chat.css">
+
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
     <th:block th:fragment="content">
 
@@ -14,15 +15,15 @@
             <div class="col-12">
                 <h4 id="chat_person"></h4>
                 <hr>
-            </div>
+                  </div>
             <div>
                 <div id="msgArea" class="col"></div>
                 <div class="col-12 inputbox">
                     <div class="input-group mb-3">
                         <input type="text" id="msg" onkeyup="enterKey()" class="form-control">
                     </div>
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
+                                                <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
                     </div>
                 </div>
             </div>
@@ -45,6 +46,8 @@ chat_container.scrollTop = chat_container.scrollHeight;
 let username1 = '${pageContext.request.userPrincipal.name}';
 let username2;
 const sendData = JSON.parse(localStorage.getItem('sendData'));
+const sendDataMsg = JSON.parse(localStorage.getItem('sendDateMsg'));
+    // 채팅내역 불러오기 성공! 집가서 채팅창에 뿌려주면됩니다!!!
 
 
                     // 로그인 한 사람 사원번호 예정
@@ -53,7 +56,6 @@ const sendData = JSON.parse(localStorage.getItem('sendData'));
                     let id2 = sendData.substring(7);
                     let t;
 window.onload = function(){
-
     fetch("/chat/getEmpName",{
                     method:"POST",
                     headers: {
@@ -91,14 +93,14 @@ window.onload = function(){
 
 }
                     console.log("sendData ===>",sendData);
-            
+                    console.log("sendDateMsg ===> ", sendDataMsg)
 
                 
     
                     var roomName = "${room.name}";
-                    var roomId = "${room.roomId}";
+                    var roomId = sendData;
                     
-                  
+    
                     console.log("id1 == " , id1 , " id2= == > ", id2);
                     
                     let message;
@@ -137,19 +139,20 @@ window.onload = function(){
                                str += "</div></div>";
                                $("#msgArea").append(str);
                            }
-    
+                           
                            
                        });
     
                        //3. send(path, header, message)로 메세지를 보낼 수 있음
-                       stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username1}))
+                       stomp.send('/pub/chat/enter', {}, JSON.stringify({ room_num: roomId, writer: username1}))
                     });
     
                     $("#button-send").on("click", function(e){
                         var msg = document.getElementById("msg");
                         message = $("#msg").val();
                         console.log(username1 + ":" + msg.value);
-                        stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username1}));
+                        stomp.send('/pub/chat/message', {}, JSON.stringify({room_num: roomId, message: msg.value, writer: username1}));
+                        sendMessage(roomId,msg.value,id1);
                         msg.value = '';
                     });
                     function enterKey(){
@@ -158,11 +161,29 @@ window.onload = function(){
                         var msg = document.getElementById("msg");
                         message = $("#msg").val();
                         console.log(username1 + ":" + msg.value);
-                        stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username1}));
+                        stomp.send('/pub/chat/message', {}, JSON.stringify({room_num: roomId, message: msg.value, writer: username1}));
+                        sendMessage(roomId,msg.value,id1);
                         msg.value = '';
                         }
                     }        
-            
+                    
+                    function sendMessage(roomId,msg,username){
+                        fetch("/chat/sendMsg",{
+                            method : "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body : JSON.stringify({
+                                employee_num : username,
+                                msg_contents : msg,
+                                room_num : roomId
+                            })
+                        }).then(res=>res.json())
+                        .then(res=>{
+
+                        })
+                    }
+
         </script>
 
 

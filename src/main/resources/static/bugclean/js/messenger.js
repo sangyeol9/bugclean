@@ -38,7 +38,7 @@ function chatRoom(e){
     console.log("target == = ==  >> ",e.target.id);
     let empnum = e.target.id;
     let empnum2;
-    let room_Id;
+    let room_num;
     let username1;
     fetch("/chat/getPrincipal",{
         method : "GET"
@@ -62,23 +62,25 @@ function chatRoom(e){
             empnum2 = res.EMPLOYEE_NUM;
             
             if(empnum > empnum2){
-                room_Id = empnum2+""+empnum;
+                room_num = empnum2+""+empnum;
             }else{
-                room_Id = empnum+""+empnum2;
+                room_num = empnum+""+empnum2;
             }
-            console.log("roomid === == = =",room_Id);
+            console.log("roomid === == = =",room_num);
             fetch("/chat/room",{
                 method : "POST",
                 headers: {
                     "Content-Type": "application/json",
                   },
                 body : JSON.stringify({
-                    roomId : room_Id
+                    room_num : room_num
                 })
-            }).then(res=>res.text())
+            }).then(res=>res.json())
 	            .then(res=>{
-	                let url = "/chat/room?roomId="+room_Id;
-	                localStorage.setItem('sendData', JSON.stringify(room_Id));
+                    console.log("room res ==> ", res)
+	                let url = "/chat/room?room_num="+room_num;
+                    localStorage.setItem("sendDateMsg", JSON.stringify(res));
+	                localStorage.setItem('sendData', JSON.stringify(room_num));
 	                let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=400, height=600, top=50,left=50";
 	                window.open(url,'_blank',options);
                 //newWindow.document.write(res);
