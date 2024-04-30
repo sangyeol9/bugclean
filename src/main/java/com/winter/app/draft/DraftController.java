@@ -244,9 +244,9 @@ public class DraftController {
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
 		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
-		System.out.println("mapAr : "+ mapAr.toString());
-		System.out.println("mapAr2 : "+ mapAr.get(0).toString());
-		pagination = (Pagination)mapAr.get(0).get("Pagination");
+		if(mapAr == null) {
+			pagination = (Pagination)mapAr.get(0).get("Pagination");	
+		}
 		model.addAttribute("pager", pagination);
 		model.addAttribute("list",mapAr);
 		
@@ -260,9 +260,9 @@ public class DraftController {
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
 		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
-		System.out.println("mapAr : "+ mapAr.toString());
-		System.out.println("mapAr2 : "+ mapAr.get(0).toString());
-		pagination = (Pagination)mapAr.get(0).get("Pagination");
+		if(mapAr == null) {
+			pagination = (Pagination)mapAr.get(0).get("Pagination");	
+		}
 		model.addAttribute("pager", pagination);
 		model.addAttribute("list",mapAr);
 	}
@@ -274,9 +274,9 @@ public class DraftController {
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
 		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
-		System.out.println("mapAr : "+ mapAr.toString());
-		System.out.println("mapAr2 : "+ mapAr.get(0).toString());
-		pagination = (Pagination)mapAr.get(0).get("Pagination");
+		if(mapAr == null) {
+			pagination = (Pagination)mapAr.get(0).get("Pagination");	
+		}
 		model.addAttribute("pager", pagination);
 		model.addAttribute("list",mapAr);
 	}
@@ -288,9 +288,9 @@ public class DraftController {
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
 		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
-		System.out.println("mapAr : "+ mapAr.toString());
-		System.out.println("mapAr2 : "+ mapAr.get(0).toString());
-		pagination = (Pagination)mapAr.get(0).get("Pagination");
+		if(mapAr == null) {
+			pagination = (Pagination)mapAr.get(0).get("Pagination");	
+		}
 		model.addAttribute("pager", pagination);
 		model.addAttribute("list",mapAr);
 	}
@@ -302,9 +302,9 @@ public class DraftController {
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
 		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
-		System.out.println("mapAr : "+ mapAr.toString());
-		System.out.println("mapAr2 : "+ mapAr.get(0).toString());
-		pagination = (Pagination)mapAr.get(0).get("Pagination");
+		if(mapAr == null) {
+			pagination = (Pagination)mapAr.get(0).get("Pagination");	
+		}
 		model.addAttribute("pager", pagination);
 		model.addAttribute("list",mapAr);
 	}
