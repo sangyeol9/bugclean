@@ -16,5 +16,15 @@ public interface EmployeeDAO {
 	public int infoUpdate(EmployeeVO employeeVO);
 	//프로필 변경
 	public int profileUpdate(EmployeeVO employeeVO);
+	//사번아이디 찾기
+	public EmployeeVO idSearchNum(EmployeeVO employeeVO);
+	//폰번호로 아이디찾기
+	public EmployeeVO idSearchPhone(EmployeeVO employeeVO);
+	//이미신청된 아이디 일 시
+	public EmployeeVO getAlreadyCheck(EmployeeVO employeeVO);
+	//받은 정보로 회원있는지 체크(email)
+	public EmployeeVO getUserEmailCheck(EmployeeVO employeeVO);
+	//받은 정보로 회원있는지 체크(phone)
+	public EmployeeVO getUserPhoneCheck(EmployeeVO employeeVO);
 	
 }
