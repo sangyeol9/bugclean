@@ -26,35 +26,46 @@ public class ChatService {
 	
 	@Autowired
 	ChatDAO chatDAO;
-	
-	/*
-	 * private final ObjectMapper objectMapper = new ObjectMapper(); private
-	 * Map<String,ChatRoom> chatRooms;
-	 * 
-	 * 
-	 * @PostConstruct private void init() { chatRooms = new LinkedHashMap<>(); }
-	 * 
-	 * public List<ChatRoom> findAllRoom(){ return new
-	 * ArrayList<>(chatRooms.values()); }
-	 * 
-	 * public ChatRoom findRoomById(String roomId) { return chatRooms.get(roomId); }
-	 * 
-	 * // 수정 테스트중 public ChatRoom createRoom(String name) { String randomId =
-	 * UUID.randomUUID().toString(); ChatRoom chatRoom = ChatRoom.builder()
-	 * .roomId(randomId) .name(name) .build(); chatRooms.put(randomId, chatRoom);
-	 * return chatRoom; }
-	 * 
-	 * public <T> void sendMessage(WebSocketSession session, T message) { try {
-	 * session.sendMessage(new
-	 * TextMessage(objectMapper.writeValueAsString(message))); } catch (Exception e)
-	 * { log.error(e.getMessage(),e); } }
-	 */
-	
-	
-	
-	public List<Map<String, Object>> getEmployeeList() throws Exception{
+	//방 생성 및 해당 방에 인원 추가
+	public int createRoom(ChatRoom chatRoom) throws Exception{
+		int result = chatDAO.createRoom(chatRoom);
+		System.out.println("service == "+ chatRoom);
+		String roomId = chatRoom.getRoom_num();
+		String user1 = roomId.substring(0, 7);
+		String user2 = roomId.substring(7);
 		
-		return chatDAO.getEmployeeList();
+		ChatMemberVO chatMemberVO1 = new ChatMemberVO();
+		chatMemberVO1.setEmployee_num(user1);
+		chatMemberVO1.setRoom_num(roomId);
+		chatDAO.inviteChatRoom(chatMemberVO1);
+		
+		ChatMemberVO chatMemberVO2 = new ChatMemberVO();
+		chatMemberVO2.setEmployee_num(user2);
+		chatMemberVO2.setRoom_num(roomId);
+		chatDAO.inviteChatRoom(chatMemberVO2);
+		
+		return result;
+		
+	}
+	
+	public List<ChatMessage> getChatList(ChatMemberVO chatMemberVO) throws Exception{
+		return chatDAO.getChatList(chatMemberVO);
+	}
+	// 대화하려는 방이 이미 db에 존재하는지 확인. 존재하지 않으면 크레이트로 넘어감 
+	public int checkExistRoom(ChatRoom chatRoom) throws Exception{
+		return chatDAO.checkExistRoom(chatRoom);
+	}
+	
+	public int sendMsg(ChatMessage chatMessage) throws Exception{
+		return chatDAO.sendMsg(chatMessage);
+	}
+	
+	
+	
+	
+	public List<Map<String, Object>> getEmployeeList(EmployeeVO employeeVO) throws Exception{
+		
+		return chatDAO.getEmployeeList(employeeVO);
 	}
 	
 	public List<DepartmentVO> getDepartment() throws Exception{
