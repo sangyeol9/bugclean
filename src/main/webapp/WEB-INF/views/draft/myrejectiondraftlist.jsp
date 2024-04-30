@@ -45,7 +45,7 @@
 								<c:if test="${list.STATE eq 1}">
                             <tr>
                             <td>${list.DRAFT_NUM}</td>
-                            <td>${list.TITLE}</td>
+                            <td><a href="getdraftdetail?draft_num=${list.DRAFT_NUM}">${list.TITLE}</a></td>
                             <td>${list.NAME}</td>
                             <td>${list.DRAFT_DATE}</td>
                              <td><span class="badge badge-danger">반려</span></td>

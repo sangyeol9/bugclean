@@ -47,7 +47,7 @@
 									<c:forEach items="${list}" var="list">
 										<tr>
 											<td>${list.DRAFT_NUM}</td>
-											<td>${list.TITLE}</td>
+											<td><a href="getdraftdetail?draft_num=${list.DRAFT_NUM}">${list.TITLE}</a></td>
 											<td><span>${list.NAME }</span></td>
 											<td><span>${list.DRAFT_DATE}</span></td>
 											<c:if test="${list.STATE eq 0}">
