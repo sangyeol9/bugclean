@@ -20,7 +20,7 @@ public class ChatRoomRepository {
 			chatRoomMap = new LinkedHashMap<>();
 		}
 		
-		public List<ChatRoom> findAllRoom(){
+		public List<ChatRoom> findAllRooms(){
 			List<ChatRoom> chatRooms = new ArrayList<>(chatRoomMap.values());
 			Collections.reverse(chatRooms);
 			return chatRooms;
@@ -30,9 +30,9 @@ public class ChatRoomRepository {
 			return chatRoomMap.get(id);
 		}
 		
-		public ChatRoom createChatRoom(String name) {
-			ChatRoom chatRoom = ChatRoom.create(name);
-			chatRoomMap.put(chatRoom.getRoomId(), chatRoom);
+		public ChatRoom createChatRoom(String name,String room_num) {
+			ChatRoom chatRoom = ChatRoom.create(name,room_num);
+			chatRoomMap.put(chatRoom.getRoom_num(), chatRoom);
 			return chatRoom;
 		}
 		

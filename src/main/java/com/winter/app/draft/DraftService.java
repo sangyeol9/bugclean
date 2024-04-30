@@ -1,18 +1,28 @@
 package com.winter.app.draft;
 
+import java.io.BufferedReader;
+import java.nio.charset.StandardCharsets;
+import java.sql.Clob;
 import java.sql.Date;
+import java.sql.SQLClientInfoException;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.winter.app.board.BoardFileVO;
 import com.winter.app.employee.DepartmentVO;
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.util.commons.FileManager;
+import com.winter.app.util.pagination.Pagination;
 
 @Service
 public class DraftService {
@@ -20,11 +30,102 @@ public class DraftService {
 	private DraftDAO draftDAO;
 	@Autowired
 	private FileManager fileManager;
-//	@Value("${app.upload,draftFile}")
-//	private String uploadPath;
+	@Value("${app.upload.draftFile}")
+	private String uploadPath;
 	///파일매니저에서 경로랑,파일
 	//리턴으로 저장된파일명을 리턴받음
 
+	public int setDraftFile(MultipartFile [] files, DraftVO draftVO)throws Exception{
+		int result = 0;
+		System.out.println("for밖 : "+files.length);
+        if(files != null){
+
+            for (MultipartFile multipartFile : files) {
+            	
+            	System.out.println("for안 : "+multipartFile);
+                if (multipartFile.isEmpty()) {
+                    continue;
+                }
+
+                String fileName = fileManager.fileSave(uploadPath, multipartFile, false);
+               DraftFileVO draftFileVO =  new DraftFileVO();
+               draftFileVO.setDraft_num(draftVO.getDraft_num());
+               draftFileVO.setFile_name(fileName);
+               draftFileVO.setOri_name(multipartFile.getOriginalFilename());
+                result = draftDAO.setDraftFile(draftFileVO);
+
+//                if (result == 0) {
+//                    throw new Exception();
+//                }
+            }
+        }
+        return result;
+	}
+	
+	
+	public Map<String, Object> getDraftDetail(DraftVO draftVO)throws Exception{
+		Map<String,Object> map = draftDAO.getDraftDetail(draftVO);
+		String date = map.get("DRAFT_DATE").toString();
+		System.out.println("date : " + date);
+		String [] splitDate = date.split(" ");
+		System.out.println("splitDate : "+ splitDate[0]);
+				map.put("DRAFT_DATE", splitDate[0]);
+				System.out.println("mapDate :" + map.get("DRAFT_DATE"));
+				Clob clob = (Clob) map.get("CONTENTS");
+				String data = clobToString(clob); // CLOB 데이터를 문자열로 변환
+				map.put("CONTENTS", data);
+				
+		return map;
+	}
+	
+	private static String clobToString(Clob clob) throws Exception{
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = new BufferedReader(clob.getCharacterStream());
+        String line;
+        while ((line = br.readLine()) != null) {
+            sb.append(line);
+        }
+        br.close();
+        return sb.toString();
+    }
+
+	
+	public List<Map<String, Object>> getSignCheckDetail(DraftVO draftVO)throws Exception{
+		
+			List<Map<String, Object>> mapAr = draftDAO.getSignCheckDetail(draftVO);
+			
+			
+             
+			
+			for(int i=0; i<mapAr.size();i++) {
+				if( mapAr.get(i).get("SIGN_FILE") != null ) {
+					Clob clob = (Clob) mapAr.get(i).get("SIGN_FILE");
+					String data = clobToString(clob); // CLOB 데이터를 문자열로 변환
+					System.out.println("CLOB 데이터: " + data);
+					mapAr.get(i).put("SIGN_FILE", data);
+				}
+			 String date = mapAr.get(i).get("SIGN_DATE").toString();
+			 String [] spDate = date.split(" ");
+			 mapAr.get(i).put("SIGN_DATE", spDate[0]);
+			}
+		
+		return mapAr;
+		
+	}
+	
+	public String getRefDetail(DraftVO draftVO)throws Exception{
+		List<Map<String, Object>> maps  = draftDAO.getRefDetail(draftVO);
+		String [] name = new String[maps.size()];
+		for(int i=0; i<maps.size();i++) {
+			name[i]= maps.get(i).get("NAME").toString();
+		}
+		String joinName = String.join(",", name);
+		return joinName;
+	}
+	public List<DraftFileVO> getDraftFileDetail(DraftVO draftVO)throws Exception{
+		return draftDAO.getDraftFileDetail(draftVO);
+	}
+	
 	public List<Map<String, Object>> getBasisDraft()throws Exception{
 		return draftDAO.getBasisDraft();
 	}
@@ -32,23 +133,54 @@ public class DraftService {
 		return draftDAO.getDepartmentHighList();
 	}
 	
+	public int setRef(DraftVO draftVO,String [] refempnum)throws Exception{
+		ReferencesVO [] referencesVOs = new ReferencesVO[refempnum.length];
+		
+		int result = 0;
+		for(int i=0; i<referencesVOs.length;i++) {
+			
+			System.out.println("refNum : "+ refempnum[i]);	
+			referencesVOs[i] = new ReferencesVO();
+			referencesVOs[i].setDraft_num(draftVO.getDraft_num());
+			referencesVOs[i].setEmployee_num(refempnum[i]);
+			result = draftDAO.setRef(referencesVOs[i]);
+		}
+				
+		return result;
+	}
+	
+	//////////////////////////////////
+	
 	public int setBasisDraft(DraftVO draftVO)throws Exception{
-		draftVO.setState(1L);
+		if(draftVO.getState() == 0) {
+		draftVO.setNow_approval(1L);
+		}
+		
+		if(draftVO.getState() == 2) {
+			draftVO.setNow_approval(0L);
+			}
 		int result = draftDAO.setBasisDraft(draftVO);
 		return result;
 	}
 	
-	public int setSignCheck(List<SignCheckVO> signCheckVO, String [] approvalemp_num, Long [] sign_rank,DraftVO draftVO)throws Exception{
+	public int setSignCheck(String [] approvalemp_num, Long [] sign_rank,DraftVO draftVO)throws Exception{
 		
+		System.out.println("ddddddddddddddddddddddddddddddddddd11111");
+		SignCheckVO [] signCheckVOs = new SignCheckVO[approvalemp_num.length];
 		for(int i=0; i<approvalemp_num.length;i++) {
-			signCheckVO.get(i).setDraft_num(draftVO.getDraft_num());
-			signCheckVO.get(i).setEmployee_num(approvalemp_num[i]);
-			signCheckVO.get(i).setSign_rank(sign_rank[i]);
+			signCheckVOs[i] = new SignCheckVO();
+			System.out.println("ddddddddddddddddddddddddddddddddddd22222");
+
+			signCheckVOs[i].setDraft_num(draftVO.getDraft_num());
+			signCheckVOs[i].setEmployee_num(approvalemp_num[i]);
+			signCheckVOs[i].setSign_rank(sign_rank[i]);
 			LocalDate localDate = LocalDate.now();
 			String date = localDate.toString();
-			signCheckVO.get(i).setSign_date(date);
-			signCheckVO.get(i).setSign_ref(0L);
-			draftDAO.setSignCheck(signCheckVO.get(i));
+			signCheckVOs[i].setSign_date(date);
+			signCheckVOs[i].setSign_ref(0L);
+			
+			System.out.println("signCheckValue : " + signCheckVOs[i].toString());
+			draftDAO.setSignCheck(signCheckVOs[i]);
 		}
 		
 		return 1;
@@ -120,6 +252,8 @@ public class DraftService {
 			}
 		 	System.out.println("여기는 문서번호 결장하는 서비스 VO세팅전@@@@@@@@@@@@@@@@@@@");
 		draftVO.setDraft_num(localDateYear[0]+"BS"+(parsingDm+1));
+		draftVO.setDraft_num(draftVO.getDraft_num().toString());
+		System.out.println("draftVO.getDraft_num() : " + draftVO.getDraft_num());
 		draftVO.setDraft_date((localDate.now().toString()));
 		System.out.println("여기는 문서번호 결장하는 서비스끝부분@@@@@@@@@@@@@@@@@@@");
 		return draftVO;
@@ -156,6 +290,20 @@ public class DraftService {
 	
 	public EmployeeVO getCEO()throws Exception{
 		return draftDAO.getCEO();
+	}
+	
+	public List<Map<String, Object>> getMyDraftList(Pagination pagination,EmployeeVO employeeVO)throws Exception{
+				
+		Long totalCount = draftDAO.getTotalCount(employeeVO);
+		
+		pagination.makeNum(totalCount);
+		pagination.makeRow();
+		Map<String, Object> map = new HashMap<>();
+		map.put("EmployeeVO", employeeVO);
+		map.put("Pagination", pagination);
+	 	 List<Map<String, Object>> mapAr = draftDAO.getMyDraftList(map);
+		
+		return mapAr;
 	}
 	
 }

@@ -7,6 +7,7 @@ public class RnRVO {
 
     private Long rnr_code;
     private String rnr_name;
+    private String rnr_role;
     
     
 }

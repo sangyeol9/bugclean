@@ -19,7 +19,6 @@
     
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-
 </head>
 
 <body>
@@ -174,50 +173,12 @@
                                 <!-- <i class="fa-regular fa-circle-check" style="color: #B197FC;"></i> -->
                                 <!-- style="color: red"  text-warning-->
                                 <div id="content" >
-
-                                    <!-- <div class="row justify-content-between">
+                                    
+                                    <div class="row justify-content-between">
                                         
-                                        <div class="col-12">
-                                            <br>
-                                            <hr>
-                                            <br>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="mb-4">
-                                                <h4 class="card-title card-intro-title">Details</h4>
-                                            </div>
-    
-                                            <div class="card-content" >
-                                                <p class="text-sm-left"> 현장 번호 : res.site_Num</p>
-                                                <p class="text-sm-left"> 거래처 번호 : res.customer_Num</p>
-                                                <p class="text-sm-left"> 작업 시작일시 : res.start_Time</p>
-                                                <p class="text-sm-left"> 작업 종료일시 : res.end_Time</p>
-                                                <p class="text-sm-left"> 주소 : res.address</p>
-                                                <p class="text-sm-left"> 사업자 이름 : res.business_Name</p>
-                                                <p class="text-sm-left"> 대표자 이름 : res.ceo_Name</p>
-                                                <p class="text-sm-left"> 기안서 번호 : res.draft_Num</p>
-                                                <p class="text-sm-left"> 담당사원 : res.employee_Num</p>
-                                                <p class="text-sm-left"> 배차코드 : res.manage_Code</p>
-                                                <p class="text-sm-left"> 단가 : res.price</p>
-                                                <p class="text-sm-left"> 영업 담당자 : res.sales_Manager</p>
-                                                <p class="text-sm-left"> 현장구분 : res.site_Type</p>
-
-                                            </div>
-                                        </div>
                                         
-                                        <div class="col-lg-6">
-                                            <div class="mb-4">
-                                                <h4 class="card-title card-intro-title">Map</h4>
-                                                
-                                            </div>
-    
-                                            <div id="map" style="width:100%;height:500px;"></div>
+                                    </div>
 
-
-                                        </div>
-                                        
-                                    </div> -->
-                                
                                 
                                 </div>
                                     

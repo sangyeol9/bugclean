@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
           },
         eventDrop: function(info) {
             console.log(info);
-                alert("일정을 이동했습니다!"+info.event.startStr.substring(0,10) +info.event.startStr.substring(11,19) ); // 이벤트를 이동할 때 알림창을 띄울 수 있습니다.
+                alert("일정을 이동했습니다!\n"+info.event.startStr.substring(0,10)+"    " +info.event.startStr.substring(11,19) ); // 이벤트를 이동할 때 알림창을 띄울 수 있습니다.
                 console.log(info.event.startStr.substring(0,10) +" " +info.event.startStr.substring(11,19))
                 console.log(info.event.id.substring(info.event.id.lastIndexOf('-')+1,info.event.length))
                 console.log(info.event.endStr.substring(0,10) +" "+info.event.endStr.substring(11,19))
@@ -632,6 +632,7 @@ window.addEventListener("load",function(){
 
 let detailAddress = document.getElementById("detailAddress");
 let jibunAddress = document.getElementById("jibunAddress")
+let roadAddress = document.getElementById("roadAddress");
 detailAddress.addEventListener("change",function(){
-    inputAddress.value = jibunAddress.value + " " + detailAddress.value;
+    inputAddress.value = roadAddress.value + " " + detailAddress.value;
 })

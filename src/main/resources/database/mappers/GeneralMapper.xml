@@ -101,13 +101,13 @@
 WHERE not  car_code IN (
     SELECT CAR_CODE FROM CAR_MANAGE cm 
     WHERE (
-        BOOKING_START <![CDATA[>=]]>  TO_DATE(#{booking_start}, 'YYYY-MM-DD HH24:MI:SS') - 1/24
+        BOOKING_START <![CDATA[>=]]>  TO_DATE(#{booking_start}, 'YYYY-MM-DD HH24:MI:SS')
         AND
-        BOOKING_START <![CDATA[<=]]>  TO_DATE(#{booking_done}, 'YYYY-MM-DD HH24:MI:SS') + 1/24)
+        BOOKING_START <![CDATA[<=]]>  TO_DATE(#{booking_done}, 'YYYY-MM-DD HH24:MI:SS'))
         OR 
-        (BOOKING_DONE <![CDATA[>=]]>  TO_DATE(#{booking_start}, 'YYYY-MM-DD HH24:MI:SS') - 1/24
+        (BOOKING_DONE <![CDATA[>=]]>  TO_DATE(#{booking_start}, 'YYYY-MM-DD HH24:MI:SS')
         AND
-        BOOKING_DONE <![CDATA[<=]]>  TO_DATE(#{booking_done}, 'YYYY-MM-DD HH24:MI:SS') + 1/24)
+        BOOKING_DONE <![CDATA[<=]]>  TO_DATE(#{booking_done}, 'YYYY-MM-DD HH24:MI:SS'))
        )
     </select>
 
@@ -118,7 +118,7 @@ WHERE not  car_code IN (
 
     <!-- 배차 요청 등록  -->
     <insert id="carAllocation" parameterType="CarManageVO">
-        INSERT INTO CAR_MANAGE VALUES(CAR_MANAGE_SEQ.NEXTVAL,#{car_code},#{employee_num},TO_DATE(#{booking_start},'YYYY-MM-DD HH24:MI:SS')-1/24,TO_DATE(#{booking_done},'YYYY-MM-DD HH24:MI:SS')+1/24,0)
+        INSERT INTO CAR_MANAGE VALUES(CAR_MANAGE_SEQ.NEXTVAL,#{car_code},#{employee_num},TO_DATE(#{booking_start},'YYYY-MM-DD HH24:MI:SS'),TO_DATE(#{booking_done},'YYYY-MM-DD HH24:MI:SS'),0)
     </insert>
 
     <!-- 해당 차량의 정보 가져오기 ( 해당 차량의 현재 배차 코드를 알기 위함  배차 코드는 시퀀스라서 추가 조회필요성 )  // 배차 요청 시 -->

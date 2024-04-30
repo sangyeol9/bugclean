@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.winter.app.employee.DepartmentVO;
 import com.winter.app.employee.EmployeeVO;
+import com.winter.app.util.pagination.Pagination;
 
 
 
@@ -28,7 +29,16 @@ public interface DraftDAO {
 	List<ApprovalLineVO> getALDetail(ApprovalLineVO approvalLineVO)throws Exception;
 	int setBasisDraft(DraftVO draftVO)throws Exception;
 	int setSignCheck(SignCheckVO signCheckVO)throws Exception;
+	int setRef(ReferencesVO referencesVO)throws Exception;
+	////////////
+	List<Map<String, Object>> getMyDraftList(Map<String, Object> map)throws Exception;
+	Long getTotalCount(EmployeeVO employeeVO)throws Exception;
+	int setDraftFile(DraftFileVO draftFileVO)throws Exception;
 	
-	
+	///기안서꺼내기
+	Map<String, Object> getDraftDetail(DraftVO draftVO)throws Exception;
+	List<Map<String, Object>> getSignCheckDetail(DraftVO draftVO)throws Exception;
+	List<Map<String, Object>> getRefDetail(DraftVO draftVO)throws Exception;
+	List<DraftFileVO> getDraftFileDetail(DraftVO draftVO)throws Exception;
 	
 }

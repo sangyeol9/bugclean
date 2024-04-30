@@ -26,7 +26,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">내 기안문서</h4>
+                    <h4 class="card-title">내 결재중 문서</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -41,14 +41,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>현장보고서</td>
-                                    <td><span>윤석열</span></td>
-                                    <td><span>2024.01.03</span></td>
-                                    <td><span class="badge badge-warning">결재중</span></td>
-                                </tr>
-
+								<c:forEach items="${list}" var="list">
+								<c:if test="${list.STATE eq 0}">
+                            <tr>
+                            <td>${list.DRAFT_NUM}</td>                            
+                            <td><a href="getdraftdetail?draft_num=${list.DRAFT_NUM}">${list.TITLE}</a></td>
+                            <td>${list.NAME}</td>
+                            <td>${list.DRAFT_DATE}</td>
+                            <td><span class="badge badge-warning">결재중</span></td>
+                            </tr>
+								</c:if>
+								</c:forEach>
                             </tbody>
                         </table>
                     </div>

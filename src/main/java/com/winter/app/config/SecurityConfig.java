@@ -60,8 +60,12 @@ public class SecurityConfig{
 											.requestMatchers("/employee/create").permitAll()
 											.requestMatchers("/employee/mailSend").permitAll()
 											.requestMatchers("/employee/mailCheck").permitAll()
+											.requestMatchers("/employee/idSearchResult").permitAll()
+											.requestMatchers("/employee/idSearchPhone").permitAll()
 											.requestMatchers("/employee/logout", "/employee/mypage",
-													"/employee/pwUpdate","/setAttendence","/setWorkOut").authenticated()
+													"/employee/pwUpdate","/setAttendence","/setWorkOut", "/receive/inbox").authenticated()
+											.requestMatchers("/hr/**").hasAnyRole("PERSON", "CEO")
+											
 											.anyRequest().permitAll()
 											//.anyRequest().authenticated()//나머지
 		)
@@ -78,6 +82,9 @@ public class SecurityConfig{
 				.ignoringRequestMatchers("/general/**")
 				.ignoringRequestMatchers("/setAttendence")
 				.ignoringRequestMatchers("/setWorkOut")
+				.ignoringRequestMatchers("/employee/idSearchNum")
+				.ignoringRequestMatchers("/employee/phoneSend")
+				.ignoringRequestMatchers("/employee/**")
 	    )
 		
 		
@@ -97,7 +104,6 @@ public class SecurityConfig{
 							.invalidateHttpSession(true)//로그아웃시 session만료
 							.permitAll()
 		);
-		
 		
 		return security.build();
 	}

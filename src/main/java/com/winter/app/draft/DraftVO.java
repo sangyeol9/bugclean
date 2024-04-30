@@ -1,6 +1,7 @@
 package com.winter.app.draft;
 
-import java.util.Date;
+
+
 
 import lombok.Data;
 
@@ -14,4 +15,5 @@ public class DraftVO {
 	private String contents;
 	private Long state;
 	private Long draft_category;
+	private Long now_approval;
 }
