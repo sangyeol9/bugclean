@@ -7,4 +7,5 @@ public class PositionVO {
 
     private Long pos_code;
     private String pos_name;
+    private String pos_role;
 }

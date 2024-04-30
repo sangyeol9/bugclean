@@ -8,5 +8,5 @@ public class DepartmentVO {
     private Long dep_code;
     private String dep_name;
     private Long upper_dep_code;
-
+    private String dep_role;
 }
