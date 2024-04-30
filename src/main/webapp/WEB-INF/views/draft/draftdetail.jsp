@@ -106,7 +106,7 @@
 							</tr>
 
 							<tr id="input_blank">
-								<c:forEach items="${approvalar }" var="approvalar">
+								<c:forEach items="${approvalar}" var="approvalar">
 									<c:if test="${approvalar.SIGN_RANK < approvalar.NOW_APPROVAL }">
 										<c:if test="${not empty approvalar.SIGN_FILE }">
 											<td><img src="${approvalar.SIGN_FILE}"  width="50px" height="30px">

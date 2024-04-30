@@ -41,13 +41,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>매출보고서</td>
-                                    <td><span>박성제</span></td>
-                                    <td><span>2024.01.02</span></td>
-                                    <td><span class="badge badge-success">결재완</span></td>
-                                </tr>
+								<c:forEach items="${list}" var="list">
+								<c:if test="${list.STATE eq 3}">
+                            <tr>
+                            <td>${list.DRAFT_NUM}</td>                            
+                            <td><a href="getdraftdetail?draft_num=${list.DRAFT_NUM}">${list.TITLE}</a></td>
+                            <td>${list.NAME}</td>
+                            <td>${list.DRAFT_DATE}</td>
+                            <td><span class="badge badge-success">결재완</span></td>
+                            </tr>
+								</c:if>
+								</c:forEach>
                             </tbody>
                         </table>
                     </div>
