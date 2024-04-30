@@ -14,7 +14,7 @@
                 { data: "MANAGE_CODE", title: "신청번호" },
                 { data: "NAME", title: "배차신청 사원" },
                 { data: "DEP_NAME", title: "신청부서" },
-                { data: "PRO_NUM", title: "신청차량" },
+                { data: "CAR_NUM", title: "신청차량" },
                 { data: "BOOKING_START", title: "신청일시" },
                 { data: "BOOKING_DONE", title: "종료일시" },
                 {

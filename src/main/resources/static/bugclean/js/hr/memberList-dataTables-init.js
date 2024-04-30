@@ -208,7 +208,9 @@ $(document).ready(async function () {
         }
 
         let tr = $(this);
+        console.log(tr);
         let table = $("#memberList").DataTable();
+        console.log(table);
         let rowData = table.row(tr).data();
         fetch(`/hr/member/detail?employee_num=${rowData.EMPLOYEE_NUM}`).then(response => response.json()).then(response => {
             $("#modal-title-num").html(`${response.data.EMPLOYEE_NUM || '오류'}`);
