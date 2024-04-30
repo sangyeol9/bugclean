@@ -166,22 +166,30 @@
 		ASC
 	</select>
 
-	<select id="getSignCheckDetail" resultType="DraftVO"
+	<select id="getSignCheckDetail" resultType="Map"
 		parameterType="DraftVO">
-		SELECT * FROM SIGN_CHECK
-		WHERE DRAFT_NUM =#{draft_num}
-		ORDER BY SIGN_RANK ASC
+		SELECT sc.*, e.NAME, e.SIGN_FILE , p.POS_NAME,
+		d.NOW_APPROVAL FROM SIGN_CHECK sc
+		LEFT OUTER JOIN EMPLOYEE e
+		ON sc.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+		LEFT OUTER JOIN "POSITION" p
+		ON e.POS_CODE =p.POS_CODE
+		LEFT OUTER JOIN DRAFT d
+		ON sc.DRAFT_NUM = d.DRAFT_NUM
+		WHERE sc.DRAFT_NUM = #{draft_num}
+		ORDER BY sc.SIGN_RANK asc
 	</select>
 
 	<select id="getRefDetail" resultType="Map"
 		parameterType="DraftVO">
-SELECT r.*,e.NAME  FROM REFERENCE r
-			LEFT OUTER JOIN EMPLOYEE e 
-			ON r.EMPLOYEE_NUM  = e.EMPLOYEE_NUM 
-			WHERE r.DRAFT_NUM =#{draft_num}
+		SELECT r.*,e.NAME FROM REFERENCE r
+		LEFT OUTER JOIN EMPLOYEE e
+		ON r.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+		WHERE r.DRAFT_NUM =#{draft_num}
 	</select>
 
-	<select id="getDraftFileDetail" resultType="DraftFileVO" parameterType="DraftVO">
+	<select id="getDraftFileDetail" resultType="DraftFileVO"
+		parameterType="DraftVO">
 		SELECT * FROM DRAFTFILE d
 		WHERE DRAFT_NUM = #{draft_num}
 	</select>

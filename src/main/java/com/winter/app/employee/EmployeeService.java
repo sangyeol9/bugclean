@@ -167,7 +167,7 @@ public class EmployeeService implements UserDetailsService{
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserDetails userDetails= (UserDetails)principal;
 		EmployeeVO emVO = (EmployeeVO)userDetails;
-    	
+    
 		if(file.isEmpty()) {
 			employeeVO.setProfile(null);
 			employeeVO.setProfile_name(null);
@@ -211,6 +211,7 @@ public class EmployeeService implements UserDetailsService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    	System.out.println("sign_file : "+employeeVO.getSign_file());
  
     	return employeeVO;
     }

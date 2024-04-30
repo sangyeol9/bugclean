@@ -1,7 +1,12 @@
 package com.winter.app.draft;
 
+import java.io.BufferedReader;
+import java.nio.charset.StandardCharsets;
+import java.sql.Clob;
 import java.sql.Date;
+import java.sql.SQLClientInfoException;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +14,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -59,10 +65,51 @@ public class DraftService {
 	
 	public Map<String, Object> getDraftDetail(DraftVO draftVO)throws Exception{
 		Map<String,Object> map = draftDAO.getDraftDetail(draftVO);
+		String date = map.get("DRAFT_DATE").toString();
+		System.out.println("date : " + date);
+		String [] splitDate = date.split(" ");
+		System.out.println("splitDate : "+ splitDate[0]);
+				map.put("DRAFT_DATE", splitDate[0]);
+				System.out.println("mapDate :" + map.get("DRAFT_DATE"));
+				Clob clob = (Clob) map.get("CONTENTS");
+				String data = clobToString(clob); // CLOB 데이터를 문자열로 변환
+				map.put("CONTENTS", data);
+				
 		return map;
 	}
-	public List<SignCheckVO> getSignCheckDetail(DraftVO draftVO)throws Exception{
-		return draftDAO.getSignCheckDetail(draftVO);
+	
+	private static String clobToString(Clob clob) throws Exception{
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = new BufferedReader(clob.getCharacterStream());
+        String line;
+        while ((line = br.readLine()) != null) {
+            sb.append(line);
+        }
+        br.close();
+        return sb.toString();
+    }
+
+	
+	public List<Map<String, Object>> getSignCheckDetail(DraftVO draftVO)throws Exception{
+		
+			List<Map<String, Object>> mapAr = draftDAO.getSignCheckDetail(draftVO);
+			
+			
+             
+			
+			for(int i=0; i<mapAr.size();i++) {
+				if( mapAr.get(i).get("SIGN_FILE") != null ) {
+					Clob clob = (Clob) mapAr.get(i).get("SIGN_FILE");
+					String data = clobToString(clob); // CLOB 데이터를 문자열로 변환
+					System.out.println("CLOB 데이터: " + data);
+					mapAr.get(i).put("SIGN_FILE", data);
+				}
+			 String date = mapAr.get(i).get("SIGN_DATE").toString();
+			 String [] spDate = date.split(" ");
+			 mapAr.get(i).put("SIGN_DATE", spDate[0]);
+			}
+		
+		return mapAr;
 		
 	}
 	

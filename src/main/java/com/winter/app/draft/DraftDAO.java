@@ -37,7 +37,7 @@ public interface DraftDAO {
 	
 	///기안서꺼내기
 	Map<String, Object> getDraftDetail(DraftVO draftVO)throws Exception;
-	List<SignCheckVO> getSignCheckDetail(DraftVO draftVO)throws Exception;
+	List<Map<String, Object>> getSignCheckDetail(DraftVO draftVO)throws Exception;
 	List<Map<String, Object>> getRefDetail(DraftVO draftVO)throws Exception;
 	List<DraftFileVO> getDraftFileDetail(DraftVO draftVO)throws Exception;
 	
