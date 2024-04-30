@@ -9,10 +9,10 @@
 	<select id="getAllList" parameterType="EmployeeVO" resultType="Map">
 		SELECT * 
 		FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
-		WHERE STATE =0 
-			AND SC.SIGN_RANK >0 
-			AND SC.EMPLOYEE_NUM =#{employee_num} 
-			AND D.NOW_APPROVAL >= SC.SIGN_RANK
+		WHERE (d.STATE = 0 OR d.STATE = 3)
+		 	AND SC.SIGN_RANK >0 
+		 	AND SC.EMPLOYEE_NUM =#{employee_num}
+		 	AND D.NOW_APPROVAL >= SC.SIGN_RANK
 	</select>
 	
 	<!-- 대기 : 결재중이면서 / 기안자 제외 / 결재라인에 나포함 리스트에서 / 현결재자가 나인 리스트 -->
@@ -21,34 +21,33 @@
 		FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
 		WHERE STATE =0 
 			AND SC.SIGN_RANK >0 
-			AND SC.EMPLOYEE_NUM =#{employee_num} 
+			AND SC.EMPLOYEE_NUM =#{employee_num}
 			AND D.NOW_APPROVAL = SC.SIGN_RANK
 	</select>
 	
-	<!-- 진행 : 결재중이면서 / 기안자 제외 / 결재라인에 나포함 리스트에서 / 난 결재완 뒤에 할사람있음 / 근데 완료는 아닌 리스트 -->
+	<!-- 진행 : 결재중이면서 / 기안자 제외 / 결재라인에 나포함 리스트에서 / 난 결재완 뒤에 할사람있음 -->
 	<select id="getProgressList" parameterType="EmployeeVO" resultType="Map">
 		SELECT * 
 		FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
 		WHERE STATE =0 
 			AND SC.SIGN_RANK >0 
 			AND SC.EMPLOYEE_NUM =#{employee_num}
-			AND D.NOW_APPROVAL > SC.SIGN_RANK 
-			AND 4 > D.NOW_APPROVAL
+			AND D.NOW_APPROVAL > SC.SIGN_RANK;
 	</select>	
 
-	<!-- 완료 -->
+	<!-- 완료 :  -->
 	<select id="getDoneList" parameterType="EmployeeVO" resultType="Map">
 		SELECT * 
 		FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
-		WHERE STATE =0 AND SC.SIGN_RANK >0 AND SC.EMPLOYEE_NUM =#{employee_num} AND D.NOW_APPROVAL = 4
-		<!--  결재중이면서?? 		기안자 제외 			결재라인에 나포함 리스트에서 		완료된 리스트 -->	
+		WHERE STATE =3 AND SC.SIGN_RANK >0 AND SC.EMPLOYEE_NUM =#{employee_num}
+		<!--  완료이면서 		기안자 제외 			결재라인에 나포함 리스트	-->	
 	</select>
-	<!-- 참조 완료??? 물어보자-->
+	<!-- 참조 완료면서-->
 	<select id="getReferList" parameterType="EmployeeVO" resultType="Map">		
 		SELECT * 
 		FROM DRAFT d 
 			FULL OUTER JOIN REFERENCE r
 			ON d.DRAFT_NUM = r.DRAFT_NUM
-		WHERE R.EMPLOYEE_NUM = #{employee_num} AND D.NOW_APPROVAL = 4;
+		WHERE R.EMPLOYEE_NUM = #{employee_num} AND STATE =3
 	</select>
 </mapper>
