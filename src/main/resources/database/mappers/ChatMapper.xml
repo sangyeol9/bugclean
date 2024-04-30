@@ -7,12 +7,32 @@
   
   <mapper namespace="com.winter.app.chat.ChatDAO">
 
- 	<select id="getEmployeeList" resultType="Map">
+	<insert id="createRoom" parameterType="ChatRoom">
+		INSERT INTO ROOM VALUES(#{room_num})
+	</insert>
+	<select id="checkExistRoom" parameterType="ChatRoom" resultType="int">
+		SELECT COUNT(ROOM_NUM) FROM ROOM WHERE ROOM_NUM = #{room_num} 
+	</select>
+	
+	<insert id="inviteChatRoom" parameterType="ChatMemberVO">
+		INSERT INTO CHAT_MEMBER (EMPLOYEE_NUM,ROOM_NUM,JOIN_TIME) VALUES(#{employee_num},#{room_num},SYSDATE)
+	</insert>
+	
+	<select id="getChatList" parameterType="ChatMemberVO" resultType="ChatMessage">
+		SELECT * FROM MESSAGE WHERE ROOM_NUM = #{room_num}
+	</select>
+	
+	<insert id="sendMsg" parameterType="ChatMessage">
+		INSERT INTO MESSAGE VALUES(MESSAGE_SEQ.NEXTVAL,#{employee_num},#{msg_contents},SYSDATE,#{room_num})
+	</insert>
+	
+ 	<select id="getEmployeeList" resultType="Map" parameterType="EmployeeVO">
  		SELECT e.EMPLOYEE_NUM ,e.NAME,e.NICKNAME ,d.DEP_NAME,p.POS_NAME,d.DEP_CODE  FROM EMPLOYEE e
 		LEFT JOIN DEPARTMENT d
 		ON e.DEP_CODE  = d.DEP_CODE
 		LEFT JOIN "POSITION" p
 		ON e.POS_CODE = p.POS_CODE
+		WHERE e.username != #{username}
  	</select> 	
  
  	<select id="getDepartment" resultType="DepartmentVO">
