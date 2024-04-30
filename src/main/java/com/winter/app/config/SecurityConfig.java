@@ -63,7 +63,7 @@ public class SecurityConfig{
 											.requestMatchers("/employee/idSearchResult").permitAll()
 											.requestMatchers("/employee/idSearchPhone").permitAll()
 											.requestMatchers("/employee/logout", "/employee/mypage",
-													"/employee/pwUpdate","/setAttendence","/setWorkOut").authenticated()
+													"/employee/pwUpdate","/setAttendence","/setWorkOut", "/receive/inbox").authenticated()
 											.requestMatchers("/hr/**").hasAnyRole("PERSON", "CEO")
 											
 											.anyRequest().permitAll()
