@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
-import com.winter.app.general.CarDetailVO;
-import com.winter.app.general.CarManageVO;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -23,6 +21,40 @@ public class GeneralController {
 
     @Autowired
     GeneralService generalService;
+
+
+    @PostMapping("cateAdd")
+    @ResponseBody
+    public int cateAdd(@RequestBody ProCategoryVO proCategoryVO)throws Exception{
+        return generalService.cateAdd(proCategoryVO);
+    }
+    @PostMapping("carUpdate")
+    @ResponseBody
+    public int updateCar(@RequestBody CarDetailVO carDetailVO) throws Exception{
+        log.info("{}",carDetailVO);
+        return generalService.updateCar(carDetailVO);
+    }
+
+    @PostMapping("carDelete")
+    @ResponseBody
+    public int deleteCar(@RequestBody CarDetailVO carDetailVO) throws Exception{
+        log.info("{}",carDetailVO);
+        return generalService.deleteCar(carDetailVO);
+    }
+
+    @PostMapping("proDelete")
+    @ResponseBody
+    public int deletePro(@RequestBody PropertyVO propertyVO) throws Exception{
+        log.info("{}",propertyVO);
+        return generalService.deletePro(propertyVO);
+    }
+
+    @PostMapping("proUpdate")
+    @ResponseBody
+    public int updatePro(@RequestBody PropertyVO propertyVO) throws Exception{
+        log.info("{}",propertyVO);
+        return generalService.updatePro(propertyVO);
+    }
 
     @GetMapping("carManage")
     public String getRequestPage(){

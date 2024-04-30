@@ -5,11 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.winter.app.general.CarDetailVO;
-import com.winter.app.general.CarManageVO;
-
-import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +17,26 @@ public class GeneralService {
 
     @Autowired
     CarTypeEncoder carTypeEncoder;
+
+
+    public int cateAdd(ProCategoryVO proCategoryVO)throws Exception{
+        return generalDAO.cateAdd(proCategoryVO);
+    }
+    public int updateCar(CarDetailVO carDetailVO) throws Exception {
+        return generalDAO.updateCar(carDetailVO);
+    }
+
+    public int updatePro(PropertyVO propertyVO) throws Exception{
+        return generalDAO.updatePro(propertyVO);
+    }
+
+    public int deleteCar(CarDetailVO carDetailVO)throws Exception{
+        return generalDAO.deleteCar(carDetailVO);
+    }
+
+    public int deletePro(PropertyVO propertyVO)throws Exception{
+        return generalDAO.deletePro(propertyVO);
+    }
 
     public List<Map<String, Object>> getManageList() throws Exception {
         return generalDAO.getManageList();
@@ -47,7 +62,8 @@ public class GeneralService {
     public List<ProCategoryVO> getCate() throws Exception {
         return generalDAO.getCate();
     }
-    public List<Object> getCarType() throws Exception{
+
+    public List<Object> getCarType() throws Exception {
         return generalDAO.getCarType();
     }
 

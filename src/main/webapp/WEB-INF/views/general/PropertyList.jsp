@@ -68,10 +68,14 @@
                                 <ul class="nav nav-tabs" role="tablist">
                                     <c:forEach items="${pro_cate}" var="cate" varStatus="loop">
                                         <li class="nav-item">
-                                            <a class="nav-link ${loop.first ? 'active' : ''}" data-toggle="tab"
+                                            <a onclick="propertyList(${cate.pro_category})"
+                                               class="nav-link ${loop.first ? 'active' : ''}" data-toggle="tab"
                                                href="#list-${cate.pro_category}">${cate.pro_name}</a>
                                         </li>
                                     </c:forEach>
+                                    <li>
+                                        <button onclick="catePlus()" class="nav-link">+</button>
+                                    </li>
                                 </ul>
                                 <div class="tab-content">
                                     <c:forEach items="${pro_cate}" var="cate" varStatus="loop">
@@ -81,7 +85,9 @@
                                             <div class="pt-4">
                                                 <div class="card-title d-flex justify-content-between">
                                                     <span>${cate.pro_name}</span>
-                                                    <button id="property-add" class="btn btn-primary">자산등록</button>
+                                                    <button onclick="add(${cate.pro_category})" class="btn btn-primary">
+                                                        자산등록
+                                                    </button>
                                                 </div>
                                                 <div class="table-responsive">
                                                     <table id="propertyList-${cate.pro_category}"
@@ -133,16 +139,6 @@
                                     <td id="car_code" class="col-7">지정불가</td>
                                 </tr>
                                 <tr>
-                                    <th class="font-weight-bolder">차량이름</th>
-                                    <td class="col-7" style="padding: 0">
-                                        <div style="display: inline-flex; width: 90%">
-                                            <input id="pro_name" type="text"
-                                                   class="form-control input-default user_name"
-                                                   style="width: 50%"/>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th class="font-weight-bolder">차량번호</th>
                                     <td class="col-7" style="padding: 0">
                                         <div style="display: inline-flex; width: 90%">
@@ -186,13 +182,65 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <div>
-                            <button id="fire-btn" type="button" class="btn btn-warning">삭제</button>
+                            <button id="delete-btn" type="button" class="btn btn-warning">삭제</button>
                         </div>
                         <div>
                             <button id="close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">닫기
                             </button>
                             <button id="modi-btn" type="button" class="btn btn-primary">수정</button>
                             <button id="save-btn" type="button" class="btn btn-primary" hidden="until-found">저장</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="pro-modal">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="fa-solid fa-user"></i></h5>
+                        <%--                        <h5 id="modal-title-num" class="modal-title">2024001</h5>--%>
+                        <h5 class="modal-title">자산 정보</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body d-flex justify-content-center">
+                        <div class="row table-responsive">
+                            <table class="table table-hover text-muted detail-table">
+                                <tbody>
+                                <tr>
+                                    <th class="font-weight-bolder">자산번호</th>
+                                    <td id="pro_code" class="col-7">지정불가</td>
+                                </tr>
+                                <tr>
+                                    <th class="font-weight-bolder">자산이름</th>
+                                    <td class="col-7" style="padding: 0">
+                                        <div style="display: inline-flex; width: 90%">
+                                            <input id="pro-name" type="text"
+                                                   class="form-control input-default user_name"
+                                                   style="width: 50%"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="font-weight-bolder">등록일자</th>
+                                    <td id="add_date" class="col-7">2021-04-01</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <div>
+                            <button id="delete-pro" type="button" class="btn btn-warning">삭제</button>
+                        </div>
+                        <div>
+                            <button id="close-pro" type="button" class="btn btn-secondary" data-dismiss="modal">닫기
+                            </button>
+                            <button id="modi-pro" type="button" class="btn btn-primary">수정</button>
+                            <button id="save-pro" type="button" class="btn btn-primary" hidden="until-found">저장</button>
                         </div>
                     </div>
                 </div>
