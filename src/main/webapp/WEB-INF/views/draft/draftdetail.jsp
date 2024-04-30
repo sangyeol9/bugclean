@@ -92,18 +92,51 @@
 						</div>
 
 						<table border="1" id="allineTable">
+
 							<tr id="input_grade">
 								<td rowspan="4">결재선</td>
-								<td>기안자</td>
+								<c:forEach items="${approvalar}" var="approvalar">
+									<c:if test="${approvalar.SIGN_RANK eq 0 }">
+										<td>기안자</td>
+									</c:if>
+									<c:if test="${approvalar.SIGN_RANK ne 0}">
+										<td>${approvalar.POS_NAME }</td>
+									</c:if>
+								</c:forEach>
 							</tr>
+
 							<tr id="input_blank">
-								<td></td>
+								<c:forEach items="${approvalar }" var="approvalar">
+									<c:if test="${approvalar.SIGN_RANK < approvalar.NOW_APPROVAL }">
+										<c:if test="${not empty approvalar.SIGN_FILE }">
+											<td><img src="${approvalar.SIGN_FILE}"  width="50px" height="30px">
+										</td>
+										</c:if>
+									</c:if>
+									<c:if
+										test="${approvalar.SIGN_RANK >= approvalar.NOW_APPROVAL }">
+										<td></td>
+									</c:if>
+
+								</c:forEach>
 							</tr>
+
 							<tr id="input_name">
-								<td>${empMap.NAME}</td>
+								<c:forEach items="${approvalar }" var="approvalar">
+									<td>${approvalar.NAME}</td>
+								</c:forEach>
 							</tr>
+
 							<tr>
-								<td class="date"></td>
+								<c:forEach items="${approvalar}" var="approvalar">
+									<c:if test="${approvalar.SIGN_RANK < approvalar.NOW_APPROVAL }">
+										<td class="date">${approvalar.SIGN_DATE}</td>
+									</c:if>
+									<c:if
+										test="${approvalar.SIGN_RANK >= approvalar.NOW_APPROVAL }">
+										<td class="date"></td>
+									</c:if>
+								</c:forEach>
 							</tr>
 						</table>
 
@@ -136,18 +169,18 @@
 
 							<tr>
 								<td class="basisTitleTd">제목</td>
-								<td class="basisTd"><input name="title" value="${draftmap.TITLE}" class="inp"
-									type="text"></td>
+								<td class="basisTd"><input name="title"
+									value="${draftmap.TITLE}" class="inp" type="text"></td>
 								<td class="basisTitleTd">참조</td>
 								<td class="basisTd"><input id="refInp" class="inp"
-									type="text" readonly="readonly" value="${refname}"> <input id="refempnum"
-									type="hidden" class="inp" name="refempnum"></td>
+									type="text" readonly="readonly" value="${refname}"> <input
+									id="refempnum" type="hidden" class="inp" name="refempnum"></td>
 							</tr>
 
 							<tr style="height: 300px;">
 								<td class="basisTitleTd">내용</td>
 								<td class="basisTitleTd" colspan="4"><input name="contents"
-									class="inp" type="text"></td>
+									class="inp" value="${draftmap.CONTENTS }" type="text"></td>
 							</tr>
 							<tr style="height: 130px;">
 								<td class="basisTitleTd">의견</td>
@@ -187,8 +220,6 @@
 						<button type="submit" name="state" value="2">임시저장</button>
 						&nbsp;&nbsp;&nbsp;
 						<button>삭제하기</button>
-						&nbsp;&nbsp;&nbsp;
-						<button>파일첨부</button>
 					</div>
 				</form>
 				<!-- 버튼모음 끝 -->

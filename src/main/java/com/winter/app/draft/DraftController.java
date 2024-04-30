@@ -76,7 +76,7 @@ public class DraftController {
 		Map<String, Object> map = draftService.getDraftDetail(draftVO);
 		model.addAttribute("draftmap", map);
 		//기안서 결재라인부분
-		List<SignCheckVO> approvalAr = draftService.getSignCheckDetail(draftVO);
+		List<Map<String, Object>> approvalAr = draftService.getSignCheckDetail(draftVO);
 		model.addAttribute("approvalar", approvalAr);
 		//기안서 참조 부분
 		String name = draftService.getRefDetail(draftVO);
