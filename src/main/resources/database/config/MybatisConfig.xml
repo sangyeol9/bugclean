@@ -36,5 +36,8 @@
 		<typeAlias type="com.winter.app.draft.ReferencesVO" alias="ReferencesVO"/>
 		<typeAlias type="com.winter.app.humanResource.AttendanceVO" alias="AttendanceVO"/>
 		<typeAlias type="com.winter.app.draft.DraftFileVO" alias="DraftFileVO"/>
+		<typeAlias type="com.winter.app.chat.ChatRoom" alias="ChatRoom"/>
+		<typeAlias type="com.winter.app.chat.ChatMemberVO" alias="ChatMemberVO"/>
+		<typeAlias type="com.winter.app.chat.ChatMessage" alias="ChatMessage"/>
   	</typeAliases>
   </configuration>

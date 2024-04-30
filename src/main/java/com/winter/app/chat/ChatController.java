@@ -52,12 +52,22 @@ public class ChatController {
 	
 	@PostMapping("room")
 	@ResponseBody
-	public String create(@RequestBody String roomId, RedirectAttributes rttr) {
-		log.info("# create chat room , name : " + roomId);
+	public List<ChatMessage> create(@RequestBody ChatRoom chatRoom, RedirectAttributes rttr) throws Exception {
+		log.info("# create chat room , name : " + chatRoom.getRoom_num());
 		String name = "채팅방";
-
-		rttr.addFlashAttribute("roomName", repository.createChatRoom(name,roomId));
-		return "hello";
+		ChatRoom chatRoom2 = new ChatRoom();
+		chatRoom2.setRoom_num(chatRoom.getRoom_num());
+		int check = chatService.checkExistRoom(chatRoom2);
+		int create_room;
+		if(check != 1) {
+			create_room = chatService.createRoom(chatRoom2);
+		}
+		ChatMemberVO chatMemberVO = new ChatMemberVO();
+		chatMemberVO.setRoom_num(chatRoom.getRoom_num());
+		List<ChatMessage> list =chatService.getChatList(chatMemberVO);
+		
+		rttr.addFlashAttribute("roomName", repository.createChatRoom(name,chatRoom.getRoom_num()));
+		return list;
 	}
 	
 	/*
@@ -67,20 +77,34 @@ public class ChatController {
 	 * model.addAttribute("room", repository.findRoomById(roomId)); }
 	 */
 	@GetMapping("room")
-	public void getRoom(String roomId, Model model) {
-		log.info("# get chat room, roomId = ", roomId);
+	public void getRoom(String room_num, Model model) {
+		log.info("# get chat room, roomId = ", room_num);
 	
-		model.addAttribute("room", repository.findRoomById(roomId));
-		model.addAttribute("roomId", roomId);
+		model.addAttribute("room", repository.findRoomById(room_num));
+		model.addAttribute("roomId", room_num);
+	}
+	
+	//메시지 내용 디비 저장
+	@PostMapping("sendMsg")
+	@ResponseBody
+	public int sendMsg(@RequestBody ChatMessage chatMessage) throws Exception{
+		System.out.println("send msg ==== > \n " + chatMessage);
+		int result = chatService.sendMsg(chatMessage);
+		
+		return result;
 	}
 	
 	
 	//사원 리스트 가져오기
 	@PostMapping("list")
 	@ResponseBody
-	public List<Map<String, Object>> getEmployeeList() throws Exception {
+	public List<Map<String, Object>> getEmployeeList( ) throws Exception {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails)principal;
+		EmployeeVO employeeVO = new EmployeeVO();
+		employeeVO.setUsername(userDetails.getUsername());
 		
-		List<Map<String, Object>> list = chatService.getEmployeeList();
+		List<Map<String, Object>> list = chatService.getEmployeeList(employeeVO);
 		
 		System.out.println(list);
 		
