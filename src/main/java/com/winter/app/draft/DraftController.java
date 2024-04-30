@@ -71,10 +71,13 @@ public class DraftController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserDetails userDetails = (UserDetails) principal;
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
+		System.out.println("employeeVO.num : "+employeeVO.getEmployee_num());
+		System.out.println("draftVO.draft_Num : "+draftVO.getDraft_num());
 		//기안서 부분
 		draftVO.setEmployee_num(employeeVO.getEmployee_num());
 		Map<String, Object> map = draftService.getDraftDetail(draftVO);
 		model.addAttribute("draftmap", map);
+		System.out.println("draftmap : "+ map);
 		//기안서 결재라인부분
 		List<Map<String, Object>> approvalAr = draftService.getSignCheckDetail(draftVO);
 		model.addAttribute("approvalar", approvalAr);
@@ -97,7 +100,7 @@ public class DraftController {
 		
 		System.out.println("fileAr : "+fileAr.toString());
 		System.out.println("approvalAr : "+approvalAr.toString() );
-		System.out.println("Map : "+map.toString());
+		
 		return "draft/draftdetail";
 	}               
 
