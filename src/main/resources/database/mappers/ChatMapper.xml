@@ -23,8 +23,24 @@
 	</select>
 	
 	<insert id="sendMsg" parameterType="ChatMessage">
-		INSERT INTO MESSAGE VALUES(MESSAGE_SEQ.NEXTVAL,#{employee_num},#{msg_contents},SYSDATE,#{room_num})
+		INSERT INTO MESSAGE VALUES(MESSAGE_SEQ.NEXTVAL,#{employee_num},#{msg_contents},SYSDATE+(1/24*9),#{room_num})
 	</insert>
+	
+	<select id="getLastWriter" parameterType="ChatMessage" resultType="ChatMessage">
+		SELECT *
+			FROM (
+			    SELECT m.*, ROWNUM AS RN
+			    FROM (
+			        SELECT * 
+			        FROM MESSAGE m
+			        WHERE ROOM_NUM = #{room_num}
+			        ORDER BY MESSAGE_NUM DESC
+			    ) m
+			)
+			WHERE RN = 2
+	</select>
+	
+	<!-- 사원 리스트 -->
 	
  	<select id="getEmployeeList" resultType="Map" parameterType="EmployeeVO">
  		SELECT e.EMPLOYEE_NUM ,e.NAME,e.NICKNAME ,d.DEP_NAME,p.POS_NAME,d.DEP_CODE  FROM EMPLOYEE e
@@ -56,6 +72,31 @@
 			ON e.POS_CODE  = p.POS_CODE 
 		WHERE username = #{username}
 	</select>
+	<!-- 사원 리스트 끝 -->
 	
+	<!-- 채팅방 내역  -->
+	<!--채팅방 리스트-->
+	<select id="getChattingRoom" parameterType="EmployeeVO" resultType="Map">
+		SELECT cm.EMPLOYEE_NUM ,cm.ROOM_NUM,d.DEP_NAME,p.POS_NAME,e.NAME  FROM CHAT_MEMBER cm 
+			LEFT OUTER JOIN EMPLOYEE e 
+			ON cm.EMPLOYEE_NUM  = e.EMPLOYEE_NUM
+			LEFT OUTER JOIN DEPARTMENT d 
+			ON d.DEP_CODE  = e.DEP_CODE 
+			LEFT OUTER JOIN "POSITION" p 
+			ON p.POS_CODE = e.POS_CODE 
+			 WHERE ROOM_NUM IN  
+			(SELECT ROOM_NUM FROM CHAT_MEMBER cm1 WHERE EMPLOYEE_NUM =#{employee_num}) AND e.EMPLOYEE_NUM  != #{employee_num}
+	</select>	
+	
+	<!-- 각 채팅방 마지막 내용 -->
+	<select id="getLastMessage" parameterType="ChatMemberVO" resultType="ChatMessage">
+		SELECT * FROM 
+			( SELECT * FROM MESSAGE m WHERE ROOM_NUM IN 
+				(SELECT ROOM_NUM  FROM CHAT_MEMBER cm  WHERE ROOM_NUM IN  
+					(SELECT ROOM_NUM FROM CHAT_MEMBER cm1 WHERE EMPLOYEE_NUM =#{employee_num}) AND EMPLOYEE_NUM  != #{employee_num} AND ROOM_NUM =#{room_num}
+			) ORDER  BY MESSAGE_NUM DESC)
+		 WHERE ROWNUM =1
+	</select>
+	<!-- 채팅방 내역 끝 -->
 	
   </mapper>

@@ -2,6 +2,8 @@ let affairs_team_list = document.getElementById("affairs_team_list");
 let affairs_team_span = document.getElementById("affairs_team_span");
 let affairs_team_div = document.getElementById("affairs_team_div"); 
 let messenger_emp_list = document.getElementById("messenger_emp_list");
+let messenger_msg_list = document.getElementById("messenger_msg_list");
+
 
 let openChatRoom = document.getElementById("openChatRoom");
 
@@ -147,6 +149,8 @@ function close_modal(){
 
 //페이지 로드시 메신저에 사원 조직도 그리기 1차 부서,팀
 window.addEventListener("load",async function(){
+	fetch("chat/getPrincipal")
+	
     const response =  await fetch("/chat/department",{
         method : "POST"
     })
@@ -184,10 +188,73 @@ window.addEventListener("load",async function(){
                 document.getElementById(`div${element.upper_dep_code}_list`).append(div);
                 obj[element.dep_code] = div.querySelector(`#div${element.dep_code}_list`);
             }
-            
-
           });
+          
+		    
+		    let getUserName;
+		    let getName;
+		    let getEmpNum;
+		    fetch("/chat/getPrincipal",{
+		        method : "GET"
+		    }).then(res=>res.text())
+		    .then(res=>{
+		        console.log("principal ==== " , res);
+		        getUserName = res;
+		        
+		        fetch("/chat/getEmpName",{
+		            method:"POST",
+		            headers: {
+		                "Content-Type": "application/json",
+		            },
+		            body : JSON.stringify({
+		                username : getUserName
+		            })
+		        }).then(res=>res.json())
+		        .then(res=>{
+		            console.log("res=== > ",res)
+		            getName = res.NAME;
+		            getEmpNum = res.EMPLOYEE_NUM;
+		          fetch("/chat/getChattingRoom",{
+					  method : "POST",
+					  headers: {
+		                "Content-Type": "application/json",
+		            },
+		            body : JSON.stringify({
+						employee_num : getEmpNum
+						})
+				  }).then(res=>res.json())
+				  .then(res=>{
+					  console.log("get chatting room res == > ", res);
+					  res.forEach(element => {
+						  messenger_msg_list.innerHTML += `<div id="${element.ROOM_NUM}"><a style="color : black;" onclick="window.open('/chat/room?room_num=${element.ROOM_NUM}','_blank','width=400, height=600, top=50,left=50'); "><img width="50" height="50" id="user2_profile" src="/focus-bootstrap-main/theme/images/base_profile.png"> ${element.DEP_NAME} ${element.POS_NAME} ${element.NAME} </a> </div>`
+					  fetch("/chat/getLastMessage",{
+						   method : "POST",
+							  headers: {
+				                "Content-Type": "application/json",
+				            },
+				            body : JSON.stringify({
+								employee_num : element.EMPLOYEE_NUM ,
+								room_num : 	element.ROOM_NUM
+							})
+					  }).then(res=>res.json())
+					  .then(res=>{
+						 console.log("last msg ==> ",res)
+						 document.getElementById(res.room_num).innerHTML+= `<br><b> ${res.msg_contents}</b> `
+					  })
+					  })
+					  
+					  
+				  })
+				  
+				  
+				  
+		         })
+          
+          
         })
+      })
+      
+      
 //" class=" + "\"" + "display_none" + "\""
                             /* <div id="affairs_team_list" class="display_none">
 							<div>&emsp;<i class="fa-solid fa-user"></i>박성제</div>

@@ -60,8 +60,7 @@
                 <ul aria-expanded="false">
                     <li><a href="/customer/list">거래처관리</a></li>
                     <li><a href="/schedule/list">현장일정관리</a></li>
-                    <li><a href="/focus-bootstrap-main/theme/app-profile.html">매출관리</a></li>
-                    <li><a href="/focus-bootstrap-main/theme/app-profile.html">공지사항</a></li>
+                    <li><a href="/chart/main">매출관리</a></li>
 
                 </ul>
             </li>
@@ -72,7 +71,7 @@
                 <ul aria-expanded="false">
                     <li><a href="/schedule/list">현장일정관리</a></li>
                     <li><a href="/customer/list">거래처관리</a></li>
-                    <li><a href="/focus-bootstrap-main/theme/app-profile.html">문서관리</a></li>
+                    <li><a href="/focus-bootstrap-main/theme/app-profile.html">문서관리(후순위)</a></li>
                 </ul>
             </li>
             <li class="nav-label">DRAFT MENU</li>

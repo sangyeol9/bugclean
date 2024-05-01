@@ -106,8 +106,7 @@
 					
 	       		</div>
 	       		<div id="messenger_msg_list" class="display_none">
-	       			<div><a href="/chat/room" onclick="openPopup(); return false;">메시지 목록 1</a></div>
-	       			<div>메시지 목록 2</div>
+	       		
 	       		</div>
 	       	</div>
         </div> 

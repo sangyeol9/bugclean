@@ -60,7 +60,9 @@ public class ChatService {
 		return chatDAO.sendMsg(chatMessage);
 	}
 	
-	
+	public ChatMessage getLastWriter(ChatMessage chatMessage) throws Exception{
+		return chatDAO.getLastWriter(chatMessage);
+	}
 	
 	
 	public List<Map<String, Object>> getEmployeeList(EmployeeVO employeeVO) throws Exception{
@@ -79,6 +81,22 @@ public class ChatService {
 	
 	public Map<String, Object> getEmpName(EmployeeVO employeeVO) throws Exception{
 		return chatDAO.getEmpName(employeeVO);
+	}
+	
+//	채팅방 리스트
+	public List<Map<String,Object>> getChattingRoom(EmployeeVO employeeVO) throws Exception {
+		return chatDAO.getChattingRoom(employeeVO);
+	}
+	
+	public ChatMessage getLastMessage(ChatMemberVO chatMemberVO) throws Exception{
+		ChatMessage chatMessage = new ChatMessage();
+		chatMessage = chatDAO.getLastMessage(chatMemberVO);
+		if(chatMessage.getEmployee_num() ==null ) {
+			chatMessage.setEmployee_num(chatMemberVO.getRoom_num());
+			chatMessage.setMsg_contents("0");
+			chatMessage.setRoom_num(chatMemberVO.getRoom_num());;
+		}
+		return chatMessage;
 	}
 	
 }
