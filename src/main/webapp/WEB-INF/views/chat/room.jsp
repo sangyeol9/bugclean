@@ -47,8 +47,7 @@ let username1 = '${pageContext.request.userPrincipal.name}';
 let username2;
 const sendData = JSON.parse(localStorage.getItem('sendData'));
 const sendDataMsg = JSON.parse(localStorage.getItem('sendDateMsg'));
-    // 채팅내역 불러오기 성공! 집가서 채팅창에 뿌려주면됩니다!!!
-
+    
 
                     // 로그인 한 사람 사원번호 예정
                     let id1 = sendData.substring(0,7);
@@ -88,6 +87,32 @@ window.onload = function(){
                         console.log("res  id2 ===>",res);
                         document.getElementById("chat_person").innerHTML = res.DEP_NAME+" " + res.POS_NAME+ " " + res.NAME;
                         username2 = res.NAME;
+
+                                        // 채팅내역 불러오기 성공! 집가서 채팅창에 뿌려주면됩니다!!!
+                                        for(let i=0;i<sendDataMsg.length;i++){
+                                            console.log(sendDataMsg[i]);
+
+                                            if(sendDataMsg[i].employee_num === id1){
+                                                                str = "<div class='user1_name'>" + username1 +"</div>";
+                                                                str += "<div class='col-6 username1'>";
+                                                                str += "<p style='font-size : x-small; margin-top : auto;'>"+sendDataMsg[i].msg_send_time + "</p>";
+                                                                str += "<div class='alert alert-secondary'>";
+                                                                str += "<b>" +  sendDataMsg[i].msg_contents + "</b>";
+                                                                str += "</div></div>";
+                                                                $("#msgArea").append(str);
+                                                            }
+                                                            else{
+                                                                str="<div class='user2_name'>" + '<img id="user2_profile" src="/focus-bootstrap-main/theme/images/base_profile.png">'+ username2 +"</div>";
+                                                                str += "<div class='col-6 username2'>";
+                                                                str +=  "<p style='font-size : x-small; margin-top : auto;'>"+sendDataMsg[i].msg_send_time+"</p>";
+                                                                str += "<div class='alert alert-warning'>";
+                                                                str += "<b>" + sendDataMsg[i].msg_contents + "</b>";
+                                                                str += "</div></div>";
+                                                                $("#msgArea").append(str);
+                                                            }
+
+                                        }
+
                     })
                 })
 
@@ -104,8 +129,13 @@ window.onload = function(){
                     console.log("id1 == " , id1 , " id2= == > ", id2);
                     
                     let message;
-    
-    
+
+                    var today = new Date();   
+
+                    var hours = ('0' + today.getHours()).slice(-2); 
+                    var minutes = ('0' + today.getMinutes()).slice(-2);
+                    var timeString = hours + ':' + minutes
+                    console.log(timeString);
                     console.log(roomName + ", " + roomId + ", " + username1);
     
                     var sockJs = new SockJS("/stomp/chat");
@@ -126,6 +156,7 @@ window.onload = function(){
                            if(writer === username1){
                                str = "<div class='user1_name'>" + writer +"</div>";
                                str += "<div class='col-6 username1'>";
+                                str += "<p style='font-size : x-small; margin-top : auto;'>"+ timeString +"</p>";
                                str += "<div class='alert alert-secondary'>";
                                str += "<b>" +  content.message + "</b>";
                                str += "</div></div>";
@@ -134,6 +165,7 @@ window.onload = function(){
                            else{
                                str="<div class='user2_name'>" + '<img id="user2_profile" src="/focus-bootstrap-main/theme/images/base_profile.png">'+ username2 +"</div>";
                                str += "<div class='col-6 username2'>";
+                                str += "<p style='font-size : x-small; margin-top : auto;'>"+ timeString + "</p>"
                                str += "<div class='alert alert-warning'>";
                                str += "<b>" + content.message + "</b>";
                                str += "</div></div>";
@@ -183,6 +215,9 @@ window.onload = function(){
 
                         })
                     }
+
+    
+
 
         </script>
 

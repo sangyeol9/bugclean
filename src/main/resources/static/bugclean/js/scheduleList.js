@@ -370,7 +370,7 @@ modalTitle.innerText="일정 확인";
                     console.log("null입니당")
                     carAllocation.innerHTML = `<option id ="carSelectBase" value="">배차요청</option>`;
                     res.forEach(element => {
-                        carAllocation.innerHTML += `<option class="car_choice" value="${element.pro_num} ${element.car_code}">${element.pro_num}</option>`
+                        carAllocation.innerHTML += `<option class="car_choice" value="${element.car_num} ${element.car_code}">${element.car_num}</option>`
                      });
                 }else{
                     console.log("null이 아닙ㅂ니당",allocationState);
@@ -385,7 +385,7 @@ modalTitle.innerText="일정 확인";
                     }).then(res=>res.json())
                     .then(res=>{
                       console.log("배차 정보 확인 res = >>",res);  
-                      carAllocation.innerHTML = `<option id ="carSelectBase" value="${res.PRO_NUM} ${res.CAR_CODE} ">${res.PRO_NUM}</option>`;
+                      carAllocation.innerHTML = `<option id ="carSelectBase" value="${res.CAR_NUM} ${res.CAR_CODE} ">${res.CAR_NUM}</option>`;
                       if(res.BOOKING_AGREE == '0'){
                         input_carAllocation.value = "배차 신청중"
                       }else{
