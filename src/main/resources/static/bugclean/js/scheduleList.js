@@ -11,6 +11,8 @@ let sch_Filter_Input = document.getElementById("sch_Filter_Input")
 let update_sch_btn = document.getElementById("update_sch_btn");
 let delete_sch_btn = document.getElementById("delete_sch_btn");
 let create_sch_btn = document.getElementById("create_sch_btn");
+let complate_sch_btn = document.getElementById("complate_sch_btn");
+
 let updel = document.getElementsByClassName("updel");
 //
 
@@ -170,6 +172,7 @@ function newModal(info){
     create_sch_btn.classList.remove("display_none");
     update_sch_btn.classList.add("display_none");
     delete_sch_btn.classList.add("display_none");
+    complate_sch_btn.classList.add("display_none");
     allocationDiv.classList.add("display_none");
 var modal = document.getElementById("myModal");
 var modalTitle = document.getElementById("modal-title"); // 모달 타이틀 엘리먼트
@@ -250,7 +253,7 @@ carAllocation.selectedIndex=0; // 배차 셀렉트박스 선택 값 초기화
     create_sch_btn.classList.add("display_none");
     update_sch_btn.classList.remove("display_none");
     delete_sch_btn.classList.remove("display_none");
-
+	complate_sch_btn.classList.remove("display_none")
 
 let modal = document.getElementById("myModal");
 let modalTitle = document.getElementById("modal-title"); // 모달 타이틀 엘리먼트
@@ -463,7 +466,29 @@ modalTitle.innerText="일정 확인";
                 }
             })
         })
-
+		
+		complate_sch_btn.addEventListener("click",function(){
+			fetch("/schedule/updateSchType",{
+                method:"POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body : JSON.stringify({
+                    site_Num : sch_ID,
+                    site_Type : '완료'
+                })
+            }).then(res=>res.json())
+            .then(res=>{
+                if(res>0){
+                    alert("일정이 완료되었습니다." +  res);
+                    openWindow(); 
+                }else{
+                    alert("일정 완료에 실패했습니다.");
+                }
+            })
+        })
+		
+		
     console.log("last index of ===== ",id.lastIndexOf('-'));
     console.log("id substr == ", id.substring(id.lastIndexOf('-')-10,id.lastIndexOf('-')))
     console.log("id length = ",id.length);

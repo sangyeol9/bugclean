@@ -12,10 +12,9 @@
     <th:block th:fragment="content">
 
         <div id="chat_container" class="container">
-            <div class="col-12">
-                <h4 id="chat_person"></h4>
-                <hr>
-                  </div>
+            <div class="col-12" id="chat_person">
+                
+            </div>
             <div>
                 <div id="msgArea" class="col"></div>
                 <div class="col-12 inputbox">
@@ -42,7 +41,7 @@
 
 const chat_container = document.getElementById("chat_container");
 chat_container.scrollTop = chat_container.scrollHeight;
-
+let lastWriter;
 let username1 = '${pageContext.request.userPrincipal.name}';
 let username2;
 const sendData = JSON.parse(localStorage.getItem('sendData'));
@@ -85,32 +84,86 @@ window.onload = function(){
                     }).then(res=>res.json())
                     .then(res=>{
                         console.log("res  id2 ===>",res);
-                        document.getElementById("chat_person").innerHTML = res.DEP_NAME+" " + res.POS_NAME+ " " + res.NAME;
+                        document.getElementById("chat_person").innerHTML = '<img id="user2_profile" src="/focus-bootstrap-main/theme/images/base_profile.png">' + 
+                        '<b>'+ res.DEP_NAME+" " + res.POS_NAME+ " " + res.NAME + '</b><hr> ';
                         username2 = res.NAME;
 
                                         // 채팅내역 불러오기 성공! 집가서 채팅창에 뿌려주면됩니다!!!
                                         for(let i=0;i<sendDataMsg.length;i++){
                                             console.log(sendDataMsg[i]);
+                                            let send_Time = sendDataMsg[i].msg_send_time.substring(5,16);
+                                            let send_hour = send_Time.substring(6,8);
+                                            let send_apm = '오전'
+                                            if(send_hour/12 ==1){
+                                                send_apm = '오후'
+                                            }
+                                            if(send_hour%12 != 0){
+                                                send_hour %= 12;
+                                            }else if(send_hour %12 ==0 && send_hour/12 == 2){
+                                                send_hour = '00';
+                                            }
+                                            else{
+                                                send_hour=12;
+                                            }
 
-                                            if(sendDataMsg[i].employee_num === id1){
-                                                                str = "<div class='user1_name'>" + username1 +"</div>";
-                                                                str += "<div class='col-6 username1'>";
-                                                                str += "<p style='font-size : x-small; margin-top : auto;'>"+sendDataMsg[i].msg_send_time + "</p>";
-                                                                str += "<div class='alert alert-secondary'>";
-                                                                str += "<b>" +  sendDataMsg[i].msg_contents + "</b>";
+                                            let send_date = send_apm + " " + send_Time.substring(0,5)+" " +send_hour + " : " + send_Time.substring(send_Time.length-2,send_Time.length);
+
+                                            console.log("send time == ", send_Time);
+                                            if(i>0){
+                                                if(sendDataMsg[i].employee_num == sendDataMsg[i-1].employee_num && sendDataMsg[i].msg_send_time.substring(8,12) == sendDataMsg[i-1].msg_send_time.substring(8,12)){
+                                                    if(sendDataMsg[i].employee_num === id1){
+                                                                str = "<div class='col-6 username1'>";
+                                                                str += "<div class='alert alert-secondary' style='padding : 2%; font-size:small;'>";
+                                                                str += sendDataMsg[i].msg_contents ;
+                                                                str += "</div></div>";
+                                                                $("#msgArea").append(str);
+                                                            }
+                                                            else{
+                                                                str = "<div class='col-6 username2'>";
+                                                                str += "<div class='alert alert-warning' style='padding : 2%; font-size:small;'>";
+                                                                str +=   sendDataMsg[i].msg_contents ;
+                                                                str += "</div>"
+                                                                $("#msgArea").append(str);
+                                                            }
+                                                    
+                                                }else if(sendDataMsg[i].employee_num === id1){
+                                                                str = "<div class='col-6 username1'>";
+                                                                str += "<p style='font-size : x-small; margin-top : auto;'>"+send_date + "</p>";
+                                                                str += "<div class='alert alert-secondary' style='padding : 2%; font-size:small;'>";
+                                                                str += sendDataMsg[i].msg_contents ;
                                                                 str += "</div></div>";
                                                                 $("#msgArea").append(str);
                                                             }
                                                             else{
                                                                 str="<div class='user2_name'>" + '<img id="user2_profile" src="/focus-bootstrap-main/theme/images/base_profile.png">'+ username2 +"</div>";
                                                                 str += "<div class='col-6 username2'>";
-                                                                str +=  "<p style='font-size : x-small; margin-top : auto;'>"+sendDataMsg[i].msg_send_time+"</p>";
-                                                                str += "<div class='alert alert-warning'>";
-                                                                str += "<b>" + sendDataMsg[i].msg_contents + "</b>";
-                                                                str += "</div></div>";
+                                                                
+                                                                str += "<div class='alert alert-warning' style='padding : 2%; font-size:small;'>";
+                                                                str +=   sendDataMsg[i].msg_contents ;
+                                                                str += "</div>"
+                                                                str +=  "<p style='font-size : x-small; margin-top : auto;'>"+send_date+"</p>"+"</div>";
                                                                 $("#msgArea").append(str);
                                                             }
-
+                                            }else if(i==0){
+                                                if(sendDataMsg[i].employee_num === id1){
+                                                str = "<div class='col-6 username1'>";
+                                                str += "<p style='font-size : x-small; margin-top : auto;'>"+send_date + "</p>";
+                                                str += "<div class='alert alert-secondary' style='padding : 2%; font-size:small;'>";
+                                                str += sendDataMsg[i].msg_contents ;
+                                                str += "</div></div>";
+                                                $("#msgArea").append(str);
+                                            }
+                                            else{
+                                                str="<div class='user2_name'>" + '<img id="user2_profile" src="/focus-bootstrap-main/theme/images/base_profile.png">'+ username2 +"</div>";
+                                                str += "<div class='col-6 username2'>";
+                                                
+                                                str += "<div class='alert alert-warning' style='padding : 2%; font-size:small;'>";
+                                                str +=   sendDataMsg[i].msg_contents ;
+                                                str += "</div>"
+                                                str +=  "<p style='font-size : x-small; margin-top : auto;'>"+send_date+"</p>"+"</div>";
+                                                $("#msgArea").append(str);
+                                            }
+                                        }          
                                         }
 
                     })
@@ -152,25 +205,54 @@ window.onload = function(){
     
                            var writer = content.writer;
                            var str = '';
-    
-                           if(writer === username1){
-                               str = "<div class='user1_name'>" + writer +"</div>";
-                               str += "<div class='col-6 username1'>";
-                                str += "<p style='font-size : x-small; margin-top : auto;'>"+ timeString +"</p>";
-                               str += "<div class='alert alert-secondary'>";
-                               str += "<b>" +  content.message + "</b>";
-                               str += "</div></div>";
-                               $("#msgArea").append(str);
+                           fetch("/chat/getLastWriter",{
+                            method : 'POST',
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body : JSON.stringify({
+                                room_num : roomId
+                            })
+                           }).then(res=>res.json())
+                           .then(res=>{
+                            console.log('res last writer==>', res);
+                            if(id1 == res.employee_num){
+                                if(writer === username1){
+                                    str = "<div class='col-6 username1'>";
+                                    str += "<div class='alert alert-secondary' style='padding : 2%; font-size:small';>";
+                                    str +=  content.message;
+                                    str += "</div></div>";
+                                    $("#msgArea").append(str);
                            }
-                           else{
-                               str="<div class='user2_name'>" + '<img id="user2_profile" src="/focus-bootstrap-main/theme/images/base_profile.png">'+ username2 +"</div>";
-                               str += "<div class='col-6 username2'>";
-                                str += "<p style='font-size : x-small; margin-top : auto;'>"+ timeString + "</p>"
-                               str += "<div class='alert alert-warning'>";
-                               str += "<b>" + content.message + "</b>";
-                               str += "</div></div>";
-                               $("#msgArea").append(str);
+                                else{
+                                    str = "<div class='col-6 username2'>";
+                                    str += "<div class='alert alert-warning' style='padding : 2%; font-size:small';>";
+                                    str +=  content.message ;
+                                    str += "</div>";
+                                    $("#msgArea").append(str);
+                                }
+                            }else{
+                                if(writer === username1){
+                                    str = "<div class='col-6 username1'>";
+                                    str += "<p style='font-size : x-small; margin-top : auto;'>"+ timeString +"</p>";
+                                    str += "<div class='alert alert-secondary' style='padding : 2%; font-size:small';>";
+                                    str +=  content.message;
+                                    str += "</div></div>";
+                                    $("#msgArea").append(str);
                            }
+                                else{
+                                    str="<div class='user2_name'>" + '<img id="user2_profile" src="/focus-bootstrap-main/theme/images/base_profile.png">'+ username2 +"</div>";
+                                    str += "<div class='col-6 username2'>";
+                                    str += "<div class='alert alert-warning' style='padding : 2%; font-size:small';>";
+                                    str +=  content.message ;
+                                    str += "</div>";
+                                    str += "<p style='font-size : x-small; margin-top : auto;'>"+ timeString + "</p>" + "</div>";
+                                    $("#msgArea").append(str);
+                                }
+                            }
+                           })
+
+                           
                            
                            
                        });

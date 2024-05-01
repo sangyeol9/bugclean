@@ -26,4 +26,12 @@ public interface ChatDAO {
 	Map<String, Object> getEmpInfo(EmployeeVO employeeVO) throws Exception;
 	
 	Map<String, Object> getEmpName(EmployeeVO employeeVO) throws Exception;
+	
+	ChatMessage getLastWriter(ChatMessage chatMessage) throws Exception;
+	
+//	채팅방 리스트
+	
+	List<Map<String,Object>> getChattingRoom(EmployeeVO employeeVO) throws Exception;
+	
+	ChatMessage getLastMessage(ChatMemberVO chatMemberVO) throws Exception;
 }

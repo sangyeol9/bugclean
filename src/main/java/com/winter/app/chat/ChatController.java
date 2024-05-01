@@ -77,8 +77,8 @@ public class ChatController {
 	 * model.addAttribute("room", repository.findRoomById(roomId)); }
 	 */
 	@GetMapping("room")
-	public void getRoom(String room_num, Model model) {
-		log.info("# get chat room, roomId = ", room_num);
+	public void getRoom(@RequestParam String room_num, Model model) {
+		log.info("# get chat room, roomId = " + room_num);
 	
 		model.addAttribute("room", repository.findRoomById(room_num));
 		model.addAttribute("roomId", room_num);
@@ -92,6 +92,14 @@ public class ChatController {
 		int result = chatService.sendMsg(chatMessage);
 		
 		return result;
+	}
+	
+	@PostMapping("getLastWriter")
+	@ResponseBody
+	public ChatMessage getLastWriter(@RequestBody ChatMessage chatMessage) throws Exception{
+		System.out.println("chat msg ===> \n" + chatMessage ) ;
+		
+		return chatService.getLastWriter(chatMessage);
 	}
 	
 	
@@ -149,4 +157,20 @@ public class ChatController {
 		return name;
 	}
 	
+//	채팅방 리스트 시작
+	
+	@PostMapping("getChattingRoom")
+	@ResponseBody
+	public List<Map<String,Object>> getChattingRoom(@RequestBody EmployeeVO employeeVO) throws Exception{
+		System.out.println("employee vo ==== > \n" + employeeVO);
+		return chatService.getChattingRoom(employeeVO);
+	}
+	
+	@PostMapping("getLastMessage")
+	@ResponseBody
+	public ChatMessage getLastMessage(@RequestBody ChatMemberVO chatMemberVO) throws Exception{
+		System.out.println("last message vo ===> \n " + chatMemberVO);
+		
+		return chatService.getLastMessage(chatMemberVO);
+	}
 }
