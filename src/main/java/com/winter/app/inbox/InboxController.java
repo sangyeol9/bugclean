@@ -31,11 +31,17 @@ public class InboxController {
 		
 		EmployeeVO employeeVO = (EmployeeVO)userDetails;
 		
-		List<Map<String, Object>> allList = inboxService.getInbox(employeeVO);
-		
-		System.out.println("allList : "+allList);
+		List<Map<String, Object>> allList = inboxService.getAllList(employeeVO);
+		List<Map<String, Object>> waitList = inboxService.getWaitList(employeeVO);
+		List<Map<String, Object>> progressList = inboxService.getProgressList(employeeVO);
+		List<Map<String, Object>> doneList = inboxService.getDoneList(employeeVO);
+		List<Map<String, Object>> referList = inboxService.getReferList(employeeVO);
 		
 		model.addAttribute("allList", allList);
+		model.addAttribute("waitList", waitList);
+		model.addAttribute("progressList", progressList);
+		model.addAttribute("doneList", doneList);
+		model.addAttribute("referList", referList);
 		
 		return "employee/inbox";
 	}
