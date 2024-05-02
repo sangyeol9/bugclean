@@ -44,10 +44,11 @@ chat_container.scrollTop = chat_container.scrollHeight;
 let lastWriter;
 let username1 = '${pageContext.request.userPrincipal.name}';
 let username2;
-const sendData = JSON.parse(localStorage.getItem('sendData'));
+const sendData = localStorage.getItem('sendData');
 const sendDataMsg = JSON.parse(localStorage.getItem('sendDateMsg'));
     
-
+console.log("send date == > ", sendData);
+console.log("senddate msg == > ", sendDataMsg)
                     // 로그인 한 사람 사원번호 예정
                     let id1 = sendData.substring(0,7);
                     // 상대방 번호 될 예정
@@ -110,7 +111,7 @@ window.onload = function(){
 
                                             console.log("send time == ", send_Time);
                                             if(i>0){
-                                                if(sendDataMsg[i].employee_num == sendDataMsg[i-1].employee_num && sendDataMsg[i].msg_send_time.substring(8,12) == sendDataMsg[i-1].msg_send_time.substring(8,12)){
+                                                if(sendDataMsg[i].employee_num == sendDataMsg[i-1].employee_num && sendDataMsg[i].msg_send_time.substring(8,15) == sendDataMsg[i-1].msg_send_time.substring(8,15)){
                                                     if(sendDataMsg[i].employee_num === id1){
                                                                 str = "<div class='col-6 username1'>";
                                                                 str += "<div class='alert alert-secondary' style='padding : 2%; font-size:small;'>";

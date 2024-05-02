@@ -99,8 +99,8 @@
 													<table id="example2" role="grid" class="table customer_list display dataTable" >
 														<thead>
 															<tr role="row">
-																<th>대표자 명</th>
-																<th>대표자 번호</th>
+																<th>고객 명</th>
+																<th>고객 전화번호</th>
 																<th>주소</th>
 																<th>영업 담당자명</th>
 															</tr>
@@ -160,11 +160,11 @@
 							<input id="modal_bn_name_in" type="text" class="form-control right-div" placeholder="사업자명을 입력하세요." >
 						  </div>
 						<div class="input-group flex-nowrap mt-2" id="modal_ceo_name">
-							<span class="input-group-text left-div" >대표자 명</span>
+							<span id="modal_ce_name_span" class="input-group-text left-div" >대표자 명</span>
 							<input id="modal_ceo_name_in" type="text" class="form-control right-div" placeholder="대표자명을 입력하세요." >
 						  </div>
 						<div class="input-group flex-nowrap mt-2" id="modal_ceo_phone">
-							<span class="input-group-text left-div" >대표 전화번호</span>
+							<span id="modal_ce_phone_span" class="input-group-text left-div" >대표 전화번호</span>
 							<input id="modal_ceo_phone_in" type="text" class="form-control right-div" placeholder="대표자 전화번호를 입력하세요." >
 						  </div>						
 						<div class="input-group flex-nowrap mt-2" id="modal_addr">
