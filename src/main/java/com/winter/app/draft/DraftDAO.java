@@ -41,4 +41,7 @@ public interface DraftDAO {
 	List<Map<String, Object>> getRefDetail(DraftVO draftVO)throws Exception;
 	List<DraftFileVO> getDraftFileDetail(DraftVO draftVO)throws Exception;
 	
+	//기안서 삭제
+	int draftDelete(DraftVO draftVO)throws Exception;
+	
 }

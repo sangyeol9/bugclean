@@ -65,6 +65,30 @@
 							</table>
 						</div>
 					</div>
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-center">
+							<!-- 이전@@@@@@@@@@ -->
+							<c:if test="${!pager.start}">
+								<li class="page-item"><a class="page-link"
+									href="./mydraftlist?page=${pager.lastNum+1}">Previous</a>
+								</li>
+							</c:if>
+
+
+							<!-- 번호@@@@@@@@@@@@ -->
+							<c:forEach begin="${pager.startNum}" end="${pager.lastNum}"
+								var="i">
+								<li class="page-item"><a class="page-link"
+									href="./mydraftlist?page=${i}">${i}</a></li>
+							</c:forEach>
+
+							<!-- 다음@@@@@@@@@@@@@@@ -->
+							<c:if test="${!pager.last}">
+								<li class="page-item"><a class="page-link"
+									href="./mydraftlist?page=${pager.lastNum+1}">Next</a></li>
+							</c:if>
+						</ul>
+					</nav>
 				</div>
 
 				<c:import url="../temp/messenger.jsp"></c:import>

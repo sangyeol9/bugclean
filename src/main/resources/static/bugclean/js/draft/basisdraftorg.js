@@ -368,3 +368,27 @@ refPlusBtn.addEventListener(
         //     console.log("selectValue : " + selectValue);
         // })
         
+        let draftDeleteBtn = document.getElementById("draftDeleteBtn");
+
+        draftDeleteBtn.addEventListener("click",function(){
+            let draftDeleteBtnData = draftDeleteBtn.getAttribute("data-delete-emp");
+            console.log("draftDeleteBtnData : "+draftDeleteBtnData);
+
+            
+            fetch("/draft/draftdelete",{
+                method : 'POST',
+                headers:{
+                "Content-type":"application/x-www-form-urlencoded"
+            },
+            body:"draft_num="+draftDeleteBtnData
+              })
+             .then(Response=>Response.text())
+            .then(res=>{
+                if(res >= 1){
+                    alert("삭제 실패하였습니다")
+                }else{
+                    alert("삭제 성공하였습니다")
+                }
+                location.href="/draft/mydraftlist"
+            })
+        })
