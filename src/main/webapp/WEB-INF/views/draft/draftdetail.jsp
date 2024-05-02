@@ -84,11 +84,11 @@
 
 					<!-- 결재선 시작 -->
 					<div id="draftLine">
-
-						<div id="lineBtnDiv">
-							<button type="button" id="lineBtn" class="lineBtnDiv">
+						<div id="lineBtnDiv" style="position: absolute;top: 15px;  left: -50px; display: inline-block; ">
+							<button type="button" id="lineBtn" class="lineBtnDiv btn btn-google">
 								편<br>집<br>하<br>기
 							</button>
+							
 						</div>
 
 						<table border="1" id="allineTable">
@@ -109,8 +109,8 @@
 								<c:forEach items="${approvalar}" var="approvalar">
 									<c:if test="${approvalar.SIGN_RANK < approvalar.NOW_APPROVAL }">
 										<c:if test="${not empty approvalar.SIGN_FILE }">
-											<td><img src="${approvalar.SIGN_FILE}"  width="50px" height="30px">
-										</td>
+											<td><img src="${approvalar.SIGN_FILE}" width="50px"
+												height="30px"></td>
 										</c:if>
 									</c:if>
 									<c:if
@@ -189,39 +189,38 @@
 							</tr>
 						</table>
 						<!-- 파일 시작 -->
-						<div id="files">
-							<div id="attachment-group">
-								<div class="input-group mb-1" id="attachment-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text">첨부파일</span>
-									</div>
-									
-									<div class="custom-file col">
-										<input type="file" class="custom-file-input" name="attach">
-										<label class="custom-file-label">파일을 선택하세요</label>
-									</div>
-									<div class="input-group-append">
-										<button type="button" class="btn btn-sm btn-dark plus-file">+</button>
-										<button type="button" class="btn btn-sm btn-dark minus-file"
-											data-target="attachment-1" disabled="">−</button>
+						<div>
+							<div id="files">
+								<div id="attachment-group">
+									<div class="input-group mb-1" id="attachment-1">
+										<div class="input-group-prepend">
+											<span class="input-group-text">첨부파일</span>
+										</div>
+
+										<div class="custom-file col">
+											<input type="file" class="custom-file-input" name="attach">
+											<label class="custom-file-label">파일을 선택하세요</label>
+										</div>
+										<div class="input-group-append">
+											<button type="button" class="btn btn-sm btn-dark plus-file">+</button>
+											<button type="button" class="btn btn-sm btn-dark minus-file"
+												data-target="attachment-1" disabled="">−</button>
+										</div>
 									</div>
 								</div>
 							</div>
+							<c:if test="${draftmap.NOW_APPROVAL eq 1}">
+							<div id="btn"
+								style="position: absolute; left: 900px; bottom: -40px;">
+								<button id="draftDeleteBtn" type="button" style="width: 90px" data-delete-emp="${draftmap.DRAFT_NUM}" class="btn btn-warning">삭제하기</button>
+							</div>
+							</c:if>
 						</div>
 						<!-- 파일 끝 -->
 					</div>
 					<!-- 기안서양식 끝 -->
 					<input type="hidden" value="0" name="draft_category">
 					<!-- 버튼모음 시작 -->
-					<div id="btn">
-						<button type="submit" name="state" value="0">상신하기</button>
-						&nbsp;&nbsp;&nbsp;
-						<button type="submit" name="state" value="1">반려하기</button>
-						&nbsp;&nbsp;&nbsp;
-						<button type="submit" name="state" value="2">임시저장</button>
-						&nbsp;&nbsp;&nbsp;
-						<button>삭제하기</button>
-					</div>
 				</form>
 				<!-- 버튼모음 끝 -->
 

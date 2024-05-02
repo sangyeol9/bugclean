@@ -102,7 +102,14 @@ public class DraftController {
 		System.out.println("approvalAr : "+approvalAr.toString() );
 		
 		return "draft/draftdetail";
-	}               
+	}
+	
+	@PostMapping("draftdelete")
+	public int draftDelete(DraftVO draftVO) throws Exception{
+		System.out.println("deleteDraftNum : "+ draftVO.getDraft_num());
+		int result = draftService.draftDelete(draftVO);
+		return result;
+	}
 
 	@PostMapping("setbasisdraft")
 	public String setBasisDraft(DraftVO draftVO, MultipartFile [] attach, Model model, String[] refempnum,

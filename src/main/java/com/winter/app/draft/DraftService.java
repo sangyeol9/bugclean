@@ -62,6 +62,9 @@ public class DraftService {
         return result;
 	}
 	
+	public int draftDelete(DraftVO draftVO)throws Exception{
+		return draftDAO.draftDelete(draftVO);
+	}
 	
 	public Map<String, Object> getDraftDetail(DraftVO draftVO)throws Exception{
 		Map<String,Object> map = draftDAO.getDraftDetail(draftVO);
@@ -244,21 +247,26 @@ public class DraftService {
 		 LocalDate localDate = LocalDate.now();
 		 String [] localDateYear = localDate.toString().split("-");
 		 Long parsingDm=0L;
-		 	DraftVO draftVO = draftDAO.getDraftMaxDocNum();
-		 	if(draftVO.getDraft_num().equals(null)) {
-		 		draftVO.setDraft_num("0");
-		 		 String Doc_num = draftVO.getDraft_num();
+		 DraftVO draftVO = new DraftVO();
+		 	draftVO = draftDAO.getDraftMaxDocNum();
+		 	if(draftVO == null) {
+		 		DraftVO draftVO1 = new DraftVO();
+		 		draftVO1.setDraft_num("0");
+		 		String Doc_num = draftVO1.getDraft_num();
 		 		Long.parseLong(Doc_num);
+			 	draftVO1.setDraft_num(localDateYear[0]+"BS"+(parsingDm+1));
+			 	draftVO1.setDraft_num(draftVO1.getDraft_num().toString());
+			 	draftVO1.setDraft_date((localDate.now().toString()));
+			 	return draftVO1;
+		 		
 		 	}else {
 		 	parsingDm = Long.parseLong(draftVO.getDraft_num());	
+		 	draftVO.setDraft_num(localDateYear[0]+"BS"+(parsingDm+1));
+		 	draftVO.setDraft_num(draftVO.getDraft_num().toString());
+		 	draftVO.setDraft_date((localDate.now().toString()));
+		 	return draftVO;
 			}
-		 	System.out.println("여기는 문서번호 결장하는 서비스 VO세팅전@@@@@@@@@@@@@@@@@@@");
-		draftVO.setDraft_num(localDateYear[0]+"BS"+(parsingDm+1));
-		draftVO.setDraft_num(draftVO.getDraft_num().toString());
-		System.out.println("draftVO.getDraft_num() : " + draftVO.getDraft_num());
-		draftVO.setDraft_date((localDate.now().toString()));
-		System.out.println("여기는 문서번호 결장하는 서비스끝부분@@@@@@@@@@@@@@@@@@@");
-		return draftVO;
+		
 	}
 	
 	public List<APListVO> setAPList(APListVO apListVO)throws Exception{
