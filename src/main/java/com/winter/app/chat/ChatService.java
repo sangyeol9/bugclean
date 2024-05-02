@@ -49,7 +49,14 @@ public class ChatService {
 	}
 	
 	public List<ChatMessage> getChatList(ChatMemberVO chatMemberVO) throws Exception{
-		return chatDAO.getChatList(chatMemberVO);
+		List<ChatMessage> li = chatDAO.getChatList(chatMemberVO);
+		if(li == null) {
+			ChatMessage chatMessage = new ChatMessage();
+			chatMessage.setEmployee_num("0");
+			li.add(chatMessage);
+		}
+		
+		return li;
 	}
 	// 대화하려는 방이 이미 db에 존재하는지 확인. 존재하지 않으면 크레이트로 넘어감 
 	public int checkExistRoom(ChatRoom chatRoom) throws Exception{
@@ -61,7 +68,14 @@ public class ChatService {
 	}
 	
 	public ChatMessage getLastWriter(ChatMessage chatMessage) throws Exception{
-		return chatDAO.getLastWriter(chatMessage);
+		
+		ChatMessage chatMessage2 = chatDAO.getLastWriter(chatMessage);
+		if (chatMessage2 == null) {
+			chatMessage2 = new ChatMessage();
+			chatMessage2.setEmployee_num("0");
+			chatMessage2.setMsg_send_time("00000000000000");
+		}
+		return chatMessage2;
 	}
 	
 	
