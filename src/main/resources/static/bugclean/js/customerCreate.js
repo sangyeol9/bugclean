@@ -19,6 +19,18 @@ let submit_check = document.getElementById("submit_check");
 
 let emp_choice = document.getElementsByClassName("emp_choice");
 
+let bn_kind_in = document.getElementById("bn_kind_in");
+let bn_kind_select = document.getElementById("bn_kind_select");
+
+ let postcode = document.getElementById("postcode");
+    let detailAddress = document.getElementById("detailAddress");
+    let roadAddress = document.getElementById("roadAddress");
+
+
+	function bn_kind_fn(){
+		bn_kind_in.value = bn_kind_select.value
+	}
+
     selectCompany.addEventListener("change",function(){
         sales_name_in.value = selectCompany.value;
     })
@@ -41,7 +53,7 @@ let emp_choice = document.getElementsByClassName("emp_choice");
             
             ck_company.checked=true;
         }
-        submit_check.value = "법인";
+        submit_check.value = "사업자";
         console.log(submit_check.value);
 
         addr_person_in.disabled=true;
@@ -53,6 +65,11 @@ let emp_choice = document.getElementsByClassName("emp_choice");
         ceo_phone_in.disabled=false;
         addr_in.disabled=false;
         sales_name_in.disabled=false;
+        
+        addr_person_in_in.value="";
+        postcode.value ="";
+        detailAddress.value="";
+        roadAddress.value="";
     }
 
     function person(){
@@ -78,7 +95,20 @@ let emp_choice = document.getElementsByClassName("emp_choice");
         person_phone_in.disabled=false;
         person_sales_name_in.disabled=false;
 
-        submit_check.value="개인";
+        submit_check.value="사업자";
         
+        addr_in.value="";
+        postcode.value ="";
+        detailAddress.value="";
+        roadAddress.value="";
         console.log(submit_check.value);
     }
+    
+   
+    detailAddress.addEventListener("change",function(){
+		if(ck_company.checked == true){
+			addr_in.value = roadAddress.value + " " + detailAddress.value; 
+		}else if(ck_person.checked == true){
+			addr_person_in.value = roadAddress.value + " " + detailAddress.value;
+		}
+	})

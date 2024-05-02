@@ -93,11 +93,13 @@ window.onload = function(){
                                         for(let i=0;i<sendDataMsg.length;i++){
                                             console.log(sendDataMsg[i]);
                                             let send_Time = sendDataMsg[i].msg_send_time.substring(5,16);
-                                            let send_hour = send_Time.substring(6,8);
+                                            let send_hour = parseInt(send_Time.substring(6,8));
                                             let send_apm = '오전'
-                                            if(send_hour/12 ==1){
+                                           
+                                            if(send_hour>=12 && send_hour != 24){
                                                 send_apm = '오후'
                                             }
+                                            console.log(send_apm);
                                             if(send_hour%12 != 0){
                                                 send_hour %= 12;
                                             }else if(send_hour %12 ==0 && send_hour/12 == 2){
@@ -111,7 +113,7 @@ window.onload = function(){
 
                                             console.log("send time == ", send_Time);
                                             if(i>0){
-                                                if(sendDataMsg[i].employee_num == sendDataMsg[i-1].employee_num && sendDataMsg[i].msg_send_time.substring(8,15) == sendDataMsg[i-1].msg_send_time.substring(8,15)){
+                                                if(sendDataMsg[i].employee_num == sendDataMsg[i-1].employee_num && sendDataMsg[i].msg_send_time.substring(8,16) == sendDataMsg[i-1].msg_send_time.substring(8,16)){
                                                     if(sendDataMsg[i].employee_num === id1){
                                                                 str = "<div class='col-6 username1'>";
                                                                 str += "<div class='alert alert-secondary' style='padding : 2%; font-size:small;'>";
@@ -206,6 +208,7 @@ window.onload = function(){
     
                            var writer = content.writer;
                            var str = '';
+                           console.log("fetch 진입 ");
                            fetch("/chat/getLastWriter",{
                             method : 'POST',
                             headers: {
@@ -216,8 +219,16 @@ window.onload = function(){
                             })
                            }).then(res=>res.json())
                            .then(res=>{
+                            var today = new Date(); 
+                            var hours = ('0' + today.getHours()).slice(-2); 
+                            var minutes = ('0' + today.getMinutes()).slice(-2);
+                            var timeString = hours + ':' + minutes
+                            console.log(timeString);
+                            console.log(roomName + ", " + roomId + ", " + username1);
+
+                            console.log("sub ==> ", res.msg_send_time.substring(11,16));
                             console.log('res last writer==>', res);
-                            if(id1 == res.employee_num){
+                            if(id1 == res.employee_num && res.msg_send_time.substring(11,16) == timeString ){
                                 if(writer === username1){
                                     str = "<div class='col-6 username1'>";
                                     str += "<div class='alert alert-secondary' style='padding : 2%; font-size:small';>";

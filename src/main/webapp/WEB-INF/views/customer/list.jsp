@@ -41,12 +41,12 @@
 								<ul class="nav nav-tabs" role = "tablist">
 									<li class="nav-item">
 										<a class="nav-link active" data-toggle="tab" href="#company">
-											<span><i class="fa-solid fa-building"></i></span>
+											<span>사업자</span>
 										</a>
 									</li>
 									<li class="nav-item">
 										<a class="nav-link" data-toggle="tab" href="#person">
-											<span><i class="fa-solid fa-person"></i></span>
+											<span>개인</span>
 										</a>
 									</li>
 								</ul>
@@ -59,13 +59,14 @@
 												<table id="example" role="grid" class="table customer_list display dataTable" >
 													<thead>
 														<tr role="row">
+															<th>구분</th>
 															<th>사업자명</th>
 															<th>대표자명</th>
 															<th>대표자 번호</th>
-															<th>거래처 담당자명</th>
-															<th>거래처 담당자 번호</th>
+															<th>거래처 담당자</th>
+															<th>담당자 번호</th>
 															<th>주소</th>
-															<th>영업 담당자명</th>
+															<th>영업 담당자</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -74,6 +75,7 @@
 																<td class="display_none td_customer_num" data-customernum="${li.customer_Num}"></td>
 																<td class="display_none td_customer_type" data-customertype="${li.customer_Type}"></td>
 																<td class="display_none modi_checkbox" ><input type="checkbox" class="td_checkbox"></td>
+																<td class="td_customer_kind">${li.customer_Kind}</td>
 																<td>
 																	<a href="./detail?customer_Num=${li.customer_Num}" class="td_business_name">
 																		${li.business_Name}
@@ -202,6 +204,9 @@
 			<c:import url="../temp/messenger.jsp"></c:import>
 		</div>
 	</div>
+
+	
+
 	<c:import url="../temp/footer.jsp"></c:import>
 	<c:import url="../temp/js.jsp"></c:import>
 	<script src="/bugclean/js/customerList.js"></script>

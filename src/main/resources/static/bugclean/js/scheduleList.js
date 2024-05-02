@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
           },
         eventDrop: function(info) {
             console.log(info);
-                alert("일정을 이동했습니다!\n"+info.event.startStr.substring(0,10)+"    " +info.event.startStr.substring(11,19) ); // 이벤트를 이동할 때 알림창을 띄울 수 있습니다.
+                alert("일정을 변경했습니다!\n"+info.event.startStr.substring(0,10)+"    " +info.event.startStr.substring(11,19) ); // 이벤트를 이동할 때 알림창을 띄울 수 있습니다.
                 console.log(info.event.startStr.substring(0,10) +" " +info.event.startStr.substring(11,19))
                 console.log(info.event.id.substring(info.event.id.lastIndexOf('-')+1,info.event.length))
                 console.log(info.event.endStr.substring(0,10) +" "+info.event.endStr.substring(11,19))
@@ -459,10 +459,10 @@ modalTitle.innerText="일정 확인";
             }).then(res=>res.json())
             .then(res=>{
                 if(res>0){
-                    alert("일정이 취소되었습니다." +  res);
+                    
                     openWindow(); 
                 }else{
-                    alert("일정 취소에 실패했습니다.");
+                    
                 }
             })
         })
@@ -480,10 +480,10 @@ modalTitle.innerText="일정 확인";
             }).then(res=>res.json())
             .then(res=>{
                 if(res>0){
-                    alert("일정이 완료되었습니다." +  res);
+                    
                     openWindow(); 
                 }else{
-                    alert("일정 완료에 실패했습니다.");
+                    
                 }
             })
         })

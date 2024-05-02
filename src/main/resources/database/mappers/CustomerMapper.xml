@@ -9,7 +9,7 @@
 
   	
   	<select id="getCompanyList" resultType="CustomerVO">
-  		SELECT * FROM CUSTOMER WHERE CUSTOMER_TYPE = '법인' ORDER BY CUSTOMER_NUM ASC
+  		SELECT * FROM CUSTOMER WHERE CUSTOMER_TYPE = '사업자' ORDER BY CUSTOMER_NUM ASC
   	</select>
   	<select id="getPersonList" resultType="CustomerVO">
   		SELECT * FROM CUSTOMER WHERE CUSTOMER_TYPE = '개인' ORDER BY CUSTOMER_NUM ASC
@@ -27,8 +27,8 @@
   	
 	<insert id="createCustomer" parameterType="CustomerVO">
 		INSERT INTO CUSTOMER 
-		(CUSTOMER_NUM,EMPLOYEE_NUM,BUSINESS_NUM,BUSINESS_NAME,CEO_NAME,CEO_PHONE,MANAGER_NAME,MANAGER_PHONE,CUSTOMER_TYPE,FIRST_CONTRACT_DATE,ADDRESS,CONTRACT_TYPE)
-		VALUES(CUSTOMER_SEQ.NEXTVAL,#{employee_Num},#{business_Num},#{business_Name},#{ceo_Name},#{ceo_Phone},#{manager_Name},#{manager_Phone},#{customer_Type},SYSDATE,#{address},'계약중')
+		(CUSTOMER_NUM,EMPLOYEE_NUM,BUSINESS_NUM,BUSINESS_NAME,CEO_NAME,CEO_PHONE,MANAGER_NAME,MANAGER_PHONE,CUSTOMER_TYPE,FIRST_CONTRACT_DATE,ADDRESS,CONTRACT_TYPE,CUSTOMER_KIND)
+		VALUES(CUSTOMER_SEQ.NEXTVAL,#{employee_Num},#{business_Num},#{business_Name},#{ceo_Name},#{ceo_Phone},#{manager_Name},#{manager_Phone},#{customer_Type},SYSDATE,#{address},'계약중',#{customer_Kind})
 	</insert>
 	
 	<update id="updateCustomer" parameterType="CustomerVO">
