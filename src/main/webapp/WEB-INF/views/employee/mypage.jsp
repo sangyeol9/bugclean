@@ -136,7 +136,7 @@
     
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="button" id="profileClose" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-primary">Save</button>
                                                         </div>
                                                     </form:form>
@@ -402,7 +402,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form:form action="./infoUpdate" modelAttribute="employeeVO">
+                                                <form:form action="./infoUpdate" modelAttribute="employeeVO" id="infoForm">
 
                                                     <form:input path="employee_num" value="${employeeVO.employee_num}" hidden="true"></form:input>
                                                     <form:input path="phone" id="phone" value="" hidden="true"></form:input>
@@ -480,7 +480,7 @@
 
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" id="infoClose" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                         <button type="submit" class="btn btn-primary" id="infoUpdateBtn">Save</button>
                                                     </div>
                                                 </form:form>

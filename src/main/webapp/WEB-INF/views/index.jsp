@@ -172,14 +172,119 @@
                                 <div id='calendar' style="color: black"></div>
                                 <!-- <i class="fa-regular fa-circle-check" style="color: #B197FC;"></i> -->
                                 <!-- style="color: red"  text-warning-->
-                                <div id="content" >
-                                    
+                                <div id="content" style="display: none;">
                                     <div class="row justify-content-between">
                                         
-                                        
-                                    </div>
+                                        <div class="col-12">
+                                            <br>
+                                            <hr>
+                                             <div class="close-button" id="closeButton" style="display: inline-block; margin: 0 5px; float: right; font-size: 16px; color: black;">X</div>
+                                            <br>
+                                        </div>
 
+                                        <div class="col-lg-6">
+                                            <div class="mb-4">
+                                                <h4 class="card-title card-intro-title">Details</h4>
+                                            </div>
+                            
+                                            <div class="card-content" >
+                                                <div class="row mb-2">
+                                                    <div class="col-4">
+                                                        <h5 class="f-w-500">현장 번호 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-8" id="site_Num"><span class="text-primary" style="font-weight: bolder;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-4">
+                                                        <h5 class="f-w-500">거래처 번호 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-8" id="customer_Num"><span class="text-primary" style="font-weight: bolder;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-4">
+                                                        <h5 class="f-w-500">작업 시작일시 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-8" id="start_Time"><span class="text-primary" style="font-weight: bolder;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-4">
+                                                        <h5 class="f-w-500">작업 종료일시 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-8" id="end_Time"><span class="text-primary" style="font-weight: bolder;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-4">
+                                                        <h5 class="f-w-500">주소 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-8" id="address"><span class="text-primary" style="font-weight: bolder;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-4">
+                                                        <h5 class="f-w-500">사업자 이름 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-8" id="business_Name"><span class="text-primary" style="font-weight: bolder;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-4">
+                                                        <h5 class="f-w-500">대표자 이름 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-8" id="ceo_Name"><span class="text-primary" style="font-weight: bolder;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-4">
+                                                        <h5 class="f-w-500">현장관리자 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-8" id="employee_Num"><span class="text-primary" style="font-weight: bolder;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-4">
+                                                        <h5 class="f-w-500">배차코드 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-8" id="manage_Code"><span class="text-primary" style="font-weight: bolder;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-4">
+                                                        <h5 class="f-w-500">단가 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-8" id="price"><span class="text-primary" style="font-weight: bolder;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-4">
+                                                        <h5 class="f-w-500">영업 담당자 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-8" id="sales_Manager"><span class="text-primary" style="font-weight: bolder;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-4">
+                                                        <h5 class="f-w-500">현장구분 <span class="pull-right">:</span></h5>
+                                                    </div>
+                                                    <div class="col-8" id="site_Type"><span class="text-primary" style="font-weight: bolder;"></span>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="mb-4">
+                                                    <h4 class="card-title card-intro-title">Map</h4>
+                                            </div>
                                 
+                                            <div id="map" style="width:100%;height:500px;"></div>
+                                        </div>
+                                    
+                                    </div>
                                 </div>
                                     
                             </div>
