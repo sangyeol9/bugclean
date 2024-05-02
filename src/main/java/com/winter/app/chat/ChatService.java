@@ -90,12 +90,15 @@ public class ChatService {
 	
 	public ChatMessage getLastMessage(ChatMemberVO chatMemberVO) throws Exception{
 		ChatMessage chatMessage = new ChatMessage();
+		System.out.println("get last msg null  ??? " + chatMessage);
 		chatMessage = chatDAO.getLastMessage(chatMemberVO);
-		if(chatMessage.getEmployee_num() ==null ) {
+		if(chatMessage ==null ) {
+			System.out.println("is null");
 			chatMessage.setEmployee_num(chatMemberVO.getRoom_num());
 			chatMessage.setMsg_contents("0");
 			chatMessage.setRoom_num(chatMemberVO.getRoom_num());;
 		}
+		System.out.println("get last msg == \n "+chatMessage);
 		return chatMessage;
 	}
 	
