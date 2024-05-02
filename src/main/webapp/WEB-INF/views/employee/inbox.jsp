@@ -75,7 +75,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#okay8">
+                                    <a class="nav-link" data-toggle="tab" href="#done8">
                                         <span>
                                             완료
                                         </span>
@@ -100,27 +100,19 @@
                                             <tr>
                                                 <th class="col-2" style="text-align: center;">문서번호</th>
                                                 <th class="col-6" style="text-align: center;">제목</th>
-                                                <th class="col-1" style="text-align: center;">기안자</th>
+                                                <th class="col-2" style="text-align: center;">기안자</th>
                                                 <th class="col-2" style="text-align: center;">기안날짜</th>
-                                                <th class="col-1" style="text-align: center;">상태</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${allList}" var="list">
+                                            <c:forEach items="${allList}" var="all">
 
                                             
                                                 <tr style="text-align: center;">
-                                                    <th>${list.DRAFT_NUM}</th>
-                                                    <td ><a href="/draft/getdraftdetail?draft_num=${list.DRAFT_NUM}" style="font-weight: bold;">${list.TITLE}</a></td>
-                                                    <td>
-                                                        <div class="progress" style="background: rgba(127, 99, 244, .1)">
-                                                            <div class="progress-bar" style="width: 70%;" role="progressbar"><span class="sr-only">70% Complete</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>${list.DRAFT_DATE}</td>
-                                                    <td><span class="badge badge-primary">70%</span>
-                                                    </td>
+                                                    <th>${all.DRAFT_NUM}</th>
+                                                    <td ><a href="/draft/getdraftdetail?draft_num=${all.DRAFT_NUM}" style="font-weight: bold;">${all.TITLE}</a></td>
+                                                    <td>${all.NAME}</td>
+                                                    <td>${all.DRAFT_DATE}</td>
                                                 </tr>
                                             </c:forEach>
                                             
@@ -132,122 +124,112 @@
 
                                 <!-- 대기 -->
                                 <div class="tab-pane fade" id="wait8" role="tabpanel">
-                                    <div class="table-responsive">
-                                        <table id="inbox" class="table-hover table" style="width: 98%">
+                                    <table class="table header-border table-hover verticle-middle">
+                                        <thead>
                                             <tr>
-                                                <th>문서번호</th>
-                                                <th>제목</th>
-                                                <th>기안자</th>
-                                                <th>기안날짜</th>
-                                                <th>상태</th>
+                                                <th class="col-2" style="text-align: center;">문서번호</th>
+                                                <th class="col-5" style="text-align: center;">제목</th>
+                                                <th class="col-2" style="text-align: center;">기안자</th>
+                                                <th class="col-3" style="text-align: center;">기안날짜</th>
                                             </tr>
-                                        </table>
-                                    </div>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${waitList}" var="wait">
+
+                                            
+                                                <tr style="text-align: center;">
+                                                    <th>${wait.DRAFT_NUM}</th>
+                                                    <td ><a href="/draft/getdraftdetail?draft_num=${wait.DRAFT_NUM}" style="font-weight: bold;">${wait.TITLE}</a></td>
+                                                    <td>${wait.NAME}</td>
+                                                    <td>${wait.DRAFT_DATE}</td>
+                                                </tr>
+                                            </c:forEach>
+                                            
+                                        </tbody>
+                                    </table>
                                 </div>
 
                                 <!-- 진행 -->
                                 <div class="tab-pane fade" id="ing8" role="tabpanel">
-                                    <div class="table-responsive">
-                                        <table id="inbox" class="table-hover table" style="width: 98%">
+
+                                    <table class="table header-border table-hover verticle-middle">
+                                        <thead>
                                             <tr>
-                                                <th>문서번호</th>
-                                                <th>제목</th>
-                                                <th>기안자</th>
-                                                <th>기안날짜</th>
-                                                <th>상태</th>
+                                                <th class="col-2" style="text-align: center;">문서번호</th>
+                                                <th class="col-5" style="text-align: center;">제목</th>
+                                                <th class="col-2" style="text-align: center;">기안자</th>
+                                                <th class="col-3" style="text-align: center;">기안날짜</th>
                                             </tr>
-                                        </table>
-                                    </div>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${progressList}" var="progress">
+
+                                            
+                                                <tr style="text-align: center;">
+                                                    <th>${progress.DRAFT_NUM}</th>
+                                                    <td ><a href="/draft/getdraftdetail?draft_num=${progress.DRAFT_NUM}" style="font-weight: bold;">${progress.TITLE}</a></td>
+                                                    <td>${progress.NAME}</td>
+                                                    <td>${progress.DRAFT_DATE}</td>
+                                                </tr>
+                                            </c:forEach>
+                                            
+                                        </tbody>
+                                    </table>
+
                                 </div>
                                 <!-- 완료 -->
-                                <div class="tab-pane fade" id="okay8" role="tabpanel">
-                                    <div class="table-responsive">
-                                        <table id="inbox" class="table-hover table" style="width: 98%">
+                                <div class="tab-pane fade" id="done8" role="tabpanel">
+                                    <table class="table header-border table-hover verticle-middle">
+                                        <thead>
                                             <tr>
-                                                <th>문서번호</th>
-                                                <th>제목</th>
-                                                <th>기안자</th>
-                                                <th>기안날짜</th>
-                                                <th>상태</th>
+                                                <th class="col-2" style="text-align: center;">문서번호</th>
+                                                <th class="col-5" style="text-align: center;">제목</th>
+                                                <th class="col-2" style="text-align: center;">기안자</th>
+                                                <th class="col-3" style="text-align: center;">기안날짜</th>
                                             </tr>
-                                        </table>
-                                    </div>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${doneList}" var="done">
+
+                                            
+                                                <tr style="text-align: center;">
+                                                    <th>${done.DRAFT_NUM}</th>
+                                                    <td ><a href="/draft/getdraftdetail?draft_num=${done.DRAFT_NUM}" style="font-weight: bold;">${done.TITLE}</a></td>
+                                                    <td>${done.NAME}</td>
+                                                    <td>${done.DRAFT_DATE}</td>
+                                                </tr>
+                                            </c:forEach>
+                                            
+                                        </tbody>
+                                    </table>
                                 </div>
+
+
+                                <!-- 참조 -->
                                 <div class="tab-pane fade" id="refer8" role="tabpanel">
-                                    <div class="table-responsive">
-                                        <table class="table header-border table-hover verticle-middle">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Product</th>
-                                                    <th scope="col">Popularity</th>
-                                                    <th scope="col">Sales</th>
+                                    <table class="table header-border table-hover verticle-middle">
+                                        <thead>
+                                            <tr>
+                                                <th class="col-2" style="text-align: center;">문서번호</th>
+                                                <th class="col-5" style="text-align: center;">제목</th>
+                                                <th class="col-2" style="text-align: center;">기안자</th>
+                                                <th class="col-3" style="text-align: center;">기안날짜</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${referList}" var="refer">
+
+                                            
+                                                <tr style="text-align: center;">
+                                                    <th>${refer.DRAFT_NUM}</th>
+                                                    <td ><a href="/draft/getdraftdetail?draft_num=${refer.DRAFT_NUM}" style="font-weight: bold;">${refer.TITLE}</a></td>
+                                                    <td>${refer.NAME}</td>
+                                                    <td>${refer.DRAFT_DATE}</td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th>1</th>
-                                                    <td>Air Conditioner</td>
-                                                    <td>
-                                                        <div class="progress" style="background: rgba(127, 99, 244, .1)">
-                                                            <div class="progress-bar" style="width: 70%;" role="progressbar"><span class="sr-only">70% Complete</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge badge-primary">70%</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>2</th>
-                                                    <td>Textiles</td>
-                                                    <td>
-                                                        <div class="progress" style="background: rgba(76, 175, 80, .1)">
-                                                            <div class="progress-bar bg-success" style="width: 70%;" role="progressbar"><span class="sr-only">70% Complete</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge badge-success">70%</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>3</th>
-                                                    <td>Milk Powder</td>
-                                                    <td>
-                                                        <div class="progress" style="background: rgba(70, 74, 83, .1)">
-                                                            <div class="progress-bar bg-dark" style="width: 70%;" role="progressbar"><span class="sr-only">70% Complete</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge badge-dark">70%</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>4</th>
-                                                    <td>Vehicles</td>
-                                                    <td>
-                                                        <div class="progress" style="background: rgba(255, 87, 34, .1)">
-                                                            <div class="progress-bar bg-danger" style="width: 70%;" role="progressbar"><span class="sr-only">70% Complete</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge badge-danger">70%</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>5</th>
-                                                    <td>Boats</td>
-                                                    <td>
-                                                        <div class="progress" style="background: rgba(255, 193, 7, .1)">
-                                                            <div class="progress-bar bg-warning" style="width: 70%;" role="progressbar"><span class="sr-only">70% Complete</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge badge-warning">70%</span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                            </c:forEach>
+                                            
+                                        </tbody>
+                                    </table>
                                 </div>
 
                                

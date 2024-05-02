@@ -10,7 +10,8 @@ import com.winter.app.employee.EmployeeVO;
 @Mapper
 public interface InboxDAO {
 	public List<Map<String, Object>> getAllList(EmployeeVO employeeVO) throws Exception;
-//	public List<Map<String, Object>> getWaitList() throws Exception;
-//	public List<Map<String, Object>> getProgressList() throws Exception;
-//	public List<Map<String, Object>> getReferList() throws Exception;
+	public List<Map<String, Object>> getWaitList(EmployeeVO employeeVO) throws Exception;
+	public List<Map<String, Object>> getProgressList(EmployeeVO employeeVO) throws Exception;
+	public List<Map<String, Object>> getDoneList(EmployeeVO employeeVO) throws Exception;
+	public List<Map<String, Object>> getReferList(EmployeeVO employeeVO) throws Exception;
 }

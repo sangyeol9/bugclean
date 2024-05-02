@@ -194,3 +194,13 @@ ctncheck.on("change", () => {
         }
     }
 });
+
+
+//폼내용 초기화
+document.getElementById('profileClose').addEventListener("click",()=>{
+	document.getElementById('preview').src = "/focus-bootstrap-main/theme/images/profile/사랑아보영해.jpg";
+  	document.getElementById('updateForm').reset();
+})
+document.getElementById('infoClose').addEventListener("click",()=>{
+ 	document.getElementById('infoForm').reset();
+})
