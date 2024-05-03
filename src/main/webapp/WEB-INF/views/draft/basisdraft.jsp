@@ -148,13 +148,14 @@
 
 							<tr style="height: 300px;">
 								<td class="basisTitleTd">내용</td>
-								<td class="basisTitleTd" colspan="4"><input name="contents"
-									class="inp" type="text"></td>
+								<td class="basisTitleTd" colspan="4" >
+								<textarea class="inp" name="contents" style="text-align: left;" rows="" cols=""></textarea>
+									</td>
 							</tr>
 							<tr style="height: 130px;">
 								<td class="basisTitleTd">의견</td>
 								<td class="basisTitleTd" colspan="4"><input
-									name="sign_comment" class="inp" type="text"></td>
+									name="sign_comment" class="inp" type=""></td>
 							</tr>
 						</table>
 						<!-- 파일 시작 -->

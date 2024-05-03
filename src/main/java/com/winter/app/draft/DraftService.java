@@ -35,9 +35,13 @@ public class DraftService {
 	///파일매니저에서 경로랑,파일
 	//리턴으로 저장된파일명을 리턴받음
 
+	
+	
+	
+	
+	//기안서파일등록
 	public int setDraftFile(MultipartFile [] files, DraftVO draftVO)throws Exception{
 		int result = 0;
-		System.out.println("for밖 : "+files.length);
         if(files != null){
 
             for (MultipartFile multipartFile : files) {
@@ -54,18 +58,18 @@ public class DraftService {
                draftFileVO.setOri_name(multipartFile.getOriginalFilename());
                 result = draftDAO.setDraftFile(draftFileVO);
 
-//                if (result == 0) {
-//                    throw new Exception();
-//                }
             }
         }
         return result;
 	}
 	
+	//기안서디테일
 	public int draftDelete(DraftVO draftVO)throws Exception{
 		return draftDAO.draftDelete(draftVO);
 	}
 	
+	
+	//기안서디테일2
 	public Map<String, Object> getDraftDetail(DraftVO draftVO)throws Exception{
 		Map<String,Object> map = draftDAO.getDraftDetail(draftVO);
 		if(map != null) {			
@@ -83,6 +87,7 @@ public class DraftService {
 		return map;
 	}
 	
+	//clob관련
 	private static String clobToString(Clob clob) throws Exception{
         StringBuilder sb = new StringBuilder();
         BufferedReader br = new BufferedReader(clob.getCharacterStream());
@@ -95,6 +100,7 @@ public class DraftService {
     }
 
 	
+	//결재라인디테일
 	public List<Map<String, Object>> getSignCheckDetail(DraftVO draftVO)throws Exception{
 		
 			List<Map<String, Object>> mapAr = draftDAO.getSignCheckDetail(draftVO);
@@ -118,6 +124,7 @@ public class DraftService {
 		
 	}
 	
+	//참조디테일
 	public String getRefDetail(DraftVO draftVO)throws Exception{
 		List<Map<String, Object>> maps  = draftDAO.getRefDetail(draftVO);
 		String [] name = new String[maps.size()];
@@ -127,17 +134,23 @@ public class DraftService {
 		String joinName = String.join(",", name);
 		return joinName;
 	}
+	
+	//기안서파일디테일
 	public List<DraftFileVO> getDraftFileDetail(DraftVO draftVO)throws Exception{
 		return draftDAO.getDraftFileDetail(draftVO);
 	}
 	
+	//기안서작성폼
 	public List<Map<String, Object>> getBasisDraft()throws Exception{
 		return draftDAO.getBasisDraft();
 	}
+	
+	//부서상위리스트
 	public List<DepartmentVO> getDepartmentHighList()throws Exception{
 		return draftDAO.getDepartmentHighList();
 	}
 	
+	//참조등록
 	public int setRef(DraftVO draftVO,String [] refempnum)throws Exception{
 		ReferencesVO [] referencesVOs = new ReferencesVO[refempnum.length];
 		
@@ -154,8 +167,8 @@ public class DraftService {
 		return result;
 	}
 	
-	//////////////////////////////////
 	
+	//기안서등록
 	public int setBasisDraft(DraftVO draftVO)throws Exception{
 		if(draftVO.getState() == 0) {
 		draftVO.setNow_approval(1L);
@@ -168,33 +181,26 @@ public class DraftService {
 		return result;
 	}
 	
-	public int setSignCheck(String [] approvalemp_num, Long [] sign_rank,DraftVO draftVO)throws Exception{
-		
-		System.out.println("ddddddddddddddddddddddddddddddddddd11111");
+	//결재라인등록
+	public int setSignCheck(String [] approvalemp_num, Long [] sign_rank,DraftVO draftVO)throws Exception{		
 		SignCheckVO [] signCheckVOs = new SignCheckVO[approvalemp_num.length];
 		for(int i=0; i<approvalemp_num.length;i++) {
-			signCheckVOs[i] = new SignCheckVO();
-			System.out.println("ddddddddddddddddddddddddddddddddddd22222");
-
+			signCheckVOs[i] = new SignCheckVO();			
 			signCheckVOs[i].setDraft_num(draftVO.getDraft_num());
 			signCheckVOs[i].setEmployee_num(approvalemp_num[i]);
 			signCheckVOs[i].setSign_rank(sign_rank[i]);
 			LocalDate localDate = LocalDate.now();
 			String date = localDate.toString();
 			signCheckVOs[i].setSign_date(date);
-			signCheckVOs[i].setSign_ref(0L);
-			
-			System.out.println("signCheckValue : " + signCheckVOs[i].toString());
+			signCheckVOs[i].setSign_ref(0L);					
 			draftDAO.setSignCheck(signCheckVOs[i]);
 		}
 		
 		return 1;
 	}
 
-
+	//결재선등록
 	public List<Map<String, Object>> setApprovalLine(String [] orgCode, Map<String, Object> empMap )throws Exception{
-
-
 		ApprovalLineVO approvalLineVO = new ApprovalLineVO();
 		approvalLineVO = draftDAO.getApprovalMaxNum();
 		
@@ -242,6 +248,7 @@ public class DraftService {
 			return ar;
 		}
 	
+	//문서번호만들기
 	public DraftVO getDraftDocNum() throws Exception{
 		//localdate.now().split("-")+문서종류+기안서의 리스트의 DOC_NUM의 max값을 가져와 subString해서 시퀀스 번호에 해당하는부분 번호에+1?????????????
 		 LocalDate localDate = LocalDate.now();
@@ -269,39 +276,43 @@ public class DraftService {
 		
 	}
 	
-	public List<APListVO> setAPList(APListVO apListVO)throws Exception{
-		 
-		 int result = draftDAO.setAPList(apListVO);
-		 
+	//결재선즐겨찾기 등록
+	public List<APListVO> setAPList(APListVO apListVO)throws Exception{		 
+		 int result = draftDAO.setAPList(apListVO);		
 		 List<APListVO> ar = draftDAO.getAPList(apListVO);
-
-		 return ar;
 		 
+		 return ar;
 	}
 	
-	///////////////////////////////////////////////////
+	//결재선 즐겨찾기 리스트 조회
 	public List<APListVO> getAPList(APListVO apListVO)throws Exception{
 		return draftDAO.getAPList(apListVO);
 	}
 	
+	//결재선 즐겨찾기 디테일 조회
 	public List<ApprovalLineVO> getALDetail(ApprovalLineVO approvalLineVO)throws Exception{
 		List<ApprovalLineVO> ar = draftDAO.getALDetail(approvalLineVO);
 		return ar;
 		
 	}
 	
+	//조직도에 들어갈 부서 리스트
 	public List<DepartmentVO> getDepartmentList()throws Exception{
 		return draftDAO.getDepartmentList();
 	}
 	
+	//조직도에 들어갈 사원 리스트
 	public Map<String, Object> getEmployeeDetail(EmployeeVO employeeVO)throws Exception{
 		return draftDAO.getEmployeeDetail(employeeVO);
 	}
 	
+	//사장님
 	public EmployeeVO getCEO()throws Exception{
 		return draftDAO.getCEO();
 	}
 	
+	//각 기안서 꺼내오기
+	//전체
 	public List<Map<String, Object>> getMyDraftList(Pagination pagination,EmployeeVO employeeVO)throws Exception{
 				
 		Long totalCount = draftDAO.getTotalCount(employeeVO);
@@ -315,5 +326,65 @@ public class DraftService {
 		
 		return mapAr;
 	}
+	//반려
+	public List<Map<String, Object>> getMyReJectionList(Pagination pagination,EmployeeVO employeeVO)throws Exception{
+		
+		Long totalCount = draftDAO.getRejectionTotalCount(employeeVO);
+		
+		pagination.makeNum(totalCount);
+		pagination.makeRow();
+		Map<String, Object> map = new HashMap<>();
+		map.put("EmployeeVO", employeeVO);
+		map.put("Pagination", pagination);
+	 	 List<Map<String, Object>> mapAr = draftDAO.getMyReJectionList(map);
+		
+		return mapAr;
+	}
+	
+	//결재중
+	public List<Map<String, Object>> getMyApprovaingList(Pagination pagination,EmployeeVO employeeVO)throws Exception{
+		
+		Long totalCount = draftDAO.getApprovingTotalCount(employeeVO);
+		
+		pagination.makeNum(totalCount);
+		pagination.makeRow();
+		Map<String, Object> map = new HashMap<>();
+		map.put("EmployeeVO", employeeVO);
+		map.put("Pagination", pagination);
+	 	 List<Map<String, Object>> mapAr = draftDAO.getMyApprovaingList(map);
+		
+		return mapAr;
+	}
+	
+	//결재중
+	public List<Map<String, Object>> getMyApprovedList(Pagination pagination,EmployeeVO employeeVO)throws Exception{
+		
+		Long totalCount = draftDAO.getApprovedTotalCount(employeeVO);
+		
+		pagination.makeNum(totalCount);
+		pagination.makeRow();
+		Map<String, Object> map = new HashMap<>();
+		map.put("EmployeeVO", employeeVO);
+		map.put("Pagination", pagination);
+	 	 List<Map<String, Object>> mapAr = draftDAO.getMyApprovedList(map);
+		
+		return mapAr;
+	}
+	
+	//임시저장
+	public List<Map<String, Object>> getMyTemporaryList(Pagination pagination,EmployeeVO employeeVO)throws Exception{
+		
+		Long totalCount = draftDAO.getTemporaryTotalCount(employeeVO);
+		
+		pagination.makeNum(totalCount);
+		pagination.makeRow();
+		Map<String, Object> map = new HashMap<>();
+		map.put("EmployeeVO", employeeVO);
+		map.put("Pagination", pagination);
+	 	 List<Map<String, Object>> mapAr = draftDAO.getMyTemporaryList(map);
+		
+		return mapAr;
+	}
+	
 	
 }

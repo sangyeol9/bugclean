@@ -33,7 +33,7 @@ let attachmentCounter = $('#files .attached-index').length;
                         <span class="input-group-text">첨부파일</span>
                     </div>
                     <div class="custom-file col">
-                        <input type="file" class="custom-file-input" id="file-input-${filesCounter}">
+                        <input type="file" class="custom-file-input" name="attach" id="file-input-${filesCounter}">
                         <label class="custom-file-label" for="file-input-${filesCounter}">파일을 선택하세요</label>
                     </div>
                     <div class="input-group-append">

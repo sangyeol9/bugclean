@@ -204,7 +204,7 @@ refPlusBtn.addEventListener(
             }
             }
         })
-        ////fetch
+        ////등록버튼 눌렀을시
         let modalCreateBtn = document.getElementById("modalCreateBtn");
         let draftLine = document.getElementById("draftLine");
         let refempnum = document.getElementById("refempnum");
@@ -240,9 +240,10 @@ refPlusBtn.addEventListener(
                 refBoxTdName[i] = refBoxTdAr[i].lastElementChild.getAttribute("data-pp-name");
                 console.log("refName : "+refBoxTdName[i])
             }
+            if(refBoxTdName != 0){
             refempnum.value = refBoxTdArCode.join(",");
             refInp.value = refBoxTdName.join(",");
-
+            }
           fetch("/draft/getapprovalline",{
             method : 'POST',
             headers:{
