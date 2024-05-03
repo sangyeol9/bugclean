@@ -71,7 +71,7 @@
 		<div class="content-body" style="min-height: 877px;">
 			<!-- 기안서 제목 시작 -->
 			<div id="standardDraftDiv">
-				<form action="/draft/setbasisdraft" method="post"
+				<form action="/draft/setdetaildraft" method="post"
 					enctype="multipart/form-data">
 					<div>
 						<h1 id="title">기안서</h1>
