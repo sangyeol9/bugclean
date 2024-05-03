@@ -58,15 +58,15 @@
 											<div class="tab-pane fade active show" id="company" role="tabpanel">
 												<table id="example" role="grid" class="table customer_list display dataTable" >
 													<thead>
-														<tr role="row">
-															<th>구분</th>
-															<th>사업자명</th>
-															<th>대표자명</th>
-															<th>대표자 번호</th>
-															<th>거래처 담당자</th>
-															<th>담당자 번호</th>
-															<th>주소</th>
-															<th>영업 담당자</th>
+														<tr class="col-12" role="row">
+															<th class="col-1">구분</th>
+															<th class="col-2">사업자명</th>
+															<th class="display_none">대표자명</th>
+															<th class="display_none">대표자 번호</th>
+															<th class="col-2">거래처 담당자</th>
+															<th class="col-2">담당자 번호</th>
+															<th class="col-3">주소</th>
+															<th class="col-2">영업 담당자</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -81,8 +81,8 @@
 																		${li.business_Name}
 																	</a>
 																</td>
-																<td class="td_ceo_name">${li.ceo_Name}</td>
-																<td class="td_ceo_phone">${li.ceo_Phone}</td>
+																<td class="td_ceo_name display_none">${li.ceo_Name}</td>
+																<td class="td_ceo_phone display_none">${li.ceo_Phone}</td>
 																<td class="td_mng_name">${li.manager_Name}</td>
 																<td class="td_mng_phone">${li.manager_Phone}</td>
 																<td class="td_address">${li.address}</td>

@@ -24,7 +24,7 @@
 		<c:import url="../temp/sidebar.jsp"></c:import>
 
 		<div class="content-body " style="min-height: 900px;">
-			<form method="post">
+			<form method="post" style="background-color: white; border-style: outset;">
 				<!-- 법인, 개인 체크 박스 -->
 				<div id="check">
 					<input type="checkbox" id="ck_company" class="ck" onclick="company()" checked="checked"> 
@@ -43,7 +43,7 @@
 						<input class="right-div form-control " style="width:30%" id="bn_kind_in" type="hidden"
 							placeholder="사업자 번호를 입력하세요." name="customer_Kind" value="법인">
 						<select id="bn_kind_select" style="width:30%" class="right-div form-control" onchange="bn_kind_fn()">
-							<option value="법인">법인</option>
+							<option id="bn_select_base" value="법인">법인</option>
 							<option value="개인">개인</option>
 						</select>
 					</div>
@@ -140,20 +140,20 @@
 				</div>
 				<!-- 개인 체크시 노출 끝 -->
 				
-				<input class="form-control postApi postApiDis right-div" style = "width:15%; display: inline-block;" type="text" id="postcode" placeholder="우편번호">
-				<input class="postApiDis form-control" type="button" style = "width:15%; display: inline-block;" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-				<div class="input-group flex-nowrap mt-2">
-					<input class="form-control postApi postApiDis right-div"type="text" id="roadAddress" placeholder="도로명주소">
+				<input class="form-control postApi postApiDis right-div" style = "margin-top :2%; margin-left: 42%; width:15%; display: inline-block;" type="text" id="postcode" placeholder="우편번호">
+				<input class="postApiDis form-control" type="button" style = "margin-left: 0%; width:15%; display: inline-block;" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+				<div class="input-group flex-nowrap mt-2" style="width:70%; margin-left: 15%;">
+					<input class="form-control postApi postApiDis right-div" style="width: 50%; margin-left: 10%;" type="text" id="roadAddress" placeholder="도로명주소">
 					<span id="guide" style="color:#999;display:none"></span>
-					<input class="form-control ml-3 postApi postApiDis right-div"  type="text" id="detailAddress" placeholder="상세주소">
+					<input class="form-control ml-3 postApi postApiDis right-div" style="width: 50%;" type="text" id="detailAddress" placeholder="상세주소">
 				</div>
 				
 				
 				<!-- 작성완료 후 등록하기 버튼  -->
 				<a href="/customer/list">
-					<button  type = "button" class="btn btn-secondary create">돌아가기</button>
+					<button  type = "button"  class="btn btn-secondary create mb-3">돌아가기</button>
 				</a>
-					<button class="btn btn-light create">등록하기</button>
+					<button class="btn btn-light create mb-3">등록하기</button>
 			</form>
 			<c:import url="../temp/messenger.jsp"></c:import>
 		</div>

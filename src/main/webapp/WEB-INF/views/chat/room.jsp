@@ -109,7 +109,7 @@ window.onload = function(){
                                                 send_hour=12;
                                             }
 
-                                            let send_date = send_apm + " " + send_Time.substring(0,5)+" " +send_hour + " : " + send_Time.substring(send_Time.length-2,send_Time.length);
+                                            let send_date =  send_Time.substring(0,5)+ " "+ send_apm + " " + +send_hour + " : " + send_Time.substring(send_Time.length-2,send_Time.length);
 
                                             console.log("send time == ", send_Time);
                                             if(i>0){

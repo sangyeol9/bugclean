@@ -55,11 +55,12 @@ public class CustomerService {
 	}
 	
 	public int createCustomer(CustomerVO customerVO) throws Exception{
+		System.out.println("customer service before ==> " + customerVO);
 		if(customerVO.getCustomer_Type().equals("개인")) { 
 			customerVO.setBusiness_Name("개인");
 			
 		}
-		
+		System.out.println("customer service after ==> " + customerVO);
 		
 		return customerDAO.createCustomer(customerVO);
 	}

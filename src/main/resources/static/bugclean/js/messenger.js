@@ -149,7 +149,7 @@ function close_modal(){
 
 //페이지 로드시 메신저에 사원 조직도 그리기 1차 부서,팀
 window.addEventListener("load",async function(){
-	fetch("chat/getPrincipal")
+	fetch("/chat/getPrincipal")
 	
     const response =  await fetch("/chat/department",{
         method : "POST"

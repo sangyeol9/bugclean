@@ -88,6 +88,7 @@ public class SecurityConfig{
 				.ignoringRequestMatchers("/employee/idSearchNum")
 				.ignoringRequestMatchers("/employee/phoneSend")
 				.ignoringRequestMatchers("/employee/**")
+				.ignoringRequestMatchers("/chart/**")
 	    )
 		
 		
