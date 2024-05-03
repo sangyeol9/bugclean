@@ -66,8 +66,13 @@ function getInfo(id){
 
         content.style.display = "block";
 
-        res.business_Name === '개인' ? '사업자 구분' : "-";
-		const draft_Num = res.draft_Num !== null ? res.draft_Num : "-";
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            if (res.business_Name === '개인') {
+                //document.getElementById("buisnessman").innerText = "사업자 구분";
+            }
+        });
+        
 		const manage_Code = res.manage_Code !== null ? res.manage_Code : "-";
 		const employee_Num = res.employee_Num !== null ? res.employee_Num : "-";
 		
@@ -78,11 +83,13 @@ function getInfo(id){
         $('#address span').text(`${res.address}`);
         $('#business_Name span').text(`${res.business_Name}`);
         $('#ceo_Name span').text(`${res.ceo_Name}`);
-        $('#employee_Num span').text(`${res.employee_Num}`);
+        $('#employee_Num span').text(`${employee_Num}`);
         $('#manage_Code span').text(`${manage_Code}`);
         $('#price span').text(`${res.price}`);
         $('#sales_Manager span').text(`${res.sales_Manager}`);
         $('#site_Type span').text(`${res.site_Type}`);
+
+        
 
         
         //지도

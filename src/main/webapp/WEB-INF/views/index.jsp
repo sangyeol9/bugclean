@@ -178,7 +178,7 @@
                                         <div class="col-12">
                                             <br>
                                             <hr>
-                                             <div class="close-button" id="closeButton" style="display: inline-block; margin: 0 5px; float: right; font-size: 16px; color: black;">X</div>
+                                             <div class="close-button" id="closeButton" style="display: inline-block; margin: 0 5px; float: right; font-size: 16px; color: black;"><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
                                             <br>
                                         </div>
 
