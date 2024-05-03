@@ -142,7 +142,6 @@
 		) n
 		)
 		WHERE r BETWEEN #{Pagination.startRow} AND #{Pagination.lastRow}
-
 	</select>
 
 	<select id="getTotalCount" resultType="Long"
@@ -163,7 +162,8 @@
 		LEFT OUTER
 		JOIN EMPLOYEE e
 		ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
-		WHERE d.DRAFT_NUM =#{draft_num}
+		WHERE d.DRAFT_NUM
+		=#{draft_num}
 		ORDER BY d.DRAFT_NUM
 		ASC
 	</select>
@@ -173,11 +173,14 @@
 		SELECT sc.*, e.NAME, e.SIGN_FILE , p.POS_NAME,
 		d.NOW_APPROVAL FROM SIGN_CHECK sc
 		LEFT OUTER JOIN EMPLOYEE e
-		ON sc.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+		ON
+		sc.EMPLOYEE_NUM = e.EMPLOYEE_NUM
 		LEFT OUTER JOIN "POSITION" p
-		ON e.POS_CODE =p.POS_CODE
+		ON
+		e.POS_CODE =p.POS_CODE
 		LEFT OUTER JOIN DRAFT d
-		ON sc.DRAFT_NUM = d.DRAFT_NUM
+		ON sc.DRAFT_NUM =
+		d.DRAFT_NUM
 		WHERE sc.DRAFT_NUM = #{draft_num}
 		ORDER BY sc.SIGN_RANK asc
 	</select>
@@ -185,9 +188,11 @@
 	<select id="getRefDetail" resultType="Map"
 		parameterType="DraftVO">
 		SELECT r.*,e.NAME FROM REFERENCE r
-		LEFT OUTER JOIN EMPLOYEE e
+		LEFT OUTER JOIN
+		EMPLOYEE e
 		ON r.EMPLOYEE_NUM = e.EMPLOYEE_NUM
-		WHERE r.DRAFT_NUM =#{draft_num}
+		WHERE r.DRAFT_NUM
+		=#{draft_num}
 	</select>
 
 	<select id="getDraftFileDetail" resultType="DraftFileVO"
@@ -200,4 +205,123 @@
 		DELETE FROM DRAFT
 		WHERE DRAFT_NUM = #{draft_num}
 	</delete>
+
+	<!-- 각 기안문서 리스트 -->
+
+	<select id="getMyReJectionList" resultType="Map"
+		parameterType="Map">
+		SELECT * FROM
+		(
+		SELECT rownum r, n.* FROM
+		(
+		SELECT
+		d.*,e.name FROM DRAFT d
+		LEFT OUTER JOIN EMPLOYEE e
+		ON d.employee_num =
+		e.employee_num
+		WHERE
+		d.employee_num = #{EmployeeVO.employee_num} and
+		d.state = 1
+		ORDER
+		BY draft_num DESC
+		) n
+		)
+		WHERE r BETWEEN
+		#{Pagination.startRow} AND #{Pagination.lastRow}
+	</select>
+
+	<select id="getRejectionTotalCount" resultType="Long"
+		parameterType="EmployeeVO">
+		SELECT count(DRAFT_NUM) FROM DRAFT
+		WHERE EMPLOYEE_NUM =
+		#{employee_num} and state= 1
+	</select>
+
+	<select id="getMyApprovaingList" resultType="Map"
+		parameterType="Map">
+		SELECT * FROM
+		(
+		SELECT rownum r, n.* FROM
+		(
+		SELECT
+		d.*,e.name FROM DRAFT d
+		LEFT OUTER JOIN EMPLOYEE e
+		ON d.employee_num =
+		e.employee_num
+		WHERE
+		d.employee_num = #{EmployeeVO.employee_num} and
+		d.state = 0
+		ORDER
+		BY draft_num DESC
+		) n
+		)
+		WHERE r BETWEEN
+		#{Pagination.startRow} AND #{Pagination.lastRow}
+	</select>
+
+	<select id="getApprovingTotalCount" resultType="Long"
+		parameterType="EmployeeVO">
+		SELECT count(DRAFT_NUM) FROM DRAFT
+		WHERE EMPLOYEE_NUM =
+		#{employee_num} and state=0
+	</select>
+
+	<select id="getMyApprovedList" resultType="Map"
+		parameterType="Map">
+		SELECT * FROM
+		(
+		SELECT rownum r, n.* FROM
+		(
+		SELECT
+		d.*,e.name FROM DRAFT d
+		LEFT OUTER JOIN EMPLOYEE e
+		ON d.employee_num =
+		e.employee_num
+		WHERE
+		d.employee_num = #{EmployeeVO.employee_num} and
+		d.state = 3
+		ORDER
+		BY draft_num DESC
+		) n
+		)
+		WHERE r BETWEEN
+		#{Pagination.startRow} AND #{Pagination.lastRow}
+	</select>
+
+	<select id="getApprovedTotalCount" resultType="Long"
+		parameterType="EmployeeVO">
+		SELECT count(DRAFT_NUM) FROM DRAFT
+		WHERE EMPLOYEE_NUM =
+		#{employee_num} and state=3
+	</select>
+
+	<select id="getMyTemporaryList" resultType="Map"
+		parameterType="Map">
+		SELECT * FROM
+		(
+		SELECT rownum r, n.* FROM
+		(
+		SELECT
+		d.*,e.name FROM DRAFT d
+		LEFT OUTER JOIN EMPLOYEE e
+		ON d.employee_num =
+		e.employee_num
+		WHERE
+		d.employee_num = #{EmployeeVO.employee_num} and
+		d.state = 2
+		ORDER
+		BY draft_num DESC
+		) n
+		)
+		WHERE r BETWEEN
+		#{Pagination.startRow} AND #{Pagination.lastRow}
+	</select>
+
+	<select id="getTemporaryTotalCount" resultType="Long"
+		parameterType="EmployeeVO">
+		SELECT count(DRAFT_NUM) FROM DRAFT
+		WHERE EMPLOYEE_NUM =
+		#{employee_num} and state=2
+	</select>
+
 </mapper>

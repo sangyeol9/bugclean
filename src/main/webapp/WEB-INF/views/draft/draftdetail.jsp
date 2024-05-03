@@ -84,11 +84,13 @@
 
 					<!-- 결재선 시작 -->
 					<div id="draftLine">
-						<div id="lineBtnDiv" style="position: absolute;top: 15px;  left: -50px; display: inline-block; ">
-							<button type="button" id="lineBtn" class="lineBtnDiv btn btn-google">
+						<div id="lineBtnDiv"
+							style="position: absolute; top: 15px; left: -50px; display: inline-block;">
+							<button type="button" id="lineBtn"
+								class="lineBtnDiv btn btn-google">
 								편<br>집<br>하<br>기
 							</button>
-							
+
 						</div>
 
 						<table border="1" id="allineTable">
@@ -111,6 +113,9 @@
 										<c:if test="${not empty approvalar.SIGN_FILE }">
 											<td><img src="${approvalar.SIGN_FILE}" width="50px"
 												height="30px"></td>
+										</c:if>
+										<c:if test="${empty approvalar.SIGN_FILE }">
+											<td>${approvalar.NAME }</td>
 										</c:if>
 									</c:if>
 									<c:if
@@ -169,56 +174,46 @@
 
 							<tr>
 								<td class="basisTitleTd">제목</td>
-								<td class="basisTd"><input name="title"
+								<td class="basisTd"><input readonly="readonly" name="title"
 									value="${draftmap.TITLE}" class="inp" type="text"></td>
 								<td class="basisTitleTd">참조</td>
-								<td class="basisTd"><input id="refInp" class="inp"
-									type="text" readonly="readonly" value="${refname}"> <input
-									id="refempnum" type="hidden" class="inp" name="refempnum"></td>
+								<td class="basisTd"><input readonly="readonly" id="refInp"
+									class="inp" type="text" readonly="readonly" value="${refname}">
+									<input id="refempnum" type="hidden" class="inp"
+									name="refempnum"></td>
 							</tr>
 
 							<tr style="height: 300px;">
 								<td class="basisTitleTd">내용</td>
-								<td class="basisTitleTd" colspan="4"><input name="contents"
-									class="inp" value="${draftmap.CONTENTS }" type="text"></td>
+								<td class="basisTitleTd" colspan="4" style="text-align: left;">
+									<textarea readonly="readonly" name="contents" class="inp"
+										name="contents" style="text-align: left;" rows="" cols="">${draftmap.CONTENTS }</textarea>
+								</td>
 							</tr>
+
 							<tr style="height: 130px;">
 								<td class="basisTitleTd">의견</td>
 								<td class="basisTitleTd" colspan="4"><input
-									name="sign_comment" class="inp" type="text"></td>
+									name="sign_comment" readonly="readonly" class="inp" type="text"></td>
 							</tr>
+
+							<tr>
+								<td class="basisTitleTd">첨부파일</td>
+								<c:forEach items="${filear}" var="filear">
+									<td class="basisTd" colspan="4">${filear.ori_name}<br></td>
+								</c:forEach>
+							</tr>
+							
 						</table>
 						<!-- 파일 시작 -->
 						<div>
-							<div id="files">
-								<div id="attachment-group">
-									<div class="input-group mb-1" id="attachment-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text">첨부파일</span>
-										</div>
-
-										<div class="custom-file col">
-											<input type="file" class="custom-file-input" name="attach">
-											<label class="custom-file-label">파일을 선택하세요</label>
-										</div>
-										<div class="input-group-append">
-											<button type="button" class="btn btn-sm btn-dark plus-file">+</button>
-											<button type="button" class="btn btn-sm btn-dark minus-file"
-												data-target="attachment-1" disabled="">−</button>
-										</div>
-									</div>
-								</div>
-							</div>
 							<c:if test="${draftmap.NOW_APPROVAL eq 1}">
-							<div id="btn"
-								style="position: absolute; left: 900px; bottom: -40px;">
-				
-								<c:if test="${employeeNum == nowemp}">
-									<button type="submit" style="width: 90px" data-delete-emp="${draftmap.DRAFT_NUM}" class="btn btn-primary">상신하기</button>
-								</c:if>
-								<!-- <c:if test="${employeeNum = nowemp}"> -->
-								<button id="draftDeleteBtn" type="button" style="width: 90px" data-delete-emp="${draftmap.DRAFT_NUM}" class="btn btn-warning">삭제하기</button>
-							</div>
+								<div id="btn"
+									style="position: absolute; left: 900px; bottom: -40px;">
+									<button id="draftDeleteBtn" type="button" style="width: 90px"
+										data-delete-emp="${draftmap.DRAFT_NUM}"
+										class="btn btn-warning">삭제하기</button>
+								</div>
 							</c:if>
 						</div>
 						<!-- 파일 끝 -->

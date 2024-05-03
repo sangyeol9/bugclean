@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.winter.app.board.BoardFileVO;
 import com.winter.app.employee.DepartmentVO;
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.employee.PositionVO;
@@ -30,7 +31,9 @@ import jakarta.servlet.http.HttpSession;
 public class DraftController {
 	@Autowired
 	private DraftService draftService;
-
+	
+	
+	
 	@GetMapping("basisdraft")
 	public String getBasisDraft(Map<String, Object> map, Model model, HttpSession session, MultipartFile [] attach)
 			throws Exception {
@@ -301,7 +304,7 @@ public class DraftController {
 		UserDetails userDetails = (UserDetails) principal;
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
-		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
+		List<Map<String, Object>> mapAr = draftService.getMyReJectionList(pagination ,employeeVO);
 		if(mapAr == null) {
 			pagination = (Pagination)mapAr.get(0).get("Pagination");	
 		}
@@ -315,7 +318,7 @@ public class DraftController {
 		UserDetails userDetails = (UserDetails) principal;
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
-		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
+		List<Map<String, Object>> mapAr = draftService.getMyApprovaingList(pagination ,employeeVO);
 		if(mapAr == null) {
 			pagination = (Pagination)mapAr.get(0).get("Pagination");	
 		}
@@ -329,7 +332,7 @@ public class DraftController {
 		UserDetails userDetails = (UserDetails) principal;
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
-		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
+		List<Map<String, Object>> mapAr = draftService.getMyApprovedList(pagination ,employeeVO);
 		if(mapAr == null) {
 			pagination = (Pagination)mapAr.get(0).get("Pagination");	
 		}
@@ -343,7 +346,7 @@ public class DraftController {
 		UserDetails userDetails = (UserDetails) principal;
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
-		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
+		List<Map<String, Object>> mapAr = draftService.getMyTemporaryList(pagination ,employeeVO);
 		if(mapAr == null) {
 			pagination = (Pagination)mapAr.get(0).get("Pagination");	
 		}
