@@ -41,12 +41,12 @@
 								<ul class="nav nav-tabs" role = "tablist">
 									<li class="nav-item">
 										<a class="nav-link active" data-toggle="tab" href="#company">
-											<span><i class="fa-solid fa-building"></i></span>
+											<span>사업자</span>
 										</a>
 									</li>
 									<li class="nav-item">
 										<a class="nav-link" data-toggle="tab" href="#person">
-											<span><i class="fa-solid fa-person"></i></span>
+											<span>개인</span>
 										</a>
 									</li>
 								</ul>
@@ -58,14 +58,15 @@
 											<div class="tab-pane fade active show" id="company" role="tabpanel">
 												<table id="example" role="grid" class="table customer_list display dataTable" >
 													<thead>
-														<tr role="row">
-															<th>사업자명</th>
-															<th>대표자명</th>
-															<th>대표자 번호</th>
-															<th>거래처 담당자명</th>
-															<th>거래처 담당자 번호</th>
-															<th>주소</th>
-															<th>영업 담당자명</th>
+														<tr class="col-12" role="row">
+															<th class="col-1">구분</th>
+															<th class="col-2">사업자명</th>
+															<th class="display_none">대표자명</th>
+															<th class="display_none">대표자 번호</th>
+															<th class="col-2">거래처 담당자</th>
+															<th class="col-2">담당자 번호</th>
+															<th class="col-3">주소</th>
+															<th class="col-2">영업 담당자</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -74,13 +75,14 @@
 																<td class="display_none td_customer_num" data-customernum="${li.customer_Num}"></td>
 																<td class="display_none td_customer_type" data-customertype="${li.customer_Type}"></td>
 																<td class="display_none modi_checkbox" ><input type="checkbox" class="td_checkbox"></td>
+																<td class="td_customer_kind">${li.customer_Kind}</td>
 																<td>
 																	<a href="./detail?customer_Num=${li.customer_Num}" class="td_business_name">
 																		${li.business_Name}
 																	</a>
 																</td>
-																<td class="td_ceo_name">${li.ceo_Name}</td>
-																<td class="td_ceo_phone">${li.ceo_Phone}</td>
+																<td class="td_ceo_name display_none">${li.ceo_Name}</td>
+																<td class="td_ceo_phone display_none">${li.ceo_Phone}</td>
 																<td class="td_mng_name">${li.manager_Name}</td>
 																<td class="td_mng_phone">${li.manager_Phone}</td>
 																<td class="td_address">${li.address}</td>
@@ -99,8 +101,8 @@
 													<table id="example2" role="grid" class="table customer_list display dataTable" >
 														<thead>
 															<tr role="row">
-																<th>대표자 명</th>
-																<th>대표자 번호</th>
+																<th>고객 명</th>
+																<th>고객 전화번호</th>
 																<th>주소</th>
 																<th>영업 담당자명</th>
 															</tr>
@@ -160,11 +162,11 @@
 							<input id="modal_bn_name_in" type="text" class="form-control right-div" placeholder="사업자명을 입력하세요." >
 						  </div>
 						<div class="input-group flex-nowrap mt-2" id="modal_ceo_name">
-							<span class="input-group-text left-div" >대표자 명</span>
+							<span id="modal_ce_name_span" class="input-group-text left-div" >대표자 명</span>
 							<input id="modal_ceo_name_in" type="text" class="form-control right-div" placeholder="대표자명을 입력하세요." >
 						  </div>
 						<div class="input-group flex-nowrap mt-2" id="modal_ceo_phone">
-							<span class="input-group-text left-div" >대표 전화번호</span>
+							<span id="modal_ce_phone_span" class="input-group-text left-div" >대표 전화번호</span>
 							<input id="modal_ceo_phone_in" type="text" class="form-control right-div" placeholder="대표자 전화번호를 입력하세요." >
 						  </div>						
 						<div class="input-group flex-nowrap mt-2" id="modal_addr">
@@ -202,6 +204,9 @@
 			<c:import url="../temp/messenger.jsp"></c:import>
 		</div>
 	</div>
+
+	
+
 	<c:import url="../temp/footer.jsp"></c:import>
 	<c:import url="../temp/js.jsp"></c:import>
 	<script src="/bugclean/js/customerList.js"></script>

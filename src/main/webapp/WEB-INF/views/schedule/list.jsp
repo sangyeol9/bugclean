@@ -101,7 +101,7 @@
 							<span class="input-group-text" id="address">주소</span>
 							<input id="inputAddress"  type="text" class="form-control display_none" placeholder="주소를 입력하세요." >
 							<input class="form-control postApi postApiDis" type="text" id="postcode" placeholder="우편번호">
-							<input class="postApiDis" type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+							<input class="postApiDis form-control" type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 							
 					  	</div>
 						<div class="input-group flex-nowrap mt-2">

@@ -34,7 +34,7 @@
 				
 					<!-- 법인일시 출력창 -->
 				</div>
-				<c:if test="${vo.customer_Type eq '법인'}">
+				<c:if test="${vo.customer_Type eq '사업자'}">
 					<div id="company">
 						<div id="bn_num">
 							<button disabled="disabled"

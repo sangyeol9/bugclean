@@ -18,6 +18,8 @@ let modal_manager_phone_in = document.getElementById("modal_manager_phone_in");
 let modal_sales_name_in = document.getElementById("modal_sales_name_in");
 let real_sales_mng = document.getElementsByClassName("real_sales_mng");
 
+let modal_ce_name_span = document.getElementById("modal_ce_name_span");
+let modal_ce_phone_span = document.getElementById("modal_ce_phone_span")
 // 리스트의 값들 클래스명으로 저장
 
 let td_business_name = document.getElementsByClassName("td_business_name");
@@ -59,10 +61,14 @@ for(let i=0; i<modi_tr.length;i++){
               modal_bn_name.style.display="none";
               modal_manager_name.style.display="none";
               modal_manager_phone.style.display="none";
+              modal_ce_name_span.innerHTML = "고객명"
+              modal_ce_phone_span.innerHTML = "고객 전화번호"
             }else{
               modal_bn_name.style.display="";
               modal_manager_name.style.display="";
               modal_manager_phone.style.display="";
+              modal_ce_name_span.innerHTML = "대표자 명"
+              modal_ce_phone_span.innerHTML = "대표자 전화번호"
             }
 
 

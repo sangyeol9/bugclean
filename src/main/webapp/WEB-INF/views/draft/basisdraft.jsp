@@ -85,8 +85,10 @@
 					<!-- 결재선 시작 -->
 					<div id="draftLine">
 
-						<div id="lineBtnDiv">
-							<button type="button" id="lineBtn" class="lineBtnDiv">
+						<div id="lineBtnDiv"
+							style="position: absolute; top: 15px; left: -50px; display: inline-block;">
+							<button type="button" id="lineBtn"
+								class="lineBtnDiv btn btn-google">
 								편<br>집<br>하<br>기
 							</button>
 						</div>
@@ -146,32 +148,40 @@
 
 							<tr style="height: 300px;">
 								<td class="basisTitleTd">내용</td>
-								<td class="basisTitleTd" colspan="4"><input name="contents"
-									class="inp" type="text"></td>
+								<td class="basisTitleTd" colspan="4" >
+								<textarea class="inp" name="contents" style="text-align: left;" rows="" cols=""></textarea>
+									</td>
 							</tr>
 							<tr style="height: 130px;">
 								<td class="basisTitleTd">의견</td>
 								<td class="basisTitleTd" colspan="4"><input
-									name="sign_comment" class="inp" type="text"></td>
+									name="sign_comment" class="inp" type=""></td>
 							</tr>
 						</table>
 						<!-- 파일 시작 -->
-						<div id="files">
-							<div id="attachment-group">
-								<div class="input-group mb-1" id="attachment-1">
-									<div class="input-group-prepend">
-										<span class="input-group-text">첨부파일</span>
-									</div>
-									<div class="custom-file col">
-										<input type="file" class="custom-file-input" name="attach">
-										<label class="custom-file-label">파일을 선택하세요</label>
-									</div>
-									<div class="input-group-append">
-										<button type="button" class="btn btn-sm btn-dark plus-file">+</button>
-										<button type="button" class="btn btn-sm btn-dark minus-file"
-											data-target="attachment-1" disabled="">−</button>
+						<div>
+							<div id="files">
+								<div id="attachment-group">
+									<div class="input-group mb-1" id="attachment-1">
+										<div class="input-group-prepend">
+											<span class="input-group-text">첨부파일</span>
+										</div>
+										<div class="custom-file col">
+											<input type="file" class="custom-file-input" name="attach">
+											<label class="custom-file-label">파일을 선택하세요</label>
+										</div>
+										<div class="input-group-append">
+											<button type="button" class="btn btn-sm btn-dark plus-file">+</button>
+											<button type="button" class="btn btn-sm btn-dark minus-file"
+												data-target="attachment-1" disabled="">−</button>
+										</div>
 									</div>
 								</div>
+							</div>
+							<div id="btn">
+								<button type="submit" name="state" value="0" id="lineBtn" class="lineBtnDiv btn btn-primary">상신하기</button>
+								&nbsp;&nbsp;&nbsp;							
+								<button type="submit" name="state" value="2" id="lineBtn" class="lineBtnDiv btn btn-secondary">임시저장</button>
 							</div>
 						</div>
 						<!-- 파일 끝 -->
@@ -179,17 +189,6 @@
 					<!-- 기안서양식 끝 -->
 					<input type="hidden" value="0" name="draft_category">
 					<!-- 버튼모음 시작 -->
-					<div id="btn">
-						<button type="submit" name="state" value="0">상신하기</button>
-						&nbsp;&nbsp;&nbsp;
-						<button type="submit" name="state" value="1">반려하기</button>
-						&nbsp;&nbsp;&nbsp;
-						<button type="submit" name="state" value="2">임시저장</button>
-						&nbsp;&nbsp;&nbsp;
-						<button>삭제하기</button>
-						&nbsp;&nbsp;&nbsp;
-						<button>파일첨부</button>
-					</div>
 				</form>
 				<!-- 버튼모음 끝 -->
 

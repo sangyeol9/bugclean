@@ -6,7 +6,6 @@
 }
 
 td {
-	text-align: center;
 	width: 60px;
 	height: 35px;
 }
@@ -60,8 +59,8 @@ table {
 
 #btn {
 	position: absolute;
-	left: 380px;
-	bottom: 150px;
+	left: 420px;
+	bottom: -50px;
 }
 
 .inp {
@@ -83,4 +82,7 @@ table {
 	top: 15px;
 	left: -50px;
 
+}
+#allineTable{
+	text-align: center;
 }

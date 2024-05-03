@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.winter.app.board.BoardFileVO;
 import com.winter.app.employee.DepartmentVO;
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.employee.PositionVO;
@@ -30,7 +31,9 @@ import jakarta.servlet.http.HttpSession;
 public class DraftController {
 	@Autowired
 	private DraftService draftService;
-
+	
+	
+	
 	@GetMapping("basisdraft")
 	public String getBasisDraft(Map<String, Object> map, Model model, HttpSession session, MultipartFile [] attach)
 			throws Exception {
@@ -71,6 +74,9 @@ public class DraftController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserDetails userDetails = (UserDetails) principal;
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
+		
+		model.addAttribute("employeeNum", employeeVO.getEmployee_num());
+		
 		System.out.println("employeeVO.num : "+employeeVO.getEmployee_num());
 		System.out.println("draftVO.draft_Num : "+draftVO.getDraft_num());
 		//기안서 부분
@@ -81,6 +87,9 @@ public class DraftController {
 		//기안서 결재라인부분
 		List<Map<String, Object>> approvalAr = draftService.getSignCheckDetail(draftVO);
 		model.addAttribute("approvalar", approvalAr);
+		int ddd =  Integer.parseInt(map.get("NOW_APPROVAL").toString());
+		String nowemp = approvalAr.get(ddd).get("EMPLOYEE_NUM").toString();
+		model.addAttribute("nowemp", nowemp);
 		//기안서 참조 부분
 		String name = draftService.getRefDetail(draftVO);
 		model.addAttribute("refname", name);
@@ -102,7 +111,40 @@ public class DraftController {
 		System.out.println("approvalAr : "+approvalAr.toString() );
 		
 		return "draft/draftdetail";
-	}               
+	}
+	
+	@PostMapping("draftdelete")
+	public int draftDelete(DraftVO draftVO) throws Exception{
+		System.out.println("deleteDraftNum : "+ draftVO.getDraft_num());
+		int result = draftService.draftDelete(draftVO);
+		return result;
+	}
+	
+	////////////////////////////////////////////////
+	
+	@PostMapping("setdetaildraft")
+	public String setDetailDraft(DraftVO draftVO, MultipartFile [] attach, Model model, String[] refempnum,
+			String[] approvalemp_num, Long[] sign_rank) throws Exception {
+		
+		if(draftVO.getDraft_category() == 0) {
+		int result=0;
+		String msg="실패";
+		// 기안서 값들 db에 저장
+		draftService.setDetailDraft(draftVO);
+		
+		if(result>0) {
+			msg="성공";
+		}
+		
+		model.addAttribute("result", msg);
+		model.addAttribute("path", "/draft/mydraftlist");
+		}else if(draftVO.getDraft_category() == 1) {
+			
+		}else if(draftVO.getDraft_category() == 2) {
+			
+		}
+		return "commons/result";
+	}
 
 	@PostMapping("setbasisdraft")
 	public String setBasisDraft(DraftVO draftVO, MultipartFile [] attach, Model model, String[] refempnum,
@@ -262,7 +304,7 @@ public class DraftController {
 		UserDetails userDetails = (UserDetails) principal;
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
-		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
+		List<Map<String, Object>> mapAr = draftService.getMyReJectionList(pagination ,employeeVO);
 		if(mapAr == null) {
 			pagination = (Pagination)mapAr.get(0).get("Pagination");	
 		}
@@ -276,7 +318,7 @@ public class DraftController {
 		UserDetails userDetails = (UserDetails) principal;
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
-		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
+		List<Map<String, Object>> mapAr = draftService.getMyApprovaingList(pagination ,employeeVO);
 		if(mapAr == null) {
 			pagination = (Pagination)mapAr.get(0).get("Pagination");	
 		}
@@ -290,7 +332,7 @@ public class DraftController {
 		UserDetails userDetails = (UserDetails) principal;
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
-		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
+		List<Map<String, Object>> mapAr = draftService.getMyApprovedList(pagination ,employeeVO);
 		if(mapAr == null) {
 			pagination = (Pagination)mapAr.get(0).get("Pagination");	
 		}
@@ -304,7 +346,7 @@ public class DraftController {
 		UserDetails userDetails = (UserDetails) principal;
 		EmployeeVO employeeVO = (EmployeeVO) userDetails;
 		
-		List<Map<String, Object>> mapAr = draftService.getMyDraftList(pagination ,employeeVO);
+		List<Map<String, Object>> mapAr = draftService.getMyTemporaryList(pagination ,employeeVO);
 		if(mapAr == null) {
 			pagination = (Pagination)mapAr.get(0).get("Pagination");	
 		}

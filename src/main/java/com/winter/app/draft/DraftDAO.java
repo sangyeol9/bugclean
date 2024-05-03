@@ -31,14 +31,32 @@ public interface DraftDAO {
 	int setSignCheck(SignCheckVO signCheckVO)throws Exception;
 	int setRef(ReferencesVO referencesVO)throws Exception;
 	////////////
-	List<Map<String, Object>> getMyDraftList(Map<String, Object> map)throws Exception;
-	Long getTotalCount(EmployeeVO employeeVO)throws Exception;
+
 	int setDraftFile(DraftFileVO draftFileVO)throws Exception;
 	
-	///기안서꺼내기
+	///기안서디테일
 	Map<String, Object> getDraftDetail(DraftVO draftVO)throws Exception;
 	List<Map<String, Object>> getSignCheckDetail(DraftVO draftVO)throws Exception;
 	List<Map<String, Object>> getRefDetail(DraftVO draftVO)throws Exception;
 	List<DraftFileVO> getDraftFileDetail(DraftVO draftVO)throws Exception;
 	
+	//기안서 삭제
+	int draftDelete(DraftVO draftVO)throws Exception;
+	
+	//각 기안서 꺼내기
+	//전체
+	List<Map<String, Object>> getMyDraftList(Map<String, Object> map)throws Exception;
+	Long getTotalCount(EmployeeVO employeeVO)throws Exception;
+	//반려
+	List<Map<String, Object>> getMyReJectionList(Map<String, Object> map)throws Exception;
+	Long getRejectionTotalCount(EmployeeVO employeeVO)throws Exception;
+	//결재중
+	List<Map<String, Object>> getMyApprovaingList(Map<String, Object> map)throws Exception;
+	Long getApprovingTotalCount(EmployeeVO employeeVO)throws Exception;
+	//결재완
+	List<Map<String, Object>> getMyApprovedList(Map<String, Object> map)throws Exception;
+	Long getApprovedTotalCount(EmployeeVO employeeVO)throws Exception;
+	//임시저장
+	List<Map<String, Object>> getMyTemporaryList(Map<String, Object> map)throws Exception;
+	Long getTemporaryTotalCount(EmployeeVO employeeVO)throws Exception;
 }

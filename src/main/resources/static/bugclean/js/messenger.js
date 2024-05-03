@@ -82,7 +82,7 @@ function chatRoom(e){
                     console.log("room res ==> ", res)
 	                let url = "/chat/room?room_num="+room_num;
                     localStorage.setItem("sendDateMsg", JSON.stringify(res));
-	                localStorage.setItem('sendData', JSON.stringify(room_num));
+	                localStorage.setItem('sendData', room_num);
 	                let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=400, height=600, top=50,left=50";
 	                window.open(url,'_blank',options);
                 //newWindow.document.write(res);
@@ -149,7 +149,7 @@ function close_modal(){
 
 //페이지 로드시 메신저에 사원 조직도 그리기 1차 부서,팀
 window.addEventListener("load",async function(){
-	fetch("chat/getPrincipal")
+	fetch("/chat/getPrincipal")
 	
     const response =  await fetch("/chat/department",{
         method : "POST"
@@ -226,7 +226,7 @@ window.addEventListener("load",async function(){
 				  .then(res=>{
 					  console.log("get chatting room res == > ", res);
 					  res.forEach(element => {
-						  messenger_msg_list.innerHTML += `<div id="${element.ROOM_NUM}"><a style="color : black;" onclick="window.open('/chat/room?room_num=${element.ROOM_NUM}','_blank','width=400, height=600, top=50,left=50'); "><img width="50" height="50" id="user2_profile" src="/focus-bootstrap-main/theme/images/base_profile.png"> ${element.DEP_NAME} ${element.POS_NAME} ${element.NAME} </a> </div>`
+						  messenger_msg_list.innerHTML += `<div style="color : black" id="${element.ROOM_NUM}" onclick="intoChatRoom(${element.ROOM_NUM})"><img width="50" height="50" id="user2_profile" src="/focus-bootstrap-main/theme/images/base_profile.png"> ${element.DEP_NAME} ${element.POS_NAME} ${element.NAME} </div>`
 					  fetch("/chat/getLastMessage",{
 						   method : "POST",
 							  headers: {
@@ -253,7 +253,26 @@ window.addEventListener("load",async function(){
           
         })
       })
-      
+     
+    function intoChatRoom(e){
+        fetch("/chat/room",{
+            method : "POST",
+            headers: {
+              "Content-Type": "application/json",
+          },
+          body : JSON.stringify({
+            room_num : e
+        })
+        }).then(res=>res.json())
+        .then(res=>{
+            console.log("chat ==> res")
+            let url = "/chat/room?room_num="+e;
+                    localStorage.setItem("sendDateMsg", JSON.stringify(res));
+	                localStorage.setItem('sendData', e);
+	                let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=400, height=600, top=50,left=50";
+	                window.open(url,'_blank',options);
+        })
+    }
       
 //" class=" + "\"" + "display_none" + "\""
                             /* <div id="affairs_team_list" class="display_none">
