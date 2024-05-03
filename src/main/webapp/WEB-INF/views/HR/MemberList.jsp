@@ -228,7 +228,7 @@
                 </div>
             </div>
         </div>
-        <c:import url="../temp/messenger.jsp"></c:import>
+<%--        <c:import url="../temp/messenger.jsp"></c:import>--%>s
     </div>
 
 </div>

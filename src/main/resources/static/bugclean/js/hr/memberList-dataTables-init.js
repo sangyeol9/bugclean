@@ -43,7 +43,6 @@ function resignationList() {
                 "columns": [
                     {data: "EMPLOYEE_NUM", title: "사번"},
                     {data: "NAME", title: "이름"},
-                    {data: "NICKNAME", title: "닉네임"},
                     {data: "PHONE", title: "연락처"},
                     {data: "ADDRESS", title: "주소", defaultContent: "미입력"},
                     {data: "DEP_NAME", title: "부서"},
@@ -64,7 +63,10 @@ function resignationList() {
                         "previous": '<i class="icon-arrow-left"></i>',
                         "next": '<i class="icon-arrow-right"></i>'
                     }
-                }
+                },
+                "columnDefs": [
+                    {target: "_all", width: "auto"}
+                ]
             })
 
             //복구 불가능한 퇴사자 목록
@@ -73,7 +75,6 @@ function resignationList() {
                 "columns": [
                     {data: "EMPLOYEE_NUM", title: "사번"},
                     {data: "NAME", title: "이름"},
-                    {data: "NICKNAME", title: "닉네임"},
                     {data: "PHONE", title: "연락처"},
                     {data: "ADDRESS", title: "주소", defaultContent: "미입력"},
                     {data: "DEP_NAME", title: "부서"},
@@ -218,7 +219,7 @@ $(document).ready(async function () {
             $("#user_id").html(`${response.data.USERNAME || '오류'}`);
             $("#user_name").val(`${response.data.NICKNAME || '오류'}`);
             $("#user_phone").html(`${response.data.PHONE || '오류'}`);
-            $("#user_address").html(`${response.data.ADDRESS || '오류'}`);
+            $("#user_address").html(`${response.data.ADDRESS || '미입력'}`);
             $("#user_join").html(`${response.data.JOIN_DATE || '오류'}`);
 
             // 셀렉트 박스 렌더링 함수
@@ -262,11 +263,13 @@ $(document).ready(async function () {
             let upperDepCode = $('#user_dep').val(); // 사용자가 선택한 상위 부서 코드
             renderSelectBox(
                 response.commons.dep
-                    .filter(item => item.upper_dep_code == upperDepCode)
+                    .filter(item => item.upper_dep_code == upperDepCode || item.dep_code == upperDepCode)
                     .map(item => ({ code: item.dep_code, name: item.dep_name })),
                 'user_team',
                 response.data.DEP_CODE // 선택된 사용자의 부서 코드를 기본값으로 설정
             );
+
+
         });
     });
 
