@@ -189,9 +189,9 @@ public class DraftService {
 		return result;
 	}
 	
-	public int setSignCheck(String [] approvalemp_num, Long [] sign_rank,DraftVO draftVO)throws Exception{
+	
 		
-		System.out.println("ddddddddddddddddddddddddddddddddddd11111");
+	
 	//결재라인등록
 	public int setSignCheck(String [] approvalemp_num, Long [] sign_rank,DraftVO draftVO)throws Exception{		
 		SignCheckVO [] signCheckVOs = new SignCheckVO[approvalemp_num.length];
