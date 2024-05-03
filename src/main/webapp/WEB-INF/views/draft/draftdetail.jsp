@@ -71,7 +71,7 @@
 		<div class="content-body" style="min-height: 877px;">
 			<!-- 기안서 제목 시작 -->
 			<div id="standardDraftDiv">
-				<form action="/draft/setbasisdraft" method="post"
+				<form action="/draft/setdetaildraft" method="post"
 					enctype="multipart/form-data">
 					<div>
 						<h1 id="title">기안서</h1>
@@ -212,6 +212,11 @@
 							<c:if test="${draftmap.NOW_APPROVAL eq 1}">
 							<div id="btn"
 								style="position: absolute; left: 900px; bottom: -40px;">
+				
+								<c:if test="${employeeNum == nowemp}">
+									<button type="submit" style="width: 90px" data-delete-emp="${draftmap.DRAFT_NUM}" class="btn btn-primary">상신하기</button>
+								</c:if>
+								<!-- <c:if test="${employeeNum = nowemp}"> -->
 								<button id="draftDeleteBtn" type="button" style="width: 90px" data-delete-emp="${draftmap.DRAFT_NUM}" class="btn btn-warning">삭제하기</button>
 							</div>
 							</c:if>

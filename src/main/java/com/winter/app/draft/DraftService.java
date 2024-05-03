@@ -168,6 +168,14 @@ public class DraftService {
 		return result;
 	}
 	
+	public int setDetailDraft(DraftVO draftVO)throws Exception{
+		if(draftVO.getState() == 0) {
+		draftVO.setNow_approval(draftVO.getNow_approval()+1);
+		}
+		int result = draftDAO.setBasisDraft(draftVO);
+		return result;
+	}
+	
 	public int setSignCheck(String [] approvalemp_num, Long [] sign_rank,DraftVO draftVO)throws Exception{
 		
 		System.out.println("ddddddddddddddddddddddddddddddddddd11111");
