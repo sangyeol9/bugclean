@@ -93,3 +93,10 @@
 	margin-left: 25%;
 	
   }
+
+  .fc-day-sat{
+	color : blue;
+  }
+  .fc-day-sun{
+	color : red;
+  }
