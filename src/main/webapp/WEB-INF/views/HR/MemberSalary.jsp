@@ -73,6 +73,61 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="salaryModal">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><i class="fa-solid fa-user"></i></h5>
+                            <h5 id="modal-title-num" class="modal-title">2024001</h5>
+                            <h5 id="modal-title-name" class="modal-title">허쿠니</h5>
+                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body d-flex justify-content-center">
+                            <div class="row table-responsive">
+                                <table class="table table-hover text-muted detail-table">
+                                    <tbody>
+                                    <tr>
+                                        <th class="font-weight-bolder">급여계좌번호</th>
+                                        <td class="col-7" style="padding: 0">
+                                            <div style="display: inline-flex; width: 90%">
+                                                <input id="account" type="text"
+                                                       class="form-control input-default user_name" style="width: 50%"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="font-weight-bolder">급여은행</th>
+                                        <td class="col-7" style="padding: 0">
+                                            <div style="display: inline-flex; width: 90%">
+                                                <input id="bank" type="text"
+                                                       class="form-control input-default user_name" style="width: 50%"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="font-weight-bolder">연봉금액</th>
+                                        <td class="col-7" style="padding: 0">
+                                            <div style="display: inline-flex; width: 90%;">
+                                                <input id="salary" type="text"
+                                                       class="form-control input-default user_name" style="width: 50%"/>만원
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button id="close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">닫기
+                            </button>
+                            <button id="save-btn" type="button" class="btn btn-primary">저장</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <c:import url="../temp/messenger.jsp"></c:import>
     </div>

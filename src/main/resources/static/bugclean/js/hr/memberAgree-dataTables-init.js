@@ -30,11 +30,11 @@ async function initDataTables() {
         }
 
         // 테이블 초기화 및 데이터 채우기
-        $('#tempList').DataTable({
+        const table = $('#tempList').DataTable({
             "data": response.tempMember,
             "columns": [
-                { data: "userName", title: "가입요청 ID" },
-                { data: "name", title: "이름" },
+                {data: "userName", title: "가입요청 ID"},
+                {data: "name", title: "이름"},
                 {
                     data: "upper_department",
                     title: "부서",
@@ -52,7 +52,7 @@ async function initDataTables() {
                     orderable: false,
                     render: function (data, type, row) {
                         return renderSelect([], [], "dep");
-                    }
+                    },
                 },
                 {
                     data: "rank",
@@ -87,24 +87,26 @@ async function initDataTables() {
                     "previous": '<i class="icon-arrow-left"></i>',
                     "next": '<i class="icon-arrow-right"></i>'
                 }
+            },
+            'drawCallback':function (){
+                $(".upper_dep").change(function () {
+                    let selectUpper = $(this).val();
+                    let team = response.commons.dep.filter(item => item.upper_dep_code == selectUpper || item.dep_code == selectUpper);
+                    let tr = $(this).closest('tr')
+                    let selectTeam = tr.find(".dep");
+                    selectTeam.empty();
+                    selectTeam.append($('<option value="">선택</option>'))
+                    for (let i = 0; i < team.length; i++) {
+                        selectTeam.append($('<option>', {
+                            value: team[i].dep_code,
+                            text: team[i].dep_name
+                        }))
+                    }
+                });
             }
         });
-
         // 상위 부서 선택 시 팀 셀렉트 박스 업데이트
-        $(".upper_dep").change(function () {
-            let selectUpper = $(this).val();
-            let team = response.commons.dep.filter(item => item.upper_dep_code == selectUpper || item.dep_code == selectUpper);
-            let tr = $(this).closest('tr')
-            let selectTeam = tr.find(".dep");
-            selectTeam.empty();
-            selectTeam.append($('<option value="">선택</option>'))
-            for (let i = 0; i < team.length; i++) {
-                selectTeam.append($('<option>', {
-                    value: team[i].dep_code,
-                    text: team[i].dep_name
-                }))
-            }
-        });
+
 
     } catch (error) {
         // 에러 발생 시 메시지 표시
