@@ -16,7 +16,7 @@
 	</select>
 
 	<update id="setDetailDraft" parameterType="DraftVO">
-		UPDATE approval_line SET (NOW_APPROVAL=#{now_approval})
+		UPDATE DRAFT SET NOW_APPROVAL = #{now_approval}
 		WHERE DRAFT_NUM =#{draft_num}
 	</update>
 

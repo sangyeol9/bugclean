@@ -43,6 +43,9 @@ public interface DraftDAO {
 	//기안서 삭제
 	int draftDelete(DraftVO draftVO)throws Exception;
 	
+	//
+	int setDetailDraft(DraftVO draftVO)throws Exception;
+	
 	//각 기안서 꺼내기
 	//전체
 	List<Map<String, Object>> getMyDraftList(Map<String, Object> map)throws Exception;

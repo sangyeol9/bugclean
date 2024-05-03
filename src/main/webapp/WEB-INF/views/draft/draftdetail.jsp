@@ -203,18 +203,28 @@
 									<td class="basisTd" colspan="4">${filear.ori_name}<br></td>
 								</c:forEach>
 							</tr>
-							
+					
 						</table>
 						<!-- 파일 시작 -->
+						<input type="hidden" value="${draftmap.STATE}" name="state">
+						<input type="hidden" value="${draftmap.NOW_APPROVAL}" name="now_approval">
 						<div>
-							<c:if test="${draftmap.NOW_APPROVAL eq 1}">
-								<div id="btn"
-									style="position: absolute; left: 900px; bottom: -40px;">
+							<div id="btn"
+								style="position: absolute; left: 900px; bottom: -40px;">
+								<c:if test="${draftmap.NOW_APPROVAL eq 1}">
 									<button id="draftDeleteBtn" type="button" style="width: 90px"
 										data-delete-emp="${draftmap.DRAFT_NUM}"
 										class="btn btn-warning">삭제하기</button>
-								</div>
-							</c:if>
+								</c:if>
+							</div>
+
+							<div id="updateBtn" style="position: absolute; left: -1px; bottom: -40px;">
+								<c:if test="${employeeNum == nowemp }">
+									<button id="draftDeleteBtn" type="submit" style="width: 90px"
+										data-delete-emp="${draftmap.DRAFT_NUM}"
+										class="btn btn-primary">상신하기</button>
+								</c:if>
+							</div>
 						</div>
 						<!-- 파일 끝 -->
 					</div>

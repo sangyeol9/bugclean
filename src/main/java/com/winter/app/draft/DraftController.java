@@ -125,12 +125,12 @@ public class DraftController {
 	@PostMapping("setdetaildraft")
 	public String setDetailDraft(DraftVO draftVO, MultipartFile [] attach, Model model, String[] refempnum,
 			String[] approvalemp_num, Long[] sign_rank) throws Exception {
+		System.out.println("draftVO.getstate : " +draftVO.getState());
 		
 		if(draftVO.getDraft_category() == 0) {
-		int result=0;
 		String msg="실패";
 		// 기안서 값들 db에 저장
-		draftService.setDetailDraft(draftVO);
+		int result = draftService.setDetailDraft(draftVO);
 		
 		if(result>0) {
 			msg="성공";
