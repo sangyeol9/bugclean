@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Slf4j
@@ -47,6 +49,19 @@ public class HumanResourceService {
 
     public List<Map<String, Object>> getMemberList() throws Exception {
         List<Map<String, Object>> memberList = humanResourceDAO.getMemberList();
+        for(Map<String, Object> member : memberList){
+            String add = (String)member.get("ADDRESS");
+            log.info("{}",add);
+            if(add != null){
+                Pattern pattern = Pattern.compile("(.*?)(시|군|구)\\s(.*?)(시|군|구|$)");
+                Matcher matcher = pattern.matcher(add);
+                if (matcher.find()) {
+                    String parsedAddress = matcher.group(1) + matcher.group(2) + " " + matcher.group(3) + matcher.group(4);
+                    log.info("{}",parsedAddress);
+                    member.put("ADDRESS", parsedAddress);
+                }
+            }
+        }
         return setDate(memberList, "JOIN_DATE");
     }
 
@@ -55,9 +70,18 @@ public class HumanResourceService {
     }
 
     public int updateMember(Map<String, Object> map) throws Exception{
-        map.put("DEP_CODE",Long.parseLong((String)map.get("DEP_CODE")));
-        map.put("RNR_CODE",Long.parseLong((String)map.get("RNR_CODE")));
-        map.put("POS_CODE",Long.parseLong((String)map.get("POS_CODE")));
+        Long depCode = (map.get("DEP_CODE") instanceof Long) ? (Long) map.get("DEP_CODE") : Long.parseLong((String) map.get("DEP_CODE"));
+        Long rnrCode = (map.get("RNR_CODE") instanceof Long) ? (Long) map.get("RNR_CODE") : Long.parseLong((String) map.get("RNR_CODE"));
+        Long posCode = (map.get("POS_CODE") instanceof Long) ? (Long) map.get("POS_CODE") : Long.parseLong((String) map.get("POS_CODE"));
+
+        map.put("DEP_CODE", depCode);
+        map.put("RNR_CODE", rnrCode);
+        map.put("POS_CODE", posCode);
+
+        if (rnrCode == 2L || rnrCode == 1L){
+            humanResourceDAO.updateManagerDEP(map);
+        }
+
         return humanResourceDAO.updateMember(map);
     }
 
@@ -86,7 +110,17 @@ public class HumanResourceService {
             } else {
                 possible.add(stringObjectMap);
             }
+            String add = (String)stringObjectMap.get("ADDRESS");
+            log.info("{}",add);
+            Pattern pattern = Pattern.compile("(.*?)(시|군|구)\\s(.*?)(시|군|구|$)");
+            Matcher matcher = pattern.matcher(add);
+            if (matcher.find()) {
+                String parsedAddress = matcher.group(1) + matcher.group(2) + " " + matcher.group(3) + matcher.group(4);
+                log.info("{}",parsedAddress);
+                stringObjectMap.put("ADDRESS", parsedAddress);
+            }
         }
+
         responseData.put("possible", possible);
         responseData.put("impossible", impossible);
         return responseData;
@@ -172,6 +206,7 @@ public class HumanResourceService {
         TempEmployeeVO tempEmployeeVO = humanResourceDAO.getTempMember(employeeVO.getUsername());
         employeeVO.setPassword(tempEmployeeVO.getPassword());
         employeeVO.setPhone(tempEmployeeVO.getPhone());
+        employeeVO.setAddress(tempEmployeeVO.getAddress());
         employeeVO.setLevel_date(1L);
         employeeVO.setEmployee_num(humanResourceDAO.getNextNum());
         String manager_num = humanResourceDAO.getManagerNum(employeeVO.getDepartmentVO());

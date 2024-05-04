@@ -7,6 +7,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Bug Clean</title>
+    
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+	
 </head>
 <c:import url="../temp/css.jsp"></c:import> <!-- //bootstrap-template-css -->
 <body>
@@ -24,25 +27,17 @@
 
     <div class="content-body " style="min-height:900px;">
     
-    	                    <div class="col-lg-6 col-sm-6">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">Gradient Bar Chart</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <canvas id="barChart_2"></canvas>
-                                    </div>
-                                </div>
-                            </div>
+       <div id="chart_div">
+       
+       </div>
     
     
     <c:import url="../temp/messenger.jsp"></c:import>
     </div>
 
 </div>
-    <script src="./vendor/chart.js/Chart.bundle.min.js"></script>   
-    <script src="/bugclean/js/chartMain.js"></script>
-    <c:import url="../temp/footer.jsp"></c:import> <!-- //footer -->
+  <script src="/bugclean/js/chartMain.js"></script>
+  <c:import url="../temp/footer.jsp"></c:import> <!-- //footer -->
 	<c:import url="../temp/js.jsp"></c:import> <!-- // bootstrap-template-js -->
 </body>
 </html>

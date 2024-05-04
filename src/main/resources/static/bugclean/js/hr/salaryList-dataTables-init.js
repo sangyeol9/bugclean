@@ -38,6 +38,21 @@ async function getData(year) {
     return response;
 }
 
+$('#salaryList tbody').on('click', 'tr', function() {
+    $('#salaryModal').modal('show');
+    let tr = $(this);
+    console.log(tr);
+    let table = $("#salaryList").DataTable();
+    console.log(table);
+    let rowData = table.row(tr).data();
+    console.log(rowData);
+    $('#modal-title-num').html(rowData.EMPLOYEE_NUM);
+    $('#modal-title-name').html(rowData.NAME);
+    $('#account').val(rowData.SALARY_ACCOUNT);
+    $('#bank').val(rowData.SALARY_BANK);
+    $('#salary').val(rowData.SALARY_PAY.substring(0,rowData.SALARY_PAY.indexOf('만')))
+});
+
 $(document).ready(async function () {
     let year = $('#yearSelect').val();
     let data = await getData(year);

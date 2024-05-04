@@ -190,6 +190,10 @@
         WHERE EMPLOYEE_NUM = #{EMPLOYEE_NUM}
     </update>
 
+    <update id="updateManagerDEP" parameterType="Map">
+        UPDATE DEPARTMENT SET DEP_MANAGER = #{EMPLOYEE_NUM} WHERE DEP_CODE=#{DEP_CODE}
+    </update>
+
     <update id="updateFired" parameterType="Map">
         UPDATE EMPLOYEE SET STATE = #{state}, RETIRED_DATE = SYSDATE WHERE EMPLOYEE_NUM = #{EMPLOYEE_NUM}
     </update>

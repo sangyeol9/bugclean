@@ -70,6 +70,9 @@ let bn_kind_select = document.getElementById("bn_kind_select");
         postcode.value ="";
         detailAddress.value="";
         roadAddress.value="";
+
+        bn_kind_select.value ="법인";
+        bn_kind_select.selectedIndex=0;
     }
 
     function person(){
@@ -95,8 +98,8 @@ let bn_kind_select = document.getElementById("bn_kind_select");
         person_phone_in.disabled=false;
         person_sales_name_in.disabled=false;
 
-        submit_check.value="사업자";
-        
+        submit_check.value="개인";
+        bn_kind_select.value="";
         addr_in.value="";
         postcode.value ="";
         detailAddress.value="";
