@@ -16,7 +16,8 @@
 	</select>
 
 	<update id="setDetailDraft" parameterType="DraftVO">
-		UPDATE DRAFT SET NOW_APPROVAL = #{now_approval}
+		UPDATE DRAFT SET
+		state = #{state}, NOW_APPROVAL = #{now_approval}
 		WHERE DRAFT_NUM =#{draft_num}
 	</update>
 
@@ -29,7 +30,7 @@
 	<select id="getDepartmentList" resultType="DepartmentVO">
 		SELECT * FROM
 		DEPARTMENT
-		WHERE DEP_CODE LIKE '___'
+		WHERE DEP_CODE LIKE '___' OR DEP_CODE LIKE '_'
 	</select>
 	<!-- SELECT MAX(DRAFT_NUM) AS draft_num FROM DRAFT -->
 	<select id="getDraftMaxDocNum" resultType="DraftVO">
@@ -122,9 +123,22 @@
 	</insert>
 
 	<insert id="setSignCheck" parameterType="SignCheckVO">
-		INSERT INTO SIGN_CHECK
-		VALUES(#{draft_num},#{employee_num},#{sign_rank},#{sign_date},#{sign_comment},#{sign_ref})
+		INSERT INTO
+		SIGN_CHECK(DRAFT_NUM,EMPLOYEE_NUM,SIGN_RANK,SIGN_REF)
+		VALUES(#{draft_num},#{employee_num},#{sign_rank},#{sign_ref})
 	</insert>
+
+	<insert id="setSignCheckI" parameterType="SignCheckVO">
+		INSERT INTO
+		SIGN_CHECK(DRAFT_NUM,EMPLOYEE_NUM,SIGN_RANK,SIGN_DATE,SIGN_REF)
+		VALUES(#{draft_num},#{employee_num},#{sign_rank},#{sign_date},#{sign_ref})
+	</insert>
+
+	<update id="updateSignCheckDetail" parameterType="SignCheckVO">
+		UPDATE SIGN_CHECK SET SIGN_DATE = #{sign_date}
+		WHERE DRAFT_NUM =#{draft_num} AND EMPLOYEE_NUM =#{employee_num}
+	</update>
+
 
 	<select id="getMyDraftList" resultType="Map" parameterType="Map">
 		SELECT * FROM
@@ -203,7 +217,8 @@
 
 	<delete id="draftDelete" parameterType="DraftVO">
 		DELETE FROM DRAFT
-		WHERE DRAFT_NUM = #{draft_num}
+		WHERE
+		DRAFT_NUM = #{draft_num}
 	</delete>
 
 	<!-- 각 기안문서 리스트 -->

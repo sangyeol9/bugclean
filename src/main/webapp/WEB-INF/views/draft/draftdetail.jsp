@@ -92,7 +92,7 @@
 							</button>
 
 						</div>
-
+				
 						<table border="1" id="allineTable">
 
 							<tr id="input_grade">
@@ -102,7 +102,9 @@
 										<td>기안자</td>
 									</c:if>
 									<c:if test="${approvalar.SIGN_RANK ne 0}">
-										<td>${approvalar.POS_NAME }</td>
+										<td>${approvalar.POS_NAME}										
+										</td>
+									
 									</c:if>
 								</c:forEach>
 							</tr>
@@ -128,7 +130,9 @@
 
 							<tr id="input_name">
 								<c:forEach items="${approvalar }" var="approvalar">
-									<td>${approvalar.NAME}</td>
+									<td>${approvalar.NAME}
+									<input type="hidden" value="${approvalar.EMPLOYEE_NUM}" name="SignEmp">
+									</td>
 								</c:forEach>
 							</tr>
 
@@ -190,13 +194,6 @@
 										name="contents" style="text-align: left;" rows="" cols="">${draftmap.CONTENTS }</textarea>
 								</td>
 							</tr>
-
-							<tr style="height: 130px;">
-								<td class="basisTitleTd">의견</td>
-								<td class="basisTitleTd" colspan="4"><input
-									name="sign_comment" readonly="readonly" class="inp" type="text"></td>
-							</tr>
-
 							<tr>
 								<td class="basisTitleTd">첨부파일</td>
 								<c:forEach items="${filear}" var="filear">
@@ -209,8 +206,14 @@
 						<input type="hidden" value="${draftmap.STATE}" name="state">
 						<input type="hidden" value="${draftmap.NOW_APPROVAL}" name="now_approval">
 						<div>
+						<c:if test="${draftmap.NOW_APPROVAL eq 3}">
+						<h4 style="color: blue;">결재완료된 기안서 입니다</h4>
+						</c:if>
+						
+						<c:if test="${draftmap.NOW_APPROVAL ne 3}">
 							<div id="btn"
 								style="position: absolute; left: 900px; bottom: -40px;">
+								
 								<c:if test="${draftmap.NOW_APPROVAL eq 1}">
 									<button id="draftDeleteBtn" type="button" style="width: 90px"
 										data-delete-emp="${draftmap.DRAFT_NUM}"
@@ -220,11 +223,12 @@
 
 							<div id="updateBtn" style="position: absolute; left: -1px; bottom: -40px;">
 								<c:if test="${employeeNum == nowemp }">
-									<button id="draftDeleteBtn" type="submit" style="width: 90px"
+									<button type="submit" style="width: 90px"
 										data-delete-emp="${draftmap.DRAFT_NUM}"
 										class="btn btn-primary">상신하기</button>
 								</c:if>
 							</div>
+							</c:if>
 						</div>
 						<!-- 파일 끝 -->
 					</div>

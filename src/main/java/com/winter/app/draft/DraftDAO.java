@@ -39,13 +39,14 @@ public interface DraftDAO {
 	List<Map<String, Object>> getSignCheckDetail(DraftVO draftVO)throws Exception;
 	List<Map<String, Object>> getRefDetail(DraftVO draftVO)throws Exception;
 	List<DraftFileVO> getDraftFileDetail(DraftVO draftVO)throws Exception;
-	
+	int setSignCheckI(SignCheckVO signCheckVO)throws Exception;
 	//기안서 삭제
 	int draftDelete(DraftVO draftVO)throws Exception;
 	
 	//
 	int setDetailDraft(DraftVO draftVO)throws Exception;
-	
+	//
+	int updateSignCheckDetail(SignCheckVO signCheckVO)throws Exception;
 	//각 기안서 꺼내기
 	//전체
 	List<Map<String, Object>> getMyDraftList(Map<String, Object> map)throws Exception;
