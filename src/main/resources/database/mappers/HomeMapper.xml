@@ -60,4 +60,15 @@
 		FROM ATTENDANCE
 		WHERE TRUNC(ATTEND_DATE) = TRUNC(CURRENT_DATE) AND EMPLOYEE_NUM =#{employee_num}
 	</select>
+	
+	<select id="getnameAsk" parameterType="EmployeeVO" resultType="EmployeeVO">
+		SELECT NAME FROM EMPLOYEE e WHERE EMPLOYEE_NUM = #{employee_num}
+	</select>
+	
+	<select id="getCarAsk" resultType="Map">
+		SELECT cd.*,cm.BOOKING_AGREE  FROM CAR_DETAIL cd
+		LEFT JOIN CAR_MANAGE cm 
+		ON cd.CAR_CODE  = cm.CAR_CODE
+		WHERE cm.MANAGE_CODE  = #{manage_code}
+	</select>
 </mapper>

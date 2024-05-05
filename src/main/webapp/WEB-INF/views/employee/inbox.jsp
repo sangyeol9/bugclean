@@ -54,35 +54,35 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#all8">
+                                    <a class="nav-link active" id="nav-all" data-toggle="tab" href="#all8">
                                         <span>
                                             전체
                                         </span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#wait8">
+                                    <a class="nav-link" id="nav-wait" data-toggle="tab" href="#wait8">
                                         <span>
                                             대기
                                         </span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#ing8">
+                                    <a class="nav-link" id="nav-ing" data-toggle="tab" href="#ing8">
                                         <span>
                                             진행
                                         </span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#done8">
+                                    <a class="nav-link" id="nav-com" data-toggle="tab" href="#done8">
                                         <span>
                                             완료
                                         </span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#refer8">
+                                    <a class="nav-link" id="nav-ref" data-toggle="tab" href="#refer8">
                                         <span>
                                             참조
                                         </span>
@@ -94,7 +94,7 @@
                                     <form class="row g-3" action="./inbox">
                                         <div class="input-group input-group-sm" style="height: 28.4px;">
                                             <div class="input-group-prepend">
-                                                <select name="kind" style="font-size: 12px; border-color: #eaeaea">
+                                                <select name="kind" id="kind" style="font-size: 12px; border-color: #eaeaea">
                                                     <option value="kind1" id="all">전체</option>
                                                     <option value="kind2" id="wait">대기</option>
                                                     <option value="kind3" id="ing">진행</option>
@@ -408,7 +408,27 @@
 </body>
 
 <script>
+    let kind =`${referList.pager.kind}`;
     
+    if(kind=="kind1"){
+        document.getElementById("nav-all").click()
+    }else if(kind=="kind2"){
+        document.getElementById("nav-wait").click()
+    }else if(kind=="kind3"){
+        document.getElementById("nav-ing").click()
+    }else if(kind=="kind4"){
+        document.getElementById("nav-com").click()
+    }else if(kind=="kind5"){
+        document.getElementById("nav-ref").click()
+    }
+    
+    
+    if(kind == ""){
+        kind=1;
+    }
+    kind = parseInt(kind.substring(4,5)) ;
+  
+    document.getElementById("kind").selectedIndex = kind-1
 
 
 </script>

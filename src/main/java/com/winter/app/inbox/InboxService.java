@@ -33,6 +33,10 @@ public class InboxService {
 		pagination.makeNum(total);
 		
 		List<Map<String, Object>> getAllList = inboxDAO.getAllList(map);
+		System.out.println("get all list >>>" + getAllList);
+		for(Map<String, Object> ar: getAllList) {
+			ar.put("DRAFT_DATE",( ar.get("DRAFT_DATE")).toString().substring(0,10) );
+		}
 		
 		
 		Map<String, Object> togetherMap = new HashMap<>();
@@ -42,6 +46,7 @@ public class InboxService {
 		
 		
 		//System.out.println("togetherMap : "+ togetherMap);
+		
 		
 		
 //		List<Map<String, Object>> getAllList = inboxDAO.getAllList(employeeVO);
