@@ -18,6 +18,10 @@ var chart;
 var data;
 var option;
 
+let now = new Date();	// 현재 날짜 및 시간
+let year = now.getFullYear();	// 연도
+
+
 function drawChart() {
 for(let i=1;i<=12;i++){
    fetch("/chart/getPrice",{
@@ -61,7 +65,7 @@ for(let i=1;i<=12;i++){
     }).then(()=>{
         if(i == 12) {
             data = google.visualization.arrayToDataTable([
-                ['Year', '금액', { role: 'style' } ],
+                ['Year', '매출', { role: 'style' } ],
                 ['1월', january, 'color: gray'],
                 ['2월', february, 'color: #76A7FA'],
                 ['3월', march, 'opacity: 0.2'],
@@ -77,12 +81,13 @@ for(let i=1;i<=12;i++){
                 
             ]);
              options = {
-            title: '매출 현황',
+            title: year + '년 매출 현황',
+            height : 400,
             hAxis: {
               title: '월 별 매출'
             },
             vAxis: {
-              title: 'Rating (scale of 1-10)'
+              title: '단위 : 원'
             }
           };
           

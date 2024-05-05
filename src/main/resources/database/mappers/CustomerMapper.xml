@@ -9,10 +9,47 @@
 
   	
   	<select id="getCompanyList" resultType="CustomerVO">
-  		SELECT * FROM CUSTOMER WHERE CUSTOMER_TYPE = '사업자' ORDER BY CUSTOMER_NUM ASC
+  		SELECT * FROM 
+			(SELECT ROWNUM R,C.* FROM CUSTOMER c WHERE CUSTOMER_TYPE = '사업자'
+			<if test="kind == 1">
+            AND CUSTOMER_KIND = '법인'
+            AND BUSINESS_NAME LIKE '%' || #{search} || '%'
+	        </if>
+	        <if test="kind == 2">
+	            AND CUSTOMER_KIND = '개인'
+	            AND BUSINESS_NAME LIKE '%' || #{search} || '%'
+	        </if>
+	        ) c
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+		ORDER BY c.customer_num desc
   	</select>
+  	
+  	<select id="getCompanyTotalCount">
+		SELECT count(CUSTOMER_NUM) FROM CUSTOMER c 
+		WHERE CUSTOMER_TYPE  = '사업자'
+		<if test="kind == 1">
+            AND CUSTOMER_KIND = '법인'
+            AND BUSINESS_NAME LIKE '%' || #{search} || '%'
+        </if>
+        <if test="kind == 2">
+            AND CUSTOMER_KIND = '개인'
+            AND BUSINESS_NAME LIKE '%' || #{search} || '%'
+        </if>
+	</select>
+  	<select id="getPersonTotalCount">
+		SELECT count(CUSTOMER_NUM) FROM CUSTOMER c 
+		WHERE CUSTOMER_TYPE  = '개인'
+			<if test="kind == 3">
+	            AND CEO_NAME LIKE '%' || #{search} || '%'
+	        </if>
+	</select>
+  	
+  	
   	<select id="getPersonList" resultType="CustomerVO">
-  		SELECT * FROM CUSTOMER WHERE CUSTOMER_TYPE = '개인' ORDER BY CUSTOMER_NUM ASC
+  		SELECT * FROM CUSTOMER WHERE CUSTOMER_TYPE = '개인'
+  			 <if test="kind == 3">
+	            AND CEO_NAME LIKE '%' || #{search} || '%'
+	        </if> ORDER BY CUSTOMER_NUM ASC
   	</select>
   	
   	<select id="getEmployeeName" resultType="EmployeeVO" parameterType="CustomerVO">

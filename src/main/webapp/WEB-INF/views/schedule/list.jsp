@@ -27,12 +27,27 @@
 		<!-- //sidebar-menu -->
 
 		<div class="content-body " style="min-height: 900px;">
-			<div id="sch_Color">
-				
+			<div class="container-fluid">
+				<div class="row page-titles mx-0">
+					<div class="col-sm-6 p-md-0">
+						<div class="welcome-text">
+							<h4 style="font-weight: bolder;">현장일정 관리</h4>
+						</div>
+					</div>
+					<div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/">Home</a></li>
+							<li class="breadcrumb-item active">현장일정 관리</li>
+						</ol>
+					</div>
+				</div>
+			<div id="sch_Color">	
 				<span style="color:black">&#x25CF; :  일반</span>
 				<span style="color : blue; padding-left: 2ch;">&#x25CF; : 완료</span>
 				<span style="color : red; padding-left: 2ch;">&#x25CF; : 긴급</span>
 				<span style="color: grey; padding-left: 2ch;">&#x25CF; :</span> <span style="text-decoration: line-through; "> 취소</span>
+				<span style="color : green; padding-left: 2ch;">&#x25CF; : 배차 신청중</span>
+				<span style="color : orange; padding-left: 2ch;">&#x25CF; : 배차 신청완료</span>
 				<div id = "sch_Filter" class="dataTbles_filter">
 					<label id="sch_Filter_Label" for="sch_Filter_Input">Search : </label>
 					<input id= "sch_Filter_Input" type="text" onkeypress="filter_name(event)">
@@ -165,11 +180,7 @@
                 document.getElementById("jibunAddress").value = data.jibunAddress;
                 
                 // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                if(roadAddr !== ''){
-                    document.getElementById("extraAddress").value = extraRoadAddr;
-                } else {
-                    document.getElementById("extraAddress").value = '';
-                }
+                
 
                 var guideTextBox = document.getElementById("guide");
                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.

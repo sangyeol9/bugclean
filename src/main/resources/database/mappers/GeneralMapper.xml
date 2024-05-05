@@ -109,6 +109,7 @@ WHERE not  car_code IN (
         AND
         BOOKING_DONE <![CDATA[<=]]>  TO_DATE(#{booking_done}, 'YYYY-MM-DD HH24:MI:SS'))
        )
+      	AND CAR_TYPE =5
     </select>
 
     <!-- 차량 현재 상태를 변경 // 배차 요청시 & 배차 거절시 -->

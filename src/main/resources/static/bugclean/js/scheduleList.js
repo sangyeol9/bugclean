@@ -196,8 +196,8 @@ modalTitle.innerText="일정 등록";
             inputSales.value= "";
             inputSiteManager.value = "";
             inputTitle.value = "";
-            carSelectBase.value = "미정"
-            carSelectBase.innerHTML = '배차 정보';
+           /* carSelectBase.value = "미정"
+            carSelectBase.innerHTML = '배차 정보';*/
             input_carAllocation.value="미정";
             for(let i=0;i<base_selected.length;i++){
                 base_selected[i].selected = true;
@@ -405,45 +405,7 @@ modalTitle.innerText="일정 확인";
 
 
         //수정 버튼 클릭시 수정
-        update_sch_btn.addEventListener("click",function(){
-                console.log("test === " , date + " "+inputStart.value)
-
-                for(let i=0; i<inputRadio.length;i++){
-                    if(inputRadio[i].checked == true){
-                        radioValue = inputRadio[i].value;
-                    }    
-                
-                }
-
-            fetch("/schedule/updateSch",{
-
-                method:"POST",
-                headers: {
-                    "Content-Type": "application/json",
-                  },
-                body : JSON.stringify({
-                    site_Num : sch_ID,
-                    customer_Num : inputSelectCustomerName.value,
-                    sales_Manager : inputSelect.value,
-                    employee_Num : inputSelectEMP.value,
-                    start_Time : id.substring(id.lastIndexOf('-')-10,id.lastIndexOf('-')) + inputStart.value,
-                    end_Time : id.substring(id.lastIndexOf('-')-10,id.lastIndexOf('-'))+inputEnd.value,
-                    site_Type : radioValue,
-                    address : inputAddress.value,
-                    price : inputPrice.value
-                })
-            })
-                .then(res=>res.json())
-                .then(res=>{
-                    if(res>0){
-                        console.log("res update fetch === ", res);
-                        openWindow(); 
-                    }
-                    else{
-                alert("퇴사 직원은 선택하지 못합니다");
-            }
-            })
-        })
+       
 
         //삭제 버튼 클릭시 삭제 상태로 수정
         delete_sch_btn.addEventListener("click",function(){
@@ -488,6 +450,46 @@ modalTitle.innerText="일정 확인";
             })
         })
 		
+		 update_sch_btn.addEventListener("click",function(){
+                console.log("test === " , date + " "+inputStart.value)
+
+                for(let i=0; i<inputRadio.length;i++){
+                    if(inputRadio[i].checked == true){
+                        radioValue = inputRadio[i].value;
+                    }    
+                
+                }
+
+            fetch("/schedule/updateSch",{
+
+                method:"POST",
+                headers: {
+                    "Content-Type": "application/json",
+                  },
+                body : JSON.stringify({
+                    site_Num : sch_ID,
+                    customer_Num : inputSelectCustomerName.value,
+                    sales_Manager : inputSelect.value,
+                    employee_Num : inputSelectEMP.value,
+                    start_Time : id.substring(id.lastIndexOf('-')-10,id.lastIndexOf('-')) + inputStart.value,
+                    end_Time : id.substring(id.lastIndexOf('-')-10,id.lastIndexOf('-'))+inputEnd.value,
+                    site_Type : radioValue,
+                    address : inputAddress.value,
+                    price : inputPrice.value
+                })
+            })
+                .then(res=>res.json())
+                .then(res=>{
+                    if(res>0){
+                        console.log("res update fetch === ", res);
+                        openWindow(); 
+                    }
+                    else{
+                alert("퇴사 직원은 선택하지 못합니다");
+            }
+            })
+        })
+		
 		
     console.log("last index of ===== ",id.lastIndexOf('-'));
     console.log("id substr == ", id.substring(id.lastIndexOf('-')-10,id.lastIndexOf('-')))
@@ -500,10 +502,7 @@ console.log("date"+date);
 console.log("id"+id);
 //일정추가
 create_sch_btn.classList.add("display_none");
-create_sch_btn.addEventListener("click",function(){
 
-    create_sch(date);
-})
 
 //외부 공간 클릭시 닫기 
 window.onclick = function(event) {
@@ -545,6 +544,7 @@ function changeSelect(sch_ID){
         }
         else{
             carAllocation.value=car_temp;
+            openWindow();
             fetch("/general/carAllocation",{
                 method:"POST",
                 headers: {
@@ -573,6 +573,7 @@ function changeSelect(sch_ID){
                 }).then(res=>res.json())
                 .then(res => {
                     console.log("sch 배차 정보 상태 갱신 === ",res);
+                    
                     closeModal();
                 })
 
@@ -615,36 +616,56 @@ function openWindow(e){
             console.log("h2");
             console.log("test = ",res);
             res.forEach(element => {
-               console.log("start = ", element.start_Time);
-               
-               start_first = element.start_Time.substr(0,10);
+               console.log("start = ", element.START_TIME);
+               start_first = element.START_TIME.substr(0,10);
                console.log("start_first = ", start_first);
-               console.log("site_Num === ", element.site_Num)
-               let start_last = element.start_Time.substring(11,19);
-                
-                if(element.site_Type == '긴급'){
+               console.log("site_Num === ", element.SITE_NUM)
+               let start_last = element.START_TIME.substring(11,19);
+                console.log("start_last >> ", start_last);
+               let temp =  ( parseInt(start_last.substring(0,2)) + 9 ) % 24 
+               console.log("Temp ==> ", temp)
+               if(temp<10){
+				   temp = "0" + temp;
+			   }
+               start_last = temp + start_last.substring(2);
+                if(element.SITE_TYPE == '긴급'){
                     color = "red";
                     textDeco = "none";
                 } 
-                else if(element.site_Type =='일반'){
+                else if(element.BOOKING_AGREE == 0){
+					color = 'GREEN'
+					textDeco = "none"
+				}else if(element.BOOKING_AGREE == 1){
+					color = "orange"
+					textDeco = "none"
+				}
+                else if(element.SITE_TYPE =='일반'){
                     color = "black";
                     textDeco = "none"
                 } 
-                else if(element.site_Type == '취소'){
+                else if(element.SITE_TYPE == '취소'){
                     color = 'gray';
                     textDeco = "line-through";
-                }else if (element.site_Type == '완료'){
+                }
+                if (element.SITE_TYPE == '완료'){
                     color = 'blue';
                     textDeco = 'none';
                 }
+                
+                let event_title;
+                if(element.CUSTOMER_TYPE == '개인'){
+					event_title = "개인 "+element.CEO_NAME;
+				}else{
+					event_title = element.BUSINESS_NAME
+				}
                 console.log("color == ", color);
                   calendar.addEvent({
-                   title : element.business_Name  + element.ceo_Name,
+                   title : event_title,
                    start : start_first +"T"+ start_last,
                    textColor : color,
                    classNames : textDeco,
-                   end : element.end_Time,
-                   id : element.ceo_Name+start_first+"-"+element.site_Num
+                   end : element.END_TIME,
+                   id : element.CEO_NAME+start_first+"-"+element.SITE_NUM
                   })
             });
     })

@@ -36,7 +36,6 @@ public class BoardService {
         Long totalCount = boardDAO.getTotalCount(pagination);
         pagination.makeNum(totalCount);
         pagination.makeRow();
-
         Map<String, Object> map = new HashMap<>();
         map.put("boardList",boardDAO.getBoardList(pagination));
         map.put("pagination",pagination);
