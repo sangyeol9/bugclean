@@ -1,12 +1,15 @@
 package com.winter.app.customer;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.sitesch.SiteSchDAO;
+import com.winter.app.util.pagination.Pagination;
 
 @Service
 public class CustomerService {
@@ -21,19 +24,38 @@ public class CustomerService {
 		return schDAO.getSales();
 	}
 	
-	public List<CustomerVO> getCompanyList() throws Exception{
-		List<CustomerVO> ar = customerDAO.getCompanyList();
+	public Map<String, Object> getCompanyList(Pagination pagination) throws Exception{
+		
+		
+		Long totalCount = customerDAO.getCompanyTotalCount(pagination);
+		System.out.println("total count ==> " + totalCount);
+		pagination.setPerPage(5L);
+		pagination.makeNum(totalCount);
+		pagination.makeRow();
+		System.out.println("pageer ==> " + pagination);
+		List<CustomerVO> ar = customerDAO.getCompanyList(pagination);
+		
 		for(int i=0;i<ar.size();i++) {
-			
 			EmployeeVO employeeVO = new EmployeeVO();
 			employeeVO = customerDAO.getEmployeeName(ar.get(i));
 			ar.get(i).setEmployee_Name(employeeVO.getName());
 			
 		}
-		return ar;
+		Map<String, Object> companyMap = new HashMap<>();
+		companyMap.put("ar", ar);
+		companyMap.put("company_pager", pagination);
+		System.out.println("service map ==> " + companyMap);
+		return companyMap;
 	}
-	public List<CustomerVO> getPersonList() throws Exception{
-		List<CustomerVO> ar = customerDAO.getPersonList();
+	
+	public Map<String, Object> getPersonList(Pagination pagination) throws Exception{
+		Long totalCount = customerDAO.getPersonTotalCount(pagination);
+		System.out.println("service personCount == > " + totalCount);
+		pagination.setPerPage(5L);
+		pagination.makeNum(totalCount);
+		pagination.makeRow();
+		
+		List<CustomerVO> ar = customerDAO.getPersonList(pagination);
 		
 		for(int i=0;i<ar.size();i++) {
 			
@@ -42,8 +64,13 @@ public class CustomerService {
 			ar.get(i).setEmployee_Name(employeeVO.getName());
 			
 		}
+		Map<String, Object> personMap = new HashMap<>();
+		personMap.put("ar", ar);
+		personMap.put("person_pager", pagination);
+		System.out.println("service map ==> " + personMap);
 		
-		return ar;
+		
+		return personMap;
 	}
 	
 	public CustomerVO getDetail(CustomerVO customerVO) throws Exception{

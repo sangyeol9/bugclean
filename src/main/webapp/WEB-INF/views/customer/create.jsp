@@ -140,10 +140,10 @@
 				</div>
 				<!-- 개인 체크시 노출 끝 -->
 				
-				<input class="form-control postApi postApiDis right-div" style = "margin-top :2%; margin-left: 42%; width:15%; display: inline-block;" type="text" id="postcode" placeholder="우편번호">
-				<input class="postApiDis form-control" type="button" style = "margin-left: 0%; width:15%; display: inline-block;" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-				<div class="input-group flex-nowrap mt-2" style="width:70%; margin-left: 15%;">
-					<input class="form-control postApi postApiDis right-div" style="width: 50%; margin-left: 10%;" type="text" id="roadAddress" placeholder="도로명주소">
+				<input class="form-control postApi postApiDis right-div" style = " width:15%; margin-top: 3%; margin-left: 22%; display: inline-block;" type="text" id="postcode" placeholder="우편번호">
+				<input class="form-control postApi postApiDis right-div" style="width: 30%; margin-left: 5%;" type="text" id="roadAddress" placeholder="도로명주소">
+				<input class="postApiDis form-control" type="button" style = "margin-left: 0%; width:12%; display: inline-block;" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+				<div class="input-group flex-nowrap mt-2" style="width:65%; margin-left: 20%;">
 					<span id="guide" style="color:#999;display:none"></span>
 					<input class="form-control ml-3 postApi postApiDis right-div" style="width: 50%;" type="text" id="detailAddress" placeholder="상세주소">
 				</div>

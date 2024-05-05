@@ -1,6 +1,7 @@
 package com.winter.app.sitesch;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +13,7 @@ import com.winter.app.util.pagination.Pagination;
 public interface SiteSchDAO {
 
 	
-	List<SiteSchVO> getList(Pagination pagination) throws Exception;
+	List<Map<String, Object>> getList(Pagination pagination) throws Exception;
 	
 	int createSch(SiteSchVO schVO) throws Exception;
 	

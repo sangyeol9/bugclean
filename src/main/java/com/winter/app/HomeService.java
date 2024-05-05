@@ -1,11 +1,14 @@
 package com.winter.app;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.winter.app.board.BoardVO;
+import com.winter.app.employee.EmployeeVO;
+import com.winter.app.general.CarManageVO;
 import com.winter.app.humanResource.AttendanceVO;
 
 @Service
@@ -49,7 +52,14 @@ public class HomeService {
 		return isWorkOut;
 	}
 	
-
+	//사번조회
+	public EmployeeVO getnameAsk(EmployeeVO employeeVO) {
+		return homeDAO.getnameAsk(employeeVO);
+	}
 	
+	//차량조회
 	
+	public Map<String, Object> getCarAsk (CarManageVO carManageVO){
+		return homeDAO.getCarAsk(carManageVO);
+	}
 }

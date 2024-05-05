@@ -26,11 +26,25 @@
     <c:import url="../temp/sidebar.jsp"></c:import> <!-- //sidebar-menu -->
 
     <div class="content-body " style="min-height:900px;">
-    
-       <div id="chart_div">
-       
-       </div>
-    
+        <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4 style="font-weight: bolder;">매출 관리</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item">영업팀</li>
+                        <li class="breadcrumb-item active">매출 관리</li>
+                    </ol>
+                </div>
+            </div>
+            <div id="chart_div">
+            
+            </div>
+        </div>
     
     <c:import url="../temp/messenger.jsp"></c:import>
     </div>

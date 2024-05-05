@@ -1,6 +1,7 @@
 package com.winter.app.sitesch;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,14 +32,14 @@ public class SiteSchController {
 	
 	@GetMapping("getList")
 	@ResponseBody
-	public List<SiteSchVO> getList(Pagination pagination, Model model) throws Exception {
+	public List<Map<String, Object>> getList(Pagination pagination, Model model) throws Exception {
 		System.out.println("search ====== \n " + pagination);
-		List<SiteSchVO> ar = schService.getList(pagination);
+		List<Map<String, Object>> map = schService.getList(pagination);
 		
-		System.out.println("list = " + ar);
-		model.addAttribute("list",ar);
+		System.out.println("list = " + map);
+		model.addAttribute("list",map);
 		
-		return ar;
+		return map;
 		
 	}
 	

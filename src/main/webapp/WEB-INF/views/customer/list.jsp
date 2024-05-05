@@ -27,15 +27,25 @@
 		<div class="content-body " style="min-height: 900px;">
 
 			<div class="container-fluid">
+				<div class="row page-titles mx-0">
+					<div class="col-sm-6 p-md-0">
+						<div class="welcome-text">
+							<h4 style="font-weight: bolder;">거래처 목록</h4>
+						</div>
+					</div>
+					<div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/">Home</a></li>
+							<li class="breadcrumb-item active">거래처 목록</li>
+						</ol>
+					</div>
+				</div>
+
 				<div class="row">
 					<div class="col-12">
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title">거래처 목록</h4>
-								<!-- 거래처 추가 버튼 -->
-								<a href="./create">
-									<button class="btn btn-light create">등록하기</button>
-								</a>
+							
 							</div>
 							<div class="card-body">
 								<ul class="nav nav-tabs" role = "tablist">
@@ -45,14 +55,33 @@
 										</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" data-toggle="tab" href="#person">
+										<a class="nav-link" id="nav-person" data-toggle="tab" href="#person">
 											<span>개인</span>
 										</a>
 									</li>
+									<form action="list" method="get" style="margin-left: 69%;">
+										<div class="col-auto d-flex justify-content-end ml-auto">
+											<div class="input-group input-group-sm">
+												<div class="input-group-prepend">
+													<select name="kind" id="kind" style="font-size: 12px; border-color: #eaeaea">
+														<option value="1">법인 사업자</option>
+														<option value="2">개인 사업자</option>
+														<option value="3">개인 고객명</option>
+													</select>
+												</div>
+												<input id="search" name="search" type="text" class="form-control" style="width: 50%; border-color: #eaeaea">
+												<div class="input-group-append">
+													<button id="search-btn" class="btn btn-primary">검색</button>
+												</div>
+											</div>
+										</div>
+									</form>
 								</ul>
+								
 								<div class="table-responsive">
 									<div id="example_wrapper" class="dataTables_wrapper">
 										<!-- 리스트 시작 -->
+										
 										<div class="tab-content tabcontent-border">
 											<!-- 법인 거래처 -->
 											<div class="tab-pane fade active show" id="company" role="tabpanel">
@@ -70,29 +99,57 @@
 														</tr>
 													</thead>
 													<tbody>
-														<c:forEach items="${companyList}" var="li">
-															<tr class="list_tr modi_tr odd">
-																<td class="display_none td_customer_num" data-customernum="${li.customer_Num}"></td>
-																<td class="display_none td_customer_type" data-customertype="${li.customer_Type}"></td>
-																<td class="display_none modi_checkbox" ><input type="checkbox" class="td_checkbox"></td>
-																<td class="td_customer_kind">${li.customer_Kind}</td>
-																<td>
-																	<a href="./detail?customer_Num=${li.customer_Num}" class="td_business_name">
-																		${li.business_Name}
-																	</a>
-																</td>
-																<td class="td_ceo_name display_none">${li.ceo_Name}</td>
-																<td class="td_ceo_phone display_none">${li.ceo_Phone}</td>
-																<td class="td_mng_name">${li.manager_Name}</td>
-																<td class="td_mng_phone">${li.manager_Phone}</td>
-																<td class="td_address">${li.address}</td>
-																<td class="td_sales_mng">${li.employee_Name}</td>
-																<td class="real_sales_mng display_none">${li.employee_Num}</td>
-															</tr>
+														<c:forEach items="${companyList.ar}" var="li" >
+																<tr class="list_tr modi_tr odd">
+																	<td class="display_none td_customer_num" data-customernum="${li.customer_Num}"></td>
+																	<td class="display_none td_customer_type" data-customertype="${li.customer_Type}"></td>
+																	<td class="display_none modi_checkbox" ><input type="checkbox" class="td_checkbox"></td>
+																	<td class="td_customer_kind">${li.customer_Kind}</td>
+																	<td>
+																		<a href="./detail?customer_Num=${li.customer_Num}" class="td_business_name">
+																			${li.business_Name}
+																		</a>
+																	</td>
+																	<td class="td_ceo_name display_none">${li.ceo_Name}</td>
+																	<td class="td_ceo_phone display_none">${li.ceo_Phone}</td>
+																	<td class="td_mng_name">${li.manager_Name}</td>
+																	<td class="td_mng_phone">${li.manager_Phone}</td>
+																	<td class="td_address">${li.address}</td>
+																	<td class="td_sales_mng">${li.employee_Name}</td>
+																	<td class="real_sales_mng display_none">${li.employee_Num}</td>
+																</tr>
+														
 														</c:forEach>
 													</tbody>
-	
 												</table>
+												<div class="mb-3 pagerlabel">
+													<nav aria-label="Page navigation example">
+														<ul style="justify-content: center;" class="pagination pagination-xs">
+															<c:if test="${!companyList.company_pager.start}">
+																<li class="page-item">
+																	<a class="page-link"
+																	href="./list?page=${companyList.company_pager.startNum-1}&search=${companyList.company_pager.search}&kind=${companyList.company_pager.kind}"
+																	aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+																	</a>
+																</li>
+															</c:if>
+															<c:forEach begin="${companyList.company_pager.startNum}" end="${companyList.company_pager.lastNum}"
+																var="i">
+																<li class="page-item"><a class="page-link pager_btn ${companyList.company_pager.page==i?'select':''	}"
+																	href="./list?page=${i}&search=${companyList.company_pager.search}&kind=${companyList.company_pager.kind}">${i}</a></li>
+															</c:forEach>
+								
+															<c:if test="${!companyList.company_pager.last}">
+																<li class="page-item">
+																	<a class="page-link"
+																	href="./list?page=${companyList.company_pager.lastNum+1}&search=${companyList.company_pager.search}&kind=${companyList.company_pager.kind}"
+																	aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+																	</a>
+																</li>
+															</c:if>
+														</ul>
+													</nav>
+												</div>
 											</div>		
 											<!-- 법인 거래처 끝 -->
 											<!-- 개인 거래처 시작 -->
@@ -108,7 +165,7 @@
 															</tr>
 														</thead>
 														<tbody>
-															<c:forEach items="${personList}" var="li">
+															<c:forEach items="${personMap.ar}" var="li">
 																<tr class="list_tr modi_tr odd">
 																	<td class="display_none td_customer_num" data-customernum="${li.customer_Num}"></td>
 																	<td class="display_none td_customer_type" data-customertype="${li.customer_Type}"></td>
@@ -127,11 +184,45 @@
 														</tbody>
 		
 													</table>
+													<div class="mb-3 pagerlabel">
+												<nav aria-label="Page navigation example">
+													<ul style="justify-content: center;" class="pagination pagination-xs">
+														<c:if test="${!personMap.person_pager.start}">
+															<li class="page-item">
+																<a class="page-link"
+																href="./list?page=${personMap.person_pager.startNum-1}&search=${personMap.person_pager.search}&kind=${personMap.person_pager.kind}"
+																aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+																</a>
+															</li>
+														</c:if>
+														<c:forEach begin="${personMap.person_pager.startNum}" end="${personMap.person_pager.lastNum}"
+															var="i">
+															<li class="page-item"><a class="page-link pager_btn ${persopersonMapnList.person_pager.page==i?'select':''	}"
+																href="./list?page=${i}&search=${personMap.person_pager.search}&kind=${personMap.person_pager.kind}">${i}</a></li>
+														</c:forEach>
+							
+														<c:if test="${!personMap.person_pager.last}">
+															<li class="page-item">
+																<a class="page-link"
+																href="./list?page=${personMap.person_pager.lastNum+1}&search=${personMap.person_pager.search}&kind=${personMap.person_pager.kind}"
+																aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+																</a>
+															</li>
+														</c:if>
+													</ul>
+												</nav>
+											</div>
 												</div>		
 											</div>
-											<!-- 개인 리스트 끝 -->
-										</div>
+											
 
+											
+											<!-- 개인 리스트 끝 -->
+											<a href="./create">
+												<button class="btn btn-light create mt-4 mb-3">등록하기</button>
+											</a>
+										</div>
+										
 										<!-- 리스트 끝 -->
 
 									</div>
@@ -210,5 +301,16 @@
 	<c:import url="../temp/footer.jsp"></c:import>
 	<c:import url="../temp/js.jsp"></c:import>
 	<script src="/bugclean/js/customerList.js"></script>
+	<script>
+		let kind = `${companyList.company_pager.kind}`;
+		console.log(kind);
+		document.getElementById("kind").selectedIndex=kind-1;
+		if(kind==""){
+			document.getElementById("kind").selectedIndex=0
+		}
+	if(kind==3){
+		document.getElementById("nav-person").click()
+	}
+	</script>
 </body>
 </html>

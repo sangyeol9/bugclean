@@ -6,12 +6,14 @@
   
   
   <mapper namespace="com.winter.app.sitesch.SiteSchDAO">
-	<select id="getList" resultType="SiteSchVO" parameterType="Pagination">
-		SELECT c.BUSINESS_NAME,c.CEO_NAME,ss.* FROM SITE_SCH ss
-		LEFT OUTER JOIN CUSTOMER c 
-		ON ss.CUSTOMER_NUM = c.CUSTOMER_NUM
-		LEFT OUTER JOIN EMPLOYEE e 
-		ON SS.EMPLOYEE_NUM  = e.EMPLOYEE_NUM 
+	<select id="getList" resultType="Map" parameterType="Pagination">
+			SELECT c.CUSTOMER_TYPE,c.BUSINESS_NAME,c.CEO_NAME,ss.*,cm.booking_agree FROM SITE_SCH ss
+			LEFT OUTER JOIN CUSTOMER c 
+			ON ss.CUSTOMER_NUM = c.CUSTOMER_NUM
+			LEFT OUTER JOIN EMPLOYEE e 
+			ON SS.EMPLOYEE_NUM  = e.EMPLOYEE_NUM
+			LEFT OUTER JOIN CAR_MANAGE cm 
+			ON ss.MANAGE_CODE = cm.MANAGE_CODE 
 		<where>
     		<if test="search != null and search != ''">
 	            AND e.NAME LIKE '%'||#{search}||'%'

@@ -46,7 +46,6 @@ function chatRoom(e){
         method : "GET"
     }).then(res=>res.text())
     .then(res=>{
-        console.log("principal ==== " , res);
         username1 = res;
         
         fetch("/chat/getEmpName",{
@@ -68,7 +67,6 @@ function chatRoom(e){
             }else{
                 room_num = empnum+""+empnum2;
             }
-            console.log("roomid === == = =",room_num);
             fetch("/chat/room",{
                 method : "POST",
                 headers: {
@@ -79,7 +77,6 @@ function chatRoom(e){
                 })
             }).then(res=>res.json())
 	            .then(res=>{
-                    console.log("room res ==> ", res)
 	                let url = "/chat/room?room_num="+room_num;
                     localStorage.setItem("sendDateMsg", JSON.stringify(res));
 	                localStorage.setItem('sendData', room_num);
@@ -125,9 +122,7 @@ async function emp_modal(e){
     info_pos.value = res.POS_NAME;
     info_Email.value = res.USERNAME;
     document.getElementsByClassName("emp_num")[0].setAttribute("id",res.EMPLOYEE_NUM);
-    console.log("get info == ", res);
-    
-    
+
 
 }
 
@@ -211,7 +206,6 @@ window.addEventListener("load",async function(){
 		            })
 		        }).then(res=>res.json())
 		        .then(res=>{
-		            console.log("res=== > ",res)
 		            getName = res.NAME;
 		            getEmpNum = res.EMPLOYEE_NUM;
 		          fetch("/chat/getChattingRoom",{
@@ -224,9 +218,15 @@ window.addEventListener("load",async function(){
 						})
 				  }).then(res=>res.json())
 				  .then(res=>{
-					  console.log("get chatting room res == > ", res);
 					  res.forEach(element => {
-						  messenger_msg_list.innerHTML += `<div style="color : black" id="${element.ROOM_NUM}" onclick="intoChatRoom(${element.ROOM_NUM})"><img width="50" height="50" id="user2_profile" src="/focus-bootstrap-main/theme/images/base_profile.png"> ${element.DEP_NAME} ${element.POS_NAME} ${element.NAME} </div>`
+						  console.log("PROFILE==> ",element.PROFILE)
+						  let profile = "/focus-bootstrap-main/theme/images/base_profile.png";
+						  
+						  if(element.PROFILE !=null){
+							  profile = "/files/profile/" + element.PROFILE
+							  console.log("not undefined ==> ", element.PROFILE);
+						  }
+						  messenger_msg_list.innerHTML += `<div style="color : black" id="${element.ROOM_NUM}" onclick="intoChatRoom(${element.ROOM_NUM})"> <div style="width:30%; display : inline-block;"> <img width="50" height="50" id="user2_profile" src="${profile}"> </div>  <div id="msg${element.ROOM_NUM}" style="width:auto; display : inline-block;"><div> ${element.DEP_NAME} ${element.POS_NAME} ${element.NAME}<div></div> </div>`
 					  fetch("/chat/getLastMessage",{
 						   method : "POST",
 							  headers: {
@@ -238,8 +238,8 @@ window.addEventListener("load",async function(){
 							})
 					  }).then(res=>res.json())
 					  .then(res=>{
-						 console.log("last msg ==> ",res)
-						 document.getElementById(res.room_num).innerHTML+= `<br><b> ${res.msg_contents}</b> `
+						  console.log("res ==> ", res)
+						 document.getElementById(`msg${element.ROOM_NUM}`).innerHTML +=  `<div> ${res.msg_contents}</div>` + `<div style="font-size : smaller">${res.msg_send_time}</div>`
 					  })
 					  })
 					  
@@ -265,7 +265,6 @@ window.addEventListener("load",async function(){
         })
         }).then(res=>res.json())
         .then(res=>{
-            console.log("chat ==> res")
             let url = "/chat/room?room_num="+e;
                     localStorage.setItem("sendDateMsg", JSON.stringify(res));
 	                localStorage.setItem('sendData', e);
@@ -290,8 +289,6 @@ window.addEventListener("load",async function(){
     })
         const res = await response.json();
         res.forEach((element,index) => {
-            console.log(element);
-
             obj[element.DEP_CODE].innerHTML = `<div id="${element.EMPLOYEE_NUM}" onclick="emp_modal(event)" style="color:black;" class="mt-1">&emsp;&emsp;<i class="fa-solid fa-user mr-1"></i>${element.POS_NAME} ${element.NAME} ( ${element.NICKNAME} )</div>`
             +`${obj[element.DEP_CODE].innerHTML}`
         

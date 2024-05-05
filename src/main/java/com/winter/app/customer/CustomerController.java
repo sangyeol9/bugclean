@@ -1,6 +1,9 @@
 package com.winter.app.customer;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.winter.app.employee.EmployeeVO;
+import com.winter.app.util.pagination.Pagination;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,12 +29,36 @@ public class CustomerController {
 	CustomerService customerService;
 	
 	@GetMapping("list")
-	public String getList(Model model) throws Exception{
+	public String getList(Pagination pagination,Model model) throws Exception{
+		System.out.println("paging start ==>" + pagination);
+		/*
+		 * Map<String,Object> personMap = new HashMap<>(); personMap=
+		 * customerService.getPersonList(pagination);
+		 */
+		Map<String, Object> personMap = new HashMap<>(customerService.getPersonList(pagination));
+	    model.addAttribute("personMap", personMap);
+		
+	    
+	    Pagination pagination2 = new Pagination();
+	    pagination2.setKind( pagination.getKind());
+	    pagination2.setSearch(pagination.getSearch()) ;
+	    pagination2.setPage(pagination.getPage());
+	    System.out.println("paging 2 start ==> " + pagination2);
+	    
+		/*
+		 * Map<String,Object> companyMap = new HashMap<>(); companyMap =
+		 * customerService.getCompanyList(pagination);
+		 */
+		Map<String, Object> companyMap = new HashMap<>(customerService.getCompanyList(pagination2));
+	    model.addAttribute("companyList", companyMap);
+		
+		/*
+		 * System.out.println("company map ==> " + companyMap);
+		 * System.out.println("company pager==>"+companyMap.get("pager") );
+		 * System.out.println("person map ==> " + personMap);
+		 */
+		
 		List<EmployeeVO> ar = customerService.getSales();
-		List<CustomerVO> companyList = customerService.getCompanyList();
-		List<CustomerVO> personList = customerService.getPersonList();
-		model.addAttribute("companyList", companyList);
-		model.addAttribute("personList", personList);
 		model.addAttribute("sales_List", ar);
 		return "customer/list";
 	}

@@ -42,6 +42,7 @@ let inputSelect = document.getElementById("inputSelect");
 
 let customer;
 let business;
+
 /*모달창 접근*/
 for(let i=0; i<modi_tr.length;i++){
 
@@ -156,12 +157,4 @@ function checkOn() {
 
 }
 
-function getList(){
-  fetch("/customer/list",{
-    method:"GET"
-  })
-  .then(response=>response.json)
-  .then(response=>{
 
-  })
-}

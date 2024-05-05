@@ -1,6 +1,7 @@
 package com.winter.app.sitesch;
 
 import java.util.List;
+import java.util.Map;
 
 import com.winter.app.general.GeneralDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class SiteSchService {
 	@Autowired
 	private GeneralDAO generalDAO;
 	
-	public List<SiteSchVO> getList(Pagination pagination) throws Exception{
+	public List<Map<String, Object>> getList(Pagination pagination) throws Exception{
 		return schDAO.getList(pagination);
 	}
 	public int createSch(SiteSchVO schVO) throws Exception{
