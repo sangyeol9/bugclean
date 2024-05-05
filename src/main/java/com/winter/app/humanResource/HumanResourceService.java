@@ -152,6 +152,10 @@ public class HumanResourceService {
         return humanResourceDAO.getSalaryList(year);
     }
 
+    public int updateSalary(SalaryVO salaryVO) throws Exception{
+        return humanResourceDAO.updateSalary(salaryVO);
+    }
+
     public Map<String, Object> getAttendanceList(Map<String, Object> req) throws Exception {
 
         String startDate = (String) req.get("startDate");
@@ -218,6 +222,20 @@ public class HumanResourceService {
         if (result == 1) {
             result = humanResourceDAO.delTempEmployee(employeeVO.getUsername());
         }
+        SalaryVO salaryVO = new SalaryVO();
+        salaryVO.setEmployee_num(employeeVO.getEmployee_num());
+        LocalDate date = LocalDate.now();
+        int year = date.getYear();
+        salaryVO.setSalary_year((long)year);
+        salaryVO.setSalary_pay(0L);
+        log.info("{}",salaryVO);
+        result = humanResourceDAO.setSalary(salaryVO);
+        VacationVO vacationVO = new VacationVO();
+        vacationVO.setEmployee_num(employeeVO.getEmployee_num());
+        vacationVO.setVac_year(salaryVO.getSalary_year());
+        vacationVO.setVac_full(120L);
+        vacationVO.setVac_used(0L);
+        result = humanResourceDAO.setVac(vacationVO);
         return result;
     }
 

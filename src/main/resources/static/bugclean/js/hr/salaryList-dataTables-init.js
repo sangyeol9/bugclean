@@ -4,9 +4,9 @@ function initDataTables(data) {
         "columns": [
             {data: "EMPLOYEE_NUM", title: "사번"},
             {data: "NAME", title: "이름"},
-            {data: "SALARY_ACCOUNT", title: "급여계좌번호"},
-            {data: "SALARY_BANK", title: "급여은행"},
-            {data: "SALARY_PAY", title: "연봉금액"},
+            {data: "SALARY_ACCOUNT", title: "급여계좌번호", defaultContent: "미설정"},
+            {data: "SALARY_BANK", title: "급여은행", defaultContent: "미설정"},
+            {data: "SALARY_PAY", title: "연봉금액", defaultContent: "미설정"},
             {data: "DEP_NAME", title: "부서"},
         ],
         "language": {
@@ -14,16 +14,12 @@ function initDataTables(data) {
                 "previous": '<i class="icon-arrow-left"></i>',
                 "next": '<i class="icon-arrow-right"></i>'
             }
-        }
+        },
+        "destroy": true
     })
 }
 
-const saveData = {}; //비동기 통신으로 가져온 데이터를 저장하는 객체
 async function getData(year) {
-
-    if(saveData[year]){
-        return saveData[year]; //해당하는 연도를 통신으로 데이터를 가져온적 있으면 해당 데이터를 리턴
-    }
 
     // 새로운 데이터를 가져오는 비동기 함수
     let response = await $.ajax({
@@ -33,11 +29,11 @@ async function getData(year) {
     for (let item of response) {
         item.SALARY_PAY += "만원";
     }
-    saveData[year] = response; //비동기 통신으로 가져온 데이터를 해당연도 데이터로 저장
     console.log(response);
     return response;
 }
 
+let salaryData;
 $('#salaryList tbody').on('click', 'tr', function() {
     $('#salaryModal').modal('show');
     let tr = $(this);
@@ -51,7 +47,26 @@ $('#salaryList tbody').on('click', 'tr', function() {
     $('#account').val(rowData.SALARY_ACCOUNT);
     $('#bank').val(rowData.SALARY_BANK);
     $('#salary').val(rowData.SALARY_PAY.substring(0,rowData.SALARY_PAY.indexOf('만')))
+    salaryData = new FormData();
+    salaryData.append("employee_num",rowData.EMPLOYEE_NUM);
 });
+
+$('#save-btn').on('click',async function (){
+    salaryData.append("salary_year",$('#yearSelect').val());
+    salaryData.append("salary_account",$('#account').val());
+    salaryData.append("salary_bank",$('#bank').val());
+    salaryData.append("salary_pay",$('#salary').val());
+    await fetch("/hr/salary/update",{
+        method: 'POST',
+        body: salaryData
+    }).then(res => res.json()).then(async res => {
+        let data = await getData(res)
+        initDataTables(data)
+    })
+    $('#salaryModal').modal('hide')
+})
+
+
 
 $(document).ready(async function () {
     let year = $('#yearSelect').val();

@@ -39,4 +39,7 @@ public interface HumanResourceDAO {
     public int updateMember(Map<String, Object> map) throws Exception;
     public int updateManagerDEP(Map<String,Object> map)throws Exception;
     public int updateFired(Map<String, Object> map) throws Exception;
+    public int setSalary(SalaryVO salaryVO) throws Exception;
+    public int updateSalary(SalaryVO salaryVO) throws  Exception;
+    public int setVac(VacationVO vacationVO) throws Exception;
 }
