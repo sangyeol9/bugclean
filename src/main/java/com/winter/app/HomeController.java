@@ -2,6 +2,7 @@ package com.winter.app;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,12 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.winter.app.board.BoardCateVO;
 import com.winter.app.board.BoardService;
 import com.winter.app.board.BoardVO;
 import com.winter.app.employee.EmployeeVO;
+import com.winter.app.general.CarManageVO;
 import com.winter.app.humanResource.AttendanceVO;
 
 import jakarta.servlet.http.HttpSession;
@@ -121,6 +125,26 @@ public class HomeController {
     	return "commons/result";
 	}
     
+    //사번조회
+    @PostMapping("getnameAsk")
+    @ResponseBody
+    public String getnameAsk(@RequestBody EmployeeVO employeeVO) throws Exception {
+    	
+    	//System.out.println("employeeVO!!!!"+employeeVO);
+    	employeeVO = homeService.getnameAsk(employeeVO);
+    	return employeeVO.getName();
+    }
+    
+   //차량 조회
+    @PostMapping("getCarAsk")
+    @ResponseBody
+    public Map<String, Object> getCarAsk(@RequestBody CarManageVO carManageVO, Model model) throws Exception {
+    	
+    	Map<String, Object> map = homeService.getCarAsk(carManageVO);
+    	
+    	model.addAttribute("map",map);
+    	return map;
+    }
     
     
 

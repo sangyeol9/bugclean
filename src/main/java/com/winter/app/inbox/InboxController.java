@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.winter.app.employee.EmployeeController;
 import com.winter.app.employee.EmployeeVO;
+import com.winter.app.util.pagination.Pagination;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,18 +25,37 @@ public class InboxController {
 	private InboxService inboxService;
 	
 	@GetMapping("inbox")
-	public String getInbox(Model model) throws Exception{
+	public String getInbox(Pagination pagination , Model model) throws Exception{
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserDetails userDetails= (UserDetails)principal;
 		
 		EmployeeVO employeeVO = (EmployeeVO)userDetails;
 		
-		List<Map<String, Object>> allList = inboxService.getAllList(employeeVO);
-		List<Map<String, Object>> waitList = inboxService.getWaitList(employeeVO);
-		List<Map<String, Object>> progressList = inboxService.getProgressList(employeeVO);
-		List<Map<String, Object>> doneList = inboxService.getDoneList(employeeVO);
-		List<Map<String, Object>> referList = inboxService.getReferList(employeeVO);
+		
+		Pagination pagination2 = new Pagination();
+		pagination2.setKind(pagination.getKind());
+		pagination2.setSearch(pagination.getSearch());
+		
+		Pagination pagination3 = new Pagination();
+		pagination3.setKind(pagination.getKind());
+		pagination3.setSearch(pagination.getSearch());
+		
+		Pagination pagination4 = new Pagination();
+		pagination4.setKind(pagination.getKind());
+		pagination4.setSearch(pagination.getSearch());
+		
+		Pagination pagination5 = new Pagination();
+		pagination5.setKind(pagination.getKind());
+		pagination5.setSearch(pagination.getSearch());
+		
+		
+		Map<String, Object> allList = inboxService.getAllList(employeeVO, pagination);
+		Map<String, Object> waitList = inboxService.getWaitList(employeeVO, pagination2);
+		Map<String, Object> progressList = inboxService.getProgressList(employeeVO, pagination3);
+		Map<String, Object> doneList = inboxService.getDoneList(employeeVO, pagination4);
+		Map<String, Object> referList = inboxService.getReferList(employeeVO, pagination5);
+		
 		
 		model.addAttribute("allList", allList);
 		model.addAttribute("waitList", waitList);

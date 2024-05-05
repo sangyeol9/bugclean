@@ -54,40 +54,65 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#all8">
+                                    <a class="nav-link active" id="nav-all" data-toggle="tab" href="#all8">
                                         <span>
                                             전체
                                         </span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#wait8">
+                                    <a class="nav-link" id="nav-wait" data-toggle="tab" href="#wait8">
                                         <span>
                                             대기
                                         </span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#ing8">
+                                    <a class="nav-link" id="nav-ing" data-toggle="tab" href="#ing8">
                                         <span>
                                             진행
                                         </span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#done8">
+                                    <a class="nav-link" id="nav-com" data-toggle="tab" href="#done8">
                                         <span>
                                             완료
                                         </span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#refer8">
+                                    <a class="nav-link" id="nav-ref" data-toggle="tab" href="#refer8">
                                         <span>
                                             참조
                                         </span>
                                     </a>
                                 </li>
+
+
+                                <div class="col-auto d-flex justify-content-end ml-auto">
+                                    <form class="row g-3" action="./inbox">
+                                        <div class="input-group input-group-sm" style="height: 28.4px;">
+                                            <div class="input-group-prepend">
+                                                <select name="kind" id="kind" style="font-size: 12px; border-color: #eaeaea">
+                                                    <option value="kind1" id="all">전체</option>
+                                                    <option value="kind2" id="wait">대기</option>
+                                                    <option value="kind3" id="ing">진행</option>
+                                                    <option value="kind4" id="done">완료</option>
+                                                    <option value="kind5" id="refer">참조</option>
+                                                </select>
+                                            </div>
+                                            <input name="search" type="text" class="form-control" style="width: 50%; border-color: #eaeaea">
+
+                                            <div class="input-group-append">
+                                                <button type="submit" id="search-btn" class="btn btn-primary">검색</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content tabcontent-border">
@@ -105,7 +130,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${allList}" var="all">
+                                            <c:forEach items="${allList.getAllList}" var="all">
 
                                             
                                                 <tr style="text-align: center;">
@@ -118,7 +143,30 @@
                                             
                                         </tbody>
                                     </table>
-                                        
+                                    
+                                    <nav>
+                                        <ul class="pagination pagination-xs" style="justify-content: center;">
+                                            
+                                            <c:if test="${!allList.pager.start}">
+                                                <li class="page-item page-indicator">
+                                                    <a class="page-link" href="./list?page=${allList.pager.startNum-1}&search=${allList.pager.search}&kind=${allList.pager.kind}">
+                                                        <i class="icon-arrow-left"></i></a>
+                                                </li>
+                                            </c:if>
+
+                                            <c:forEach begin="${allList.pager.startNum}" end="${allList.pager.lastNum}" var="i">
+                                                <li class="page-item"><a class="page-link" href="./inbox?page=${i}&search=${allList.pager.search}&kind=${allList.pager.kind}">${i}</a></li>
+                                            </c:forEach>
+
+                                            <c:if test="${!allList.pager.last}">
+                                                <li class="page-item page-indicator">
+                                                    <a class="page-link" href="./list?page=${allList.pager.lastNum+1}&search=${allList.pager.search}&kind=${allList.pager.kind}">
+                                                        <i class="icon-arrow-right"></i></a>
+                                                </li>
+                                            </c:if>
+
+                                        </ul>
+                                    </nav>
                                     
                                 </div>
 
@@ -134,7 +182,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${waitList}" var="wait">
+                                            <c:forEach items="${waitList.getWaitList}" var="wait">
 
                                             
                                                 <tr style="text-align: center;">
@@ -147,6 +195,30 @@
                                             
                                         </tbody>
                                     </table>
+
+                                    <nav>
+                                        <ul class="pagination pagination-xs" style="justify-content: center;">
+
+                                            <c:if test="${!waitList.pager.start}">
+                                                <li class="page-item page-indicator">
+                                                    <a class="page-link" href="./list?page=${waitList.pager.startNum-1}&search=${waitList.pager.search}&kind=${waitList.pager.kind}">
+                                                        <i class="icon-arrow-left"></i></a>
+                                                </li>
+                                            </c:if>
+
+                                            <c:forEach begin="${waitList.pager.startNum}" end="${waitList.pager.lastNum}" var="i">
+                                                <li class="page-item"><a class="page-link" href="./inbox?page=${i}&search=${waitList.pager.search}&kind=${waitList.pager.kind}">${i}</a></li>
+                                            </c:forEach>
+
+                                            <c:if test="${!waitList.pager.last}">
+                                                <li class="page-item page-indicator">
+                                                    <a class="page-link" href="./list?page=${waitList.pager.lastNum+1}&search=${waitList.pager.search}&kind=${waitList.pager.kind}">
+                                                        <i class="icon-arrow-right"></i></a>
+                                                </li>
+                                            </c:if>
+
+                                        </ul>
+                                    </nav>
                                 </div>
 
                                 <!-- 진행 -->
@@ -162,7 +234,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${progressList}" var="progress">
+                                            <c:forEach items="${progressList.getProgressList}" var="progress">
 
                                             
                                                 <tr style="text-align: center;">
@@ -175,6 +247,31 @@
                                             
                                         </tbody>
                                     </table>
+
+                                    
+                                    <nav>
+                                        <ul class="pagination pagination-xs" style="justify-content: center;">
+
+                                            <c:if test="${!progressList.pager.start}">
+                                                <li class="page-item page-indicator">
+                                                    <a class="page-link" href="./list?page=${progressList.pager.startNum-1}&search=${progressList.pager.search}&kind=${progressList.pager.kind}">
+                                                        <i class="icon-arrow-left"></i></a>
+                                                </li>
+                                            </c:if>
+
+                                            <c:forEach begin="${progressList.pager.startNum}" end="${progressList.pager.lastNum}" var="i">
+                                                <li class="page-item"><a class="page-link" href="./inbox?page=${i}&search=${progressList.pager.search}&kind=${progressList.pager.kind}">${i}</a></li>
+                                            </c:forEach>
+
+                                            <c:if test="${!progressList.pager.last}">
+                                                <li class="page-item page-indicator">
+                                                    <a class="page-link" href="./list?page=${progressList.pager.lastNum+1}&search=${progressList.pager.search}&kind=${progressList.pager.kind}">
+                                                        <i class="icon-arrow-right"></i></a>
+                                                </li>
+                                            </c:if>
+
+                                        </ul>
+                                    </nav>
 
                                 </div>
                                 <!-- 완료 -->
@@ -189,7 +286,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${doneList}" var="done">
+                                            <c:forEach items="${doneList.getDoneList}" var="done">
 
                                             
                                                 <tr style="text-align: center;">
@@ -202,6 +299,32 @@
                                             
                                         </tbody>
                                     </table>
+
+
+                                    <nav>
+                                        <ul class="pagination pagination-xs" style="justify-content: center;">
+
+
+                                            <c:if test="${!doneList.pager.start}">
+                                                <li class="page-item page-indicator">
+                                                    <a class="page-link" href="./list?page=${doneList.pager.startNum-1}&search=${doneList.pager.search}&kind=${doneList.pager.kind}">
+                                                        <i class="icon-arrow-left"></i></a>
+                                                </li>
+                                            </c:if>
+
+                                            <c:forEach begin="${doneList.pager.startNum}" end="${doneList.pager.lastNum}" var="i">
+                                                <li class="page-item"><a class="page-link" href="./inbox?page=${i}&search=${doneList.pager.search}&kind=${doneList.pager.kind}">${i}</a></li>
+                                            </c:forEach>
+
+                                            <c:if test="${!doneList.pager.last}">
+                                                <li class="page-item page-indicator">
+                                                    <a class="page-link" href="./list?page=${doneList.pager.lastNum+1}&search=${doneList.pager.search}&kind=${doneList.pager.kind}">
+                                                        <i class="icon-arrow-right"></i></a>
+                                                </li>
+                                            </c:if>
+
+                                        </ul>
+                                    </nav>
                                 </div>
 
 
@@ -217,7 +340,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${referList}" var="refer">
+                                            <c:forEach items="${referList.getReferList}" var="refer">
 
                                             
                                                 <tr style="text-align: center;">
@@ -230,11 +353,32 @@
                                             
                                         </tbody>
                                     </table>
+
+                                    <nav>
+                                        <ul class="pagination pagination-xs" style="justify-content: center;">
+
+                                            <c:if test="${!referList.pager.start}">
+                                                <li class="page-item page-indicator">
+                                                    <a class="page-link" href="./list?page=${referList.pager.startNum-1}&search=${referList.pager.search}&kind=${referList.pager.kind}">
+                                                        <i class="icon-arrow-left"></i></a>
+                                                </li>
+                                            </c:if>
+
+                                            <c:forEach begin="${referList.pager.startNum}" end="${referList.pager.lastNum}" var="i">
+                                                <li class="page-item"><a class="page-link" href="./inbox?page=${i}&search=${referList.pager.search}&kind=${referList.pager.kind}">${i}</a></li>
+                                            </c:forEach>
+
+                                            <c:if test="${!referList.pager.last}">
+                                                <li class="page-item page-indicator">
+                                                    <a class="page-link" href="./list?page=${referList.pager.lastNum+1}&search=${referList.pager.search}&kind=${referList.pager.kind}">
+                                                        <i class="icon-arrow-right"></i></a>
+                                                </li>
+                                            </c:if>
+
+                                        </ul>
+                                    </nav>
                                 </div>
 
-                               
-
-                                
 
 
                             </div>
@@ -262,4 +406,30 @@
 
 
 </body>
+
+<script>
+    let kind =`${referList.pager.kind}`;
+    
+    if(kind=="kind1"){
+        document.getElementById("nav-all").click()
+    }else if(kind=="kind2"){
+        document.getElementById("nav-wait").click()
+    }else if(kind=="kind3"){
+        document.getElementById("nav-ing").click()
+    }else if(kind=="kind4"){
+        document.getElementById("nav-com").click()
+    }else if(kind=="kind5"){
+        document.getElementById("nav-ref").click()
+    }
+    
+    
+    if(kind == ""){
+        kind=1;
+    }
+    kind = parseInt(kind.substring(4,5)) ;
+  
+    document.getElementById("kind").selectedIndex = kind-1
+
+
+</script>
 </html>
