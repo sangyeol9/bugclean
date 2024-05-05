@@ -5,56 +5,229 @@
 
 <mapper namespace="com.winter.app.inbox.InboxDAO">
 	
+	<sql id="search">
+  		<where>
+			<if test="pager.kind == 'kind1'">
+  				TITLE LIKE '%'||#{pager.search}||'%'
+  			</if> 
+  			<if test="pager.kind == 'kind2'">
+  				TITLE LIKE '%'||#{pager.search}||'%'
+  			</if>
+  			<if test="pager.kind == 'kind3'">
+  				TITLE LIKE '%'||#{pager.search}||'%'
+  			</if>
+  			<if test="pager.kind == 'kind4'">
+  				TITLE LIKE '%'||#{pager.search}||'%'
+  			</if>
+  			<if test="pager.kind == 'kind5'">
+  				TITLE LIKE '%'||#{pager.search}||'%'
+  			</if>
+  		</where>
+  	</sql>
+  	
+
+	
 	<!-- 전체 -->
-	<select id="getAllList" parameterType="EmployeeVO" resultType="Map">
-		SELECT DISTINCT d.DRAFT_NUM, d.EMPLOYEE_NUM , d.DRAFT_DATE , d.TITLE, e.NAME
-		FROM DRAFT d 
-		FULL OUTER JOIN SIGN_CHECK sc ON d.DRAFT_NUM = sc.DRAFT_NUM
-		FULL OUTER JOIN REFERENCE r ON d.DRAFT_NUM = r.DRAFT_NUM
-		LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
-		WHERE ((d.STATE = 0 OR d.STATE = 3)
-		    AND SC.SIGN_RANK > 0 
-		    AND SC.EMPLOYEE_NUM = #{employee_num}
-		    AND D.NOW_APPROVAL >= SC.SIGN_RANK) 
-		    OR (r.EMPLOYEE_NUM = #{employee_num} AND d.STATE = 3)
+	<select id="getAllList" parameterType="Map" resultType="Map">
+		SELECT *
+		FROM (SELECT ROWNUM R, N.*
+			  FROM (SELECT *
+					FROM (
+							SELECT DISTINCT d.DRAFT_NUM, d.EMPLOYEE_NUM , d.DRAFT_DATE , d.TITLE, e.NAME
+							FROM DRAFT d 
+							FULL OUTER JOIN SIGN_CHECK sc ON d.DRAFT_NUM = sc.DRAFT_NUM
+							FULL OUTER JOIN REFERENCE r ON d.DRAFT_NUM = r.DRAFT_NUM
+							LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+							WHERE ((d.STATE = 0 OR d.STATE = 3)
+							    AND SC.SIGN_RANK > 0 
+							    AND SC.EMPLOYEE_NUM = #{vo.employee_num}
+							    AND D.NOW_APPROVAL >= SC.SIGN_RANK) 
+							    OR (r.EMPLOYEE_NUM = #{vo.employee_num} AND d.STATE = 3)
+							ORDER BY DRAFT_NUM DESC
+					)
+					<include refid="search"></include>
+				)N
+			)
+		WHERE R BETWEEN #{pager.startRow} AND #{pager.lastRow}
 	</select>
 	
 	<!-- 대기 : 결재중이면서 / 기안자 제외 / 결재라인에 나포함 리스트에서 / 현결재자가 나인 리스트 -->
-	<select id="getWaitList" parameterType="EmployeeVO" resultType="Map">
+	<select id="getWaitList" parameterType="Map" resultType="Map">
+		
 		SELECT *
-		FROM DRAFT d 
-		FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
-		LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
-		WHERE d.STATE = 0
-			AND SC.SIGN_RANK > 0
-			AND SC.EMPLOYEE_NUM = #{employee_num}
-			AND D.NOW_APPROVAL = SC.SIGN_RANK
+		FROM (SELECT ROWNUM R, N.*
+			  FROM (SELECT *
+					FROM (
+					
+							SELECT *
+							FROM DRAFT d 
+							FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
+							LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+							WHERE d.STATE = 0
+								AND SC.SIGN_RANK > 0
+								AND SC.EMPLOYEE_NUM = #{vo.employee_num}
+								AND D.NOW_APPROVAL = SC.SIGN_RANK
+							ORDER BY DRAFT_NUM DESC
+							)
+							<include refid="search"></include>
+						)N
+					)
+		WHERE R BETWEEN #{pager.startRow} AND #{pager.lastRow}
+		
+		
+		
+		
 	</select>
 	
 	<!-- 진행 : 결재중이면서 / 기안자 제외 / 결재라인에 나포함 리스트에서 / 난 결재완 뒤에 할사람있음 -->
-	<select id="getProgressList" parameterType="EmployeeVO" resultType="Map">
-		SELECT * 
-		FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
-		LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
-		WHERE STATE =0 
-			AND SC.SIGN_RANK >0 
-			AND SC.EMPLOYEE_NUM =#{employee_num}
-			AND D.NOW_APPROVAL > SC.SIGN_RANK
+	<select id="getProgressList" parameterType="Map" resultType="Map">
+		
+		SELECT *
+		FROM (SELECT ROWNUM R, N.*
+			  FROM (SELECT *
+					FROM (
+					
+							SELECT * 
+							FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
+							LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+							WHERE STATE =0 
+								AND SC.SIGN_RANK >0 
+								AND SC.EMPLOYEE_NUM =#{vo.employee_num}
+								AND D.NOW_APPROVAL > SC.SIGN_RANK
+							ORDER BY DRAFT_NUM DESC
+							
+							)
+							<include refid="search"></include>
+						)N
+					)
+		WHERE R BETWEEN #{pager.startRow} AND #{pager.lastRow}
+		
+		
+		
 	</select>	
 
 	<!-- 완료 :  -->
-	<select id="getDoneList" parameterType="EmployeeVO" resultType="Map">
-		SELECT * 
-		FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
-		LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
-		WHERE STATE =3 AND SC.SIGN_RANK >0 AND SC.EMPLOYEE_NUM =#{employee_num}
+	<select id="getDoneList" parameterType="Map" resultType="Map">
+		
+		
+		SELECT *
+		FROM (SELECT ROWNUM R, N.*
+			  FROM (SELECT *
+					FROM (
+					
+							SELECT * 
+							FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
+							LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+							WHERE STATE =3 AND SC.SIGN_RANK >0 AND SC.EMPLOYEE_NUM =#{vo.employee_num}
+							ORDER BY DRAFT_NUM DESC
+							
+							)
+							<include refid="search"></include>
+						)N
+					)
+		WHERE R BETWEEN #{pager.startRow} AND #{pager.lastRow}
+		
+		
 		<!--  완료이면서 		기안자 제외 			결재라인에 나포함 리스트	-->	
 	</select>
 	<!-- 참조 완료면서-->
-	<select id="getReferList" parameterType="EmployeeVO" resultType="Map">		
-		SELECT d.DRAFT_NUM, d.EMPLOYEE_NUM , d.DRAFT_DATE , d.TITLE , r.EMPLOYEE_NUM ,e.NAME
-		FROM DRAFT d FULL OUTER JOIN REFERENCE r ON d.DRAFT_NUM = r.DRAFT_NUM
-		LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
-		WHERE r.EMPLOYEE_NUM = #{employee_num} AND STATE =3
+	<select id="getReferList" parameterType="Map" resultType="Map">
+		
+		SELECT *
+		FROM (SELECT ROWNUM R, N.*
+			  FROM (SELECT *
+					FROM (
+					
+							SELECT d.DRAFT_NUM, d.EMPLOYEE_NUM , d.DRAFT_DATE , d.TITLE , r.EMPLOYEE_NUM  AS REF_EMPLOYEE_NUM, e.NAME
+							FROM DRAFT d FULL OUTER JOIN REFERENCE r ON d.DRAFT_NUM = r.DRAFT_NUM
+							LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+							WHERE r.EMPLOYEE_NUM = #{vo.employee_num} AND STATE =3
+							ORDER BY DRAFT_NUM DESC
+							
+							)
+							<include refid="search"></include>
+						)N
+					)
+		WHERE R BETWEEN #{pager.startRow} AND #{pager.lastRow}
+		
 	</select>
+	
+	
+	<!-- ===========total========= -->
+	<!-- 전체 -->
+	<select id="getAllTotalCount" parameterType="Map">
+		SELECT COUNT(*)
+		FROM (
+		    SELECT DISTINCT d.DRAFT_NUM, d.EMPLOYEE_NUM, d.DRAFT_DATE, d.TITLE, e.NAME
+		    FROM DRAFT d 
+		    FULL OUTER JOIN SIGN_CHECK sc ON d.DRAFT_NUM = sc.DRAFT_NUM
+		    FULL OUTER JOIN REFERENCE r ON d.DRAFT_NUM = r.DRAFT_NUM
+		    LEFT OUTER JOIN EMPLOYEE e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+		    WHERE ((d.STATE = 0 OR d.STATE = 3)
+		        AND SC.SIGN_RANK > 0 
+		        AND SC.EMPLOYEE_NUM = #{vo.employee_num}
+		        AND d.NOW_APPROVAL >= SC.SIGN_RANK) 
+		        OR (r.EMPLOYEE_NUM = #{vo.employee_num} AND d.STATE = 3)
+		)
+		<include refid="search"></include>
+	</select>
+	
+	<!-- 대기 -->
+	<select id="getWaitTotalCount" parameterType="Map">
+		SELECT COUNT(*)
+		FROM (
+		    	SELECT *
+				FROM DRAFT d 
+				FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
+				LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+				WHERE d.STATE = 0
+					AND SC.SIGN_RANK > 0
+					AND SC.EMPLOYEE_NUM = #{vo.employee_num}
+					AND D.NOW_APPROVAL = SC.SIGN_RANK
+				ORDER BY DRAFT_NUM DESC
+		)
+		<include refid="search"></include>
+	</select>
+	
+	<!-- 진행 -->
+	<select id="getProgressTotalCount" parameterType="Map">
+		SELECT COUNT(*)
+		FROM (
+		    SELECT * 
+			FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
+			LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+			WHERE STATE =0 
+				AND SC.SIGN_RANK >0 
+				AND SC.EMPLOYEE_NUM =#{vo.employee_num}
+				AND D.NOW_APPROVAL > SC.SIGN_RANK
+			ORDER BY DRAFT_NUM DESC
+		)
+		<include refid="search"></include>
+	</select>
+	<!-- 완료 -->
+	<select id="getDoneTotalCount" parameterType="Map">
+		SELECT COUNT(*)
+		FROM (
+		    SELECT * 
+			FROM DRAFT d FULL OUTER JOIN SIGN_CHECK sc USING (DRAFT_NUM)
+			LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+			WHERE STATE =3 AND SC.SIGN_RANK >0 AND SC.EMPLOYEE_NUM =#{vo.employee_num}
+			ORDER BY DRAFT_NUM DESC
+		)
+		<include refid="search"></include>
+	</select>
+	<!-- 참조 -->
+	<select id="getReferTotalCount" parameterType="Map">
+		SELECT COUNT(*)
+		FROM (
+		    SELECT d.DRAFT_NUM, d.EMPLOYEE_NUM , d.DRAFT_DATE , d.TITLE , r.EMPLOYEE_NUM ,e.NAME
+			FROM DRAFT d FULL OUTER JOIN REFERENCE r ON d.DRAFT_NUM = r.DRAFT_NUM
+			LEFT OUTER JOIN (SELECT NAME, EMPLOYEE_NUM FROM EMPLOYEE) e ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+			WHERE r.EMPLOYEE_NUM = #{vo.employee_num} AND STATE =3
+			ORDER BY DRAFT_NUM DESC
+		)
+		<include refid="search"></include>
+	</select>
+	
+	
 </mapper>

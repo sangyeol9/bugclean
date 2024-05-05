@@ -225,7 +225,7 @@
                                                 </div>
                                                 <div class="row mb-2">
                                                     <div class="col-4">
-                                                        <h5 class="f-w-500">사업자 이름 <span class="pull-right">:</span></h5>
+                                                        <h5 class="f-w-500" id="buisnessman">사업자 이름 <span class="pull-right">:</span></h5>
                                                     </div>
                                                     <div class="col-8" id="business_Name"><span class="text-primary" style="font-weight: bolder;"></span>
                                                     </div>

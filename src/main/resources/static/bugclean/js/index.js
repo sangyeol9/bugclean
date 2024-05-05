@@ -65,16 +65,75 @@ function getInfo(id){
         //console.log("res====",res);
 
         content.style.display = "block";
-
-        document.addEventListener("DOMContentLoaded", function() {
-            
-            if (res.business_Name === '개인') {
-                //document.getElementById("buisnessman").innerText = "사업자 구분";
-            }
-        });
         
-		const manage_Code = res.manage_Code !== null ? res.manage_Code : "-";
-		const employee_Num = res.employee_Num !== null ? res.employee_Num : "-";
+        //현장관리자(employee_Num), 영업 담당자(sales_Manager)
+        //let employee_Num;
+        // let sales_Manager;
+        
+        if (res.employee_Num != null) {
+            fetch("/getnameAsk", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                  },
+                body : JSON.stringify({
+                 employee_num : res.employee_Num
+                })
+            }).then(res => res.text())
+              .then(res => {
+                  //alert(res);
+                  //employee_Num= res;
+                  $('#employee_Num span').text(`${res}`);
+              })
+        }else if(res.employee_Num === null) employee_Num ="-";
+
+        if (res.sales_Manager != null) {
+            fetch("/getnameAsk", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                  },
+                body : JSON.stringify({
+                 employee_num : res.sales_Manager
+                })
+            }).then(res => res.text())
+              .then(res => {
+                  //alert(res);
+                  //sales_Manager= res;
+                  
+                  $('#sales_Manager span').text(`${res}`);
+              })
+        }else if(res.sales_Manager === null) sales_Manager ="-";
+
+        if (res.manage_Code != null) {
+            fetch("/getCarAsk", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                  },
+                body : JSON.stringify({
+                    manage_code : res.manage_Code
+                })
+            }).then(res => res.json())
+              .then(res => {
+                  //alert(res);
+                  //manage_Code= res;
+
+                  let manage_Code;
+                  if(res.BOOKING_AGREE== 0){
+                    manage_Code='배차 신청 중'
+                  }
+
+                  $('#manage_Code span').text(`${res.CAR_NUM} ( ${manage_Code} )`);
+              })
+        }else if(res.manage_Code === null) manage_Code ="-";
+
+        if (res.business_Name === '개인') {
+			$('#buisnessman').html(`사업자 구분 <span class="pull-right">:</span>`);
+        }else $('#buisnessman').html(`사업자 이름 <span class="pull-right">:</span>`);
+        
+		//const manage_Code = res.manage_Code !== null ? res.manage_Code : "-";
+		//const employee_Num = res.employee_Num !== null ? res.employee_Num : "-";
 		
         $('#site_Num span').text(`${res.site_Num}`);
         $('#customer_Num span').text(`${res.customer_Num}`);
@@ -83,10 +142,10 @@ function getInfo(id){
         $('#address span').text(`${res.address}`);
         $('#business_Name span').text(`${res.business_Name}`);
         $('#ceo_Name span').text(`${res.ceo_Name}`);
-        $('#employee_Num span').text(`${employee_Num}`);
-        $('#manage_Code span').text(`${manage_Code}`);
+        
+        
         $('#price span').text(`${res.price}`);
-        $('#sales_Manager span').text(`${res.sales_Manager}`);
+        
         $('#site_Type span').text(`${res.site_Type}`);
 
         
