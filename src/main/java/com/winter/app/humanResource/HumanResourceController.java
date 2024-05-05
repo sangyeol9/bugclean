@@ -142,6 +142,17 @@ public class HumanResourceController {
         return humanResourceService.getSalaryList(year);
     }
 
+    @PostMapping("salary/update")
+    @ResponseBody
+    public int updateSalary(SalaryVO salaryVO) throws Exception{
+        int check = humanResourceService.updateSalary(salaryVO);
+        log.info("{}",salaryVO);
+        if(check == 1){
+            check =  salaryVO.getSalary_year().intValue();
+        }
+        return check;
+    }
+
     @PostMapping("/attendance/list")
     @ResponseBody
     public Map<String, Object> getAttendanceList(@RequestParam Map<String, Object> req) throws Exception {

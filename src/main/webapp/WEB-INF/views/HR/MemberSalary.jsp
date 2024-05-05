@@ -108,9 +108,9 @@
                                     <tr>
                                         <th class="font-weight-bolder">연봉금액</th>
                                         <td class="col-7" style="padding: 0">
-                                            <div style="display: inline-flex; width: 90%;">
+                                            <div style="display: inline-flex; width: 90%;" class="d-flex justify-content-center align-content-center align-items-center text-center">
                                                 <input id="salary" type="text"
-                                                       class="form-control input-default user_name" style="width: 50%"/>만원
+                                                       class="form-control input-default user_name" style="width: 50%"/> &nbsp 만원
                                             </div>
                                         </td>
                                     </tr>

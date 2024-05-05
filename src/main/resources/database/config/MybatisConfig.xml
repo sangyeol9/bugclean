@@ -41,5 +41,7 @@
 		<typeAlias type="com.winter.app.chat.ChatRoom" alias="ChatRoom"/>
 		<typeAlias type="com.winter.app.chat.ChatMemberVO" alias="ChatMemberVO"/>
 		<typeAlias type="com.winter.app.chat.ChatMessage" alias="ChatMessage"/>
+		<typeAlias type="com.winter.app.humanResource.SalaryVO" alias="SalaryVO"/>
+		<typeAlias type="com.winter.app.humanResource.VacationVO" alias="VacationVO"/>
   	</typeAliases>
   </configuration>

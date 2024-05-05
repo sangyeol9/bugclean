@@ -56,7 +56,7 @@
         NAME,
         SALARY_ACCOUNT,
         SALARY_BANK,
-        (SALARY_PAY*12) AS "SALARY_PAY",
+        SALARY_PAY,
         DEP_NAME
         FROM EMPLOYEE
         LEFT JOIN DEPARTMENT USING (DEP_CODE)
@@ -198,4 +198,15 @@
         UPDATE EMPLOYEE SET STATE = #{state}, RETIRED_DATE = SYSDATE WHERE EMPLOYEE_NUM = #{EMPLOYEE_NUM}
     </update>
 
+    <update id="updateSalary" parameterType="SalaryVO">
+        UPDATE SALARY SET SALARY_ACCOUNT = #{salary_account}, SALARY_BANK = #{salary_bank}, SALARY_PAY = #{salary_pay} WHERE EMPLOYEE_NUM = #{employee_num} AND SALARY_YEAR = #{salary_year}
+    </update>
+
+    <insert id="setSalary" parameterType="SalaryVO">
+        INSERT INTO SALARY (EMPLOYEE_NUM, SALARY_YEAR, SALARY_PAY) VALUES (#{employee_num}, #{salary_year}, #{salary_pay})
+    </insert>
+
+    <insert id="setVac" parameterType="VacationVO">
+        INSERT INTO VACATION (EMPLOYEE_NUM, VAC_FULL, VAC_USED, VAC_YEAR) VALUES (#{employee_num}, #{vac_full}, #{vac_used}, #{vac_year})
+    </insert>
 </mapper>
