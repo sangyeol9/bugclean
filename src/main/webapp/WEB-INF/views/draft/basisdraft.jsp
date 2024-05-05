@@ -152,11 +152,11 @@
 								<textarea class="inp" name="contents" style="text-align: left;" rows="" cols=""></textarea>
 									</td>
 							</tr>
-							<tr style="height: 130px;">
+<!-- 							<tr style="height: 130px;">
 								<td class="basisTitleTd">의견</td>
 								<td class="basisTitleTd" colspan="4"><input
 									name="sign_comment" class="inp" type=""></td>
-							</tr>
+							</tr> -->
 						</table>
 						<!-- 파일 시작 -->
 						<div>
@@ -303,14 +303,14 @@
 									<td style="width: 200px; vertical-align: top;" id="orgBoxTd">
 										<!-- 부서 리스트 시작--> <c:forEach items="${dep}" var="dep">
 											<div class="orgTeamDiv">
-												<c:if test="${dep.dep_name ne '사장'}">
+												<%-- <c:if test="${dep.dep_name ne '사장'}"> --%>
 													<i class="fa-solid fa-minus minusIcon"
 														style="display: none;"></i>
 													<i class="fa-solid fa-plus plusIcon"
 														style="display: inline-block;"></i>
 													<i class="fa-solid fa-users"></i>
 													<h5 style="display: inline-block;" class="orgDep">${dep.dep_name}</h5>
-												</c:if>
+												<%-- </c:if> --%>
 												<br>
 												<!-- 사원리스트 시작 -->
 												<div data-dep-name="${dep.dep_name}" class="orgPepleDiv">

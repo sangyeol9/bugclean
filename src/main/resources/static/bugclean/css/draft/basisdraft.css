@@ -62,6 +62,12 @@ table {
 	left: 420px;
 	bottom: -50px;
 }
+#updateBtn{
+	position: absolute;
+	left: 420px;
+	bottom: -50px;
+
+}
 
 .inp {
 	border: none;
