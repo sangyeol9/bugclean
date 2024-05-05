@@ -65,9 +65,9 @@ public class Pagination {
     }
 
     public void makeNum(Long totalCount) {
-        if(totalCount==0){
-            return;
-        }
+    	if(totalCount<1) {
+			totalCount=1L;
+		}
         totalPage = totalCount/this.getPerPage();
         if(totalCount%this.getPerPage()!=0) {
             totalPage = totalPage+1L;
