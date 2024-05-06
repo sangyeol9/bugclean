@@ -60,7 +60,6 @@
 							</table>
 						</div>
 					</div>
-					<div class="dataTables_paginate paging_simple_numbers" id="example_paginate"><a class="paginate_button previous disabled" aria-controls="example" data-dt-idx="0" tabindex="0" id="example_previous">Previous</a><span><a class="paginate_button current" aria-controls="example" data-dt-idx="1" tabindex="0">1</a><a class="paginate_button " aria-controls="example" data-dt-idx="2" tabindex="0">2</a><a class="paginate_button " aria-controls="example" data-dt-idx="3" tabindex="0">3</a><a class="paginate_button " aria-controls="example" data-dt-idx="4" tabindex="0">4</a><a class="paginate_button " aria-controls="example" data-dt-idx="5" tabindex="0">5</a><a class="paginate_button " aria-controls="example" data-dt-idx="6" tabindex="0">6</a></span><a class="paginate_button next" aria-controls="example" data-dt-idx="7" tabindex="0" id="example_next">Next</a></div>
  					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 							<!-- 이전@@@@@@@@@@ -->
@@ -68,7 +67,6 @@
 								<li class="page-item"><a class="page-link"
 									href="./mytemporarylist?page=${pager.lastNum+1}">Previous</a></li>
 							</c:if>
-
 
 							<!-- 번호@@@@@@@@@@@@ -->
 							<c:forEach begin="${pager.startNum}" end="${pager.lastNum}"
