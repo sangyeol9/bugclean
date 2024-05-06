@@ -65,7 +65,7 @@ public class SecurityConfig{
 											.requestMatchers("/employee/logout", "/employee/mypage",
 													"/employee/pwUpdate","/setAttendence","/setWorkOut", "/receive/inbox").authenticated()
 //											.requestMatchers("/hr/**").hasAnyRole("PERSON", "CEO") //인사팀
-//											.requestMatchers("/genera/**").hasAnyRole("GENERAL", "CEO") //총무팀
+											.requestMatchers("/general/**").hasAnyRole("GENERAL", "CEO") //총무팀
 //											.requestMatchers("/customer/**").hasAnyRole("SALES", "CEO") //영업팀
 //											.requestMatchers("/hr/**").hasAnyRole("FIELD", "CEO") //현장팀
 //											.requestMatchers("/schedule/list").hasAnyRole("SALES","FIELD", "CEO") //스케쥴
