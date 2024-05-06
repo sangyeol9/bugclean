@@ -232,7 +232,7 @@
                                                 </div>
                                                 <div class="row mb-2">
                                                     <div class="col-4">
-                                                        <h5 class="f-w-500">대표자 이름 <span class="pull-right">:</span></h5>
+                                                        <h5 id="printCeoName" class="f-w-500">대표자 이름<span class="pull-right">:</span></h5>
                                                     </div>
                                                     <div class="col-8" id="ceo_Name"><span class="text-primary" style="font-weight: bolder;"></span>
                                                     </div>
@@ -246,7 +246,7 @@
                                                 </div>
                                                 <div class="row mb-2">
                                                     <div class="col-4">
-                                                        <h5 class="f-w-500">배차코드 <span class="pull-right">:</span></h5>
+                                                        <h5 class="f-w-500">배차 상태 <span class="pull-right">:</span></h5>
                                                     </div>
                                                     <div class="col-8" id="manage_Code"><span class="text-primary" style="font-weight: bolder;"></span>
                                                     </div>
