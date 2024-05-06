@@ -226,7 +226,7 @@ window.addEventListener("load",async function(){
 							  profile = "/files/profile/" + element.PROFILE
 							  console.log("not undefined ==> ", element.PROFILE);
 						  }
-						  messenger_msg_list.innerHTML += `<div style="color : black" id="${element.ROOM_NUM}" onclick="intoChatRoom(${element.ROOM_NUM})"> <div style="width:30%; display : inline-block;"> <img width="50" height="50" id="user2_profile" src="${profile}"> </div>  <div id="msg${element.ROOM_NUM}" style="width:auto; display : inline-block;"><div> ${element.DEP_NAME} ${element.POS_NAME} ${element.NAME}<div></div> </div>`
+						  messenger_msg_list.innerHTML += `<div style="color : black; margin-top : 3%;" id="${element.ROOM_NUM}" onclick="intoChatRoom(${element.ROOM_NUM})"> <div style="width:30%; display : inline-flex;"> <img style="border-radius : 50%; margin : auto;" width="50" height="50" id="user2_profile" src="${profile}"> </div>  <div id="msg${element.ROOM_NUM}" style="width:auto; display : inline-block;"><div> ${element.DEP_NAME} ${element.POS_NAME} ${element.NAME}<div></div> </div>`
 					  fetch("/chat/getLastMessage",{
 						   method : "POST",
 							  headers: {
@@ -239,7 +239,7 @@ window.addEventListener("load",async function(){
 					  }).then(res=>res.json())
 					  .then(res=>{
 						  console.log("res ==> ", res)
-						 document.getElementById(`msg${element.ROOM_NUM}`).innerHTML +=  `<div> ${res.msg_contents}</div>` + `<div style="font-size : smaller">${res.msg_send_time}</div>`
+						 document.getElementById(`msg${element.ROOM_NUM}`).innerHTML +=  `<div style="color : grey"> ${res.msg_contents}</div>` + `<div style="font-size : smaller">${res.msg_send_time}</div>`
 					  })
 					  })
 					  

@@ -120,16 +120,18 @@ function getInfo(id){
                   //manage_Code= res;
 
                   let manage_Code;
+                  
                   if(res.BOOKING_AGREE== 0){
                     manage_Code='배차 신청 중'
                   }
 
                   $('#manage_Code span').text(`${res.CAR_NUM} ( ${manage_Code} )`);
               })
-        }else if(res.manage_Code === null) manage_Code ="-";
+        }else if(res.manage_Code === null) $("#manage_Code").html(`-`);
 
         if (res.business_Name === '개인') {
 			$('#buisnessman').html(`사업자 구분 <span class="pull-right">:</span>`);
+			$('#printCeoName').html(`고객명 <span class="pull-right">:</span>`)
         }else $('#buisnessman').html(`사업자 이름 <span class="pull-right">:</span>`);
         
 		//const manage_Code = res.manage_Code !== null ? res.manage_Code : "-";
@@ -232,34 +234,42 @@ function openWindow(e){
             res.forEach(element => {
                console.log("start = ", element.start_Time);
                
-               start_first = element.start_Time.substr(0,10);
-               console.log("start_first = ", start_first);
-               console.log("site_Num === ", element.site_Num)
-               let start_last = element.start_Time.substring(11,19);
+               start_first = element.START_TIME.substr(0,10);
+           
+               let start_last = element.START_TIME.substring(11,19);
                 
-                if(element.site_Type == '긴급'){
-                    color = "red";
-                    textDeco = "none";
-                } 
-                else if(element.site_Type =='일반'){
-                    color = "black";
-                    textDeco = "none"
-                } 
-                else if(element.site_Type == '취소'){
-                    color = 'gray';
-                    textDeco = "line-through";
-                }else if (element.site_Type == '완료'){
+               if (element.SITE_TYPE == '완료'){
                     color = 'blue';
                     textDeco = 'none';
                 }
+                else if(element.SITE_TYPE == '취소'){
+                    color = 'gray';
+                    textDeco = "line-through";
+                }
+                else if(element.SITE_TYPE == '긴급'){
+                    color = "red";
+                    textDeco = "none";
+                } 
+                else if(element.SITE_TYPE =='일반'){
+                    color = "black";
+                    textDeco = "none"
+                } 
+                
+                let event_title;
+                if(element.CUSTOMER_TYPE == '개인'){
+					event_title = "개인 "+element.CEO_NAME;
+				}else{
+					event_title = element.BUSINESS_NAME
+				}
+                
                 console.log("color == ", color);
                   calendar.addEvent({
-                   title : element.business_Name  + element.ceo_Name,
+                   title : event_title,
                    start : start_first +"T"+ start_last,
                    color : color,
                    classNames : textDeco,
-                   end : element.end_Time,
-                   id : element.ceo_Name+start_first+"-"+element.site_Num
+                   end : element.END_TIME,
+                   id : element.CEO_NAME+start_first+"-"+element.SITE_NUM
                   })
             });
     })
