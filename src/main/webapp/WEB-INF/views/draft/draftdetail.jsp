@@ -236,15 +236,15 @@
 
 									<div id="temporaryBtn"
 										style="position: absolute; left: 450px; bottom: -40px;">
-										<button type="submit" name="state" value="2" style="width: 90px"
-											data-delete-emp="${draftmap.DRAFT_NUM}"
+										<button type="submit" name="state" value="2"
+											style="width: 90px" data-delete-emp="${draftmap.DRAFT_NUM}"
 											class="btn btn-secondary">임시저장</button>
 									</div>
 
 									<div id="updateBtn"
 										style="position: absolute; left: 550px; bottom: -40px;">
-										<button type="submit" name="state" value="0" style="width: 90px"
-											data-delete-emp="${draftmap.DRAFT_NUM}"
+										<button type="submit" name="state" value="0"
+											style="width: 90px" data-delete-emp="${draftmap.DRAFT_NUM}"
 											class="btn btn-primary">상신하기</button>
 									</div>
 								</c:if>
@@ -435,7 +435,7 @@
 							</div>
 
 							<table border="1" id="allineTable">
-
+								<!-- 직급 tr 시작 -->
 								<tr id="input_grade">
 									<td rowspan="4">결재선</td>
 									<c:forEach items="${approvalar}" var="approvalar">
@@ -448,27 +448,42 @@
 										</c:if>
 									</c:forEach>
 								</tr>
-
+								<!-- 직급 tr 끝 -->
+								
+								<!-- 사인 tr 시작 -->
 								<tr id="input_blank">
 									<c:forEach items="${approvalar}" var="approvalar">
-										<c:if
-											test="${approvalar.SIGN_RANK < approvalar.NOW_APPROVAL }">
-											<c:if test="${not empty approvalar.SIGN_FILE }">
-												<td><img src="${approvalar.SIGN_FILE}" width="50px"
-													height="30px"></td>
-											</c:if>
-											<c:if test="${empty approvalar.SIGN_FILE }">
-												<td>${approvalar.NAME }</td>
+										<!-- 반려가 아닐때 -->
+										<c:if test="${approvalar.SIGN_REF ne 1 }">
+											<c:if
+												test="${approvalar.SIGN_RANK < approvalar.NOW_APPROVAL }">
+												<c:if test="${not empty approvalar.SIGN_FILE }">
+													<td><img src="${approvalar.SIGN_FILE}" width="50px"
+														height="30px"></td>
+												</c:if>
+												<c:if test="${empty approvalar.SIGN_FILE }">
+													<td>${approvalar.NAME }</td>
+												</c:if>
 											</c:if>
 										</c:if>
+										<!-- 반려일때 -->
+										<c:if test="${approvalar.SIGN_REF eq 1 }">
+											<td style="color: red;">반려</td>
+										</c:if>
+										
+										
+										<c:if test="${approvalar.SIGN_REF ne 1 }">
 										<c:if
 											test="${approvalar.SIGN_RANK >= approvalar.NOW_APPROVAL }">
 											<td></td>
 										</c:if>
-
+										</c:if>
 									</c:forEach>
+									
 								</tr>
-
+								<!-- 사인 tr 끝 -->
+	
+								<!-- 이름 tr 시작 -->
 								<tr id="input_name">
 									<c:forEach items="${approvalar }" var="approvalar">
 										<td>${approvalar.NAME}<input type="hidden"
@@ -476,19 +491,33 @@
 										</td>
 									</c:forEach>
 								</tr>
-
+								<!-- 이름 tr 끝 -->
+								
+								<!-- 날짜 tr 시작 -->
 								<tr>
 									<c:forEach items="${approvalar}" var="approvalar">
-										<c:if
-											test="${approvalar.SIGN_RANK < approvalar.NOW_APPROVAL }">
-											<td class="date">${approvalar.SIGN_DATE}</td>
+										<!-- 반려아닐때 -->
+										<c:if test="${approvalar.SIGN_REF ne 1}">
+											<c:if
+												test="${approvalar.SIGN_RANK < approvalar.NOW_APPROVAL }">
+												<td class="date">${approvalar.SIGN_DATE}</td>
+											</c:if>
 										</c:if>
-										<c:if
+										<!-- 반려일때 -->
+										<c:if test="${approvalar.SIGN_REF eq 1}">
+											<td class="date" style="color: red;">${approvalar.SIGN_DATE}</td>
+										</c:if>
+										
+										<c:if test="${approvalar.SIGN_REF ne 1 }">
+ 										<c:if
 											test="${approvalar.SIGN_RANK >= approvalar.NOW_APPROVAL }">
 											<td class="date"></td>
+										</c:if> 
 										</c:if>
+										
 									</c:forEach>
 								</tr>
+								<!-- 날짜 tr 끝 -->
 							</table>
 
 						</div>
@@ -545,44 +574,59 @@
 
 							</table>
 							<!-- 파일 시작 -->
-							<input type="hidden" value="${draftmap.STATE}" name="state">
 							<input type="hidden" value="${draftmap.NOW_APPROVAL}"
 								name="now_approval">
 							<div>
 								<c:if test="${draftmap.STATE eq 3}">
-									<h4 style="color: blue;">결재완료된 기안서 입니다</h4>
+									<h4 style="color: blue;">결재완료된 기안서 입니다.</h4>
 								</c:if>
 
-								<c:if test="${draftmap.NOW_APPROVAL ne 3}">
-									<div id="btn"
-										style="position: absolute; left: 900px; bottom: -40px;">
-
-										<c:if
-											test="${draftmap.NOW_APPROVAL eq 1 and draftmap.EMPLOYEE_NUM == employeeNum}">
-											<button id="draftDeleteBtn" type="button" style="width: 90px"
-												data-delete-emp="${draftmap.DRAFT_NUM}"
-												class="btn btn-warning">삭제하기</button>
-										</c:if>
+								<c:if test="${draftmap.STATE ne 3 or draftmap.STATE ne 1}">
+									<!-- 반려아닐때 -->
+									<c:if test="${draftmap.STATE ne 1}">
+										<div id="btn"
+											style="position: absolute; left: 900px; bottom: -40px;">
+											<c:if
+												test="${draftmap.NOW_APPROVAL eq 1 and draftmap.EMPLOYEE_NUM == employeeNum}">
+												<button id="draftDeleteBtn" type="button"
+													style="width: 90px" data-delete-emp="${draftmap.DRAFT_NUM}"
+													class="btn btn-warning">삭제하기</button>
+											</c:if>
+										</div>
+									</c:if>
+									<!-- 반려일때 -->
+									<c:if test="${draftmap.STATE eq 1}">								
+									<div style="position: absolute; left: 400px; bottom: -40px;">
+									<h4 style="color: red;">결재반려된 기안서 입니다.</h4>
 									</div>
-
+										<div id="btn"
+											style="position: absolute; left: 900px; bottom: -40px;">
+											<c:if
+												test="${draftmap.NOW_APPROVAL eq 1 and draftmap.EMPLOYEE_NUM == employeeNum}">
+												<button id="draftDeleteBtn" type="button"
+													style="width: 90px" data-delete-emp="${draftmap.DRAFT_NUM}"
+													class="btn btn-warning">삭제하기</button>
+											</c:if>
+										</div>
+									</c:if>						
 									<c:if test="${employeeNum == nowemp }">
 										<div id="updateBtn"
 											style="position: absolute; left: -1px; bottom: -40px;">
-											<button type="submit" style="width: 90px"
-												data-delete-emp="${draftmap.DRAFT_NUM}"
+											<button type="submit" name="state" value="0"
+												style="width: 90px" data-delete-emp="${draftmap.DRAFT_NUM}"
 												class="btn btn-primary">상신하기</button>
 										</div>
-									</c:if>
 
-									<%-- 									<c:if test="${employeeNum == nowemp }">
-										<div id="rejectionBtn"
-											style="position: absolute; left: -1px; bottom: -40px;">
-											<button type="submit" style="width: 90px"
-												data-delete-emp="${draftmap.DRAFT_NUM}"
-												class="btn btn-warning">반려하기</button>
+										<input type="hidden" name="nowemp" value="${nowemp}">
+
+										<div style="position: absolute; left: 900px; bottom: -40px;">
+											<button type="submit" name="state" value="1"
+												style="width: 90px" data-delete-emp="${draftmap.DRAFT_NUM}"
+												class="btn btn-pinterest">반려하기</button>
 										</div>
-									</c:if> --%>
+									</c:if>
 								</c:if>
+								<!-- 반려일때 -->
 							</div>
 							<!-- 파일 끝 -->
 						</div>

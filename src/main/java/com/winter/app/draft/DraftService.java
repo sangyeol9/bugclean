@@ -223,9 +223,17 @@ public class DraftService {
 	}
 	
 	//날짜db에 저장..
-	public int updateSignCheckDetail(List<Map<String, Object>> signMaps, DraftVO draftVO)throws Exception{
-		SignCheckVO [] signCheckVO = new SignCheckVO[signMaps.size()];
+	public int updateSignCheckDetail(List<Map<String, Object>> signMaps, DraftVO draftVO,String nowemp)throws Exception{
 		
+		//반려값 1주기
+		if(draftVO.getState() == 1) {			
+			SignCheckVO signCheckVO2 = new SignCheckVO();
+			signCheckVO2.setDraft_num(draftVO.getDraft_num());
+			signCheckVO2.setEmployee_num(nowemp);
+			draftDAO.updateSignRef(signCheckVO2);
+		}
+		//결재라인 업데이트
+		SignCheckVO [] signCheckVO = new SignCheckVO[signMaps.size()];
 		String now = draftVO.getNow_approval().toString();
 		int nowInt = Integer.parseInt(now);
 		
