@@ -31,7 +31,7 @@
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
                         <h4>비밀번호 변경</h4>
-                        <p class="mb-1">10~16자 영문자, 숫자, 특수문자</p>
+                        <p class="mb-1">8~16자 영문자, 숫자, 특수문자</p>
                     </div>
                 </div>
                

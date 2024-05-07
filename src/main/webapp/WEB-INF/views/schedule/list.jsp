@@ -115,12 +115,22 @@
 							</c:if>
 						</select>
 						</div>
-						<div class="input-group flex-nowrap mt-2" id="allocationDiv">
-							<span class="input-group-text" id="manage_Code">배차 정보</span>
-						  	<input type="text" class="form-control" value="미정" readonly id="input_carAllocation" >
-						  	<select id="carAllocation" class="form-select">
-						  	</select>
-						</div>
+						<c:if test="${info.DEP_NAME eq '현장팀'}">
+							<div class="input-group flex-nowrap mt-2" id="allocationDiv">
+								<span class="input-group-text" id="manage_Code">배차 정보</span>
+								<input type="text" class="form-control" value="미정" readonly id="input_carAllocation" >
+								<select id="carAllocation" class="form-select">
+								</select>
+							</div>
+						</c:if>
+						<c:if test="${info.DEP_NAME ne '현장팀'}">
+							<div class="input-group flex-nowrap mt-2" id="allocationDiv">
+								<span class="input-group-text" id="manage_Code">배차 정보</span>
+								<input type="text" class="form-control" value="미정" readonly id="input_carAllocation" >
+								<select disabled id="carAllocation" class="form-select">
+								</select>
+							</div>
+						</c:if>
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="address">주소</span>
 							<input id="inputAddress"  type="text" class="form-control display_none" placeholder="주소를 입력하세요." >
