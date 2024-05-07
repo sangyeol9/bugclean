@@ -66,7 +66,7 @@ public class SecurityConfig{
 											.requestMatchers("/employee/logout", "/employee/mypage",
 													"/employee/pwUpdate","/setAttendence","/setWorkOut", "/receive/inbox",
 													"/customer/**","/chat/**","/schedule/**","/chart/**",
-													"/draft/**")
+													"/draft/**", "/board/**", "/general/**", "/hr/**")
 											.authenticated()
 //											.requestMatchers("/hr/**").hasAnyRole("PERSON", "CEO") //인사팀
 											.requestMatchers("/general/getUsableList","/general/getCarNumber").hasAnyRole("SALES","FIELD") // 현장,영업팀 스케쥴 관련
