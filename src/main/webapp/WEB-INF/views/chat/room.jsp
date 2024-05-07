@@ -269,6 +269,7 @@ window.onload = function(){
                                     $("#msgArea").append(str);
                                 }
                             }
+                            scroll();
                            })
 
                            
@@ -313,9 +314,9 @@ window.onload = function(){
                             })
                         }).then(res=>res.json())
                         .then(res=>{
-
+                            
+                           
                         })
-                        scroll();
                     }
 
                     window.onresize = function(){
