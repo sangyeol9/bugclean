@@ -79,7 +79,7 @@ public class CustomerController {
 		
 		customerService.createCustomer(customerVO);
 		
-		return "redirect:/customer/list";
+		return "redirect:/customer/sales_list";
 	}
 	
 	@PostMapping("update")
@@ -107,7 +107,7 @@ public class CustomerController {
 		System.out.println("delete 진입");
 			customerService.deleteCustomer(customerVO);
 		
-		return "redirect:/customer/list";
+		return "redirect:/customer/sales_list";
 	}
 	
 	
