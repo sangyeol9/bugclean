@@ -48,9 +48,7 @@
                     class="nav-text">총무팀</span></a>
                 <ul aria-expanded="false">
                     <li><a href="/general/property">자산관리</a></li>
-                    <li><a href="/focus-bootstrap-main/theme/app-profile.html">구매요청서</a></li>
                     <li><a href="/general/carManage">배차관리</a></li>
-                    <li><a href="/focus-bootstrap-main/theme/app-profile.html">수익관리</a></li>
                 </ul>
             </li>
 
