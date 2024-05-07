@@ -283,7 +283,7 @@
                             <div class="card-body">
                                 <div class="profile-tab mx-4 my-4">
                                     <div class="profile-personal-info">
-										<h4 class="text-primary mb-4">Personal Information</h4>
+										<h4 class="text-primary mb-4">유저 정보</h4>
 
 
                                         <div class="row">
@@ -480,8 +480,8 @@
 
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" id="infoClose" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary" id="infoUpdateBtn">Save</button>
+                                                        <button type="button" id="infoClose" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                                                        <button type="submit" class="btn btn-primary" id="infoUpdateBtn">저장</button>
                                                     </div>
                                                 </form:form>
                                             </div>
