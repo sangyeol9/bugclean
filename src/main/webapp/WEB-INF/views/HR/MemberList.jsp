@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,7 @@
             margin-right: 5px;
         }
 
-        .user_name{
+        .user_name {
             background: #e9ecef !important;
             color: #6c757d !important;
         }
@@ -160,7 +161,9 @@
                                     <th class="font-weight-bolder">닉 네 임</th>
                                     <td class="col-7" style="padding: 0">
                                         <div style="display: inline-flex; width: 90%">
-                                            <input id="user_name" type="text" class="form-control input-default user_name" style="width: 50%" disabled/>
+                                            <input id="user_name" type="text"
+                                                   class="form-control input-default user_name" style="width: 50%"
+                                                   disabled/>
                                         </div>
                                     </td>
                                 </tr>
@@ -176,7 +179,8 @@
                                     <th class="font-weight-bolder">부 &nbsp;&nbsp;&nbsp;&nbsp; 서</th>
                                     <td class="col-7" style="padding: 0">
                                         <div style="display: inline-flex; width: 90%">
-                                            <select id="user_dep" class="custom-select" style="width: 50%; margin-right: 5px" disabled>
+                                            <select id="user_dep" class="custom-select"
+                                                    style="width: 50%; margin-right: 5px" disabled>
 
                                             </select>
                                             <select id="user_team" class="custom-select" style="width: 50%" disabled>
@@ -217,10 +221,13 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <div>
-                            <button id="fire-btn" type="button" class="btn btn-warning">퇴사</button>
+                            <sec:authorize access="hasRole('TEAMHEAD')">
+                                <button id="fire-btn" type="button" class="btn btn-warning">퇴사</button>
+                            </sec:authorize>
                         </div>
                         <div>
-                            <button id="close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                            <button id="close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">닫기
+                            </button>
                             <button id="modi-btn" type="button" class="btn btn-primary">수정</button>
                             <button id="save-btn" type="button" class="btn btn-primary" hidden="until-found">저장</button>
                         </div>
@@ -228,7 +235,7 @@
                 </div>
             </div>
         </div>
-<%--        <c:import url="../temp/messenger.jsp"></c:import>--%>s
+        <%--        <c:import url="../temp/messenger.jsp"></c:import>--%>s
     </div>
 
 </div>

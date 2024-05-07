@@ -70,6 +70,7 @@ const pageLoad = async () => {
 
     // 게시글 생성 버튼 클릭 이벤트 핸들러 설정
     $('#creat-board').on('click', function () {
+        console.log("크리에이트 보드")
         createBoard(null);
     });
 };
