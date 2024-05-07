@@ -12,20 +12,20 @@ linebtn.addEventListener("click", function() {
     console.log("여기는 모달 여기는 모달")
     modalBack.classList.remove("noshow")
     modal.classList.remove("noshow")
-    files.style.display="none";
+/*    files.style.display="none";
     btn.style.display="none";
-    temporaryBtn.style.display="none";
-    updateBtn.style.display="none";
+   temporaryBtn.style.display="none";
+    updateBtn.style.display="none";*/
 })
 
 modalCloseBtn.addEventListener("click", function() {
     console.log("여기는 닫기버튼 여기는 닫기버튼")
     modalBack.classList.add("noshow")
     modal.classList.add("noshow")
-    files.style.display="block";
+/*    files.style.display="block";
     btn.style.display="block";
     temporaryBtn.style.display="block";
-    updateBtn.style.display="block";
+    updateBtn.style.display="block";*/
 })
 
 let attachmentCounter = $('#files .attached-index').length;
