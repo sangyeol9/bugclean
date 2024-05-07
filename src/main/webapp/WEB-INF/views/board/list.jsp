@@ -126,8 +126,6 @@
         </ul>
     </nav>
     <div class="col-4 d-flex justify-content-end">
-
         <button id="create-board" class="btn btn-xs btn-primary">글작성</button>
-
     </div>
 </div>
