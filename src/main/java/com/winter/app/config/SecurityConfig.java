@@ -64,7 +64,10 @@ public class SecurityConfig{
 											.requestMatchers("/employee/idSearchPhone").permitAll()
 											.requestMatchers("/chat/**").permitAll()
 											.requestMatchers("/employee/logout", "/employee/mypage",
-													"/employee/pwUpdate","/setAttendence","/setWorkOut", "/receive/inbox").authenticated()
+													"/employee/pwUpdate","/setAttendence","/setWorkOut", "/receive/inbox",
+													"/customer/**","/chat/**","/schedule/**","/chart/**",
+													"/draft/**")
+											.authenticated()
 //											.requestMatchers("/hr/**").hasAnyRole("PERSON", "CEO") //인사팀
 											.requestMatchers("/general/getUsableList","/general/getCarNumber").hasAnyRole("SALES","FIELD") // 현장,영업팀 스케쥴 관련
 											.requestMatchers("/general/**").hasAnyRole("GENERAL", "CEO") //총무팀
