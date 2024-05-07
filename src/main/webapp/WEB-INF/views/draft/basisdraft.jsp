@@ -182,10 +182,8 @@
 								<button type="submit" name="state" value="2" id="lineBtn"
 									class="lineBtnDiv btn btn-secondary">임시저장</button>
 								&nbsp;&nbsp;&nbsp;
-								<button type="submit" name="state" value="0" id="lineBtn"
+								<button type="submit" name="state" value="0"
 									class="lineBtnDiv btn btn-primary">상신하기</button>
-
-
 							</div>
 						</div>
 						<!-- 파일 끝 -->
