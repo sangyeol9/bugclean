@@ -247,7 +247,26 @@ const createBoard = async (board_code) => {
                 uploadSummerImg(files[0]);
             }
         }
+
     });
+    const uploadSummerImg = (file)=>{
+        let imgForm = new FormData;
+        imgForm.append("file",file);
+
+        fetch('board/upload/image',{
+            method: 'POST',
+            body: imgForm
+        }).then((response) => {
+            // 서버에서 이미지 URL을 받아옴
+            return response.text(); // JSON 형태의 응답을 파싱
+        }).then((data) => {
+            const imgUrl = data; // 서버에서 받은 이미지 URL
+            console.log(imgUrl)
+            const imgNode = document.createElement('img');
+            imgNode.src = imgUrl;
+            $('.summernote').summernote('insertNode', imgNode);
+        })
+    }
 
     // 첨부 파일 처리 및 관련 이벤트 핸들러 설정
     let attachmentCounter = $('#files .attached-index').length;
