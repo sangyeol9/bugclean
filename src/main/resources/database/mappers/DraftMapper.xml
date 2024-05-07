@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.winter.app.draft.DraftDAO">
 
+	<update id="updateSignRef" parameterType="SignCheckVO">
+	UPDATE SIGN_CHECK SET 
+	SIGN_REF = 1
+	WHERE DRAFT_NUM = #{draft_num} AND EMPLOYEE_NUM =#{employee_num}
+	</update>
+
 	<select id="getBasisDraft" resultType="Map">
 		SELECT emp.*, dep.*,
 		rnr.*, pos.* FROM EMPLOYEE emp
@@ -17,7 +23,9 @@
 
 	<update id="setDetailDraft" parameterType="DraftVO">
 		UPDATE DRAFT SET
-		state = #{state}, NOW_APPROVAL = #{now_approval}
+		DRAFT_NUM = #{draft_num}, EMPLOYEE_NUM = #{employee_num}, DRAFT_DATE =
+		#{draft_date}, TITLE = #{title}, CONTENTS = #{contents}, state =
+		#{state}, NOW_APPROVAL = #{now_approval}
 		WHERE DRAFT_NUM =#{draft_num}
 	</update>
 
@@ -135,8 +143,10 @@
 	</insert>
 
 	<update id="updateSignCheckDetail" parameterType="SignCheckVO">
-		UPDATE SIGN_CHECK SET SIGN_DATE = #{sign_date}
-		WHERE DRAFT_NUM =#{draft_num} AND EMPLOYEE_NUM =#{employee_num}
+		UPDATE
+		SIGN_CHECK SET SIGN_DATE = #{sign_date}
+		WHERE DRAFT_NUM =#{draft_num}
+		AND EMPLOYEE_NUM =#{employee_num}
 	</update>
 
 
@@ -150,12 +160,14 @@
 		ON d.employee_num =
 		e.employee_num
 		WHERE
-		d.employee_num = #{EmployeeVO.employee_num}
+		d.employee_num = #{EmployeeVO.employee_num} and d.state != 2
 		ORDER
-		BY draft_num DESC
+		BY
+		draft_num DESC
 		) n
 		)
-		WHERE r BETWEEN #{Pagination.startRow} AND #{Pagination.lastRow}
+		WHERE r BETWEEN #{Pagination.startRow} AND
+		#{Pagination.lastRow}
 	</select>
 
 	<select id="getTotalCount" resultType="Long"
@@ -172,14 +184,17 @@
 
 	<select id="getDraftDetail" resultType="Map"
 		parameterType="DraftVO">
-		SELECT d.*,e.NAME ,e.SIGN_FILE FROM DRAFT d
+		SELECT d.*,e.NAME ,e.SIGN_FILE, dp.DEP_NAME FROM DRAFT d
 		LEFT OUTER
 		JOIN EMPLOYEE e
 		ON d.EMPLOYEE_NUM = e.EMPLOYEE_NUM
+		LEFT OUTER
+		JOIN DEPARTMENT dp
+		ON e.DEP_CODE = dp.DEP_CODE
 		WHERE d.DRAFT_NUM
 		=#{draft_num}
-		ORDER BY d.DRAFT_NUM
-		ASC
+		ORDER BY
+		d.DRAFT_NUM
 	</select>
 
 	<select id="getSignCheckDetail" resultType="Map"

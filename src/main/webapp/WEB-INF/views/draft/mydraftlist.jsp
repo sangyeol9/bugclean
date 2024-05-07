@@ -59,6 +59,9 @@
 											<c:if test="${list.STATE eq 2}">
 												<td><span class="badge badge-primary">임시저장</span></td>
 											</c:if>
+											<c:if test="${list.STATE eq 3}">
+											<td><span class="badge badge-success">완료</span></td>
+											></c:if>
 										</tr>
 									</c:forEach>
 								</tbody>

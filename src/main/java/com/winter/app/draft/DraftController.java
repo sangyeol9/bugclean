@@ -87,13 +87,20 @@ public class DraftController {
 		//기안서 결재라인부분
 		List<Map<String, Object>> approvalAr = draftService.getSignCheckDetail(draftVO);
 		model.addAttribute("approvalar", approvalAr);
-		int ddd =  Integer.parseInt(map.get("NOW_APPROVAL").toString());
+		int ddd=0;
+		if(map.get("NOW_APPROVAL") == null) {
+		}else {
+			ddd =  Integer.parseInt(map.get("NOW_APPROVAL").toString());			
+		}
 		
 		System.out.println("ddd : "+ddd);
 		System.out.println("approvalAr : "+approvalAr.size());
+		
 		if(ddd >= approvalAr.size()) {
 			String nowemp = approvalAr.get(approvalAr.size()-1).get("EMPLOYEE_NUM").toString();
+			System.out.println("nowemp : "+nowemp);
 			nowemp +=1;
+			System.out.println("nowemp2 : "+nowemp);
 			model.addAttribute("nowemp", nowemp);			
 		}else {
 				String nowemp = approvalAr.get(ddd).get("EMPLOYEE_NUM").toString();
@@ -115,9 +122,7 @@ public class DraftController {
 		//기안자 
 		Map<String, Object> empMap = draftService.getEmployeeDetail(employeeVO);
 		model.addAttribute("empMap", empMap);
-		
-		System.out.println("fileAr : "+fileAr.toString());
-		System.out.println("approvalAr : "+approvalAr.toString() );
+		System.out.println("map.getSTATE : "+map.get("STATE"));
 		
 		return "draft/draftdetail";
 	}
@@ -132,17 +137,18 @@ public class DraftController {
 	////////////////////////////////////////////////
 	
 	@PostMapping("setdetaildraft")
-	public String setDetailDraft(DraftVO draftVO, MultipartFile [] attach, Model model, String [] SignEmp) throws Exception {
+	public String setDetailDraft(DraftVO draftVO, MultipartFile [] attach, Model model, String [] SignEmp, String nowemp) throws Exception {
 		System.out.println("draftVO.getstate : " +draftVO.getState());
-		//
+		System.out.println("nowemp : " + nowemp);
+		//현재 기안서의 결재 라인 불러오기
 		List<Map<String, Object>> approvalAr = draftService.getSignCheckDetail(draftVO);
 		//
-		
+		System.out.println("setDetailDraft-draftVO.nowapproval : "+ draftVO.getNow_approval());
 		if(draftVO.getDraft_category() == 0) {
 		String msg="실패";
 		// 기안서 값들 db에 저장
+		draftService.updateSignCheckDetail(approvalAr, draftVO,nowemp);
 		int result = draftService.setDetailDraft(draftVO,approvalAr);
-		draftService.updateSignCheckDetail(approvalAr);
 		if(result>0) {
 			msg="성공";
 		}
@@ -161,17 +167,19 @@ public class DraftController {
 	public String setBasisDraft(DraftVO draftVO, MultipartFile [] attach, Model model, String[] refempnum,
 			String[] approvalemp_num, Long[] sign_rank) throws Exception {
 		
+		
+		
 		if(draftVO.getDraft_category() == 0) {
 		int result=0;
 		String msg="실패";
 		// 기안서 값들 db에 저장
-		draftService.setBasisDraft(draftVO);
+		result = draftService.setBasisDraft(draftVO);
 		// 결재라인 db에 저장
 		draftService.setSignCheck(approvalemp_num, sign_rank, draftVO);
 		//참조값을 db에 저장
-		result = draftService.setRef(draftVO, refempnum);
+		draftService.setRef(draftVO, refempnum);
 		//파일첨부
-		result = draftService.setDraftFile(attach, draftVO);
+		draftService.setDraftFile(attach, draftVO);
 		
 		
 		if(result>0) {
@@ -179,12 +187,15 @@ public class DraftController {
 		}
 		
 		model.addAttribute("result", msg);
-		model.addAttribute("path", "/draft/mydraftlist");
+		model.addAttribute("path", "/draft/mydraftlist");			
+			
 		}else if(draftVO.getDraft_category() == 1) {
 			
 		}else if(draftVO.getDraft_category() == 2) {
 			
 		}
+		
+		
 		return "commons/result";
 	}
 

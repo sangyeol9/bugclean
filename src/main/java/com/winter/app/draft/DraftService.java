@@ -179,10 +179,16 @@ public class DraftService {
 			draftVO.setNow_approval(draftVO.getNow_approval() + 1);
 			System.out.println("Now_approval2 : "+draftVO.getNow_approval());
 			System.out.println("approvalar.size : "+ approvalar.size());
+			draftVO.setState(0L);
 			if (approvalar.size() <= draftVO.getNow_approval()) {
 				draftVO.setState(3L);
 				System.out.println("state : "+draftVO.getState());
 			}
+		}else if(draftVO.getState() == 2) {
+			LocalDate localDate = LocalDate.now();
+			String date = localDate.toString();
+			draftVO.setDraft_date(date);
+			System.out.println("임시저장 날짜 : "+ draftVO.getDraft_date());
 		}
 		System.out.println("state 2 : "+draftVO.getState());
 		int result = draftDAO.setDetailDraft(draftVO);
@@ -217,26 +223,40 @@ public class DraftService {
 	}
 	
 	//날짜db에 저장..
-	public int updateSignCheckDetail(List<Map<String, Object>> signMaps)throws Exception{
-		SignCheckVO [] signCheckVO = new SignCheckVO[signMaps.size()];
+	public int updateSignCheckDetail(List<Map<String, Object>> signMaps, DraftVO draftVO,String nowemp)throws Exception{
 		
-		for(int i=0; i<signMaps.size();i++) {
-			if(signMaps.get(i).get("SIGN_DATE") == null) {
+		//반려값 1주기
+		if(draftVO.getState() == 1) {			
+			SignCheckVO signCheckVO2 = new SignCheckVO();
+			signCheckVO2.setDraft_num(draftVO.getDraft_num());
+			signCheckVO2.setEmployee_num(nowemp);
+			draftDAO.updateSignRef(signCheckVO2);
+		}
+		//결재라인 업데이트
+		SignCheckVO [] signCheckVO = new SignCheckVO[signMaps.size()];
+		String now = draftVO.getNow_approval().toString();
+		int nowInt = Integer.parseInt(now);
+		
+		for(int i=nowInt; i<signMaps.size();i++) {
+			//if(signMaps.get(i).get("SIGN_DATE") == null) {
 				signCheckVO[i] = new SignCheckVO();
 			signCheckVO[i].setDraft_num(signMaps.get(i).get("DRAFT_NUM").toString());
 			signCheckVO[i].setEmployee_num(signMaps.get(i).get("EMPLOYEE_NUM").toString());
 			LocalDate localDate = LocalDate.now();
 			String date = localDate.toString();
 			signCheckVO[i].setSign_date(date);
+			System.out.println("updateSignCheck NULL : " + signCheckVO[i].getSign_date());
 			draftDAO.updateSignCheckDetail(signCheckVO[i]);
 			//db에 값넣기[
-			}else {
-				signCheckVO[i] = new SignCheckVO();
-				signCheckVO[i].setDraft_num(signMaps.get(i).get("DRAFT_NUM").toString());
-				signCheckVO[i].setEmployee_num(signMaps.get(i).get("EMPLOYEE_NUM").toString());
-				signCheckVO[i].setSign_date(signMaps.get(i).get("SIGN_DATE").toString());	
-				draftDAO.updateSignCheckDetail(signCheckVO[i]);
-			}
+			//}
+//			else {
+//				signCheckVO[i] = new SignCheckVO();
+//				signCheckVO[i].setDraft_num(signMaps.get(i).get("DRAFT_NUM").toString());
+//				signCheckVO[i].setEmployee_num(signMaps.get(i).get("EMPLOYEE_NUM").toString());
+//				signCheckVO[i].setSign_date(signMaps.get(i).get("SIGN_DATE").toString());
+//				System.out.println("updateSignCheck : " + signCheckVO[i].getSign_date());
+//				draftDAO.updateSignCheckDetail(signCheckVO[i]);
+//			}
 			
 		}
 		return 1;
@@ -367,6 +387,11 @@ public class DraftService {
 		map.put("EmployeeVO", employeeVO);
 		map.put("Pagination", pagination);
 		List<Map<String, Object>> mapAr = draftDAO.getMyDraftList(map);
+		for(int i=0; i<mapAr.size();i++) {
+			String mapDate = mapAr.get(i).get("DRAFT_DATE").toString();
+			String [] spDate = mapDate.split(" ");
+			mapAr.get(i).put("DRAFT_DATE", spDate[0]);
+		}
 
 		return mapAr;
 	}
@@ -382,7 +407,13 @@ public class DraftService {
 		map.put("EmployeeVO", employeeVO);
 		map.put("Pagination", pagination);
 		List<Map<String, Object>> mapAr = draftDAO.getMyReJectionList(map);
-
+		
+		for(int i=0; i<mapAr.size();i++) {
+			String mapDate = mapAr.get(i).get("DRAFT_DATE").toString();
+			String [] spDate = mapDate.split(" ");
+			mapAr.get(i).put("DRAFT_DATE", spDate[0]);
+		}
+		
 		return mapAr;
 	}
 
@@ -398,7 +429,12 @@ public class DraftService {
 		map.put("EmployeeVO", employeeVO);
 		map.put("Pagination", pagination);
 		List<Map<String, Object>> mapAr = draftDAO.getMyApprovaingList(map);
-
+		for(int i=0; i<mapAr.size();i++) {
+			String mapDate = mapAr.get(i).get("DRAFT_DATE").toString();
+			String [] spDate = mapDate.split(" ");
+			mapAr.get(i).put("DRAFT_DATE", spDate[0]);
+		}
+		
 		return mapAr;
 	}
 
@@ -413,7 +449,12 @@ public class DraftService {
 		map.put("EmployeeVO", employeeVO);
 		map.put("Pagination", pagination);
 		List<Map<String, Object>> mapAr = draftDAO.getMyApprovedList(map);
-
+		for(int i=0; i<mapAr.size();i++) {
+			String mapDate = mapAr.get(i).get("DRAFT_DATE").toString();
+			String [] spDate = mapDate.split(" ");
+			mapAr.get(i).put("DRAFT_DATE", spDate[0]);
+		}
+		
 		return mapAr;
 	}
 
@@ -428,7 +469,12 @@ public class DraftService {
 		map.put("EmployeeVO", employeeVO);
 		map.put("Pagination", pagination);
 		List<Map<String, Object>> mapAr = draftDAO.getMyTemporaryList(map);
-
+		for(int i=0; i<mapAr.size();i++) {
+			String mapDate = mapAr.get(i).get("DRAFT_DATE").toString();
+			String [] spDate = mapDate.split(" ");
+			mapAr.get(i).put("DRAFT_DATE", spDate[0]);
+		}
+		
 		return mapAr;
 	}
 
