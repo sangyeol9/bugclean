@@ -28,43 +28,9 @@ public class CustomerController {
 	@Autowired
 	CustomerService customerService;
 	
-	@GetMapping("sales_list")
-	public String getSalesList(Pagination pagination,Model model) throws Exception{
-		System.out.println("paging start ==>" + pagination);
-		/*
-		 * Map<String,Object> personMap = new HashMap<>(); personMap=
-		 * customerService.getPersonList(pagination);
-		 */
-		Map<String, Object> personMap = new HashMap<>(customerService.getPersonList(pagination));
-	    model.addAttribute("personMap", personMap);
-		Map<String, Object> map = customerService.getEmpName();
-	    model.addAttribute("info",map);
-		System.out.println("ma[ =>>>" + map);
-	    Pagination pagination2 = new Pagination();
-	    pagination2.setKind( pagination.getKind());
-	    pagination2.setSearch(pagination.getSearch()) ;
-	    pagination2.setPage(pagination.getPage());
-	    System.out.println("paging 2 start ==> " + pagination2);
-	    
-		/*
-		 * Map<String,Object> companyMap = new HashMap<>(); companyMap =
-		 * customerService.getCompanyList(pagination);
-		 */
-		Map<String, Object> companyMap = new HashMap<>(customerService.getCompanyList(pagination2));
-	    model.addAttribute("companyList", companyMap);
-		
-		/*
-		 * System.out.println("company map ==> " + companyMap);
-		 * System.out.println("company pager==>"+companyMap.get("pager") );
-		 * System.out.println("person map ==> " + personMap);
-		 */
-		
-		List<EmployeeVO> ar = customerService.getSales();
-		model.addAttribute("sales_List", ar);
-		return "customer/list";
-	}
 	
-	@GetMapping("list")
+	
+	@GetMapping({"list","sales_list"})
 	public String getList(Pagination pagination,Model model) throws Exception{
 		System.out.println("paging start ==>" + pagination);
 		/*
