@@ -160,15 +160,15 @@
 						</table>
 						<!-- 파일 시작 -->
 						<div>
-							<div id="files">
+							<div id="files"  >
 								<div id="attachment-group">
-									<div class="input-group mb-1" id="attachment-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text">첨부파일</span>
+									<div class="input-group mb-1" "id="attachment-1">
+										<div class="input-group-prepend" >
+											<span class="input-group-text" >첨부파일</span>
 										</div>
-										<div class="custom-file col" style="background-color: green;">
-											<input type="file" class="custom-file-input" name="attach">
-											<label class="custom-file-label">파일을 선택하세요</label>
+										<div class="custom-file col" >
+											<input  type="file" class="custom-file-input" name="attach">
+											<label  class="custom-file-label">파일을 선택하세요</label>
 										</div>
 										<div class="input-group-append">
 											<button type="button" class="btn btn-sm btn-dark plus-file">+</button>
@@ -242,7 +242,7 @@
 						<!-- 참조 버튼 끝 -->
 
 						<!-- 결재선 박스 시작 -->
-						<div id="draftBox">
+						<div id="draftBox" style="overflow-y: scroll; height:141px;">
 							<table border="1">
 								<tr style="height: 140px;" id="draftBoxTr">
 									<td style="width: 200px; vertical-align: top;" id="draftBoxTd">
@@ -259,7 +259,7 @@
 
 						<!-- 참조 박스 시작 -->
 
-						<div id="refBox">
+						<div id="refBox" style="overflow-y: scroll; height:141px;">
 							<table border="1">
 								<tr style="height: 140px">
 									<td style="width: 200px; vertical-align: top;" id="refBoxTd"></td>
@@ -300,7 +300,7 @@
 						<!-- 조직도 제목 끝-->
 
 						<!-- 조직도 시작 -->
-						<div id="orgDiv">
+						<div id="orgDiv" style="overflow-y: scroll; height:381px;">
 
 							<table border="1">
 								<tr style="height: 380px;">
