@@ -62,10 +62,15 @@ public class SecurityConfig{
 											.requestMatchers("/employee/mailCheck").permitAll()
 											.requestMatchers("/employee/idSearchResult").permitAll()
 											.requestMatchers("/employee/idSearchPhone").permitAll()
+											.requestMatchers("/chat/**").permitAll()
 											.requestMatchers("/employee/logout", "/employee/mypage",
-													"/employee/pwUpdate","/setAttendence","/setWorkOut", "/receive/inbox").authenticated()
+													"/employee/pwUpdate","/setAttendence","/setWorkOut", "/receive/inbox",
+													"/customer/**","/chat/**","/schedule/**","/chart/**",
+													"/draft/**")
+											.authenticated()
 //											.requestMatchers("/hr/**").hasAnyRole("PERSON", "CEO") //인사팀
-//											.requestMatchers("/genera/**").hasAnyRole("GENERAL", "CEO") //총무팀
+											.requestMatchers("/general/getUsableList","/general/getCarNumber").hasAnyRole("SALES","FIELD") // 현장,영업팀 스케쥴 관련
+											.requestMatchers("/general/**").hasAnyRole("GENERAL", "CEO") //총무팀
 //											.requestMatchers("/customer/**").hasAnyRole("SALES", "CEO") //영업팀
 //											.requestMatchers("/hr/**").hasAnyRole("FIELD", "CEO") //현장팀
 //											.requestMatchers("/schedule/list").hasAnyRole("SALES","FIELD", "CEO") //스케쥴

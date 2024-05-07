@@ -1,45 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<link rel="stylesheet" href="/bugclean/css/chat.css">
-<div>
-    <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
-        <th:block th:fragment="content">
 
-            <div id="chat_container" class="container">
-                <div class="col-12" id="chat_person">
-                    
-                </div>
-                <div>
-                    <div id="msgArea" class="col"></div>
-                    
-                </div>
-                <div class="col-6"></div>
-            </div>
-            
-
-            
-        </th:block>
-    </th:block>
-    <div class="col-12 inputbox" style="position: relative; bottom: 0;">
-        <div class="input-group mb-3" >
-            <input type="text" id="msg" onkeyup="enterKey()" class="form-control">
-        </div>
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
-        </div>
-    </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script>
 
 const chat_container = document.getElementById("chat_container");
 chat_container.scrollTop = chat_container.scrollHeight;
@@ -92,7 +52,8 @@ window.onload = function(){
                             profile = "/files/profile/" +res.PROFILE 
                         }
                         console.log("profile==>",profile)
-                        document.getElementById("chat_person").innerHTML = '<div style="display : inline-block"><img class="user2_profile" id="user2_profile" src="' +profile +'"></div>' + 
+                        alert(`<div style="display : inline-block"><img id="user2_profile" src="${profile}"></div>`);
+                        document.getElementById("chat_person").innerHTML = `<div style="display : inline-block"><img id="user2_profile" src="${profile}"></div>` + 
                         '<b>'+ res.DEP_NAME+" " + res.POS_NAME+ " " + res.NAME + '</b><hr> ';
                         username2 = res.NAME;
 
@@ -145,7 +106,7 @@ window.onload = function(){
                                                                 $("#msgArea").append(str);
                                                             }
                                                             else{
-                                                                str="<div class='user2_name'>" + '<img class="user2_profile" src="'+profile+'">'+ username2 +"</div>";
+                                                                str="<div class='user2_name'>" + `<img id="user2_profile" src="${profile}">`+ username2 +"</div>";
                                                                 str += "<div class='col-6 username2'>";
                                                                 
                                                                 str += "<div class='alert alert-warning' style='padding : 2%; font-size:small;'>";
@@ -164,7 +125,7 @@ window.onload = function(){
                                                 $("#msgArea").append(str);
                                             }
                                             else{
-                                                str="<div class='user2_name'>" + '<img class="user2_profile" src="'+profile+'">'+ username2 +"</div>";
+                                                str="<div class='user2_name'>" + `<img id="user2_profile" src="${profile}">`+ username2 +"</div>";
                                                 str += "<div class='col-6 username2'>";
                                                 
                                                 str += "<div class='alert alert-warning' style='padding : 2%; font-size:small;'>";
@@ -176,9 +137,9 @@ window.onload = function(){
                                         }          
                                         }
 
-                                        scroll();
                     })
                 })
+
 }
                     console.log("sendData ===>",sendData);
                     console.log("sendDateMsg ===> ", sendDataMsg)
@@ -269,7 +230,6 @@ window.onload = function(){
                                     $("#msgArea").append(str);
                                 }
                             }
-                            scroll();
                            })
 
                            
@@ -314,8 +274,7 @@ window.onload = function(){
                             })
                         }).then(res=>res.json())
                         .then(res=>{
-                            
-                           
+
                         })
                     }
 
@@ -323,20 +282,3 @@ window.onload = function(){
                         window.resizeTo(400,665)
                     }
 
-                    function scroll(){
-                        // 문서의 높이
-                        var chatContainerHeight = document.getElementById("chat_container").scrollHeight;
-
-                                        // chat_container의 스크롤 가능한 높이
-                        var chatContainerScrollHeight = document.getElementById("chat_container").clientHeight;
-
-                        // chat_container의 스크롤바를 최 하단으로 이동
-                        document.getElementById("chat_container").scrollTop = chatContainerHeight - chatContainerScrollHeight;
-
-                    }
-
-        </script>
-
-
-
-</html>

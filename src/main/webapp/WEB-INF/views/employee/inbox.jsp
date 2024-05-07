@@ -124,9 +124,9 @@
                                         <thead>
                                             <tr>
                                                 <th class="col-2" style="text-align: center;">문서번호</th>
-                                                <th class="col-6" style="text-align: center;">제목</th>
+                                                <th class="col-5" style="text-align: center;">제목</th>
                                                 <th class="col-2" style="text-align: center;">기안자</th>
-                                                <th class="col-2" style="text-align: center;">기안날짜</th>
+                                                <th class="col-3" style="text-align: center;">기안날짜</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -282,7 +282,8 @@
                                                 <th class="col-2" style="text-align: center;">문서번호</th>
                                                 <th class="col-5" style="text-align: center;">제목</th>
                                                 <th class="col-2" style="text-align: center;">기안자</th>
-                                                <th class="col-3" style="text-align: center;">기안날짜</th>
+                                                <th class="col-2" style="text-align: center;">기안날짜</th>
+                                                <th class="col-1" style="text-align: center;">상태</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -294,6 +295,15 @@
                                                     <td ><a href="/draft/getdraftdetail?draft_num=${done.DRAFT_NUM}" style="font-weight: bold;">${done.TITLE}</a></td>
                                                     <td>${done.NAME}</td>
                                                     <td>${done.DRAFT_DATE}</td>
+
+                                                    <c:if test="${done.STATE eq 3}">
+                                                        <td><span class="badge badge-success" style="color: white;">완료</span></td>
+                                                    </c:if>
+                                                    <c:if test="${done.STATE eq 1}">
+                                                        <td><span class="badge badge-danger">반려</span></td>
+                                                    </c:if>
+                                                    
+
                                                 </tr>
                                             </c:forEach>
                                             

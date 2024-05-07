@@ -4,18 +4,28 @@ const modalBack = document.getElementById("modalBack");
 const modalCloseBtn = document.getElementById("modalCloseBtn");
 const filePlus = document.getElementsByClassName("filePlus");
 const fileMinus = document.getElementsByClassName("fileMinus");
-
-
+const files = document.getElementById("files");
+const btn = document.getElementById("btn");
+const temporaryBtn = document.getElementById("temporaryBtn");
+const updateBtn = document.getElementById("updateBtn");
 linebtn.addEventListener("click", function() {
     console.log("여기는 모달 여기는 모달")
     modalBack.classList.remove("noshow")
     modal.classList.remove("noshow")
+/*    files.style.display="none";
+    btn.style.display="none";
+   temporaryBtn.style.display="none";
+    updateBtn.style.display="none";*/
 })
 
 modalCloseBtn.addEventListener("click", function() {
     console.log("여기는 닫기버튼 여기는 닫기버튼")
     modalBack.classList.add("noshow")
     modal.classList.add("noshow")
+/*    files.style.display="block";
+    btn.style.display="block";
+    temporaryBtn.style.display="block";
+    updateBtn.style.display="block";*/
 })
 
 let attachmentCounter = $('#files .attached-index').length;

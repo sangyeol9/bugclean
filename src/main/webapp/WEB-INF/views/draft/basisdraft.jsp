@@ -130,7 +130,7 @@
 							<tr>
 								<td class="basisTitleTd">기안일자</td>
 								<td class="basisTd"><input name="draft_date" class="inp"
-									type="text" value="${draftVO.draft_date}" readonly="readonly"></td>
+									type="hidden" value="${draftVO.draft_date}" readonly="readonly"></td>
 								<td class="basisTitleTd">문서번호</td>
 								<td class="basisTd"><input name="draft_num" class="inp"
 									type="text" value="${draftVO.draft_num}" readonly="readonly"></td>
@@ -148,11 +148,11 @@
 
 							<tr style="height: 300px;">
 								<td class="basisTitleTd">내용</td>
-								<td class="basisTitleTd" colspan="4" >
-								<textarea class="inp" name="contents" style="text-align: left;" rows="" cols=""></textarea>
-									</td>
+								<td class="basisTitleTd" colspan="4"><textarea class="inp"
+										name="contents" style="text-align: left;" rows="" cols=""></textarea>
+								</td>
 							</tr>
-<!-- 							<tr style="height: 130px;">
+							<!-- 							<tr style="height: 130px;">
 								<td class="basisTitleTd">의견</td>
 								<td class="basisTitleTd" colspan="4"><input
 									name="sign_comment" class="inp" type=""></td>
@@ -160,15 +160,15 @@
 						</table>
 						<!-- 파일 시작 -->
 						<div>
-							<div id="files">
+							<div id="files"  >
 								<div id="attachment-group">
-									<div class="input-group mb-1" id="attachment-1">
-										<div class="input-group-prepend">
-											<span class="input-group-text">첨부파일</span>
+									<div class="input-group mb-1" "id="attachment-1">
+										<div class="input-group-prepend" >
+											<span class="input-group-text" >첨부파일</span>
 										</div>
-										<div class="custom-file col">
-											<input type="file" class="custom-file-input" name="attach">
-											<label class="custom-file-label">파일을 선택하세요</label>
+										<div class="custom-file col" >
+											<input  type="file" class="custom-file-input" name="attach">
+											<label  class="custom-file-label">파일을 선택하세요</label>
 										</div>
 										<div class="input-group-append">
 											<button type="button" class="btn btn-sm btn-dark plus-file">+</button>
@@ -179,9 +179,11 @@
 								</div>
 							</div>
 							<div id="btn">
-								<button type="submit" name="state" value="0" id="lineBtn" class="lineBtnDiv btn btn-primary">상신하기</button>
-								&nbsp;&nbsp;&nbsp;							
-								<button type="submit" name="state" value="2" id="lineBtn" class="lineBtnDiv btn btn-secondary">임시저장</button>
+								<button type="submit" name="state" value="2" id="lineBtn"
+									class="lineBtnDiv btn btn-secondary">임시저장</button>
+								&nbsp;&nbsp;&nbsp;
+								<button type="submit" name="state" value="0"
+									class="lineBtnDiv btn btn-primary">상신하기</button>
 							</div>
 						</div>
 						<!-- 파일 끝 -->
@@ -238,7 +240,7 @@
 						<!-- 참조 버튼 끝 -->
 
 						<!-- 결재선 박스 시작 -->
-						<div id="draftBox">
+						<div id="draftBox" style="overflow-y: scroll; height:141px;">
 							<table border="1">
 								<tr style="height: 140px;" id="draftBoxTr">
 									<td style="width: 200px; vertical-align: top;" id="draftBoxTd">
@@ -255,7 +257,7 @@
 
 						<!-- 참조 박스 시작 -->
 
-						<div id="refBox">
+						<div id="refBox" style="overflow-y: scroll; height:141px;">
 							<table border="1">
 								<tr style="height: 140px">
 									<td style="width: 200px; vertical-align: top;" id="refBoxTd"></td>
@@ -296,7 +298,7 @@
 						<!-- 조직도 제목 끝-->
 
 						<!-- 조직도 시작 -->
-						<div id="orgDiv">
+						<div id="orgDiv" style="overflow-y: scroll; height:381px;">
 
 							<table border="1">
 								<tr style="height: 380px;">
@@ -304,12 +306,12 @@
 										<!-- 부서 리스트 시작--> <c:forEach items="${dep}" var="dep">
 											<div class="orgTeamDiv">
 												<%-- <c:if test="${dep.dep_name ne '사장'}"> --%>
-													<i class="fa-solid fa-minus minusIcon"
-														style="display: none;"></i>
-													<i class="fa-solid fa-plus plusIcon"
-														style="display: inline-block;"></i>
-													<i class="fa-solid fa-users"></i>
-													<h5 style="display: inline-block;" class="orgDep">${dep.dep_name}</h5>
+												<i class="fa-solid fa-minus minusIcon"
+													style="display: none;"></i> <i
+													class="fa-solid fa-plus plusIcon"
+													style="display: inline-block;"></i> <i
+													class="fa-solid fa-users"></i>
+												<h5 style="display: inline-block;" class="orgDep">${dep.dep_name}</h5>
 												<%-- </c:if> --%>
 												<br>
 												<!-- 사원리스트 시작 -->

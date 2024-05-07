@@ -99,19 +99,38 @@
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="employee_Num">현장 관리자</span>
 						  	<input id="inputSiteManager" type="hidden" class="form-control"  >
-							<select id="inputSelect_emp" class="emp_choice">
-								<option class="base_selected" id="site_choice_base" value="">담당자 선택</option>
-							<c:forEach items="${list_emp}" var="li">
-								<option class="site_choice_value" value="${li.employee_num}">${li.employee_num} ${li.name}</option>
-							</c:forEach>	
+							<c:if test="${info.DEP_NAME eq '현장팀'}">
+								<select id="inputSelect_emp" class="emp_choice">
+									<option class="base_selected" id="site_choice_base" value="">담당자 선택</option>
+									<c:forEach items="${list_emp}" var="li">
+										<option class="site_choice_value" value="${li.employee_num}">${li.employee_num} ${li.name}</option>
+									</c:forEach>	
+							</c:if>
+							<c:if test="${info.DEP_NAME ne '현장팀'}">
+								<select disabled id="inputSelect_emp" class="emp_choice">
+									<option class="base_selected" id="site_choice_base" value="">담당자 선택</option>
+									<c:forEach items="${list_emp}" var="li">
+										<option class="site_choice_value" value="${li.employee_num}">${li.employee_num} ${li.name}</option>
+									</c:forEach>
+							</c:if>
 						</select>
 						</div>
-						<div class="input-group flex-nowrap mt-2" id="allocationDiv">
-							<span class="input-group-text" id="manage_Code">배차 정보</span>
-						  	<input type="text" class="form-control" value="미정" readonly id="input_carAllocation" >
-						  	<select id="carAllocation" class="form-select">
-						  	</select>
-						</div>
+						<c:if test="${info.DEP_NAME eq '현장팀'}">
+							<div class="input-group flex-nowrap mt-2" id="allocationDiv">
+								<span class="input-group-text" id="manage_Code">배차 정보</span>
+								<input type="text" class="form-control" value="미정" readonly id="input_carAllocation" >
+								<select id="carAllocation" class="form-select">
+								</select>
+							</div>
+						</c:if>
+						<c:if test="${info.DEP_NAME ne '현장팀'}">
+							<div class="input-group flex-nowrap mt-2" id="allocationDiv">
+								<span class="input-group-text" id="manage_Code">배차 정보</span>
+								<input type="text" class="form-control" value="미정" readonly id="input_carAllocation" >
+								<select disabled id="carAllocation" class="form-select">
+								</select>
+							</div>
+						</c:if>
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="address">주소</span>
 							<input id="inputAddress"  type="text" class="form-control display_none" placeholder="주소를 입력하세요." >
@@ -130,12 +149,22 @@
 							<input id="inputPrice" type="text" class="form-control" placeholder="단가를 입력하세요." >
 					  	</div>
 					  	
-							<button class="btn btn-light create mt-3" id="create_sch_btn">등록하기</button>
-						 <div> 
-							<button type="button" class="btn btn-secondary updel mt-3" id="complate_sch_btn">완료하기</button>
-						  	<button type="button" class="btn btn-primary updel mt-3" id="update_sch_btn">수정하기</button>
-							<button type="button" class="btn btn-warning updel mt-3" id="delete_sch_btn">삭제하기</button>
-						</div>	
+						<c:if test="${info.DEP_NAME eq '현장팀'}">
+								<button class="btn btn-light create mt-3" id="create_sch_btn">등록하기</button>
+							<div> 
+								<button type="button" class="btn btn-secondary updel mt-3" id="complate_sch_btn">완료하기</button>
+								<button type="button" class="btn btn-primary updel mt-3" id="update_sch_btn">수정하기</button>
+								<button type="button" class="btn btn-warning updel mt-3" id="delete_sch_btn">삭제하기</button>
+							</div>	
+						</c:if>
+						<c:if test="${info.DEP_NAME ne '현장팀'}">
+								<button class="btn btn-light create mt-3 display_none" style="display: none;" id="create_sch_btn">등록하기</button>
+							<div> 
+								<button type="button" style="display: none;" class=" btn btn-secondary updel mt-3" id="complate_sch_btn">완료하기</button>
+								<button type="button" style="display: none;" class=" btn btn-primary updel mt-3" id="update_sch_btn">수정하기</button>
+								<button type="button" style="display: none;"class=" btn btn-warning updel mt-3" id="delete_sch_btn">삭제하기</button>
+							</div>	
+						</c:if>
 					</div>	
 			</div>
 

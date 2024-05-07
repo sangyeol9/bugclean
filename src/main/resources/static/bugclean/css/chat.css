@@ -19,6 +19,7 @@
 .username2{
 	display: flex;
 	width: 60%;
+	margin-top: 1%;
 }
 .username1{
 	float: right;
@@ -33,12 +34,13 @@
 	right: 0;
 }
 
-#user2_profile{
-	width: 10%;
-	height: 10%;
-	border-radius: 50%;
+.user2_profile{
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
 }
 
 #chat_container{
 	overflow-y: auto;
+	height: 500px;
 }

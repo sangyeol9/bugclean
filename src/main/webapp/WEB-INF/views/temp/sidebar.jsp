@@ -69,7 +69,6 @@
                 <ul aria-expanded="false">
                     <li><a href="/schedule/list">현장일정관리</a></li>
                     <li><a href="/customer/list">거래처관리</a></li>
-                    <li><a href="/chart/main">문서관리(후순위)</a></li>
                 </ul>
             </li>
             <li class="nav-label">DRAFT MENU</li>

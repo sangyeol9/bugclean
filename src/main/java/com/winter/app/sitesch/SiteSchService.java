@@ -5,11 +5,14 @@ import java.util.Map;
 
 import com.winter.app.general.GeneralDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.winter.app.general.CarDetailVO;
 import com.winter.app.general.GeneralDAO;
 import com.winter.app.general.CarManageVO;
+import com.winter.app.chat.ChatDAO;
 import com.winter.app.customer.CustomerVO;
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.util.pagination.Pagination;
@@ -20,10 +23,22 @@ public class SiteSchService {
 	private SiteSchDAO schDAO;
 	@Autowired
 	private GeneralDAO generalDAO;
+	@Autowired
+	private ChatDAO chatDAO;
 	
 	public List<Map<String, Object>> getList(Pagination pagination) throws Exception{
 		return schDAO.getList(pagination);
 	}
+	
+	public Map<String,Object> getEmpName() throws Exception{
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails)principal;
+		EmployeeVO employeeVO = new EmployeeVO();
+		employeeVO.setUsername(userDetails.getUsername());
+		Map<String,Object> map = chatDAO.getEmpName(employeeVO);
+		return map;
+	}
+	
 	public int createSch(SiteSchVO schVO) throws Exception{
 		
 		List<EmployeeVO> employeeVO = schDAO.getEmployeeState(schVO);

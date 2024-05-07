@@ -56,6 +56,7 @@ public class InboxController {
 		Map<String, Object> doneList = inboxService.getDoneList(employeeVO, pagination4);
 		Map<String, Object> referList = inboxService.getReferList(employeeVO, pagination5);
 		
+		System.out.println("doneList::::::::::"+doneList);
 		
 		model.addAttribute("allList", allList);
 		model.addAttribute("waitList", waitList);

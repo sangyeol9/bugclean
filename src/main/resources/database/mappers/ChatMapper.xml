@@ -56,7 +56,7 @@
  	</select>
 	
 	<select id="getEmpInfo" parameterType="EmployeeVO" resultType="Map" >
-		SELECT d.DEP_NAME,p.POS_NAME,e.EMPLOYEE_NUM,e.USERNAME ,e.NICKNAME ,e.PHONE ,e.NAME  FROM EMPLOYEE e 
+		SELECT d.DEP_NAME,p.POS_NAME,e.EMPLOYEE_NUM,e.USERNAME ,e.NICKNAME ,e.PHONE ,e.NAME,e.profile  FROM EMPLOYEE e 
 			LEFT OUTER JOIN DEPARTMENT d 
 			ON e.DEP_CODE  = d.DEP_CODE
 			LEFT OUTER JOIN "POSITION" p 

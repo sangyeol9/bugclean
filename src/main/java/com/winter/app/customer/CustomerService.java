@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.winter.app.chat.ChatDAO;
 import com.winter.app.employee.EmployeeVO;
 import com.winter.app.sitesch.SiteSchDAO;
 import com.winter.app.util.pagination.Pagination;
@@ -17,11 +20,22 @@ public class CustomerService {
 	@Autowired
 	CustomerDAO customerDAO;
 	@Autowired
+	ChatDAO chatDAO;
+	@Autowired
 	SiteSchDAO schDAO;
 	
 	public List<EmployeeVO> getSales() throws Exception{
 		
 		return schDAO.getSales();
+	}
+	
+	public Map<String,Object> getEmpName() throws Exception{
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails)principal;
+		EmployeeVO employeeVO = new EmployeeVO();
+		employeeVO.setUsername(userDetails.getUsername());
+		Map<String,Object> map = chatDAO.getEmpName(employeeVO);
+		return map;
 	}
 	
 	public Map<String, Object> getCompanyList(Pagination pagination) throws Exception{
