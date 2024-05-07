@@ -46,13 +46,13 @@
         UPDATE SET
         b.EMPLOYEE_NUM = new_data.employee_num,
         b.BOARD_TITLE = new_data.board_title,
-        b.BOARD_DATE = SYSDATE,
+        b.BOARD_DATE = CURRENT_DATE,
         b.BOARD_CONTENTS = new_data.board_contents,
         b.BOARD_HIT = b.BOARD_HIT,
         b.BOARD_STATUS = 1
         WHEN NOT MATCHED THEN
         INSERT (BOARD_CODE, EMPLOYEE_NUM, CATE_CODE, BOARD_TITLE, BOARD_DATE, BOARD_CONTENTS, BOARD_HIT, BOARD_STATUS)
-        VALUES (new_data.board_code, new_data.employee_num, new_data.cate_code, new_data.board_title, SYSDATE, new_data.board_contents, 0, 1)
+        VALUES (new_data.board_code, new_data.employee_num, new_data.cate_code, new_data.board_title, CURRENT_DATE, new_data.board_contents, 0, 1)
     </insert>
 
     <select id="getTotalCount" parameterType="Pagination">
