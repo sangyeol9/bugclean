@@ -47,7 +47,7 @@ public class BoardService {
         Collection<? extends GrantedAuthority> arr = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
         for(GrantedAuthority role : arr){
-            if(role.getAuthority().equals("ROLE_PERSON")){
+            if(role.getAuthority().equals("ROLE_PERSON")||role.getAuthority().equals("ROLE_SUPPORT")){
                 roleCheck = true;
                 break;
             }
