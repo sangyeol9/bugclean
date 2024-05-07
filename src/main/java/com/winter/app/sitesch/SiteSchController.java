@@ -47,7 +47,8 @@ public class SiteSchController {
 	public void list( Model model,CarManageVO carManageVO ) throws Exception{
 	
 		List<EmployeeVO> ar = schService.getSales();
-		
+		Map<String, Object> map = schService.getEmpName();
+	    model.addAttribute("info",map);
 		
 		List<EmployeeVO> ar_emp = schService.getSiter();
 		List<CustomerVO> list = schService.getCustomerList();

@@ -37,8 +37,9 @@ public class CustomerController {
 		 */
 		Map<String, Object> personMap = new HashMap<>(customerService.getPersonList(pagination));
 	    model.addAttribute("personMap", personMap);
-		
-	    
+		Map<String, Object> map = customerService.getEmpName();
+	    model.addAttribute("info",map);
+		System.out.println("ma[ =>>>" + map);
 	    Pagination pagination2 = new Pagination();
 	    pagination2.setKind( pagination.getKind());
 	    pagination2.setSearch(pagination.getSearch()) ;
