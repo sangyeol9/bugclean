@@ -601,12 +601,12 @@
 										</div>
 										<div id="btn"
 											style="position: absolute; left: 900px; bottom: -40px;">
-											<c:if
+				<%-- 							<c:if
 												test="${draftmap.NOW_APPROVAL eq 1 and draftmap.EMPLOYEE_NUM == employeeNum}">
 												<button id="draftDeleteBtn" type="button"
 													style="width: 90px" data-delete-emp="${draftmap.DRAFT_NUM}"
 													class="btn btn-warning">삭제하기</button>
-											</c:if>
+											</c:if> --%>
 										</div>
 									</c:if>
 									<c:if test="${employeeNum == nowemp }">
