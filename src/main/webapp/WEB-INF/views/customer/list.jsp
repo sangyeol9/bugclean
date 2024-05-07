@@ -105,11 +105,16 @@
 																	<td class="display_none td_customer_type" data-customertype="${li.customer_Type}"></td>
 																	<td class="display_none modi_checkbox" ><input type="checkbox" class="td_checkbox"></td>
 																	<td class="td_customer_kind">${li.customer_Kind}</td>
-																	<td>
-																		<a href="./detail?customer_Num=${li.customer_Num}" class="td_business_name">
-																			${li.business_Name}
-																		</a>
-																	</td>
+																	<c:if test="${info.DEP_NAME eq '영업팀'}">
+																		<td>
+																			<a href="./detail?customer_Num=${li.customer_Num}" class="td_business_name">
+																				${li.business_Name}
+																			</a>
+																		</td>
+																	</c:if>
+																	<c:if test="${info.DEP_NAME ne '영업팀'}">
+																		<td class="td_business_name">${li.business_Name}</td>
+																	</c:if>
 																	<td class="td_ceo_name display_none">${li.ceo_Name}</td>
 																	<td class="td_ceo_phone display_none">${li.ceo_Phone}</td>
 																	<td class="td_mng_name">${li.manager_Name}</td>
@@ -218,9 +223,11 @@
 
 											
 											<!-- 개인 리스트 끝 -->
-											<a href="./create">
-												<button class="btn btn-light create mt-4 mb-3">등록하기</button>
-											</a>
+											<c:if test="${info.DEP_NAME eq '영업팀'}">
+												<a href="./create">
+													<button class="btn btn-light create mt-4 mb-3">등록하기</button>
+												</a>
+											</c:if>
 										</div>
 										
 										<!-- 리스트 끝 -->
@@ -284,7 +291,9 @@
 						</div>	 
 						 
 						</div>
-						  <button id="modi_com" type="button" class="btn btn-primary create" onclick="modiComplate()">수정</button>
+						<c:if test="${info.DEP_NAME eq '영업팀'}">
+							<button id="modi_com" type="button" class="btn btn-primary create" onclick="modiComplate()">수정</button>
+						</c:if>					
 					  </div>
 					</div>
 				</form>	
