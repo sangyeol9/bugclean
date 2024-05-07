@@ -69,7 +69,7 @@ const pageLoad = async () => {
     });
 
     // 게시글 생성 버튼 클릭 이벤트 핸들러 설정
-    $('#creat-board').on('click', function () {
+    $('#create-board').on('click', function () {
         createBoard(null);
     });
 };
@@ -148,12 +148,21 @@ const fetchAndDisplayBoard = (code, page, search = '', kind = '') => {
             const tbody = $(`#list-${code} tbody`);
             tbody.empty();
 
+            if(!data.roleCheck && code===1){
+                console.log("롤체크")
+                $('#create-board').attr('hidden', true);
+            }else {
+                $('#create-board').attr('hidden', false);
+            }
+
             if (data.boardList.length === 0) {
                 // 검색 결과가 없을 때 처리
                 const noResultRow = `<tr><td colspan="5">검색 결과가 없습니다.</td></tr>`;
                 tbody.append(noResultRow);
                 return;
             }
+
+
 
             // 테이블에 데이터 추가
             data.boardList.forEach(item => {

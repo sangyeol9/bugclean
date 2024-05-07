@@ -5,9 +5,12 @@ import com.winter.app.util.pagination.Pagination;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +44,17 @@ public class BoardService {
         map.put("boardList",boardDAO.getBoardList(pagination));
         map.put("pagination",pagination);
 
+        boolean roleCheck = false;
+        Collection<? extends GrantedAuthority> arr = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        for(GrantedAuthority role : arr){
+            if(role.getAuthority().equals("ROLE_PERSON")){
+                roleCheck = true;
+                break;
+            }
+        }
+
+        map.put("roleCheck",roleCheck);
         log.info("{}",map);
 
         return map;
