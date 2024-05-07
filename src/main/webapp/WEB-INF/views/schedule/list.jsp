@@ -99,14 +99,14 @@
 						<div class="input-group flex-nowrap mt-2">
 							<span class="input-group-text" id="employee_Num">현장 관리자</span>
 						  	<input id="inputSiteManager" type="hidden" class="form-control"  >
-							<c:if test="${info.DEP_NAME eq '현장팀'}">
+							<c:if test="${info.DEP_NAME eq '현장팀' || info.DEP_NAME eq '사업부'}">
 								<select id="inputSelect_emp" class="emp_choice">
 									<option class="base_selected" id="site_choice_base" value="">담당자 선택</option>
 									<c:forEach items="${list_emp}" var="li">
 										<option class="site_choice_value" value="${li.employee_num}">${li.employee_num} ${li.name}</option>
 									</c:forEach>	
 							</c:if>
-							<c:if test="${info.DEP_NAME ne '현장팀'}">
+							<c:if test="${info.DEP_NAME ne '현장팀' && info.DEP_NAME ne '사업부'}">
 								<select disabled id="inputSelect_emp" class="emp_choice">
 									<option class="base_selected" id="site_choice_base" value="">담당자 선택</option>
 									<c:forEach items="${list_emp}" var="li">
@@ -115,7 +115,7 @@
 							</c:if>
 						</select>
 						</div>
-						<c:if test="${info.DEP_NAME eq '현장팀'}">
+						<c:if test="${info.DEP_NAME eq '현장팀' || info.DEP_NAME eq '사업부'}">
 							<div class="input-group flex-nowrap mt-2" id="allocationDiv">
 								<span class="input-group-text" id="manage_Code">배차 정보</span>
 								<input type="text" class="form-control" value="미정" readonly id="input_carAllocation" >
@@ -149,7 +149,7 @@
 							<input id="inputPrice" type="text" class="form-control" placeholder="단가를 입력하세요." >
 					  	</div>
 					  	
-						<c:if test="${info.DEP_NAME eq '현장팀'}">
+						<c:if test="${info.DEP_NAME eq '현장팀' || info.DEP_NAME eq '사업부' }">
 								<button class="btn btn-light create mt-3" id="create_sch_btn">등록하기</button>
 							<div> 
 								<button type="button" class="btn btn-secondary updel mt-3" id="complate_sch_btn">완료하기</button>
@@ -157,7 +157,7 @@
 								<button type="button" class="btn btn-warning updel mt-3" id="delete_sch_btn">삭제하기</button>
 							</div>	
 						</c:if>
-						<c:if test="${info.DEP_NAME ne '현장팀'}">
+						<c:if test="${info.DEP_NAME ne '현장팀' && info.DEP_NAME ne '사업부'}">
 								<button class="btn btn-light create mt-3 display_none" style="display: none;" id="create_sch_btn">등록하기</button>
 							<div> 
 								<button type="button" style="display: none;" class=" btn btn-secondary updel mt-3" id="complate_sch_btn">완료하기</button>
