@@ -47,14 +47,13 @@ public class BoardService {
         Collection<? extends GrantedAuthority> arr = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
         for(GrantedAuthority role : arr){
-            if(role.getAuthority().equals("ROLE_PERSON")||role.getAuthority().equals("ROLE_SUPPORT")){
+            if(role.getAuthority().equals("ROLE_PERSON")||role.getAuthority().equals("ROLE_SUPPORT")||role.getAuthority().equals("ROLE_CEO")){
                 roleCheck = true;
                 break;
             }
         }
 
         map.put("roleCheck",roleCheck);
-        log.info("{}",map);
 
         return map;
     }
@@ -64,7 +63,6 @@ public class BoardService {
     }
 
     public int setBoard(BoardVO boardVO, MultipartFile [] files) throws Exception{
-        log.info("보드코드 널인지 확인해봐{}",boardVO);
         if(boardVO.getBoard_code() == null){
             if(boardVO.getCate_code()==1){
                 boardVO.setBoard_code(boardDAO.getNoticeSeq());

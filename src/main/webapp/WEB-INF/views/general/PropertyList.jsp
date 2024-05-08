@@ -7,7 +7,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Bug Clean</title>
+    <title>BUGCLEAN</title>
+    <link rel="icon" type="image/x-icon" href="/bugclean/favicon.ico">
     <style>
         .detail-table th {
             text-align: center;
@@ -74,7 +75,7 @@
                                                href="#list-${cate.pro_category}">${cate.pro_name}</a>
                                         </li>
                                     </c:forEach>
-                                    <sec:authorize access="hasRole('TEAMHEAD')">
+                                    <sec:authorize access="hasAnyRole('TEAMHEAD','DEPARTHEAD','CEO')">
                                     <li>
                                         <button onclick="catePlus()" class="nav-link">+</button>
                                     </li>

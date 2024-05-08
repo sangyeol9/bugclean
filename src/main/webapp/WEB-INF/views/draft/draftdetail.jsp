@@ -10,7 +10,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Focus - Bootstrap Admin Dashboard</title>
+	<title>BUGCLEAN</title>
+	<link rel="icon" type="image/x-icon" href="/bugclean/favicon.ico">
 <!-- Favicon icon -->
 <c:import url="../temp/css.jsp"></c:import>
 <link rel="stylesheet" href="/bugclean/css/draft/basisdraftmodal.css">
@@ -195,7 +196,11 @@
 									<td class="basisTitleTd">내용</td>
 									<td class="basisTitleTd" colspan="4" style="text-align: left;">
 										<textarea name="contents" class="inp" name="contents"
-											style="text-align: left;" rows="" cols="">${draftmap.CONTENTS }</textarea>
+											style="text-align: left;" rows="" cols="">
+												<c:if test="${draftmap.CONTENTS ne null}">
+													${draftmap.CONTENTS }
+												</c:if>
+										</textarea>
 									</td>
 								</tr>
 							</table>
@@ -614,7 +619,7 @@
 											style="position: absolute; left: -1px; bottom: -40px;">
 											<button type="submit" name="state" value="0"
 												style="width: 90px" data-delete-emp="${draftmap.DRAFT_NUM}"
-												class="btn btn-primary">상신하기</button>
+												class="btn btn-primary">결재하기</button>
 										</div>
 
 										<input type="hidden" name="nowemp" value="${nowemp}">

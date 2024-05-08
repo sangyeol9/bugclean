@@ -97,11 +97,8 @@ const deleteFile = (file_code) => {
             }).then(response => {
                 if (response.ok) {
                     // 게시판 다시 생성
-                    let board_code = ($('#board-title').data('board-code').trim());
+                    let board_code = ($('#board-title').data('board-code'));
                     createBoard(board_code);
-                    return 1;
-                } else {
-                    return 0;
                 }
             });
         }
@@ -149,7 +146,6 @@ const fetchAndDisplayBoard = (code, page, search = '', kind = '') => {
             tbody.empty();
 
             if(!data.roleCheck && code===1){
-                console.log("롤체크")
                 $('#create-board').attr('hidden', true);
             }else {
                 $('#create-board').attr('hidden', false);

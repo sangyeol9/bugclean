@@ -7,7 +7,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Bug Clean</title>
+    <title>BUGCLEAN</title>
+    <link rel="icon" type="image/x-icon" href="/bugclean/favicon.ico">
     <style>
         .detail-table th {
             text-align: center;
@@ -221,7 +222,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <div>
-                            <sec:authorize access="hasRole('TEAMHEAD')">
+                            <sec:authorize access="hasAnyRole('TEAMHEAD','DEPARTHEAD','CEO')">
                                 <button id="fire-btn" type="button" class="btn btn-warning">퇴사</button>
                             </sec:authorize>
                         </div>
@@ -235,7 +236,7 @@
                 </div>
             </div>
         </div>
-        <%--        <c:import url="../temp/messenger.jsp"></c:import>--%>s
+                <c:import url="../temp/messenger.jsp"></c:import>
     </div>
 
 </div>
