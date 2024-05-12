@@ -215,6 +215,8 @@ window.onload = function(){
                             var minutes = ('0' + today.getMinutes()).slice(-2);
                             var timeString = hours + ':' + minutes
                            
+                            console.log("id1 ==>", id1);
+                            console.log("res ==>" ,res.employee_num );
                             if(id1 == res.employee_num && res.msg_send_time.substring(11,16) == timeString ){
                                 if(writer === username1){
                                     str = "<div class='col-6 username1'>";
@@ -240,7 +242,7 @@ window.onload = function(){
                                     $("#msgArea").append(str);
                            }
                                 else{
-                                    str="<div class='user2_name'>" + '<img src="/focus-bootstrap-main/theme/images/base_profile.png">'+ username2 +"</div>";
+                                    str="<div class='user2_name'>" + '<img class="user2_profile" src="/focus-bootstrap-main/theme/images/base_profile.png">'+ username2 +"</div>";
                                     str += "<div class='col-6 username2'>";
                                     str += "<div class='alert alert-warning' style='padding : 2%; font-size:small';>";
                                     str +=  content.message ;

@@ -73,12 +73,17 @@ for(let i=0; i<modi_tr.length;i++){
 
             modal.style.display="block";
 
-            modal_bn_name_in.value = td_business_name[i].innerText;
+			
+			if(type.value!="개인"){
+				modal_bn_name_in.value = td_business_name[i].innerText;
+				modal_manager_name_in.value = td_mng_name[i].innerText;
+	    		modal_manager_phone_in.value = td_mng_phone[i].innerText;
+			}
+            
             modal_ceo_name_in.value = td_ceo_name[i].innerText;
             modal_ceo_phone_in.value = td_ceo_phone[i].innerText;
             modal_addr_in.value = td_address[i].innerText;
-            modal_manager_name_in.value = td_mng_name[i].innerText;
-            modal_manager_phone_in.value = td_mng_phone[i].innerText;
+           
             modal_sales_name_in.value = td_sales_mng[i].innerText;
 
             for(let j=0;j<inputSelect.length;j++){
