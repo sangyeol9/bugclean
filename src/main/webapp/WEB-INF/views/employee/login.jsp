@@ -43,7 +43,7 @@
 									
 										<div class="form-group">
 											<label><strong>ID</strong></label>
-											<form:input path="username" id="username" value="${cookie.rememberId.value}" cssClass="form-control" placeholder="example@gmail.com"></form:input>
+											<form:input path="username" id="username" value="bugclean1@gmail.com" cssClass="form-control" placeholder="example@gmail.com"></form:input>
 											<form:errors path="username"></form:errors>
 										</div>
 										<div class="form-group">
